@@ -1,0 +1,14 @@
+.styled {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+
+  &_medium {
+    font-family: 'Commissioner Medium';
+  }
+
+  &_regular {
+    font-family: 'Commissioner Regular';
+  }
+}

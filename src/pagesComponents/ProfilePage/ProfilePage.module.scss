@@ -1,0 +1,29 @@
+.styled {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 100px;
+}
+
+.half {
+  width: calc(50% - 50px);
+  height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.group {
+  width: 100%;
+
+  & > * {
+    margin-bottom: 20px;
+  }
+}
+
+.footer {
+  width: 100%;
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,86 @@
+.input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+
+  & + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid var(--gray);
+      border-radius: 4px;
+      margin-right: 18px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+  }
+
+  &:checked + label::before {
+    border-color: var(--blue);
+    background-color: var(--blue);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 13'%3e%3cpath d='M1.6247 7.21913C1.19343 6.87412 0.564141 6.94404 0.219132 7.37531C-0.125878 7.80657 -0.0559566 8.43586 0.375305 8.78087L1.6247 7.21913ZM15.774 1.63324C16.1237 1.20579 16.0607 0.57577 15.6332 0.226043C15.2058 -0.123685 14.5758 -0.0606826 14.226 0.366762L15.774 1.63324ZM6.62632 11.2345L7.40028 11.8677L6.62632 11.2345ZM0.375305 8.78087L4.60297 12.163L5.85236 10.6013L1.6247 7.21913L0.375305 8.78087ZM7.40028 11.8677L15.774 1.63324L14.226 0.366762L5.85236 10.6013L7.40028 11.8677ZM4.60297 12.163C5.4588 12.8477 6.70625 12.716 7.40028 11.8677L5.85236 10.6013L4.60297 12.163Z' fill='white'/%3e%3c/svg%3e");
+  }
+
+  &:not(:disabled) {
+    /* стили для активного состояния чекбокса (при нажатии на него) */
+    // &:active + label::before {
+    //   background-color: #b3d7ff;
+    //   border-color: #b3d7ff;
+    // }
+
+    /* стили при наведении курсора на checkbox */
+    &:not(:checked) + label:hover::before {
+      opacity: 0.6;
+      transition: 0.2s;
+    }
+  }
+
+  &:focus {
+    /* стили для чекбокса, находящегося в фокусе */
+    // & + label::before {
+    //   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // }
+
+    /* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
+    // &:not(:checked) + label::before {
+    //   border-color: #80bdff;
+    // }
+  }
+
+  /* стили для чекбокса, находящегося в состоянии disabled */
+  &:disabled + label::before {
+    opacity: 0.6;
+  }
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inner {
+  position: relative;
+}
+
+.heading {
+  margin-bottom: 8px;
+}
+
+.readonly {
+  & label::before {
+    opacity: 0.6;
+  }
+}

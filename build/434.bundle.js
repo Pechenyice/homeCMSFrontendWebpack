@@ -1,0 +1,2 @@
+(self.webpackChunkhome_cms_fron_webpack=self.webpackChunkhome_cms_fron_webpack||[]).push([[434],{8434:(e,s,n)=>{"use strict";n.r(s),n.d(s,{default:()=>i});var t=n(9711),r=n(6974),c=n(609),h=n(5893);const i=function(){return(0,h.jsx)(t.VK,{children:(0,h.jsx)(r.Z5,{children:(0,h.jsxs)(r.AW,{path:"/",element:(0,h.jsx)("div",{children:"administrator mode"}),children:[(0,h.jsx)(r.AW,{path:"profile",element:(0,h.jsx)(c.N,{})}),(0,h.jsx)(r.AW,{path:"/login",element:(0,h.jsx)("div",{children:"test"})})]})})})}}}]);
+//# sourceMappingURL=434.bundle.js.map

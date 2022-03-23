@@ -1,0 +1,24 @@
+.wrapper {
+  width: 100%;
+  max-width: 565px;
+  margin: 0 50px;
+  padding: 80px;
+  padding-top: 60px;
+  background: var(--white);
+  border: 1px solid #eff1f8;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 80px rgba(140, 145, 181, 0.15);
+  border-radius: 40px;
+}
+
+.heading {
+  margin-bottom: 60px;
+}
+
+.firstInput {
+  margin-bottom: 30px;
+}
+
+.lastInput {
+  margin-bottom: 40px;
+}

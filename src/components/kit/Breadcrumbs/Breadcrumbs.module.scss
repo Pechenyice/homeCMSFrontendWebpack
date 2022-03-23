@@ -1,0 +1,17 @@
+.styled {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 60px;
+}
+
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.path {
+  color: var(--gray);
+}

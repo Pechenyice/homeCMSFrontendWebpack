@@ -1,0 +1,33 @@
+.styled {
+  position: relative;
+  width: 100%;
+  padding: 20px 40px;
+  background: var(--white);
+  box-sizing: border-box;
+  box-shadow: 1px 8px 25px 1px rgba(140, 145, 181, 0.25);
+  border-radius: 15px;
+
+  &_error {
+    border: 1px solid var(--error);
+    color: var(--error);
+
+    & * {
+      color: var(--error);
+    }
+  }
+
+  &_info {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+
+    & * {
+      color: var(--blue);
+    }
+  }
+}
+
+.closer {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}

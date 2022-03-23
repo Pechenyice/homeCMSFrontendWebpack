@@ -1,0 +1,78 @@
+.input {
+  width: 100%;
+  min-height: 60px;
+  padding: 19px 20px;
+  border: 1px solid var(--light-gray);
+  background: var(--white);
+  border-radius: 8px;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: text;
+  transition: 0.2s;
+
+  &:hover {
+    border: 1px solid var(--gray);
+    transition: 0.2s;
+  }
+
+  &:focus {
+    border: 1px solid var(--blue);
+    transition: 0.2s;
+  }
+
+  &_error {
+    color: var(--red);
+    border: 1px solid var(--error);
+    transition: 0.2s;
+  }
+
+  &_password {
+    padding-right: 60px;
+  }
+
+  &_readonly {
+    border: 1px solid var(--light-gray);
+
+    &:hover {
+      border: 1px solid var(--light-gray);
+    }
+
+    &:focus {
+      border: 1px solid var(--light-gray);
+    }
+  }
+
+  &::placeholder {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inner {
+  position: relative;
+}
+
+.heading {
+  margin-bottom: 8px;
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.error {
+  position: absolute;
+  left: 0px;
+  bottom: -5px;
+  transform: translateY(100%);
+  color: var(--error);
+}

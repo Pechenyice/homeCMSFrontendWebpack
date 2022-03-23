@@ -1,0 +1,18 @@
+.wrapper {
+  position: fixed;
+  top: 36px;
+  right: 80px;
+  width: 360px;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 15px;
+  cursor: pointer;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.wrapper * {
+  pointer-events: all;
+}

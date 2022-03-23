@@ -1,0 +1,30 @@
+.closer-enter {
+  opacity: 0;
+}
+.closer-enter-active {
+  opacity: 1;
+  transition: 0.2s;
+}
+.closer-exit {
+  opacity: 1;
+}
+.closer-exit-active {
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.dropdown-enter {
+  max-height: 0;
+}
+.dropdown-enter-active {
+  max-height: 250px;
+  transition: 0.2s;
+}
+.dropdown-exit {
+  max-height: 250px;
+  transition: 0.2s;
+}
+.dropdown-exit-active {
+  max-height: 0;
+  transition: 0.2s;
+}

@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  max-width: 1420px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  gap: 50px;
+}
+
+.button {
+  width: 150px;
+}

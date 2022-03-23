@@ -1,0 +1,28 @@
+.styled {
+  padding: 8px 16px;
+  border-radius: 26px;
+
+  &_accepted {
+    background: rgba(40, 188, 161, 0.15);
+
+    & * {
+      color: var(--success);
+    }
+  }
+
+  &_confirmation {
+    background: rgba(65, 79, 235, 0.15);
+
+    & * {
+      color: var(--blue);
+    }
+  }
+
+  &_rejected {
+    background: rgba(241, 63, 68, 0.15);
+
+    & * {
+      color: var(--error);
+    }
+  }
+}

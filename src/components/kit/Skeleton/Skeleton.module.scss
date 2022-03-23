@@ -1,0 +1,21 @@
+.styled {
+  width: 100%;
+  background: var(--gray);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_input {
+    min-height: 60px;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  height: max-content;
+}
+
+.heading {
+  margin-bottom: 8px;
+}
