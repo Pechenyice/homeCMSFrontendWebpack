@@ -58,7 +58,6 @@ export const AuthProvider: FC = ({ children }) => {
         initialCheckIsPending: false,
       });
     } catch (e) {
-      console.log(e);
       if (e instanceof ServerError) {
         addError(
           'Произошла ошибка при проверке подлинности пользователя. Попробуйте позже.'

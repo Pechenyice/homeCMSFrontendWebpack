@@ -5,7 +5,7 @@ async function checkResponse(response: any) {
     return response.json();
   }
   if (response.status === 401) {
-    throw new AuthError(response.error);
+    throw new AuthError((await response.json()).error);
   }
   if (response.status === 500) {
     throw new ServerError(
