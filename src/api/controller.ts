@@ -1,5 +1,7 @@
 import { IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
+import { aborts } from './aborts';
+import API_ROUTES from './config';
 import {
   IProfileCheckAuthResponse,
   IProfileCompanyResponse,
@@ -14,15 +16,19 @@ import { safeFetch } from './wrapper';
 export const API = {
   profile: {
     checkAuth(): Promise<IProfileCheckAuthResponse> {
-      return fakes.checkAuth(1000);
-      //   return safeFetch(
-      //     constructUrl("/check_auth"),
-      //     "POST",
-      //     aborts.CHECK_AUTH_CONTROLLER
-      //   );
+      return safeFetch(
+        API_ROUTES.PROFILE_AUTH_CHECK.url,
+        API_ROUTES.PROFILE_AUTH_CHECK.method,
+        aborts.PROFILE_AUTH_CHECK
+      );
     },
     login({ login, password }: IUser): Promise<IProfileLoginResponse> {
-      return fakes.checkUser(login, password, 1000);
+      return safeFetch(
+        API_ROUTES.PROFILE_LOGIN.url,
+        API_ROUTES.PROFILE_LOGIN.method,
+        aborts.PROFILE_LOGIN_CONTROLLER,
+        { login, password }
+      );
     },
     getCompany(): Promise<IProfileCompanyResponse> {
       return fakes.getCompany(1000);

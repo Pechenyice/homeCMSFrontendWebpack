@@ -42,35 +42,9 @@ export const AuthProvider: FC = ({ children }) => {
         status: EAuthStatus.PENDING,
       });
 
-      const { error, data } = await API.profile.checkAuth();
-
-      if (error) {
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.ERROR,
-          profile: null,
-          initialCheckIsPending: false,
-        }));
-
-        return;
-      }
+      const { data } = await API.profile.checkAuth();
 
       const companyResponse = await API.profile.getCompany();
-
-      if (companyResponse.error) {
-        addError(companyResponse.error);
-
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.ERROR,
-          profile: null,
-          initialCheckIsPending: false,
-        }));
-
-        return;
-      }
-
-      localStorage.setItem('token', data?.token ?? '');
 
       setState({
         ...state,
@@ -78,10 +52,13 @@ export const AuthProvider: FC = ({ children }) => {
         profile: {
           id: data!.id,
           isAdmin: data!.isAdmin,
+          login: data!.login,
           company: companyResponse.data,
         },
+        initialCheckIsPending: false,
       });
     } catch (e) {
+      console.log(e);
       if (e instanceof ServerError) {
         addError(
           'Произошла ошибка при проверке подлинности пользователя. Попробуйте позже.'
@@ -108,44 +85,20 @@ export const AuthProvider: FC = ({ children }) => {
 
       const response = await API.profile.login(data);
 
-      if (response.error) {
-        addError(response.error);
-
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.ERROR,
-          profile: null,
-          initialCheckIsPending: false,
-        }));
-
-        return;
-      }
-
       const companyResponse = await API.profile.getCompany();
 
-      if (companyResponse.error) {
-        addError(companyResponse.error);
-
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.ERROR,
-          profile: null,
-          initialCheckIsPending: false,
-        }));
-
-        return;
-      }
-
-      localStorage.setItem('token', response.data?.token ?? '');
+      localStorage.setItem('token', response.data?.token.value ?? '');
 
       setState({
         ...state,
         status: EAuthStatus.SUCCESS,
         profile: {
-          id: response.data!.id,
-          isAdmin: response.data!.isAdmin,
+          id: response.data!.user.id,
+          isAdmin: response.data!.user.isAdmin,
+          login: response.data!.user.login,
           company: companyResponse.data,
         },
+        initialCheckIsPending: false,
       });
     } catch (e) {
       if (e instanceof ServerError) {
@@ -158,6 +111,12 @@ export const AuthProvider: FC = ({ children }) => {
           initialCheckIsPending: false,
         }));
       } else if (e instanceof ApiError) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+          initialCheckIsPending: false,
+        }));
         addError(e.message);
       }
     }

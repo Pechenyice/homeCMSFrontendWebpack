@@ -61,7 +61,14 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'build'),
     compress: false,
     port: 8080,
-    historyApiFallback: true 
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+           target: 'http://localhost:8080',
+           router: () => 'http://localhost:8081',
+           logLevel: 'debug'
+      }
+   }
   },
   plugins: [
     new HtmlWebpackPlugin({

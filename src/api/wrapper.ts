@@ -1,8 +1,8 @@
 import { ApiError, AuthError, ServerError } from './errors';
 
-export function checkStatus(response: any) {
+async function checkResponse(response: any) {
   if (response.status === 200) {
-    return response;
+    return response.json();
   }
   if (response.status === 401) {
     throw new AuthError(response.error);
@@ -12,7 +12,7 @@ export function checkStatus(response: any) {
       'Произошла ошибка при взаимодействии с сервером, попробуйте позже!'
     );
   }
-  throw new ApiError(response.error);
+  throw new ApiError((await response.json()).error);
 }
 
 export function safeFetch(
@@ -25,6 +25,7 @@ export function safeFetch(
     method,
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
     },
     signal: controller.signal,
@@ -33,7 +34,5 @@ export function safeFetch(
   if (method === 'POST') options.body = JSON.stringify(body);
   if (method === 'PUT') options.body = JSON.stringify(body);
 
-  return fetch(url, options)
-    .then(checkStatus)
-    .then((response) => response.json());
+  return fetch(url, options).then(checkResponse);
 }

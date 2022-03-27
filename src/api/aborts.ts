@@ -1,8 +1,14 @@
 export const aborts = {
-  CHECK_AUTH_CONTROLLER: new AbortController(),
+  PROFILE_AUTH_CHECK: new AbortController(),
+  PROFILE_LOGIN_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {
-  aborts.CHECK_AUTH_CONTROLLER.abort();
-  aborts.CHECK_AUTH_CONTROLLER = new AbortController();
-};
+  aborts.PROFILE_AUTH_CHECK.abort();
+  aborts.PROFILE_AUTH_CHECK = new AbortController();
+}
+
+export function abortLogin() {
+  aborts.PROFILE_LOGIN_CONTROLLER.abort();
+  aborts.PROFILE_LOGIN_CONTROLLER = new AbortController();
+}

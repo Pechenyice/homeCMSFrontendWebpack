@@ -10,9 +10,18 @@ export interface IUser {
   password: string;
 }
 
-export interface IProfile {
+export interface IAPIAuthToken {
+  value: string;
+  type: string;
+}
+
+export interface IProfileData {
   id: number;
+  login: string;
   isAdmin: boolean;
+}
+
+export interface IProfile extends IProfileData {
   company: ICompany | null;
 }
 
