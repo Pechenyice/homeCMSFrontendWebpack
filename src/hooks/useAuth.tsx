@@ -17,7 +17,9 @@ export const useAuth = () => {
     isPending: status === EAuthStatus.PENDING,
     isError: status === EAuthStatus.ERROR,
     isSuccess: status === EAuthStatus.SUCCESS,
-    isAuthenticated: profile ? profile && status === EAuthStatus.SUCCESS : false,
+    isAuthenticated: profile
+      ? profile && status === EAuthStatus.SUCCESS
+      : false,
     isAdmin: profile ? profile && profile.isAdmin : false,
   };
 

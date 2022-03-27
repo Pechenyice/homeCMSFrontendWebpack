@@ -1,11 +1,18 @@
+import { ApiError, AuthError, ServerError } from './errors';
+
 export function checkStatus(response: any) {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.status === 200) {
     return response;
   }
-  const error: any = new Error(`HTTP Error ${response.statusText}`);
-  error.status = response.statusText;
-  error.response = response;
-  throw error;
+  if (response.status === 401) {
+    throw new AuthError(response.error);
+  }
+  if (response.status === 500) {
+    throw new ServerError(
+      'Произошла ошибка при взаимодействии с сервером, попробуйте позже!'
+    );
+  }
+  throw new ApiError(response.error);
 }
 
 export function safeFetch(
@@ -18,6 +25,7 @@ export function safeFetch(
     method,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
     },
     signal: controller.signal,
   };

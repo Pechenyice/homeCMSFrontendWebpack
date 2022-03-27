@@ -19,41 +19,56 @@ export const ProfilePage = () => {
 
   const {
     apiData: districts,
-    apiErrors: districtsErrors,
+    apiError: districtsApiError,
     isLoading: districtsLoading,
     isError: districtsError,
   } = useDistricts();
   const {
     apiData: organizationTypes,
-    apiErrors: organizationTypesErrors,
+    apiError: organizationTypesApiError,
     isLoading: organizationTypesLoading,
     isError: organizationTypesError,
   } = useOrganizationTypes();
 
   const { company } = useMemo(() => profile ?? { company: null }, [profile]);
 
-  const memoizedDistrictsError = useMemo(() => districtsError, [districtsError]);
-  const memoizedOrganizationTypesError = useMemo(
-    () => organizationTypesError,
-    [organizationTypesError]
-  );
+  const memoizedDistrictsError = useMemo(() => districtsError, [
+    districtsError,
+  ]);
+  const memoizedOrganizationTypesError = useMemo(() => organizationTypesError, [
+    organizationTypesError,
+  ]);
 
   useEffect(() => {
     if (memoizedDistrictsError) {
-      districtsErrors?.forEach((error) => addError(error));
+      addError(districtsApiError ?? 'Не удалось загрузить районы!');
     }
     if (memoizedOrganizationTypesError) {
-      organizationTypesErrors?.forEach((error) => addError(error));
+      addError(
+        organizationTypesApiError ?? 'Не удалось загрузить типы организаций!'
+      );
     }
   }, [memoizedDistrictsError, memoizedOrganizationTypesError]);
 
   return (
     <div className={styles.styled}>
       <div className={styles.half}>
-        <Input value={company?.name} heading="Краткое наименование организации" readOnly />
-        <TextArea value={company?.fullName} heading="Полное наименование организации" readOnly />
+        <Input
+          value={company?.name}
+          heading="Краткое наименование организации"
+          readOnly
+        />
+        <TextArea
+          value={company?.fullName}
+          heading="Полное наименование организации"
+          readOnly
+        />
         {organizationTypesLoading ? (
-          <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Тип организации" />
+          <Skeleton
+            mode={ESkeletonMode.INPUT}
+            withLoader
+            heading="Тип организации"
+          />
         ) : organizationTypesError ? (
           <Input value={''} heading="Тип организации" readOnly />
         ) : (
@@ -76,7 +91,11 @@ export const ProfilePage = () => {
         )}
       </div>
       <div className={styles.half}>
-        <Input value={company?.supervisor} heading="Руководитель организации" readOnly />
+        <Input
+          value={company?.supervisor}
+          heading="Руководитель организации"
+          readOnly
+        />
         <Input
           value={company?.responsible}
           heading="Ответственный за предоставление информации"
@@ -87,12 +106,20 @@ export const ProfilePage = () => {
           <Checkbox
             checked={company?.educationLicense}
             readOnly
-            label={<Text>Наличие лицензии на осуществление образовательной деятельности</Text>}
+            label={
+              <Text>
+                Наличие лицензии на осуществление образовательной деятельности
+              </Text>
+            }
           />
           <Checkbox
             checked={company?.medicineLicense}
             readOnly
-            label={<Text>Наличие лицензии на осуществление медицинской деятельности</Text>}
+            label={
+              <Text>
+                Наличие лицензии на осуществление медицинской деятельности
+              </Text>
+            }
           />
           <Checkbox
             checked={company?.innovationGround}

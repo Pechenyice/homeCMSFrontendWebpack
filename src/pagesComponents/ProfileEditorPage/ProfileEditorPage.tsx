@@ -1,4 +1,5 @@
 import { API } from 'api';
+import { ApiError, AuthError, ServerError } from 'api/errors';
 import {
   Action,
   Checkbox,
@@ -15,7 +16,7 @@ import {
 import { useAuth, useDistricts, useErrors, useOrganizationTypes } from 'hooks';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EProposalStatus } from 'types/enums';
+import { EAuthStatus, EProposalStatus } from 'types/enums';
 import { IProfileState, IInputsState } from 'types/interfaces';
 import { registerInput, textInputValidator, validateAll } from 'utils';
 import styles from './ProfileEditorPage.module.scss';
@@ -29,29 +30,32 @@ export const ProfileEditorPage = () => {
 
   const {
     apiData: districts,
-    apiErrors: districtsErrors,
+    apiError: districtsApiError,
     isLoading: districtsLoading,
     isError: districtsError,
   } = useDistricts();
   const {
     apiData: organizationTypes,
-    apiErrors: organizationTypesErrors,
+    apiError: organizationTypesApiError,
     isLoading: organizationTypesLoading,
     isError: organizationTypesError,
   } = useOrganizationTypes();
 
-  const memoizedDistrictsError = useMemo(() => districtsError, [districtsError]);
-  const memoizedOrganizationTypesError = useMemo(
-    () => organizationTypesError,
-    [organizationTypesError]
-  );
+  const memoizedDistrictsError = useMemo(() => districtsError, [
+    districtsError,
+  ]);
+  const memoizedOrganizationTypesError = useMemo(() => organizationTypesError, [
+    organizationTypesError,
+  ]);
 
   useEffect(() => {
     if (memoizedDistrictsError) {
-      districtsErrors?.forEach((error) => addError(error));
+      addError(districtsApiError ?? 'Не удалось загрузить районы!');
     }
     if (memoizedOrganizationTypesError) {
-      organizationTypesErrors?.forEach((error) => addError(error));
+      addError(
+        organizationTypesApiError ?? 'Не удалось загрузить типы организаций!'
+      );
     }
   }, [memoizedDistrictsError, memoizedOrganizationTypesError]);
 
@@ -100,10 +104,10 @@ export const ProfileEditorPage = () => {
     setFetchInProgress(true);
 
     try {
-      const { errors, data } = await API.profile.update(state);
+      const { error, data } = await API.profile.update(state);
 
-      if (errors) {
-        errors.forEach((error) => addError(error));
+      if (error) {
+        addError(error);
 
         setFetchInProgress(false);
 
@@ -121,7 +125,7 @@ export const ProfileEditorPage = () => {
           educationLicense: state?.educationLicense!,
           medicineLicense: state?.medicineLicense!,
           innovationGround: state?.innovationGround!,
-          status: EProposalStatus.CONFIRMATION,
+          status: EProposalStatus.PENDING,
           cause: null,
         });
 
@@ -132,19 +136,34 @@ export const ProfileEditorPage = () => {
       }
     } catch (e) {
       setFetchInProgress(false);
-      addError('Произошла критическая ошибка при обновлении данных профиля!');
+
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при обновлении данных профиля!');
+      } else if (e instanceof AuthError) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+        }));
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const [key, value] = [e.target.name, e.target.value];
 
-    const validationResult = (state as unknown as IInputsState)[key].validator(value);
+    const validationResult = ((state as unknown) as IInputsState)[
+      key
+    ].validator(value);
 
     setState({
       ...state,
       [key]: {
-        ...(state as unknown as IInputsState)[key],
+        ...((state as unknown) as IInputsState)[key],
         value,
         error: {
           exist: !validationResult.success,
@@ -157,7 +176,7 @@ export const ProfileEditorPage = () => {
   const bindCheckToggle = (name: string) => () => {
     setState({
       ...state,
-      [name]: !(state as unknown as IInputsState)[name],
+      [name]: !((state as unknown) as IInputsState)[name],
     });
   };
 
@@ -186,7 +205,11 @@ export const ProfileEditorPage = () => {
           heading="Полное наименование организации"
         />
         {organizationTypesLoading ? (
-          <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Тип организации" />
+          <Skeleton
+            mode={ESkeletonMode.INPUT}
+            withLoader
+            heading="Тип организации"
+          />
         ) : organizationTypesError ? (
           <Input value={''} heading="Тип организации" readOnly />
         ) : (
@@ -230,12 +253,20 @@ export const ProfileEditorPage = () => {
           <Checkbox
             checked={state.educationLicense}
             onToggle={bindCheckToggle('educationLicense')}
-            label={<Text>Наличие лицензии на осуществление образовательной деятельности</Text>}
+            label={
+              <Text>
+                Наличие лицензии на осуществление образовательной деятельности
+              </Text>
+            }
           />
           <Checkbox
             checked={state.medicineLicense}
             onToggle={bindCheckToggle('medicineLicense')}
-            label={<Text>Наличие лицензии на осуществление медицинской деятельности</Text>}
+            label={
+              <Text>
+                Наличие лицензии на осуществление медицинской деятельности
+              </Text>
+            }
           />
           <Checkbox
             checked={state.innovationGround}
@@ -248,12 +279,17 @@ export const ProfileEditorPage = () => {
         <Button
           onClick={toggleModal}
           className={styles.footer__button}
-          isLoading={districtsLoading || organizationTypesLoading || fetchInProgress}
+          isLoading={
+            districtsLoading || organizationTypesLoading || fetchInProgress
+          }
           disabled={districtsError || organizationTypesError}
         >
           <Text>Отправить на рассмотрение</Text>
         </Button>
-        <Action text="Отменить изменения" onClick={() => navigate('/profile')} />
+        <Action
+          text="Отменить изменения"
+          onClick={() => navigate('/profile')}
+        />
       </div>
       <Modal
         isOpen={modalState}

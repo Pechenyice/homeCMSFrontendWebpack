@@ -1,6 +1,7 @@
 import {
   API,
   IProfileCheckAuthResponse,
+  IProfileCompanyResponse,
   IProfileLoginResponse,
   IProfileLogoutResponse,
   IProfileUpdateResponse,
@@ -11,7 +12,6 @@ import { IProfile, IUser } from 'types/interfaces';
 
 export const FakeUser: IProfile = {
   id: 1,
-  login: 'test',
   isAdmin: false,
   company: {
     name: 'test',
@@ -28,8 +28,26 @@ export const FakeUser: IProfile = {
   },
 };
 
-export async function checkAuth(ms: number): Promise<IProfileCheckAuthResponse> {
-  return new Promise((resolve) => setTimeout(() => resolve({ errors: [], data: null }), ms));
+export async function checkAuth(
+  ms: number
+): Promise<IProfileCheckAuthResponse> {
+  return new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve(
+          true
+            ? {
+                error: 'Не удалось верифицировать пользователя!',
+                data: null,
+              }
+            : {
+                error: null,
+                data: { id: 1, isAdmin: false, token: '2|123' },
+              }
+        ),
+      ms
+    )
+  );
 }
 
 export async function checkUser(
@@ -42,8 +60,8 @@ export async function checkUser(
       () =>
         resolve(
           login === 'test' && password === 'test'
-            ? { errors: null, data: FakeUser }
-            : { errors: ['Такого пользователя не существует!'], data: null }
+            ? { error: null, data: { id: 1, isAdmin: false, token: '2|123' } }
+            : { error: 'Такого пользователя не существует!', data: null }
         ),
       ms
     )
@@ -56,28 +74,47 @@ export async function logoutUser(ms: number): Promise<IProfileLogoutResponse> {
       () =>
         resolve(
           true
-            ? { errors: null, data: true }
-            : { errors: ['Сейчас нельзя выйти из аккаунта!'], data: null }
+            ? { error: null, data: true }
+            : { error: 'Сейчас нельзя выйти из аккаунта!', data: null }
         ),
       ms
     )
   );
 }
 
-export async function fetchDistricts(ms: number): Promise<IQueriesDistrictsResponse> {
+export async function getCompany(ms: number): Promise<IProfileCompanyResponse> {
   return new Promise((resolve) =>
     setTimeout(
       () =>
         resolve(
           true
             ? {
-                errors: null,
+                error: null,
+                data: FakeUser.company,
+              }
+            : { error: 'Ошибка во время загрузки компании!', data: null }
+        ),
+      ms
+    )
+  );
+}
+
+export async function fetchDistricts(
+  ms: number
+): Promise<IQueriesDistrictsResponse> {
+  return new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve(
+          true
+            ? {
+                error: null,
                 data: [
                   { id: 0, value: 'test' },
                   { id: 1, value: 'new test' },
                 ],
               }
-            : { errors: ['Ошибка во время загрузки районов!'], data: null }
+            : { error: 'Ошибка во время загрузки районов!', data: null }
         ),
       ms
     )
@@ -93,13 +130,16 @@ export async function fetchOrganizationTypes(
         resolve(
           true
             ? {
-                errors: null,
+                error: null,
                 data: [
                   { id: 0, value: 'test' },
                   { id: 1, value: 'new test' },
                 ],
               }
-            : { errors: ['Ошибка во время загрузки типов организаций!'], data: null }
+            : {
+                error: 'Ошибка во время загрузки типов организаций!',
+                data: null,
+              }
         ),
       ms
     )
@@ -112,8 +152,8 @@ export async function updateUser(ms: number): Promise<IProfileUpdateResponse> {
       () =>
         resolve(
           true
-            ? { errors: null, data: true }
-            : { errors: ['Не удалось обновить данные профиля!'], data: false }
+            ? { error: null, data: true }
+            : { error: 'Не удалось обновить данные профиля!', data: false }
         ),
       ms
     )

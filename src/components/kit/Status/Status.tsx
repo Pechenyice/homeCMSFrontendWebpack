@@ -16,7 +16,7 @@ export const Status = (props: HTMLAttributes<HTMLDivElement> & Props) => {
       class: styles.styled_accepted,
       content: 'Подтверждено',
     },
-    [EProposalStatus.CONFIRMATION]: {
+    [EProposalStatus.PENDING]: {
       class: styles.styled_confirmation,
       content: 'На рассмотрении',
     },
@@ -28,7 +28,11 @@ export const Status = (props: HTMLAttributes<HTMLDivElement> & Props) => {
 
   return (
     <div
-      className={combineClasses(styles.styled, prefabs[status].class, className ?? '')}
+      className={combineClasses(
+        styles.styled,
+        prefabs[status].class,
+        className ?? ''
+      )}
       {...rest}
     >
       <H3 isMedium>{prefabs[status].content}</H3>

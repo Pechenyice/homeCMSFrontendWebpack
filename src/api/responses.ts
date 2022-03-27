@@ -1,15 +1,27 @@
-import { IProfile, ISelectValue } from 'types/interfaces';
+import { IProfile, ICompany, ISelectValue } from 'types/interfaces';
 
 export interface IResponseError {
-  errors: string[] | null;
+  error: string | null;
 }
 
 export interface IProfileCheckAuthResponse extends IResponseError {
-  data: IProfile | null;
+  data: {
+    token: string;
+    id: number;
+    isAdmin: boolean;
+  } | null;
 }
 
 export interface IProfileLoginResponse extends IResponseError {
-  data: IProfile | null;
+  data: {
+    token: string;
+    id: number;
+    isAdmin: boolean;
+  } | null;
+}
+
+export interface IProfileCompanyResponse extends IResponseError {
+  data: ICompany | null;
 }
 
 export interface IProfileLogoutResponse extends IResponseError {

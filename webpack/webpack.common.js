@@ -1,5 +1,5 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
@@ -32,11 +32,9 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
           'style-loader',
-          // Translates CSS into CommonJS
+          'css-modules-typescript-loader',
           'css-loader',
-          // Compiles Sass to CSS
           'sass-loader',
         ],
       },
@@ -55,8 +53,15 @@ module.exports = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, '..', './build'),
+    path: path.resolve(__dirname, '..', './build/'),
     filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'build'),
+    compress: false,
+    port: 8080,
+    historyApiFallback: true 
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -64,4 +69,4 @@ module.exports = {
     }),
   ],
   stats: 'errors-only',
-}
+};

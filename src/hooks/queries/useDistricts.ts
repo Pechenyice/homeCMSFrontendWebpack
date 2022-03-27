@@ -7,13 +7,14 @@ export const useDistricts = () => {
   const { addError } = useErrors();
 
   const query = useQuery(districtsKey, API.queries.fetchDistricts, {
-    onError: () => addError('Произошла критическая ошибка при загрузке районов!'),
+    onError: () =>
+      addError('Произошла критическая ошибка при загрузке районов!'),
   });
 
   return {
     ...query,
-    apiErrors: query.data?.errors,
+    apiError: query.data?.error,
     apiData: query.data?.data,
-    isError: query.isError || (query.data?.errors?.length ? true : false),
+    isError: query.isError || (query.data?.error ? true : false),
   };
 };

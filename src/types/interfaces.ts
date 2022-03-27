@@ -12,7 +12,6 @@ export interface IUser {
 
 export interface IProfile {
   id: number;
-  login: string;
   isAdmin: boolean;
   company: ICompany | null;
 }

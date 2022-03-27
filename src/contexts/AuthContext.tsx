@@ -1,4 +1,5 @@
 import { API } from 'api';
+import { ApiError, AuthError, ServerError } from 'api/errors';
 import UnauthorizedApp from 'apps/UnauthorizedApp/UnauthorizedApp';
 import { ErrorsList, InfosList, Preloader } from 'components';
 import { useErrors, useInfos } from 'hooks';
@@ -41,10 +42,23 @@ export const AuthProvider: FC = ({ children }) => {
         status: EAuthStatus.PENDING,
       });
 
-      const { errors, data } = await API.profile.checkAuth();
+      const { error, data } = await API.profile.checkAuth();
 
-      if (errors) {
-        errors.forEach((error) => addError(error));
+      if (error) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+          initialCheckIsPending: false,
+        }));
+
+        return;
+      }
+
+      const companyResponse = await API.profile.getCompany();
+
+      if (companyResponse.error) {
+        addError(companyResponse.error);
 
         setState((prevState) => ({
           ...state,
@@ -56,14 +70,32 @@ export const AuthProvider: FC = ({ children }) => {
         return;
       }
 
-      setState((prevState) => ({
+      localStorage.setItem('token', data?.token ?? '');
+
+      setState({
         ...state,
         status: EAuthStatus.SUCCESS,
-        profile: data,
-        initialCheckIsPending: false,
-      }));
+        profile: {
+          id: data!.id,
+          isAdmin: data!.isAdmin,
+          company: companyResponse.data,
+        },
+      });
     } catch (e) {
-      addError('Произошла ошибка при проверке подлинности пользователя. Попробуйте позже.');
+      if (e instanceof ServerError) {
+        addError(
+          'Произошла ошибка при проверке подлинности пользователя. Попробуйте позже.'
+        );
+      } else if (e instanceof AuthError) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+          initialCheckIsPending: false,
+        }));
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
     }
   };
 
@@ -76,8 +108,8 @@ export const AuthProvider: FC = ({ children }) => {
 
       const response = await API.profile.login(data);
 
-      if (response.errors) {
-        response.errors.forEach((error) => addError(error));
+      if (response.error) {
+        addError(response.error);
 
         setState((prevState) => ({
           ...state,
@@ -89,9 +121,45 @@ export const AuthProvider: FC = ({ children }) => {
         return;
       }
 
-      setState({ ...state, status: EAuthStatus.SUCCESS, profile: response.data });
+      const companyResponse = await API.profile.getCompany();
+
+      if (companyResponse.error) {
+        addError(companyResponse.error);
+
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+          initialCheckIsPending: false,
+        }));
+
+        return;
+      }
+
+      localStorage.setItem('token', response.data?.token ?? '');
+
+      setState({
+        ...state,
+        status: EAuthStatus.SUCCESS,
+        profile: {
+          id: response.data!.id,
+          isAdmin: response.data!.isAdmin,
+          company: companyResponse.data,
+        },
+      });
     } catch (e) {
-      addError('Произошла ошибка при входе в аккаунт. Попробуйте позже.');
+      if (e instanceof ServerError) {
+        addError('Произошла ошибка при входе в аккаунт. Попробуйте позже.');
+      } else if (e instanceof AuthError) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+          initialCheckIsPending: false,
+        }));
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
     }
   };
 
@@ -105,10 +173,10 @@ export const AuthProvider: FC = ({ children }) => {
       removeAllErrors();
       removeAllInfos();
 
-      const { errors } = await API.profile.logout();
+      const { error } = await API.profile.logout();
 
-      if (errors) {
-        errors.forEach((error) => addError(error));
+      if (error) {
+        addError(error);
 
         setState((prevState) => ({
           ...state,
@@ -120,7 +188,19 @@ export const AuthProvider: FC = ({ children }) => {
 
       setState({ ...state, status: EAuthStatus.ERROR, profile: null });
     } catch (e) {
-      addError('Произошла критическая ошибка при выходе из аккаунта. Попробуйте позже.');
+      if (e instanceof ServerError) {
+        addError(
+          'Произошла критическая ошибка при выходе из аккаунта. Попробуйте позже.'
+        );
+      } else if (e instanceof AuthError) {
+        setState((prevState) => ({
+          ...state,
+          status: EAuthStatus.ERROR,
+          profile: null,
+        }));
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
     }
   };
 

@@ -14,7 +14,9 @@ export const Auth = () => {
     password: registerInput('', textInputValidator),
   });
 
-  const formIsValid = Object.values(inputs).every((val) => val.value && !val.error.exist);
+  const formIsValid = Object.values(inputs).every(
+    (val) => val.value && !val.error.exist
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const [key, value] = [e.target.name, e.target.value];

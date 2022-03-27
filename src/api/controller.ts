@@ -2,6 +2,7 @@ import { IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import {
   IProfileCheckAuthResponse,
+  IProfileCompanyResponse,
   IProfileLoginResponse,
   IProfileLogoutResponse,
   IProfileUpdateResponse,
@@ -22,6 +23,9 @@ export const API = {
     },
     login({ login, password }: IUser): Promise<IProfileLoginResponse> {
       return fakes.checkUser(login, password, 1000);
+    },
+    getCompany(): Promise<IProfileCompanyResponse> {
+      return fakes.getCompany(1000);
     },
     logout(): Promise<IProfileLogoutResponse> {
       return fakes.logoutUser(1000);
