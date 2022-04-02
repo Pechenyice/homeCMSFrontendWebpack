@@ -6,6 +6,7 @@ import { useErrors, useInfos } from 'hooks';
 import { createContext, FC, useEffect, useState } from 'react';
 import { EAuthStatus } from 'types/enums';
 import { ICompany, IProfile, IUser } from 'types/interfaces';
+import { mapCompanyFromAPI } from 'utils/api';
 
 export interface IAuthContextValues {
   handleLogin: (data: IUser) => void;
@@ -46,6 +47,8 @@ export const AuthProvider: FC = ({ children }) => {
 
       const companyResponse = await API.profile.getCompany();
 
+      const formedResponse = mapCompanyFromAPI(companyResponse.data!);
+
       setState({
         ...state,
         status: EAuthStatus.SUCCESS,
@@ -53,7 +56,7 @@ export const AuthProvider: FC = ({ children }) => {
           id: data!.id,
           isAdmin: data!.isAdmin,
           login: data!.login,
-          company: companyResponse.data,
+          company: formedResponse,
         },
         initialCheckIsPending: false,
       });
@@ -84,9 +87,11 @@ export const AuthProvider: FC = ({ children }) => {
 
       const response = await API.profile.login(data);
 
+      localStorage.setItem('token', response.data?.token.value ?? '');
+
       const companyResponse = await API.profile.getCompany();
 
-      localStorage.setItem('token', response.data?.token.value ?? '');
+      const formedResponse = mapCompanyFromAPI(companyResponse.data!);
 
       setState({
         ...state,
@@ -95,7 +100,7 @@ export const AuthProvider: FC = ({ children }) => {
           id: response.data!.user.id,
           isAdmin: response.data!.user.isAdmin,
           login: response.data!.user.login,
-          company: companyResponse.data,
+          company: formedResponse,
         },
         initialCheckIsPending: false,
       });
@@ -131,18 +136,12 @@ export const AuthProvider: FC = ({ children }) => {
       removeAllErrors();
       removeAllInfos();
 
-      const { error } = await API.profile.logout();
+      /**
+       * TODO: check if need API here
+       * const { error } = await API.profile.logout();
+       */
 
-      if (error) {
-        addError(error);
-
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.SUCCESS,
-        }));
-
-        return;
-      }
+      localStorage.removeItem('token');
 
       setState({ ...state, status: EAuthStatus.ERROR, profile: null });
     } catch (e) {

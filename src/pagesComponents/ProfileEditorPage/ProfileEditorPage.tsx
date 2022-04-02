@@ -17,8 +17,13 @@ import { useAuth, useDistricts, useErrors, useOrganizationTypes } from 'hooks';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EAuthStatus, EProposalStatus } from 'types/enums';
-import { IProfileState, IInputsState } from 'types/interfaces';
-import { registerInput, textInputValidator, validateAll } from 'utils';
+import { IProfileState, IInputsState, ICompany } from 'types/interfaces';
+import {
+  mapCompanyToAPI,
+  registerInput,
+  textInputValidator,
+  validateAll,
+} from 'utils';
 import styles from './ProfileEditorPage.module.scss';
 
 export const ProfileEditorPage = () => {
@@ -104,15 +109,21 @@ export const ProfileEditorPage = () => {
     setFetchInProgress(true);
 
     try {
-      const { error, data } = await API.profile.update(state);
+      const stateValues: Partial<ICompany> = {
+        name: state.name.value,
+        fullName: state.fullName.value,
+        district: state.district,
+        type: state.type,
+        supervisor: state.supervisor.value,
+        responsible: state.responsible.value,
+        medicineLicense: state.medicineLicense,
+        educationLicense: state.educationLicense,
+        innovationGround: state.innovationGround,
+      };
 
-      if (error) {
-        addError(error);
-
-        setFetchInProgress(false);
-
-        return;
-      }
+      const { data } = await API.profile.update(
+        mapCompanyToAPI(stateValues as ICompany, true)
+      );
 
       if (data) {
         updateProfile({

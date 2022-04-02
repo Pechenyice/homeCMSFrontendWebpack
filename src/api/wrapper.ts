@@ -7,7 +7,7 @@ async function checkResponse(response: any) {
   if (response.status === 401) {
     throw new AuthError((await response.json()).error);
   }
-  if (response.status === 500) {
+  if (response.status === 500 || response.status === 504) {
     throw new ServerError(
       'Произошла ошибка при взаимодействии с сервером, попробуйте позже!'
     );

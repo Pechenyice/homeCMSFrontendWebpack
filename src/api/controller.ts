@@ -1,4 +1,4 @@
-import { IProfileState, IUser } from 'types/interfaces';
+import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
 import API_ROUTES from './config';
@@ -31,21 +31,41 @@ export const API = {
       );
     },
     getCompany(): Promise<IProfileCompanyResponse> {
-      return fakes.getCompany(1000);
+      return safeFetch(
+        API_ROUTES.PROFILE_GET_COMPANY.url,
+        API_ROUTES.PROFILE_GET_COMPANY.method,
+        aborts.PROFILE_GET_COMPANY_CONTROLLER
+      );
     },
     logout(): Promise<IProfileLogoutResponse> {
-      return fakes.logoutUser(1000);
+      return safeFetch(
+        API_ROUTES.PROFILE_LOGOUT.url,
+        API_ROUTES.PROFILE_LOGOUT.method,
+        aborts.PROFILE_LOGOUT_CONTROLLER
+      );
     },
-    update(data: IProfileState): Promise<IProfileUpdateResponse> {
-      return fakes.updateUser(1000);
+    update(data: Partial<IAPICompany>): Promise<IProfileUpdateResponse> {
+      return safeFetch(
+        API_ROUTES.PROFILE_UPDATE.url,
+        API_ROUTES.PROFILE_UPDATE.method,
+        aborts.PROFILE_UPDATE_CONTROLLER
+      );
     },
   },
   queries: {
     fetchDistricts(): Promise<IQueriesDistrictsResponse> {
-      return fakes.fetchDistricts(5000);
+      return safeFetch(
+        API_ROUTES.QUERIES_DISTRICTS.url,
+        API_ROUTES.QUERIES_DISTRICTS.method,
+        aborts.QUERIES_DISTRICTS_CONTROLLER
+      );
     },
     fetchOrganizationTypes(): Promise<IQueriesOrganizationTypesResponse> {
-      return fakes.fetchOrganizationTypes(3000);
+      return safeFetch(
+        API_ROUTES.QUERIES_ORGANIZATION_TYPES.url,
+        API_ROUTES.QUERIES_ORGANIZATION_TYPES.method,
+        aborts.QUERIES_ORGANIZATION_TYPES_CONTROLLER
+      );
     },
   },
 };

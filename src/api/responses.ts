@@ -1,9 +1,8 @@
 import {
-  IProfile,
-  ICompany,
   ISelectValue,
   IProfileData,
   IAPIAuthToken,
+  IAPICompany,
 } from 'types/interfaces';
 
 export interface IResponseError {
@@ -22,7 +21,7 @@ export interface IProfileLoginResponse extends IResponseError {
 }
 
 export interface IProfileCompanyResponse extends IResponseError {
-  data: ICompany | null;
+  data: IAPICompany | null;
 }
 
 export interface IProfileLogoutResponse extends IResponseError {

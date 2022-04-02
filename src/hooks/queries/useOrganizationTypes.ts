@@ -1,19 +1,27 @@
 import { API } from 'api';
+import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
+import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
 import { organizationTypesKey } from './keys';
 
 export const useOrganizationTypes = () => {
   const { addError } = useErrors();
+  const { handleLogout } = useAuth();
 
   const query = useQuery(
     organizationTypesKey,
     API.queries.fetchOrganizationTypes,
     {
-      onError: () =>
-        addError(
-          'Произошла критическая ошибка при загрузке типов организаций!'
-        ),
+      onError: (e) => {
+        if (e instanceof ServerError) {
+          addError('Произошла критическая ошибка при загрузке районов!');
+        } else if (e instanceof AuthError) {
+          handleLogout();
+        } else if (e instanceof ApiError) {
+          addError(e.message);
+        }
+      },
     }
   );
 

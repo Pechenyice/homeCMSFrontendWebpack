@@ -39,6 +39,21 @@ export interface ICompany {
   cause: string | null;
 }
 
+export interface IAPICompany {
+  id: string;
+  name: string;
+  full_name: string;
+  owner: string;
+  responsible: string;
+  organization_type_id: number;
+  district_id: number;
+  is_has_education_license: boolean;
+  is_has_mdedical_license: boolean;
+  is_has_innovative_platform: boolean;
+  status: string;
+  rejected_status_description: string | null;
+}
+
 export interface IPreloader {
   shouldDisplay: boolean;
 }
