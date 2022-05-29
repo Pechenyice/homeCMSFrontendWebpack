@@ -1,4 +1,4 @@
-import styles from 'Profile.module.scss';
+import styles from './Profile.module.scss';
 import { PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { useAuth } from 'hooks';

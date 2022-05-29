@@ -48,7 +48,8 @@ export const API = {
       return safeFetch(
         API_ROUTES.PROFILE_UPDATE.url,
         API_ROUTES.PROFILE_UPDATE.method,
-        aborts.PROFILE_UPDATE_CONTROLLER
+        aborts.PROFILE_UPDATE_CONTROLLER,
+        data
       );
     },
   },

@@ -38,11 +38,14 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
       >
         <Text>
           {valueIsSelected
-            ? options.find((option) => option.id === value)?.value
+            ? options.find((option) => option.id === value)?.label
             : 'Выберите категорию'}
         </Text>
         <ChevronVerticalIcon
-          className={combineClasses(styles.chevron, opened ? styles.chevron_inverted : '')}
+          className={combineClasses(
+            styles.chevron,
+            opened ? styles.chevron_inverted : ''
+          )}
         />
         <CSSTransition
           in={opened}
@@ -58,7 +61,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
                 onClick={(e) => onChangeOption(option.id)}
                 className={styles.option}
               >
-                <Text>{option.value}</Text>
+                <Text>{option.label}</Text>
               </div>
             ))}
           </div>

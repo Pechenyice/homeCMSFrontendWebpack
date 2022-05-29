@@ -77,10 +77,37 @@ export const ProfileEditorPage = () => {
     fullName: registerInput(company?.fullName ?? '', textInputValidator),
     type: company?.type!,
     district: company?.district!,
+    link: registerInput(company?.link ?? '', textInputValidator),
+    phoneNumber: registerInput(company?.phoneNumber ?? '', textInputValidator),
+    email: registerInput(company?.email ?? '', textInputValidator),
     supervisor: registerInput(company?.supervisor ?? '', textInputValidator),
     responsible: registerInput(company?.responsible ?? '', textInputValidator),
+    responsiblePhoneNumber: registerInput(
+      company?.responsiblePhoneNumber ?? '',
+      textInputValidator
+    ),
     educationLicense: company?.educationLicense ?? false,
+    educationLicenseNumber: registerInput(
+      company?.educationLicenseNumber ?? '',
+      textInputValidator
+    ),
+    educationLicenseDate: registerInput(
+      company?.educationLicenseDate ?? '',
+      textInputValidator
+    ),
+    educationLicenseKind: registerInput(
+      company?.educationLicenseKind ?? '',
+      textInputValidator
+    ),
     medicineLicense: company?.medicineLicense ?? false,
+    medicineLicenseNumber: registerInput(
+      company?.medicineLicenseNumber ?? '',
+      textInputValidator
+    ),
+    medicineLicenseDate: registerInput(
+      company?.medicineLicenseDate ?? '',
+      textInputValidator
+    ),
     innovationGround: company?.innovationGround ?? false,
   });
 
@@ -114,10 +141,19 @@ export const ProfileEditorPage = () => {
         fullName: state.fullName.value,
         district: state.district,
         type: state.type,
+        link: state.link.value,
+        phoneNumber: state.phoneNumber.value,
+        email: state.email.value,
         supervisor: state.supervisor.value,
         responsible: state.responsible.value,
-        medicineLicense: state.medicineLicense,
+        responsiblePhoneNumber: state.responsiblePhoneNumber.value,
         educationLicense: state.educationLicense,
+        educationLicenseNumber: state.educationLicenseNumber.value,
+        educationLicenseDate: state.educationLicenseDate.value,
+        educationLicenseKind: state.educationLicenseKind.value,
+        medicineLicense: state.medicineLicense,
+        medicineLicenseNumber: state.medicineLicenseNumber.value,
+        medicineLicenseDate: state.medicineLicenseDate.value,
         innovationGround: state.innovationGround,
       };
 
@@ -131,10 +167,19 @@ export const ProfileEditorPage = () => {
           fullName: state.fullName.value,
           type: state?.type!,
           district: state?.district!,
+          link: state.link.value,
+          phoneNumber: state.phoneNumber.value,
+          email: state.email.value,
           supervisor: state.supervisor.value,
           responsible: state.responsible.value,
+          responsiblePhoneNumber: state.responsiblePhoneNumber.value,
           educationLicense: state?.educationLicense!,
+          educationLicenseNumber: state.educationLicenseNumber.value,
+          educationLicenseDate: state.educationLicenseDate.value,
+          educationLicenseKind: state.educationLicenseKind.value,
           medicineLicense: state?.medicineLicense!,
+          medicineLicenseNumber: state.medicineLicenseNumber.value,
+          medicineLicenseDate: state.medicineLicenseDate.value,
           innovationGround: state?.innovationGround!,
           status: EProposalStatus.PENDING,
           cause: null,
@@ -234,17 +279,39 @@ export const ProfileEditorPage = () => {
         {districtsLoading ? (
           <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
         ) : districtsError ? (
-          <Input value={''} heading="Район" readOnly />
+          <Input
+            value={''}
+            heading="Подведомственное КСП, администрации района или СО НКО"
+            readOnly
+          />
         ) : (
           <Select
             value={state.district}
             options={districts!}
-            heading="Район"
+            heading="Подведомственное КСП, администрации района или СО НКО"
             onChangeOption={bindSelect('district')}
           />
         )}
-      </div>
-      <div className={styles.half}>
+        <Input
+          name="link"
+          value={state.link.value}
+          onChange={handleChange}
+          error={state.link.error}
+          heading="Ссылка на официальный сайт организации"
+        />
+        <Input
+          name="phoneNumber"
+          value={state.phoneNumber.value}
+          onChange={handleChange}
+          error={state.phoneNumber.error}
+        />
+        <Input
+          name="email"
+          value={state.email.value}
+          onChange={handleChange}
+          error={state.email.error}
+          heading="Электронная почта организации"
+        />
         <Input
           name="supervisor"
           value={state.supervisor.value}
@@ -252,6 +319,8 @@ export const ProfileEditorPage = () => {
           error={state.supervisor.error}
           heading="Руководитель организации"
         />
+      </div>
+      <div className={styles.half}>
         <Input
           name="responsible"
           value={state.responsible.value}
@@ -259,8 +328,16 @@ export const ProfileEditorPage = () => {
           error={state.responsible.error}
           heading="Ответственный за предоставление информации"
         />
+        <Input
+          name="responsiblePhoneNumber"
+          value={state.responsiblePhoneNumber.value}
+          onChange={handleChange}
+          error={state.responsiblePhoneNumber.error}
+          heading="Телефон ответственного за предоставление информации"
+        />
         <div className={styles.group}>
           <H3>Об организации</H3>
+
           <Checkbox
             checked={state.educationLicense}
             onToggle={bindCheckToggle('educationLicense')}
@@ -270,6 +347,32 @@ export const ProfileEditorPage = () => {
               </Text>
             }
           />
+          {state.educationLicense && (
+            <>
+              <Input
+                name="educationLicenseNumber"
+                value={state.educationLicenseNumber.value}
+                onChange={handleChange}
+                error={state.educationLicenseNumber.error}
+                heading="Номер лицензии на осуществление образовательной деятельности"
+              />
+              <Input
+                name="educationLicenseDate"
+                value={state.educationLicenseDate.value}
+                onChange={handleChange}
+                error={state.educationLicenseDate.error}
+                heading="Дата выдачи лицензии"
+              />
+              <Input
+                name="educationLicenseKind"
+                value={state.educationLicenseKind.value}
+                onChange={handleChange}
+                error={state.educationLicenseKind.error}
+                heading="Вид деятельности"
+              />
+            </>
+          )}
+
           <Checkbox
             checked={state.medicineLicense}
             onToggle={bindCheckToggle('medicineLicense')}
@@ -279,6 +382,25 @@ export const ProfileEditorPage = () => {
               </Text>
             }
           />
+          {state.medicineLicense && (
+            <>
+              <Input
+                name="medicineLicenseNumber"
+                value={state.medicineLicenseNumber.value}
+                onChange={handleChange}
+                error={state.medicineLicenseNumber.error}
+                heading="Номер лицензии на осуществление медицинской деятельности"
+              />
+              <Input
+                name="medicineLicenseDate"
+                value={state.medicineLicenseDate.value}
+                onChange={handleChange}
+                error={state.medicineLicenseDate.error}
+                heading="Дата выдачи лицензии"
+              />
+            </>
+          )}
+
           <Checkbox
             checked={state.innovationGround}
             onToggle={bindCheckToggle('innovationGround')}

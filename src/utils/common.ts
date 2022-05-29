@@ -17,5 +17,5 @@ export const getValueByIdFromSelect = (
   id: number | undefined
 ) => {
   if (!values || id === undefined) return undefined;
-  return values.filter((value) => value.id === id)[0].value;
+  return values.filter((value) => +value.id === +id).length ? values.filter((value) => +value.id === +id)[0].label : undefined;
 };

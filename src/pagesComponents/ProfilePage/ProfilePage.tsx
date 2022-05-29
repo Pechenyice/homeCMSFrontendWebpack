@@ -81,28 +81,53 @@ export const ProfilePage = () => {
         {districtsLoading ? (
           <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
         ) : districtsError ? (
-          <Input value={''} heading="Район" readOnly />
+          <Input
+            value={''}
+            heading="Подведомственное КСП, администрации района или СО НКО"
+            readOnly
+          />
         ) : (
           <Input
             value={getValueByIdFromSelect(districts!, company?.district)}
-            heading="Район"
+            heading="Подведомственное КСП, администрации района или СО НКО"
             readOnly
           />
         )}
-      </div>
-      <div className={styles.half}>
+        <Input
+          value={company?.link}
+          heading="Ссылка на официальный сайт организации"
+          readOnly
+        />
+        <Input
+          value={company?.phoneNumber}
+          heading="Номер телефона организации"
+          readOnly
+        />
+        <Input
+          value={company?.email}
+          heading="Электронная почта организации"
+          readOnly
+        />
         <Input
           value={company?.supervisor}
           heading="Руководитель организации"
           readOnly
         />
+      </div>
+      <div className={styles.half}>
         <Input
           value={company?.responsible}
           heading="Ответственный за предоставление информации"
           readOnly
         />
+        <Input
+          value={company?.responsiblePhoneNumber}
+          heading="Телефон ответственного за предоставление информации"
+          readOnly
+        />
         <div className={styles.group}>
           <H3>Об организации</H3>
+
           <Checkbox
             checked={company?.educationLicense}
             readOnly
@@ -112,6 +137,26 @@ export const ProfilePage = () => {
               </Text>
             }
           />
+          {company?.educationLicense && (
+            <>
+              <Input
+                value={company?.educationLicenseNumber}
+                heading="Номер лицензии на осуществление образовательной деятельности"
+                readOnly
+              />
+              <Input
+                value={company?.educationLicenseDate}
+                heading="Дата выдачи лицензии"
+                readOnly
+              />
+              <Input
+                value={company?.educationLicenseKind}
+                heading="Вид деятельности"
+                readOnly
+              />
+            </>
+          )}
+
           <Checkbox
             checked={company?.medicineLicense}
             readOnly
@@ -121,6 +166,21 @@ export const ProfilePage = () => {
               </Text>
             }
           />
+          {company?.medicineLicense && (
+            <>
+              <Input
+                value={company?.medicineLicenseNumber}
+                heading="Номер лицензии на осуществление медицинской деятельности"
+                readOnly
+              />
+              <Input
+                value={company?.medicineLicenseDate}
+                heading="Дата выдачи лицензии"
+                readOnly
+              />
+            </>
+          )}
+
           <Checkbox
             checked={company?.innovationGround}
             readOnly

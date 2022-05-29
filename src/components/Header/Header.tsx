@@ -28,14 +28,14 @@ export const Header = (props: Props) => {
         <Link to={'/education'}>
           <Text isMedium>Доп. образование</Text>
         </Link>
-        <Link to={'/technologies'}>
-          <Text isMedium>Методики и технологии</Text>
+        <Link to={'/social'}>
+          <Text isMedium>Соц. работа</Text>
         </Link>
         <Link to={'/clubs'}>
           <Text isMedium>Клубы</Text>
         </Link>
-        <Link to={'/social'}>
-          <Text isMedium>Соц. работа</Text>
+        <Link to={'/technologies'}>
+          <Text isMedium>Методики и технологии</Text>
         </Link>
       </nav>
       <Link to={'/profile'}>

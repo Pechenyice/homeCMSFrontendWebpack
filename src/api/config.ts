@@ -26,7 +26,7 @@ const API_ROUTES: IAPIRoutesConfig = {
   },
 
   QUERIES_DISTRICTS: {
-    url: `${API_PREFIX}/dictionary-categories/test/dictionaries`,
+    url: `${API_PREFIX}/dictionary-categories/district/dictionaries`,
     method: EAPIMethod.GET,
   },
   QUERIES_ORGANIZATION_TYPES: {

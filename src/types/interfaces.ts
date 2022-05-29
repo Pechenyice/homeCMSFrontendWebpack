@@ -2,7 +2,7 @@ import { EProposalStatus } from './enums';
 
 export interface ISelectValue {
   id: number;
-  value: string;
+  label: string;
 }
 
 export interface IUser {
@@ -31,10 +31,19 @@ export interface ICompany {
   type: number;
   district: number;
   educationLicense: boolean;
+  educationLicenseNumber?: string;
+  educationLicenseDate?: string;
+  educationLicenseKind?: string;
   medicineLicense: boolean;
+  medicineLicenseNumber?: string;
+  medicineLicenseDate?: string;
   innovationGround: boolean;
   supervisor: string;
   responsible: string;
+  link: string;
+  phoneNumber: string;
+  email: string;
+  responsiblePhoneNumber: string;
   status: EProposalStatus;
   cause: string | null;
 }
@@ -81,10 +90,19 @@ export interface IProfileState {
   fullName: IInput;
   type: number;
   district: number;
+  link: IInput;
+  phoneNumber: IInput;
+  email: IInput;
+  responsiblePhoneNumber: IInput;
   supervisor: IInput;
   responsible: IInput;
   educationLicense: boolean;
+  educationLicenseNumber: IInput;
+  educationLicenseDate: IInput;
+  educationLicenseKind: IInput;
   medicineLicense: boolean;
+  medicineLicenseNumber: IInput;
+  medicineLicenseDate: IInput;
   innovationGround: boolean;
 }
 
