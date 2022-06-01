@@ -31,11 +31,11 @@ export interface ICompany {
   type: number;
   district: number;
   educationLicense: boolean;
-  educationLicenseNumber?: string;
+  educationLicenseNumber?: number;
   educationLicenseDate?: string;
   educationLicenseKind?: string;
   medicineLicense: boolean;
-  medicineLicenseNumber?: string;
+  medicineLicenseNumber?: number;
   medicineLicenseDate?: string;
   innovationGround: boolean;
   supervisor: string;
@@ -51,16 +51,29 @@ export interface ICompany {
 export interface IAPICompany {
   id: string;
   name: string;
+  phone: string;
+  site: string;
+  email: string;
   full_name: string;
   owner: string;
   responsible: string;
+  responsible_phone: string;
   organization_type_id: number;
   district_id: number;
-  is_has_education_license: boolean;
-  is_has_mdedical_license: boolean;
+  education_license: EducationLicense | null;
+  medical_license: BaseLicense | null;
   is_has_innovative_platform: boolean;
   status: string;
   rejected_status_description: string | null;
+}
+
+export interface BaseLicense {
+  number: number;
+  date: string;
+}
+
+export interface EducationLicense extends BaseLicense {
+  type: string;
 }
 
 export interface IPreloader {
@@ -98,17 +111,23 @@ export interface IProfileState {
   responsible: IInput;
   educationLicense: boolean;
   educationLicenseNumber: IInput;
-  educationLicenseDate: IInput;
+  educationLicenseDate: IDateInput;
   educationLicenseKind: IInput;
   medicineLicense: boolean;
   medicineLicenseNumber: IInput;
-  medicineLicenseDate: IInput;
+  medicineLicenseDate: IDateInput;
   innovationGround: boolean;
 }
 
 export interface IInput {
   value: string;
   validator: (value: string | number) => IValidationResult;
+  error: IInputError;
+}
+
+export interface IDateInput {
+  value: string;
+  validator: (value: string) => IValidationResult;
   error: IInputError;
 }
 

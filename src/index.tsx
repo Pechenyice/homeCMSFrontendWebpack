@@ -9,7 +9,13 @@ import { InfosProvider } from 'contexts/InfosContext';
 import { ErrorBoundary } from 'components';
 // import * as serviceWorker from "./serviceWorker";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

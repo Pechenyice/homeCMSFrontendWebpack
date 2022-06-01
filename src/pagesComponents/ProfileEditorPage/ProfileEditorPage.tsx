@@ -19,7 +19,9 @@ import { useNavigate } from 'react-router-dom';
 import { EAuthStatus, EProposalStatus } from 'types/enums';
 import { IProfileState, IInputsState, ICompany } from 'types/interfaces';
 import {
+  dateInputValidator,
   mapCompanyToAPI,
+  registerDateInput,
   registerInput,
   textInputValidator,
   validateAll,
@@ -27,7 +29,7 @@ import {
 import styles from './ProfileEditorPage.module.scss';
 
 export const ProfileEditorPage = () => {
-  const { profile, updateProfile } = useAuth();
+  const { profile, updateProfile, handleLogout } = useAuth();
   const { addError } = useErrors();
   const navigate = useNavigate();
 
@@ -88,12 +90,12 @@ export const ProfileEditorPage = () => {
     ),
     educationLicense: company?.educationLicense ?? false,
     educationLicenseNumber: registerInput(
-      company?.educationLicenseNumber ?? '',
+      company?.educationLicenseNumber?.toString() ?? '',
       textInputValidator
     ),
-    educationLicenseDate: registerInput(
+    educationLicenseDate: registerDateInput(
       company?.educationLicenseDate ?? '',
-      textInputValidator
+      dateInputValidator
     ),
     educationLicenseKind: registerInput(
       company?.educationLicenseKind ?? '',
@@ -101,12 +103,12 @@ export const ProfileEditorPage = () => {
     ),
     medicineLicense: company?.medicineLicense ?? false,
     medicineLicenseNumber: registerInput(
-      company?.medicineLicenseNumber ?? '',
+      company?.medicineLicenseNumber?.toString() ?? '',
       textInputValidator
     ),
-    medicineLicenseDate: registerInput(
+    medicineLicenseDate: registerDateInput(
       company?.medicineLicenseDate ?? '',
-      textInputValidator
+      dateInputValidator
     ),
     innovationGround: company?.innovationGround ?? false,
   });
@@ -148,11 +150,11 @@ export const ProfileEditorPage = () => {
         responsible: state.responsible.value,
         responsiblePhoneNumber: state.responsiblePhoneNumber.value,
         educationLicense: state.educationLicense,
-        educationLicenseNumber: state.educationLicenseNumber.value,
+        educationLicenseNumber: Number(state.educationLicenseNumber.value),
         educationLicenseDate: state.educationLicenseDate.value,
         educationLicenseKind: state.educationLicenseKind.value,
         medicineLicense: state.medicineLicense,
-        medicineLicenseNumber: state.medicineLicenseNumber.value,
+        medicineLicenseNumber: Number(state.medicineLicenseNumber.value),
         medicineLicenseDate: state.medicineLicenseDate.value,
         innovationGround: state.innovationGround,
       };
@@ -161,46 +163,37 @@ export const ProfileEditorPage = () => {
         mapCompanyToAPI(stateValues as ICompany, true)
       );
 
-      if (data) {
-        updateProfile({
-          name: state.name.value,
-          fullName: state.fullName.value,
-          type: state?.type!,
-          district: state?.district!,
-          link: state.link.value,
-          phoneNumber: state.phoneNumber.value,
-          email: state.email.value,
-          supervisor: state.supervisor.value,
-          responsible: state.responsible.value,
-          responsiblePhoneNumber: state.responsiblePhoneNumber.value,
-          educationLicense: state?.educationLicense!,
-          educationLicenseNumber: state.educationLicenseNumber.value,
-          educationLicenseDate: state.educationLicenseDate.value,
-          educationLicenseKind: state.educationLicenseKind.value,
-          medicineLicense: state?.medicineLicense!,
-          medicineLicenseNumber: state.medicineLicenseNumber.value,
-          medicineLicenseDate: state.medicineLicenseDate.value,
-          innovationGround: state?.innovationGround!,
-          status: EProposalStatus.PENDING,
-          cause: null,
-        });
+      updateProfile({
+        name: state.name.value,
+        fullName: state.fullName.value,
+        type: state?.type!,
+        district: state?.district!,
+        link: state.link.value,
+        phoneNumber: state.phoneNumber.value,
+        email: state.email.value,
+        supervisor: state.supervisor.value,
+        responsible: state.responsible.value,
+        responsiblePhoneNumber: state.responsiblePhoneNumber.value,
+        educationLicense: state?.educationLicense!,
+        educationLicenseNumber: Number(state.educationLicenseNumber.value),
+        educationLicenseDate: state.educationLicenseDate.value,
+        educationLicenseKind: state.educationLicenseKind.value,
+        medicineLicense: state?.medicineLicense!,
+        medicineLicenseNumber: Number(state.medicineLicenseNumber.value),
+        medicineLicenseDate: state.medicineLicenseDate.value,
+        innovationGround: state?.innovationGround!,
+        status: EProposalStatus.PENDING,
+        cause: null,
+      });
 
-        navigate('/profile');
-      } else {
-        setFetchInProgress(false);
-        addError('Не удалось обновить данные профиля!');
-      }
+      navigate('/profile');
     } catch (e) {
       setFetchInProgress(false);
 
       if (e instanceof ServerError) {
         addError('Произошла критическая ошибка при обновлении данных профиля!');
       } else if (e instanceof AuthError) {
-        setState((prevState) => ({
-          ...state,
-          status: EAuthStatus.ERROR,
-          profile: null,
-        }));
+        handleLogout();
       } else if (e instanceof ApiError) {
         addError(e.message);
       }
