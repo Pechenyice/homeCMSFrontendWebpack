@@ -4,11 +4,11 @@ export const combineClasses = (...classes: string[]) =>
   classes.filter((c) => c).join(' ');
 
 export const simpleUuid = () => {
-  var dt = new Date().getTime();
-  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+  let dt = new Date().getTime();
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
     /[xy]/g,
     function (c) {
-      var r = (dt + Math.random() * 16) % 16 | 0;
+      const r = (dt + Math.random() * 16) % 16 | 0;
       dt = Math.floor(dt / 16);
       return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
     }
@@ -27,5 +27,5 @@ export const getValueByIdFromSelect = (
 };
 
 export const isValidDate = (d: any) => {
-  return !isNaN(Date.parse(d));
+  return !isNaN(Date.parse(d.split('.').reverse().join('-')));
 };
