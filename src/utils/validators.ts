@@ -2,9 +2,9 @@ import { IValidationObject, IValidationResult } from 'types/interfaces';
 import { isValidDate } from '.';
 
 export const textInputValidator = (
-  value: string | number
+  value?: string | number
 ): IValidationResult => {
-  value = value.toString();
+  value = value?.toString();
 
   if (!value || !value.length) {
     return {
@@ -26,7 +26,7 @@ export const textInputValidator = (
   };
 };
 
-export const dateInputValidator = (value: string): IValidationResult => {
+export const dateInputValidator = (value?: string): IValidationResult => {
   if (!value || !value.length) {
     return {
       success: false,
@@ -64,6 +64,29 @@ export const dateInputValidator = (value: string): IValidationResult => {
     return {
       success: false,
       text: 'Формат даты должен соответствовать паттерну ДД.ММ.ГГГГ',
+    };
+  }
+
+  return {
+    success: true,
+    text: '',
+  };
+};
+
+export const numberInputValidator = (
+  value?: number
+): IValidationResult => {
+  if (value === undefined) {
+    return {
+      success: false,
+      text: 'Пустое значение',
+    };
+  }
+
+  if (isNaN(value)) {
+    return {
+      success: false,
+      text: 'Значение должно быть числом',
     };
   }
 

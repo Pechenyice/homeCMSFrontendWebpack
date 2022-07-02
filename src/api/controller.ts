@@ -54,6 +54,14 @@ export const API = {
     },
   },
   queries: {
+    fetchProject(id: string): Promise<IQueriesProjectResponse> {
+      return safeFetch(
+        API_ROUTES.PROJECT.url,
+        API_ROUTES.PROJECT.method,
+        aborts.PROJECT_GET_CONTROLLER
+      );
+    },
+
     fetchDistricts(): Promise<IQueriesDistrictsResponse> {
       return safeFetch(
         API_ROUTES.QUERIES_DISTRICTS.url,

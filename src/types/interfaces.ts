@@ -131,6 +131,12 @@ export interface IDateInput {
   error: IInputError;
 }
 
+export interface INumberInput {
+  value: number;
+  validator: (value: number) => IValidationResult;
+  error: IInputError;
+}
+
 export interface IInputError {
   exist: boolean;
   text: string;
@@ -147,6 +153,6 @@ export interface IValidationObject {
 }
 
 export interface IBreadcrumbsPath {
-  link: string;
+  link?: string;
   alias: string;
 }

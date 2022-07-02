@@ -1,3 +1,4 @@
+import { IProjectData } from 'types/entities/entities';
 import {
   ISelectValue,
   IProfileData,
@@ -30,6 +31,10 @@ export interface IProfileLogoutResponse extends IResponseError {
 
 export interface IProfileUpdateResponse extends IResponseError {
   data: boolean | null;
+}
+
+export interface IQueriesProjectResponse extends IResponseError {
+  data: IProjectData | null;
 }
 
 export interface IQueriesDistrictsResponse extends IResponseError {

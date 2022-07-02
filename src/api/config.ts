@@ -25,6 +25,11 @@ const API_ROUTES: IAPIRoutesConfig = {
     method: EAPIMethod.PUT,
   },
 
+  PROJECT: {
+    url: `${API_PREFIX}/project`,
+    method: EAPIMethod.GET,
+  },
+
   QUERIES_DISTRICTS: {
     url: `${API_PREFIX}/dictionary-categories/district/dictionaries`,
     method: EAPIMethod.GET,

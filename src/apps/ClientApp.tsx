@@ -3,7 +3,7 @@ import { CommonBaseRoutesInfo, Main } from 'components';
 import NotFound from 'components/404/404';
 import { useAuth, useInfos } from 'hooks';
 import { useEffect } from 'react';
-import { Profile, ProfileEditor } from 'pages';
+import { Profile, ProfileEditor, ProjectCreation, Projects } from 'pages';
 
 const ClientApp = () => {
   const { addInfo } = useInfos();
@@ -20,9 +20,19 @@ const ClientApp = () => {
 
         <Route path="/" element={<CommonBaseRoutesInfo />}>
           <Route index element={<Main />} />
+
           <Route path="profile">
             <Route index element={<Profile />} />
             <Route path="edit" element={<ProfileEditor />} />
+          </Route>
+
+          <Route path="projects">
+            <Route index element={<Projects />} />
+            <Route path="create" element={<ProjectCreation />} />
+            <Route path=":id">
+              {/* <Route index element={<Project />} /> */}
+              {/* <Route path="edit" element={<ProjectEditor />} /> */}
+            </Route>
           </Route>
         </Route>
       </Routes>

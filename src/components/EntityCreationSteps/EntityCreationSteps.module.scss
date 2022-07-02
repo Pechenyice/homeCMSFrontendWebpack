@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+}
+
+.step {
+  padding: 15px 30px;
+  border-radius: 8px;
+  transition: 0.2s;
+
+  &__active {
+    background-color: var(--light-blue);
+    transition: 0.2s;
+
+    & * {
+      color: blue;
+      transition: 0.2s;
+    }
+  }
+}
