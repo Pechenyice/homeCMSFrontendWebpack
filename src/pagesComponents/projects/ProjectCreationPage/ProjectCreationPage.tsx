@@ -1,28 +1,37 @@
-import { useState } from 'react';
+import { EntityCreationSteps } from 'components';
+import { ProjectCreationStepsInterface } from 'components/entities';
+import { Action, Button, Text } from 'components/kit';
+import { ChangeEvent, useState } from 'react';
 import { IProjectState } from 'types/entities/states';
+import { EEntityPartition } from 'types/enums';
+import { IInputsState } from 'types/interfaces';
 import { registerInput, registerNumberInput } from 'utils/inputs';
 import { numberInputValidator, textInputValidator } from 'utils/validators';
-import { ProjectCreationPresentational } from './ProjectCreation.presentational';
 import styles from './ProjectCreationPage.module.scss';
 
+const CURRENT_STEPS_NUMBER = 4;
+
 export const ProjectCreationPage = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+
   const [mainPartition, setMainPartition] = useState<
     IProjectState['mainPartition']
   >({
+    name: registerInput('', textInputValidator),
     purpose: registerInput('', textInputValidator),
     tasks: registerInput('', textInputValidator),
     period: registerInput('', textInputValidator),
     technologies: registerInput('', textInputValidator),
     annotation: registerInput('', textInputValidator),
-    organisatorOrMember: -1,
+    organisatorOrMember: registerInput('', textInputValidator),
     realisationForCitizen: -1,
     attractingVolunteer: -1,
     status: -1,
     category: -1,
-    groups: -1,
+    groups: [],
     kind: -1,
     worksName: -1,
-    partners: -1,
+    partners: [],
     circumstancesRecognitionNeed: -1,
     socialHelpForm: -1,
     rnsuCategory: -1,
@@ -40,6 +49,10 @@ export const ProjectCreationPage = () => {
     hasExpertOpinion: false,
     hasExpertReview: false,
     hasExpertMention: false,
+  });
+
+  const [mainHelpersPartition, setMainHelpersPartition] = useState({
+    organisatorOrMember: false,
   });
 
   const [
@@ -106,13 +119,135 @@ export const ProjectCreationPage = () => {
     ],
   });
 
+  const selectPartition = (partition: EEntityPartition) => {
+    switch (partition) {
+      case EEntityPartition.MAIN:
+        return [mainPartition, setMainPartition];
+      case EEntityPartition.MAIN_HELPER:
+        return [mainHelpersPartition, setMainHelpersPartition];
+      case EEntityPartition.EXPIERIENCE:
+        return [expieriencePartition, setExpieriencePartition];
+      case EEntityPartition.EXPIERIENCE_HELPER:
+        return [expierienceHelpersPartition, setExpierienceHelpersPartition];
+      case EEntityPartition.CONTACTS:
+        return [contactsPartition, setContactsPartition];
+      case EEntityPartition.MEMBERS:
+        return [membersPartition, setMembersPartition];
+    }
+  };
+
+  const handleCheckToggle = (partition: EEntityPartition, name: string) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: !(state as any)[name],
+    });
+  };
+
+  const handleMultipleSelectChange = (
+    partition: EEntityPartition,
+    name: string,
+    option: number
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: (state as any)[name].includes(option)
+        ? (state as any)[name].filter((opt: number) => opt !== option)
+        : [...(state as any)[name], option],
+    });
+  };
+
+  const handleSelectChange = (
+    partition: EEntityPartition,
+    name: string,
+    option: number
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: option,
+    });
+  };
+
+  const handleHelperChange = (
+    partition: EEntityPartition,
+    helperName: string,
+    value: boolean
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [helperName]: value,
+    });
+  };
+
+  const handleChange = (
+    partition: EEntityPartition,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    const [key, value] = [e.target.name, e.target.value];
+
+    const validationResult = ((state as unknown) as IInputsState)[
+      key
+    ].validator(value);
+
+    (setState as any)({
+      ...state,
+      [key]: {
+        ...((state as unknown) as IInputsState)[key],
+        value,
+        error: {
+          exist: !validationResult.success,
+          text: validationResult.text,
+        },
+      },
+    });
+  };
+
+  const handlePrevStep = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
   return (
-    <ProjectCreationPresentational
-      mainPartition={mainPartition}
-      expieriencePartition={expieriencePartition}
-      expierienceHelpersPartition={expierienceHelpersPartition}
-      contactsPartition={contactsPartition}
-      membersPartition={membersPartition}
-    />
+    <>
+      <EntityCreationSteps active={currentStep} />
+      <ProjectCreationStepsInterface
+        active={currentStep}
+        mainPartition={mainPartition}
+        mainHelpersPartition={mainHelpersPartition}
+        expieriencePartition={expieriencePartition}
+        expierienceHelpersPartition={expierienceHelpersPartition}
+        contactsPartition={contactsPartition}
+        membersPartition={membersPartition}
+        onChange={handleChange}
+        onHelperChange={handleHelperChange}
+        onSelectChange={handleSelectChange}
+        onMultipleSelectChange={handleMultipleSelectChange}
+        onCheckToggle={handleCheckToggle}
+      />
+      <div className={styles.controls}>
+        <Button className={styles.controls__button} onClick={handleNextStep}>
+          {currentStep + 1 === CURRENT_STEPS_NUMBER ? (
+            <Text isMedium>Сохранить</Text>
+          ) : (
+            <Text isMedium>
+              {currentStep + 1}/{CURRENT_STEPS_NUMBER} Следующий шаг
+            </Text>
+          )}
+        </Button>
+        {!!currentStep && <Action text="Назад" onClick={handlePrevStep} />}
+      </div>
+    </>
   );
 };

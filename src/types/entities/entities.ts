@@ -8,21 +8,26 @@ export interface IExpierienceHelpers {
   resultsOnWebsite: boolean;
 }
 
+export interface IMainHelpers {
+  organisatorOrMember: boolean;
+}
+
 export interface IProjectMainPartition {
+  name: string; //наименование проекта
   purpose: string; //Цель проекта
   tasks: string; //Основные задачи
   period: string; //Период реализации проекта
   technologies: string; //Технологии, формы, методы
   annotation: string; //Аннотация
-  organisatorOrMember: number; //Организатор/участник
+  organisator: string; //Организатор/участник
   realisationForCitizen: number; //Реализация для гражданина
   attractingVolunteer: number; //Привлечение добровольцев и волонтеров
   status: number; //Статус проекта
   category: number; //Категория
-  groups: number; //Целевые группы
+  groups: number[]; //Целевые группы
   kind: number; //Вид услуги
   worksName: number; //Наименование работ
-  partners: number; //Партнеры
+  partners: number[]; //Партнеры
   circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
   socialHelpForm: number; //Форма социального обслуживания (сопровождения)
   rnsuCategory: number; //Категория по РНСУ

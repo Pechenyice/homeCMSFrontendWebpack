@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.half {
+  width: calc(50% - 50px);
+}

@@ -3,20 +3,21 @@ import { IInput, INumberInput } from "types/interfaces";
 export interface IProjectState {
   // main partition
   mainPartition: {
+    name: IInput; //Наименование
     purpose: IInput; //Цель проекта
     tasks: IInput; //Основные задачи
     period: IInput; //Период реализации проекта
     technologies: IInput; //Технологии, формы, методы
     annotation: IInput; //Аннотация
-    organisatorOrMember: number; //Организатор/участник
+    organisatorOrMember: IInput; //Организатор/участник
     realisationForCitizen: number; //Реализация для гражданина
     attractingVolunteer: number; //Привлечение добровольцев и волонтеров
     status: number; //Статус проекта
     category: number; //Категория
-    groups: number; //Целевые группы
+    groups: number[]; //Целевые группы
     kind: number; //Вид услуги
     worksName: number; //Наименование работ
-    partners: number; //Партнеры
+    partners: number[]; //Партнеры
     circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
     socialHelpForm: number; //Форма социального обслуживания (сопровождения)
     rnsuCategory: number; //Категория по РНСУ

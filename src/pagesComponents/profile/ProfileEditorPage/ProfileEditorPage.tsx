@@ -37,34 +37,14 @@ export const ProfileEditorPage = () => {
 
   const {
     apiData: districts,
-    apiError: districtsApiError,
     isLoading: districtsLoading,
     isError: districtsError,
   } = useDistricts();
   const {
     apiData: organizationTypes,
-    apiError: organizationTypesApiError,
     isLoading: organizationTypesLoading,
     isError: organizationTypesError,
   } = useOrganizationTypes();
-
-  const memoizedDistrictsError = useMemo(() => districtsError, [
-    districtsError,
-  ]);
-  const memoizedOrganizationTypesError = useMemo(() => organizationTypesError, [
-    organizationTypesError,
-  ]);
-
-  useEffect(() => {
-    if (memoizedDistrictsError) {
-      addError(districtsApiError ?? 'Не удалось загрузить районы!');
-    }
-    if (memoizedOrganizationTypesError) {
-      addError(
-        organizationTypesApiError ?? 'Не удалось загрузить типы организаций!'
-      );
-    }
-  }, [memoizedDistrictsError, memoizedOrganizationTypesError]);
 
   const [fetchInProgress, setFetchInProgress] = useState(false);
 
