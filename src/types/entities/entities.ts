@@ -19,7 +19,8 @@ export interface IProjectMainPartition {
   period: string; //Период реализации проекта
   technologies: string; //Технологии, формы, методы
   annotation: string; //Аннотация
-  organisator: string; //Организатор/участник
+  isMemberAndNotOrganisator: boolean; //Свитчер для Организатор/участник
+  organisator: string | null; //Организатор/участник
   realisationForCitizen: number; //Реализация для гражданина
   attractingVolunteer: number; //Привлечение добровольцев и волонтеров
   status: number; //Статус проекта
@@ -48,18 +49,25 @@ export interface IProjectMainPartition {
 }
 
 export interface IProjectExpieriencePartition {
+  hasResultsInformationInMassMedia: boolean;
   resultsInformationInMassMedia: string; //Представление информации о результатах в районных, городских СМИ
   resultsInformationInMassMediaLink: string;
+  hasResultsInformationInRadio: boolean;
   resultsInformationInRadio: string; //Представление информации о результатах на радио
   resultsInformationInRadioLink: string;
+  hasResultsInformationInTV: boolean;
   resultsInformationInTV: string; //Представление информации о результатах на телевидении
   resultsInformationInTVLink: string;
+  hasResultsDescriptionInJournal: boolean;
   resultsDescriptionInJournal: string; //Описание результатов в виде статьи, опубликованной в сборнике, журнале
   resultsDescriptionInJournalLink: string;
+  hasResultsInformationInDifferentLevelsEvents: boolean;
   resultsInformationInDifferentLevelsEvents: string; //Представление результатов на мероприятиях различного уровня
   resultsInformationInDifferentLevelsEventsLink: string;
+  hasResultsMasterClasses: boolean;
   resultsMasterClasses: string; //Проведение мастер-классов (семинаров) по результатам
   resultsMasterClassesLink: string;
+  hasResultsOnWebsite: boolean;
   resultsOnWebsite: string; //Проведение информации о результатах на сайте учреждения
   resultsOnWebsiteLink: string;
 }

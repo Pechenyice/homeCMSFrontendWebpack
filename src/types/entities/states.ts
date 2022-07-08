@@ -9,7 +9,8 @@ export interface IProjectState {
     period: IInput; //Период реализации проекта
     technologies: IInput; //Технологии, формы, методы
     annotation: IInput; //Аннотация
-    organisatorOrMember: IInput; //Организатор/участник
+    isMemberAndNotOrganisator: boolean; // свитчер для Организатор/участник
+    organisator: IInput; //Организатор/участник
     realisationForCitizen: number; //Реализация для гражданина
     attractingVolunteer: number; //Привлечение добровольцев и волонтеров
     status: number; //Статус проекта
@@ -39,18 +40,25 @@ export interface IProjectState {
 
   // expierience partition
   expieriencePartition: {
+    hasResultsInformationInMassMedia: boolean;
     resultsInformationInMassMedia: IInput; //Представление информации о результатах в районных, городских СМИ
     resultsInformationInMassMediaLink: IInput;
+    hasResultsInformationInRadio: boolean;
     resultsInformationInRadio: IInput; //Представление информации о результатах на радио
     resultsInformationInRadioLink: IInput;
+    hasResultsInformationInTV: boolean;
     resultsInformationInTV: IInput; //Представление информации о результатах на телевидении
     resultsInformationInTVLink: IInput;
+    hasResultsDescriptionInJournal: boolean;
     resultsDescriptionInJournal: IInput; //Описание результатов в виде статьи, опубликованной в сборнике, журнале
     resultsDescriptionInJournalLink: IInput;
+    hasResultsInformationInDifferentLevelsEvents: boolean;
     resultsInformationInDifferentLevelsEvents: IInput; //Представление результатов на мероприятиях различного уровня
     resultsInformationInDifferentLevelsEventsLink: IInput;
+    hasResultsMasterClasses: boolean;
     resultsMasterClasses: IInput; //Проведение мастер-классов (семинаров) по результатам
     resultsMasterClassesLink: IInput;
+    hasResultsOnWebsite: boolean;
     resultsOnWebsite: IInput; //Проведение информации о результатах на сайте учреждения
     resultsOnWebsiteLink: IInput;
   }

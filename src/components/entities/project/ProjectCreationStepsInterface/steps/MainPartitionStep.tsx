@@ -17,7 +17,6 @@ import styles from './MainPartitionStep.module.scss';
 
 type Props = {
   mainPartition: IProjectState['mainPartition'];
-  mainHelpersPartition: IMainHelpers;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onHelperChange: (helperName: string, value: boolean) => void;
   onSelect: (name: string, option: number) => void;
@@ -27,7 +26,6 @@ type Props = {
 
 export const MainPartitionStep = ({
   mainPartition,
-  mainHelpersPartition,
   onChange,
   onHelperChange,
   onSelect,
@@ -145,7 +143,7 @@ export const MainPartitionStep = ({
       />
       <TextArea
         className={styles.half}
-        name="purpose"
+        name="period"
         value={mainPartition.period.value}
         onChange={onChange}
         error={mainPartition.period.error}
@@ -154,7 +152,7 @@ export const MainPartitionStep = ({
       />
       <TextArea
         className={styles.half}
-        name="tasks"
+        name="technologies"
         value={mainPartition.technologies.value}
         onChange={onChange}
         error={mainPartition.technologies.error}
@@ -173,14 +171,14 @@ export const MainPartitionStep = ({
       <HelperEnableSelect
         className={styles.half}
         heading="Вы участник, а не организатор *"
-        value={mainHelpersPartition.organisatorOrMember}
-        onChangeOption={bindHelperChange('organisatorOrMember')}
+        value={mainPartition.isMemberAndNotOrganisator}
+        onChangeOption={bindHelperChange('isMemberAndNotOrganisator')}
       >
         <Input
-          name="annotation"
-          value={mainPartition.organisatorOrMember.value}
+          name="organisator"
+          value={mainPartition.organisator.value}
           onChange={onChange}
-          error={mainPartition.organisatorOrMember.error}
+          error={mainPartition.organisator.error}
           placeholder="Организатор"
         />
       </HelperEnableSelect>

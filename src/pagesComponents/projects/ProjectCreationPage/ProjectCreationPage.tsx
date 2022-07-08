@@ -1,17 +1,24 @@
 import { EntityCreationSteps } from 'components';
 import { ProjectCreationStepsInterface } from 'components/entities';
 import { Action, Button, Text } from 'components/kit';
-import { ChangeEvent, useState } from 'react';
+import { useErrors } from 'hooks';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { IProjectState } from 'types/entities/states';
 import { EEntityPartition } from 'types/enums';
 import { IInputsState } from 'types/interfaces';
 import { registerInput, registerNumberInput } from 'utils/inputs';
-import { numberInputValidator, textInputValidator } from 'utils/validators';
+import {
+  numberInputValidator,
+  textInputValidator,
+  validateAll,
+} from 'utils/validators';
 import styles from './ProjectCreationPage.module.scss';
 
 const CURRENT_STEPS_NUMBER = 4;
 
 export const ProjectCreationPage = () => {
+  const { addError } = useErrors();
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const [mainPartition, setMainPartition] = useState<
@@ -23,7 +30,8 @@ export const ProjectCreationPage = () => {
     period: registerInput('', textInputValidator),
     technologies: registerInput('', textInputValidator),
     annotation: registerInput('', textInputValidator),
-    organisatorOrMember: registerInput('', textInputValidator),
+    isMemberAndNotOrganisator: false,
+    organisator: registerInput('', textInputValidator),
     realisationForCitizen: -1,
     attractingVolunteer: -1,
     status: -1,
@@ -51,34 +59,22 @@ export const ProjectCreationPage = () => {
     hasExpertMention: false,
   });
 
-  const [mainHelpersPartition, setMainHelpersPartition] = useState({
-    organisatorOrMember: false,
-  });
-
-  const [
-    expierienceHelpersPartition,
-    setExpierienceHelpersPartition,
-  ] = useState({
-    resultsInformationInMassMedia: false,
-    resultsInformationInRadio: false,
-    resultsInformationInTV: false,
-    resultsDescriptionInJournal: false,
-    resultsInformationInDifferentLevelsEvents: false,
-    resultsMasterClasses: false,
-    resultsOnWebsite: false,
-  });
-
   const [expieriencePartition, setExpieriencePartition] = useState<
     IProjectState['expieriencePartition']
   >({
+    hasResultsInformationInMassMedia: false,
     resultsInformationInMassMedia: registerInput('', textInputValidator),
     resultsInformationInMassMediaLink: registerInput('', textInputValidator),
+    hasResultsInformationInRadio: false,
     resultsInformationInRadio: registerInput('', textInputValidator),
     resultsInformationInRadioLink: registerInput('', textInputValidator),
+    hasResultsInformationInTV: false,
     resultsInformationInTV: registerInput('', textInputValidator),
     resultsInformationInTVLink: registerInput('', textInputValidator),
+    hasResultsDescriptionInJournal: false,
     resultsDescriptionInJournal: registerInput('', textInputValidator),
     resultsDescriptionInJournalLink: registerInput('', textInputValidator),
+    hasResultsInformationInDifferentLevelsEvents: false,
     resultsInformationInDifferentLevelsEvents: registerInput(
       '',
       textInputValidator
@@ -87,8 +83,10 @@ export const ProjectCreationPage = () => {
       '',
       textInputValidator
     ),
+    hasResultsMasterClasses: false,
     resultsMasterClasses: registerInput('', textInputValidator),
     resultsMasterClassesLink: registerInput('', textInputValidator),
+    hasResultsOnWebsite: false,
     resultsOnWebsite: registerInput('', textInputValidator),
     resultsOnWebsiteLink: registerInput('', textInputValidator),
   });
@@ -123,12 +121,8 @@ export const ProjectCreationPage = () => {
     switch (partition) {
       case EEntityPartition.MAIN:
         return [mainPartition, setMainPartition];
-      case EEntityPartition.MAIN_HELPER:
-        return [mainHelpersPartition, setMainHelpersPartition];
       case EEntityPartition.EXPIERIENCE:
         return [expieriencePartition, setExpieriencePartition];
-      case EEntityPartition.EXPIERIENCE_HELPER:
-        return [expierienceHelpersPartition, setExpierienceHelpersPartition];
       case EEntityPartition.CONTACTS:
         return [contactsPartition, setContactsPartition];
       case EEntityPartition.MEMBERS:
@@ -216,7 +210,35 @@ export const ProjectCreationPage = () => {
   };
 
   const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
+    const isValidationSuccessful = validatePartition();
+    if (isValidationSuccessful) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      addError(
+        'Проверьте все поля на правильность и заполните все обязательные поля (со знаком *)'
+      );
+    }
+  };
+
+  const validatePartition = () => {
+    switch (currentStep) {
+      case 0: {
+        const needValidation = {
+          name: mainPartition.name,
+        };
+
+        const validationSuccess = validateAll(
+          Object.values(needValidation).map((val) => ({
+            value: val.value,
+            validator: val.validator,
+          }))
+        );
+
+        return validationSuccess;
+      }
+      default:
+        return true;
+    }
   };
 
   return (
@@ -225,9 +247,7 @@ export const ProjectCreationPage = () => {
       <ProjectCreationStepsInterface
         active={currentStep}
         mainPartition={mainPartition}
-        mainHelpersPartition={mainHelpersPartition}
         expieriencePartition={expieriencePartition}
-        expierienceHelpersPartition={expierienceHelpersPartition}
         contactsPartition={contactsPartition}
         membersPartition={membersPartition}
         onChange={handleChange}

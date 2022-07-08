@@ -8,9 +8,7 @@ import { MainPartitionStep } from './steps/MainPartitionStep';
 
 type Props = {
   mainPartition: IProjectState['mainPartition'];
-  mainHelpersPartition: IMainHelpers;
   expieriencePartition: IProjectState['expieriencePartition'];
-  expierienceHelpersPartition: IExpierienceHelpers;
   contactsPartition: IProjectState['contactsPartition'];
   membersPartition: IProjectState['membersPartition'];
   active: number;
@@ -38,7 +36,6 @@ type Props = {
 
 export const ProjectCreationStepsInterface = ({
   mainPartition,
-  mainHelpersPartition,
   active,
   onChange,
   onHelperChange,
@@ -75,9 +72,8 @@ export const ProjectCreationStepsInterface = ({
       {active === 0 && (
         <MainPartitionStep
           mainPartition={mainPartition}
-          mainHelpersPartition={mainHelpersPartition}
           onChange={bindChange(EEntityPartition.MAIN)}
-          onHelperChange={bindHelperChange(EEntityPartition.MAIN_HELPER)}
+          onHelperChange={bindHelperChange(EEntityPartition.MAIN)}
           onSelect={bindSelectChange(EEntityPartition.MAIN)}
           onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
           onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
