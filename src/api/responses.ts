@@ -33,7 +33,11 @@ export interface IProfileUpdateResponse extends IResponseError {
   data: boolean | null;
 }
 
-export interface IQueriesProjectResponse extends IResponseError {
+export interface IProjectCreateResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface IProjectResponse extends IResponseError {
   data: IProjectData | null;
 }
 

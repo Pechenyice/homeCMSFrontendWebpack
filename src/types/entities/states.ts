@@ -1,4 +1,4 @@
-import { IInput, INumberInput } from "types/interfaces";
+import { IInput, INumberInput } from 'types/interfaces';
 
 export interface IProjectState {
   // main partition
@@ -13,7 +13,7 @@ export interface IProjectState {
     organisator: IInput; //Организатор/участник
     realisationForCitizen: number; //Реализация для гражданина
     attractingVolunteer: number; //Привлечение добровольцев и волонтеров
-    status: number; //Статус проекта
+    projectStatus: number; //Статус проекта
     category: number; //Категория
     groups: number[]; //Целевые группы
     kind: number; //Вид услуги
@@ -36,7 +36,7 @@ export interface IProjectState {
     hasExpertOpinion: boolean; //Наличие экспертного заключения
     hasExpertReview: boolean; //Наличие экспертного рецензии
     hasExpertMention: boolean; //Наличие экспертного отзыва
-  }
+  };
 
   // expierience partition
   expieriencePartition: {
@@ -61,20 +61,20 @@ export interface IProjectState {
     hasResultsOnWebsite: boolean;
     resultsOnWebsite: IInput; //Проведение информации о результатах на сайте учреждения
     resultsOnWebsiteLink: IInput;
-  }
+  };
 
   // contacts partition
   contactsPartition: {
     responsible: IInput; //ФИО ответственного лица
     contactNumber: IInput; //Контактный телефон
     email: IInput; //Электронная почта
-  }
+  };
 
   // members partition
   membersPartition: {
     membersInfo: IMembersStateInfo[];
-  }
-} 
+  };
+}
 
 export interface IMembersStateInfo {
   commonMembersCount: INumberInput;

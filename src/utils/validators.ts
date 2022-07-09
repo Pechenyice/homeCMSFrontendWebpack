@@ -74,9 +74,9 @@ export const dateInputValidator = (value?: string): IValidationResult => {
 };
 
 export const numberInputValidator = (
-  value?: number
+  value: number | null | undefined
 ): IValidationResult => {
-  if (value === undefined) {
+  if (value === undefined || value === null) {
     return {
       success: false,
       text: 'Пустое значение',

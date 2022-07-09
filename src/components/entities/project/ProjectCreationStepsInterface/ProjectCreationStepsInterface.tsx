@@ -4,7 +4,10 @@ import { IExpierienceHelpers, IMainHelpers } from 'types/entities/entities';
 import { IProjectState } from 'types/entities/states';
 import { EEntityPartition } from 'types/enums';
 import styles from './ProjectCreationStepsInterface.module.scss';
+import { ContactsPartitionStep } from './steps/ContactsPartitionStep';
+import { ExpieriencePartitionStep } from './steps/ExpieriencePartitionStep';
 import { MainPartitionStep } from './steps/MainPartitionStep';
+import { MembersPartitionStep } from './steps/MembersPartitionStep';
 
 type Props = {
   mainPartition: IProjectState['mainPartition'];
@@ -32,16 +35,29 @@ type Props = {
     option: number
   ) => void;
   onCheckToggle: (partition: EEntityPartition, name: string) => void;
+  onMembersEntryChange: (
+    partition: EEntityPartition,
+    index: number,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onAddMembersEntry: () => void;
+  onRemoveMembersEntry: (index: number) => void;
 };
 
 export const ProjectCreationStepsInterface = ({
   mainPartition,
+  expieriencePartition,
+  contactsPartition,
+  membersPartition,
   active,
   onChange,
   onHelperChange,
   onSelectChange,
   onMultipleSelectChange,
   onCheckToggle,
+  onMembersEntryChange,
+  onAddMembersEntry,
+  onRemoveMembersEntry,
 }: Props) => {
   const bindChange = (partition: EEntityPartition) => {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -67,6 +83,13 @@ export const ProjectCreationStepsInterface = ({
     return (name: string) => onCheckToggle(partition, name);
   };
 
+  const bindMembersEntryChange = (partition: EEntityPartition) => {
+    return (
+      index: number,
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => onMembersEntryChange(partition, index, e);
+  };
+
   return (
     <div className={styles.wrapper}>
       {active === 0 && (
@@ -79,9 +102,43 @@ export const ProjectCreationStepsInterface = ({
           onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
         />
       )}
-      {/* {active === 1 && <Step1 />} */}
-      {/* {active === 2 && <Step1 />} */}
-      {/* {active === 3 && <Step1 />} */}
+      {active === 1 && (
+        <ExpieriencePartitionStep
+          expieriencePartition={expieriencePartition}
+          onChange={bindChange(EEntityPartition.EXPIERIENCE)}
+          onHelperChange={bindHelperChange(EEntityPartition.EXPIERIENCE)}
+          onSelect={bindSelectChange(EEntityPartition.EXPIERIENCE)}
+          onMultipleSelect={bindMultipleSelectChange(
+            EEntityPartition.EXPIERIENCE
+          )}
+          onCheckToggle={bindCheckToggleChange(EEntityPartition.EXPIERIENCE)}
+        />
+      )}
+      {active === 2 && (
+        <ContactsPartitionStep
+          contactsPartition={contactsPartition}
+          onChange={bindChange(EEntityPartition.CONTACTS)}
+          onHelperChange={bindHelperChange(EEntityPartition.CONTACTS)}
+          onSelect={bindSelectChange(EEntityPartition.CONTACTS)}
+          onMultipleSelect={bindMultipleSelectChange(EEntityPartition.CONTACTS)}
+          onCheckToggle={bindCheckToggleChange(EEntityPartition.CONTACTS)}
+        />
+      )}
+      {active === 3 && (
+        <MembersPartitionStep
+          membersPartition={membersPartition}
+          onChange={bindChange(EEntityPartition.MEMBERS)}
+          onHelperChange={bindHelperChange(EEntityPartition.MEMBERS)}
+          onSelect={bindSelectChange(EEntityPartition.MEMBERS)}
+          onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MEMBERS)}
+          onCheckToggle={bindCheckToggleChange(EEntityPartition.MEMBERS)}
+          onMembersEntryChange={bindMembersEntryChange(
+            EEntityPartition.MEMBERS
+          )}
+          onAddMembersEntry={onAddMembersEntry}
+          onRemoveMembersEntry={onRemoveMembersEntry}
+        />
+      )}
     </div>
   );
 };

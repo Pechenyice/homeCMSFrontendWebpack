@@ -13,7 +13,7 @@ import { useDistricts } from 'hooks';
 import { ChangeEvent } from 'react';
 import { IMainHelpers } from 'types/entities/entities';
 import { IProjectState } from 'types/entities/states';
-import styles from './MainPartitionStep.module.scss';
+import styles from './PartitionStep.module.scss';
 
 type Props = {
   mainPartition: IProjectState['mainPartition'];
@@ -236,10 +236,10 @@ export const MainPartitionStep = ({
         ) : (
           <Select
             withUnselect
-            value={mainPartition.status}
+            value={mainPartition.projectStatus}
             options={status!}
             heading="Статус проекта *"
-            onChangeOption={bindSelect('status')}
+            onChangeOption={bindSelect('projectStatus')}
           />
         )}
       </div>

@@ -25,10 +25,10 @@ export const registerDateInput = (
 });
 
 export const registerNumberInput = (
-  value: number,
+  value: number | null | undefined,
   validator: INumberInput['validator']
 ): INumberInput => ({
-  value,
+  value: value ?? undefined,
   validator,
   error: {
     exist: false,

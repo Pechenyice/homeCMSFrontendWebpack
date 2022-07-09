@@ -25,7 +25,7 @@ const API_ROUTES: IAPIRoutesConfig = {
     method: EAPIMethod.PUT,
   },
 
-  PROJECT: {
+  PROJECT_GET: {
     url: `${API_PREFIX}/project`,
     method: EAPIMethod.GET,
   },

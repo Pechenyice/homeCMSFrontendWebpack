@@ -1,3 +1,4 @@
+import { IAPIProject } from 'types/entities/entities';
 import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
@@ -10,6 +11,8 @@ import {
   IProfileUpdateResponse,
   IQueriesDistrictsResponse,
   IQueriesOrganizationTypesResponse,
+  IProjectResponse,
+  IProjectCreateResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -53,15 +56,25 @@ export const API = {
       );
     },
   },
-  queries: {
-    fetchProject(id: string): Promise<IQueriesProjectResponse> {
+  project: {
+    get(id: string): Promise<IProjectResponse> {
       return safeFetch(
-        API_ROUTES.PROJECT.url,
-        API_ROUTES.PROJECT.method,
+        API_ROUTES.PROJECT_GET.url,
+        API_ROUTES.PROJECT_GET.method,
         aborts.PROJECT_GET_CONTROLLER
       );
     },
-
+    create(data: Partial<IAPIProject>): Promise<IProjectCreateResponse> {
+      console.log(data);
+      return safeFetch(
+        API_ROUTES.PROJECT_CREATE.url,
+        API_ROUTES.PROJECT_CREATE.method,
+        aborts.PROJECT_CREATE_CONTROLLER,
+        data
+      );
+    },
+  },
+  queries: {
     fetchDistricts(): Promise<IQueriesDistrictsResponse> {
       return safeFetch(
         API_ROUTES.QUERIES_DISTRICTS.url,

@@ -80,6 +80,7 @@ textarea::placeholder {
   --light-gray: rgba(140, 145, 181, 0.5);
   --gray: #8c91b5;
   --error: #f13f44;
+  --light-error: rgba(241, 63, 68, .5);
   --success: #28bca1;
   --background: #f1f5f9;
 }

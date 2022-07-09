@@ -6,6 +6,7 @@ export const aborts = {
   PROFILE_UPDATE_CONTROLLER: new AbortController(),
 
   PROJECT_GET_CONTROLLER: new AbortController(),
+  PROJECT_CREATE_CONTROLLER: new AbortController(),
 
   QUERIES_DISTRICTS_CONTROLLER: new AbortController(),
   QUERIES_ORGANIZATION_TYPES_CONTROLLER: new AbortController(),
@@ -37,13 +38,18 @@ export function abortUpdateProfile() {
 }
 
 export function abortGetProject() {
-  aborts.PROFILE_UPDATE_CONTROLLER.abort();
-  aborts.PROFILE_UPDATE_CONTROLLER = new AbortController();
+  aborts.PROJECT_GET_CONTROLLER.abort();
+  aborts.PROJECT_GET_CONTROLLER = new AbortController();
+}
+
+export function abortCreateProject() {
+  aborts.PROJECT_CREATE_CONTROLLER.abort();
+  aborts.PROJECT_CREATE_CONTROLLER = new AbortController();
 }
 
 export function abortQueryDistricts() {
-  aborts.PROJECT_GET_CONTROLLER.abort();
-  aborts.PROJECT_GET_CONTROLLER = new AbortController();
+  aborts.QUERIES_DISTRICTS_CONTROLLER.abort();
+  aborts.QUERIES_DISTRICTS_CONTROLLER = new AbortController();
 }
 
 export function abortQueryOrganizationTypes() {

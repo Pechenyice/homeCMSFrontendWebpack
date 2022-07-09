@@ -132,8 +132,8 @@ export interface IDateInput {
 }
 
 export interface INumberInput {
-  value: number;
-  validator: (value: number) => IValidationResult;
+  value: number | null | undefined;
+  validator: (value: number | null | undefined) => IValidationResult;
   error: IInputError;
 }
 
