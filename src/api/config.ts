@@ -26,8 +26,12 @@ const API_ROUTES: IAPIRoutesConfig = {
   },
 
   PROJECT_GET: {
-    url: `${API_PREFIX}/project`,
+    url: `${API_PREFIX}/jobs/projects`,
     method: EAPIMethod.GET,
+  },
+  PROJECT_CREATE: {
+    url: `${API_PREFIX}/jobs/projects`,
+    method: EAPIMethod.POST,
   },
 
   QUERIES_DISTRICTS: {

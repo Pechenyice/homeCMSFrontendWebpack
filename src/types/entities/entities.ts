@@ -112,64 +112,84 @@ export interface IMembersInfo {
 }
 
 export interface IAPIProject {
-  // main partition
-  name: string; //наименование проекта
-  purpose: string | null; //Цель проекта
-  tasks: string | null; //Основные задачи
-  period: string | null; //Период реализации проекта
-  technologies: string | null; //Технологии, формы, методы
-  annotation: string | null; //Аннотация
-  organisator: string | null; //Организатор/участник
-  realisationForCitizen: number; //Реализация для гражданина
-  attractingVolunteer: number; //Привлечение добровольцев и волонтеров
-  projectStatus: number; //Статус проекта
-  category: number; //Категория
-  groups: number[]; //Целевые группы
-  kind: number; //Вид услуги
-  worksName: number; //Наименование работ
-  partners: number[]; //Партнеры
-  circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
-  socialHelpForm: number; //Форма социального обслуживания (сопровождения)
-  rnsuCategory: number; //Категория по РНСУ
-  photo: any; //Фотография
-  basicQualityResults: string | null; //Основные качественные результаты реализации проекта
-  basicAmountResults: string | null; //Основные количественные результаты
-  diagnosticInstruments: string | null; //Диагностический инструментарий оценки результатов
-  briefResourcesDescription: string | null; //Краткое описание необходимого ресурсного обеспечения
-  bestPractiseForLeadership: string | null; //Лучшая практика по мнению руководства организации
-  socialResult: string | null; //Социальный результат
-  video: string | null; //Видеоролик
-  prevalence: string | null; //Распространенность
-  canBeDistant: boolean; //Возможность реализации в дистанционном формате
-  innovationGround: boolean; //Апробация на инновационной площадке
-  hasExpertOpinion: boolean; //Наличие экспертного заключения
-  hasExpertReview: boolean; //Наличие экспертного рецензии
-  hasExpertMention: boolean; //Наличие экспертного отзыва
+  //common info
+  primary_info: {
+    name: string; //наименование проекта
+    purpose: string | null; //Цель проекта
+    objectives: string | null; //Основные задачи
+    annotation: string | null; //Аннотация
+    main_results: /* TODO: переименовать */ string | null; //Основные качественные результаты реализации проекта
+    brief_description_of_resources: string | null; //Краткое описание необходимого ресурсного обеспечения
+    best_practice: string | null; //Лучшая практика по мнению руководства организации
+    social_outcome: string | null; //Социальный результат
+    photo_file_path: string | null; //Фотография
+    video_link: string | null; //Видеоролик
+    implementation_for_citizen_id: number; //Реализация для гражданина
+    category_id: number; //Категория
+    form_of_social_service_id: number; //Форма социального обслуживания (сопровождения)
+    engagement_of_volunteers_id: number; //Привлечение добровольцев и волонтеров
+    target_group_ids: number[]; //Целевые группы
+    is_possibility_in_remote: boolean; //Возможность реализации в дистанционном формате
+    is_innovation_site: boolean; //Апробация на инновационной площадке
+    is_has_expert_opinion: boolean; //Наличие экспертного заключения
+    is_has_expert_review: boolean; //Наличие экспертного рецензии
+    is_has_innovative_platform: /* TODO: переименовать */ boolean; //Наличие экспертного отзыва
+  };
+
+  //info
+  info: {
+    implementation_period: string | null; //Период реализации проекта
+    technologies_forms_methods: string | null; //Технологии, формы, методы
+    main_results: /* TODO: переименовать */ string | null; //Основные количественные результаты
+    diagnostic_toolkit: string | null; //Диагностический инструментарий оценки результатов
+    prevalence: string | null; //Распространенность
+    is_participant: boolean; // true если поле ниже есть, по сути deprecated
+    organizer: string | null; //Организатор/участник
+    status_id: number; //Статус проекта
+    service_type_id: number; //Вид услуги
+    work_name_id: number; //Наименование работ
+    recognition_of_need_id: number; //Обстоятельства признания нуждаемости
+    rnsu_category_id: number; //Категория по РНСУ
+    partner_ids: number[]; //Партнеры
+  };
 
   // expierience partition
-  resultsInformationInMassMedia: IAPIOptionalResult | null;
-  resultsInformationInRadio: IAPIOptionalResult | null;
-  resultsInformationInTV: IAPIOptionalResult | null;
-  resultsDescriptionInJournal: IAPIOptionalResult | null;
-  resultsInformationInDifferentLevelsEvents: IAPIOptionalResult | null;
-  resultsMasterClasses: IAPIOptionalResult | null;
-  resultsOnWebsite: IAPIOptionalResult | null;
+  experience: {
+    results_in_district_and_media: IAPIOptionalResult | null;
+    results_on_radio: IAPIOptionalResult | null;
+    results_on_television: IAPIOptionalResult | null;
+    results_in_article: IAPIOptionalResult | null;
+    results_at_various_levels_events: IAPIOptionalResult | null;
+    conducting_master_classes: IAPIOptionalResult | null;
+    results_on_website_of_institution: IAPIOptionalResult | null;
+  };
 
   // contacts partition
-  responsible: string | null; //ФИО ответственного лица
-  contactNumber: string | null; //Контактный телефон
-  email: string | null; //Электронная почта
+  contacts: {
+    responsible_name: string | null; //ФИО ответственного лица
+    phone: string | null; //Контактный телефон
+    email: string | null; //Электронная почта
+  };
 
   // members partition
-  membersInfo: IMembersInfo[];
+  participants: IAPIMembersInfo[];
 
-  //additional
+  // additional
   status: string;
   rejected_status_description: string | null;
-  isBest: boolean;
+  is_best: boolean;
 }
 
-interface IAPIOptionalResult {
-  description: string | null;
+export interface IAPIMembersInfo {
+  total_number_of_participants: number;
+  number_of_families: number;
+  number_of_children: number;
+  number_of_men: number;
+  number_of_women: number;
+  reporting_period_year: number;
+}
+
+export interface IAPIOptionalResult {
+  desc: string | null;
   link: string | null;
 }
