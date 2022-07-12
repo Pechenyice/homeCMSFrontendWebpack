@@ -14,6 +14,11 @@ export interface IMainHelpers {
   organisatorOrMember: boolean;
 }
 
+export interface IFileInput {
+  path: string | null;
+  name: string | null;
+}
+
 export interface IProjectMainPartition {
   name: string; //наименование проекта
   purpose: string; //Цель проекта
@@ -34,7 +39,7 @@ export interface IProjectMainPartition {
   circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
   socialHelpForm: number; //Форма социального обслуживания (сопровождения)
   rnsuCategory: number; //Категория по РНСУ
-  photo: any; //Фотография
+  photo: IFileInput; //Фотография
   basicQualityResults: string; //Основные качественные результаты реализации проекта
   basicAmountResults: string; //Основные количественные результаты
   diagnosticInstruments: string; //Диагностический инструментарий оценки результатов
@@ -118,7 +123,7 @@ export interface IAPIProject {
     purpose: string | null; //Цель проекта
     objectives: string | null; //Основные задачи
     annotation: string | null; //Аннотация
-    main_results: /* TODO: переименовать */ string | null; //Основные качественные результаты реализации проекта
+    main_qualitative_results: string | null; //Основные качественные результаты реализации проекта
     brief_description_of_resources: string | null; //Краткое описание необходимого ресурсного обеспечения
     best_practice: string | null; //Лучшая практика по мнению руководства организации
     social_outcome: string | null; //Социальный результат
@@ -133,14 +138,14 @@ export interface IAPIProject {
     is_innovation_site: boolean; //Апробация на инновационной площадке
     is_has_expert_opinion: boolean; //Наличие экспертного заключения
     is_has_expert_review: boolean; //Наличие экспертного рецензии
-    is_has_innovative_platform: /* TODO: переименовать */ boolean; //Наличие экспертного отзыва
+    is_has_expert_feedback: boolean; //Наличие экспертного отзыва
   };
 
   //info
   info: {
     implementation_period: string | null; //Период реализации проекта
     technologies_forms_methods: string | null; //Технологии, формы, методы
-    main_results: /* TODO: переименовать */ string | null; //Основные количественные результаты
+    main_quantitative_results: string | null; //Основные количественные результаты
     diagnostic_toolkit: string | null; //Диагностический инструментарий оценки результатов
     prevalence: string | null; //Распространенность
     is_participant: boolean; // true если поле ниже есть, по сути deprecated

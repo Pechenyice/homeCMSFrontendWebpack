@@ -13,6 +13,7 @@ import {
   IQueriesOrganizationTypesResponse,
   IProjectResponse,
   IProjectCreateResponse,
+  IFileUploadedResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -65,12 +66,22 @@ export const API = {
       );
     },
     create(data: Partial<IAPIProject>): Promise<IProjectCreateResponse> {
-      console.log(data);
       return safeFetch(
         API_ROUTES.PROJECT_CREATE.url,
         API_ROUTES.PROJECT_CREATE.method,
         aborts.PROJECT_CREATE_CONTROLLER,
         data
+      );
+    },
+  },
+  file: {
+    upload(data: FormData): Promise<IFileUploadedResponse> {
+      return safeFetch(
+        API_ROUTES.FILE_UPLOAD.url,
+        API_ROUTES.FILE_UPLOAD.method,
+        aborts.FILE_UPLOAD_CONTROLLER,
+        data,
+        'multipart/form-data'
       );
     },
   },

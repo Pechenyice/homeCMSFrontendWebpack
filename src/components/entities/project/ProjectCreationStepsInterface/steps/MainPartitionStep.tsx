@@ -4,6 +4,7 @@ import {
   HelperEnableSelect,
   Input,
   MultipleSelect,
+  PhotoInput,
   Select,
   Skeleton,
   Text,
@@ -22,6 +23,11 @@ type Props = {
   onSelect: (name: string, option: number) => void;
   onMultipleSelect: (name: string, option: number) => void;
   onCheckToggle: (name: string) => void;
+  onPhotoChange: (
+    name: string,
+    photoPath: string | null,
+    photoName: string | null
+  ) => void;
 };
 
 export const MainPartitionStep = ({
@@ -31,6 +37,7 @@ export const MainPartitionStep = ({
   onSelect,
   onMultipleSelect,
   onCheckToggle,
+  onPhotoChange,
 }: Props) => {
   //TODO: replace with right hooks
   const {
@@ -111,6 +118,13 @@ export const MainPartitionStep = ({
 
   const bindCheckToggle = (name: string) => () => {
     onCheckToggle(name);
+  };
+
+  const bindPhotoChange = (name: string) => (
+    photoPath: string | null,
+    photoName: string | null
+  ) => {
+    onPhotoChange(name, photoPath, photoName);
   };
 
   return (
@@ -403,7 +417,14 @@ export const MainPartitionStep = ({
       </div>
       <div className={styles.half}>
         {
-          //TODO: photo
+          <PhotoInput
+            name="photo"
+            category="job_project_photo"
+            photoPath={mainPartition.photo.path}
+            photoName={mainPartition.photo.name}
+            onPhotoChange={bindPhotoChange('photo')}
+            heading="Фотография *"
+          />
         }
       </div>
       <TextArea

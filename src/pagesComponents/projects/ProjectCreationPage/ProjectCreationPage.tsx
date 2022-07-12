@@ -57,7 +57,10 @@ export const ProjectCreationPage = () => {
     circumstancesRecognitionNeed: -1,
     socialHelpForm: -1,
     rnsuCategory: -1,
-    photo: undefined,
+    photo: {
+      path: null,
+      name: null,
+    },
     basicQualityResults: registerInput('', textInputValidator),
     basicAmountResults: registerInput('', textInputValidator),
     diagnosticInstruments: registerInput('', textInputValidator),
@@ -252,6 +255,27 @@ export const ProjectCreationPage = () => {
     });
   };
 
+  const handlePhotoChange = (
+    partition: EEntityPartition,
+    name: string,
+    photoPath: string | null,
+    photoName: string | null
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: {
+        path: photoPath,
+        name: photoName,
+      },
+    });
+  };
+
+  useEffect(() => {
+    console.log(!!mainPartition.photo.name && !!mainPartition.photo.path);
+  }, [mainPartition]);
+
   const handleAddMembersEntry = () => {
     setMembersPartition({
       ...membersPartition,
@@ -383,7 +407,15 @@ export const ProjectCreationPage = () => {
         const multipleSelectSuccess =
           mainPartition.groups.length && mainPartition.partners.length;
 
-        return validationSuccess && selectSuccess && multipleSelectSuccess;
+        const photoSuccess =
+          !!mainPartition.photo.name && !!mainPartition.photo.path;
+
+        return (
+          validationSuccess &&
+          selectSuccess &&
+          multipleSelectSuccess &&
+          photoSuccess
+        );
       }
       case 1: {
         const needValidation = {
@@ -658,6 +690,7 @@ export const ProjectCreationPage = () => {
         onMembersEntryChange={handleMembersEntryChange}
         onAddMembersEntry={handleAddMembersEntry}
         onRemoveMembersEntry={handleRemoveMembersEntry}
+        onPhotoChange={handlePhotoChange}
       />
       <div className={styles.controls}>
         <Button

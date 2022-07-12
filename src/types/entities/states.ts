@@ -1,4 +1,5 @@
 import { IInput, INumberInput } from 'types/interfaces';
+import { IFileInput } from './entities';
 
 export interface IProjectState {
   // main partition
@@ -22,7 +23,7 @@ export interface IProjectState {
     circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
     socialHelpForm: number; //Форма социального обслуживания (сопровождения)
     rnsuCategory: number; //Категория по РНСУ
-    photo: any; //Фотография
+    photo: IFileInput; //Фотография
     basicQualityResults: IInput; //Основные качественные результаты реализации проекта
     basicAmountResults: IInput; //Основные количественные результаты
     diagnosticInstruments: IInput; //Диагностический инструментарий оценки результатов

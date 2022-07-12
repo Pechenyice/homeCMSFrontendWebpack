@@ -8,6 +8,8 @@ export const aborts = {
   PROJECT_GET_CONTROLLER: new AbortController(),
   PROJECT_CREATE_CONTROLLER: new AbortController(),
 
+  FILE_UPLOAD_CONTROLLER: new AbortController(),
+
   QUERIES_DISTRICTS_CONTROLLER: new AbortController(),
   QUERIES_ORGANIZATION_TYPES_CONTROLLER: new AbortController(),
 };
@@ -45,6 +47,11 @@ export function abortGetProject() {
 export function abortCreateProject() {
   aborts.PROJECT_CREATE_CONTROLLER.abort();
   aborts.PROJECT_CREATE_CONTROLLER = new AbortController();
+}
+
+export function abortFileUpload() {
+  aborts.FILE_UPLOAD_CONTROLLER.abort();
+  aborts.FILE_UPLOAD_CONTROLLER = new AbortController();
 }
 
 export function abortQueryDistricts() {

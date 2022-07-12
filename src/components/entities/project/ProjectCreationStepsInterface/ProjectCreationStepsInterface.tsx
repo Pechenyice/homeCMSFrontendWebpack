@@ -42,6 +42,12 @@ type Props = {
   ) => void;
   onAddMembersEntry: () => void;
   onRemoveMembersEntry: (index: number) => void;
+  onPhotoChange: (
+    partition: EEntityPartition,
+    name: string,
+    photoPath: string | null,
+    photoName: string | null
+  ) => void;
 };
 
 export const ProjectCreationStepsInterface = ({
@@ -58,6 +64,7 @@ export const ProjectCreationStepsInterface = ({
   onMembersEntryChange,
   onAddMembersEntry,
   onRemoveMembersEntry,
+  onPhotoChange,
 }: Props) => {
   const bindChange = (partition: EEntityPartition) => {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -90,6 +97,16 @@ export const ProjectCreationStepsInterface = ({
     ) => onMembersEntryChange(partition, index, e);
   };
 
+  const bindPhotoChange = (partition: EEntityPartition) => {
+    return (
+      name: string,
+      photoPath: string | null,
+      photoName: string | null
+    ) => {
+      onPhotoChange(partition, name, photoPath, photoName);
+    };
+  };
+
   return (
     <div className={styles.wrapper}>
       {active === 0 && (
@@ -100,6 +117,7 @@ export const ProjectCreationStepsInterface = ({
           onSelect={bindSelectChange(EEntityPartition.MAIN)}
           onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
           onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
+          onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
         />
       )}
       {active === 1 && (

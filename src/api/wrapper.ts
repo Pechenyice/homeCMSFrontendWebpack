@@ -15,24 +15,33 @@ async function checkResponse(response: any) {
   throw new ApiError((await response.json()).error);
 }
 
+/* Maybe TODO: refactor to safeFetch и safeUpload */
 export function safeFetch(
   url: string,
   method: string,
   controller: AbortController,
-  body: any = {}
+  body: any = {},
+  contentType: string = 'application/json'
 ) {
   const options: any = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-    },
+    headers:
+      contentType === 'multipart/form-data'
+        ? { Authorization: `Bearer ${localStorage.getItem('token') || ''}` }
+        : {
+            'Content-Type': contentType,
+            Accept: 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+          },
     signal: controller.signal,
   };
 
-  if (method === 'POST') options.body = JSON.stringify(body);
-  if (method === 'PUT') options.body = JSON.stringify(body);
+  if (method === 'POST')
+    options.body =
+      contentType === 'multipart/form-data' ? body : JSON.stringify(body);
+  if (method === 'PUT')
+    options.body =
+      contentType === 'multipart/form-data' ? body : JSON.stringify(body);
 
   return fetch(url, options).then(checkResponse);
 }

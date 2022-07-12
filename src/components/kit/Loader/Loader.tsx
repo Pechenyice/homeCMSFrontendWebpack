@@ -17,7 +17,11 @@ export const Loader = (props: Props & HTMLAttributes<HTMLDivElement>) => {
 
   return (
     <div className={combineClasses(styles.styled, className ?? '')} {...rest}>
-      {palette === ELoaderPalette.LIGHT ? <LoaderLightIcon /> : <LoaderDarkIcon />}
+      {palette === ELoaderPalette.LIGHT ? (
+        <LoaderLightIcon />
+      ) : (
+        <LoaderDarkIcon />
+      )}
     </div>
   );
 };

@@ -34,6 +34,11 @@ const API_ROUTES: IAPIRoutesConfig = {
     method: EAPIMethod.POST,
   },
 
+  FILE_UPLOAD: {
+    url: `${API_PREFIX}/files`,
+    method: EAPIMethod.POST,
+  },
+
   QUERIES_DISTRICTS: {
     url: `${API_PREFIX}/dictionary-categories/district/dictionaries`,
     method: EAPIMethod.GET,

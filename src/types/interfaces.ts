@@ -156,3 +156,8 @@ export interface IBreadcrumbsPath {
   link?: string;
   alias: string;
 }
+
+export interface IFileInfo {
+  path: string;
+  name: string;
+}
