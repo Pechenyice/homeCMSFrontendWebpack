@@ -46,10 +46,6 @@ export interface IFileUploadedResponse extends IResponseError {
   data: IFileInfo | null;
 }
 
-export interface IQueriesDistrictsResponse extends IResponseError {
-  data: ISelectValue[] | null;
-}
-
-export interface IQueriesOrganizationTypesResponse extends IResponseError {
+export interface IQueriesResponse extends IResponseError {
   data: ISelectValue[] | null;
 }

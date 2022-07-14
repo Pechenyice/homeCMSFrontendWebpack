@@ -11,10 +11,20 @@ import {
   TextArea,
 } from 'components/kit';
 import { useDistricts } from 'hooks';
+import { useAttractingVolunteer } from 'hooks/queries/useAttractingVolunteer';
+import { useCategories } from 'hooks/queries/useCategories';
+import { useCircumstancesRecognitionNeed } from 'hooks/queries/useCircumstancesRecognitionNeed';
+import { useRealisationForCitizen } from 'hooks/queries/useRealisationForCitizen';
+import { useRNSUCategories } from 'hooks/queries/useRNSUCategories';
+import { useWorksNames } from 'hooks/queries/useWorksNames';
+import { useTargetGroups } from 'hooks/queries/useTargetGroups';
 import { ChangeEvent } from 'react';
 import { IMainHelpers } from 'types/entities/entities';
 import { IProjectState } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
+import { useStatuses } from 'hooks/queries/useStatuses';
+import { useSocialHelpForms } from 'hooks/queries/useSocialHelpForms';
+import { useKinds } from 'hooks/queries/useKinds';
 
 type Props = {
   mainPartition: IProjectState['mainPartition'];
@@ -39,45 +49,45 @@ export const MainPartitionStep = ({
   onCheckToggle,
   onPhotoChange,
 }: Props) => {
-  //TODO: replace with right hooks
+  //TODO: replace useDistricts with right hooks
   const {
     apiData: realisationForCitizen,
     isLoading: realisationForCitizenLoading,
     isError: realisationForCitizenError,
-  } = useDistricts();
+  } = useRealisationForCitizen();
   const {
     apiData: attractingVolunteer,
     isLoading: attractingVolunteerLoading,
     isError: attractingVolunteerError,
-  } = useDistricts();
+  } = useAttractingVolunteer();
 
   const {
     apiData: status,
     isLoading: statusLoading,
     isError: statusError,
-  } = useDistricts();
+  } = useStatuses();
   const {
     apiData: category,
     isLoading: categoryLoading,
     isError: categoryError,
-  } = useDistricts();
+  } = useCategories();
 
   const {
     apiData: groups,
     isLoading: groupsLoading,
     isError: groupsError,
-  } = useDistricts();
+  } = useTargetGroups();
   const {
     apiData: kind,
     isLoading: kindLoading,
     isError: kindError,
-  } = useDistricts();
+  } = useKinds();
 
   const {
     apiData: worksName,
     isLoading: worksNameLoading,
     isError: worksNameError,
-  } = useDistricts();
+  } = useWorksNames();
   const {
     apiData: partners,
     isLoading: partnersLoading,
@@ -88,18 +98,18 @@ export const MainPartitionStep = ({
     apiData: circumstancesRecognitionNeed,
     isLoading: circumstancesRecognitionNeedLoading,
     isError: circumstancesRecognitionNeedError,
-  } = useDistricts();
+  } = useCircumstancesRecognitionNeed();
   const {
     apiData: socialHelpForm,
     isLoading: socialHelpFormLoading,
     isError: socialHelpFormError,
-  } = useDistricts();
+  } = useSocialHelpForms();
 
   const {
     apiData: rnsuCategory,
     isLoading: rnsuCategoryLoading,
     isError: rnsuCategoryError,
-  } = useDistricts();
+  } = useRNSUCategories();
 
   /**
    * binders

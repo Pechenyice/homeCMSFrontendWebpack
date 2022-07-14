@@ -47,6 +47,46 @@ const API_ROUTES: IAPIRoutesConfig = {
     url: `${API_PREFIX}/dictionary-categories/organization-type/dictionaries`,
     method: EAPIMethod.GET,
   },
+  QUERIES_REALISATION_FOR_CITIZEN: {
+    url: `${API_PREFIX}/dictionary-categories/implementation-for-citizen/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_ATTRACTING_VOLUNTEER: {
+    url: `${API_PREFIX}/dictionary-categories/engagement-of-volunteers/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_CATEGORIES: {
+    url: `${API_PREFIX}/dictionary-categories/category/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_RNSU_CATEGORIES: {
+    url: `${API_PREFIX}/dictionary-categories/rnsu-category/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_CIRCUMSTANCES_RECOGNITION_NEED: {
+    url: `${API_PREFIX}/dictionary-categories/circumstances-of-recognition-of-need/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_WORKS_NAMES: {
+    url: `${API_PREFIX}/dictionary-categories/work-name/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_TARGET_GROUPS: {
+    url: `${API_PREFIX}/dictionary-categories/target-group/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_STATUSES: {
+    url: `${API_PREFIX}/dictionary-categories/job-status/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_SOCIAL_HELP_FORMS: {
+    url: `${API_PREFIX}/dictionary-categories/form-of-social-service/dictionaries`,
+    method: EAPIMethod.GET,
+  },
+  QUERIES_KINDS: {
+    url: `${API_PREFIX}/dictionary-categories/service-type/dictionaries`,
+    method: EAPIMethod.GET,
+  },
 };
 
 export default API_ROUTES;
