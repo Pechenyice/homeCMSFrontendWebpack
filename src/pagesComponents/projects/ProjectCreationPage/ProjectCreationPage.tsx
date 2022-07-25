@@ -7,9 +7,10 @@ import { useAuth, useErrors, useInfos } from 'hooks';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IProjectData } from 'types/entities/entities';
-import { IProjectState } from 'types/entities/states';
+import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import { EEntityPartition, EProposalStatus } from 'types/enums';
 import { IInputsState } from 'types/interfaces';
+import { isValueProvided } from 'utils/common';
 import { mapProjectToAPI } from 'utils/entities/project';
 import { registerInput, registerNumberInput } from 'utils/inputs';
 import {
@@ -35,76 +36,77 @@ export const ProjectCreationPage = () => {
 
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [mainPartition, setMainPartition] = useState<
-    IProjectState['mainPartition']
-  >({
-    name: registerInput('', textInputValidator),
-    purpose: registerInput('', textInputValidator),
-    tasks: registerInput('', textInputValidator),
-    period: registerInput('', textInputValidator),
-    technologies: registerInput('', textInputValidator),
-    annotation: registerInput('', textInputValidator),
-    isMemberAndNotOrganisator: false,
-    organisator: registerInput('', textInputValidator),
-    realisationForCitizen: -1,
-    attractingVolunteer: -1,
-    projectStatus: -1,
-    category: -1,
-    groups: [],
-    kind: -1,
-    worksName: -1,
-    partners: [],
-    circumstancesRecognitionNeed: -1,
-    socialHelpForm: -1,
-    rnsuCategory: -1,
-    photo: {
-      path: null,
-      name: null,
-    },
-    basicQualityResults: registerInput('', textInputValidator),
-    basicAmountResults: registerInput('', textInputValidator),
-    diagnosticInstruments: registerInput('', textInputValidator),
-    briefResourcesDescription: registerInput('', textInputValidator),
-    bestPractiseForLeadership: registerInput('', textInputValidator),
-    socialResult: registerInput('', textInputValidator),
-    video: registerInput('', textInputValidator),
-    prevalence: registerInput('', textInputValidator),
-    canBeDistant: false,
+  const [switchers, setSwitchers] = useState<IProjectSwitchers>({
+    hasResultsDescriptionInJournal: false,
+    hasResultsInformationInMassMedia: false,
+    hasResultsInformationInDifferentLevelsEvents: false,
+    hasResultsMasterClasses: false,
+    hasResultsOnWebsite: false,
+    organisator: false,
+    partnership: false,
     innovationGround: false,
     hasExpertOpinion: false,
     hasExpertReview: false,
     hasExpertMention: false,
   });
 
+  const [mainPartition, setMainPartition] = useState<
+    IProjectState['mainPartition']
+  >({
+    name: registerInput('', textInputValidator), //Наименование
+    bestPracticeForLeadership: false, //Лучшая практика по мнению руководства организации
+    annotation: registerInput('', textInputValidator), //Аннотация
+    purpose: registerInput('', textInputValidator), //Цель проекта
+    tasks: registerInput('', textInputValidator), //Основные задачи
+    organisator: registerInput('', textInputValidator), //Организатор/участник
+    period: registerInput('', textInputValidator), //Период реализации проекта
+    realisationForCitizen: -1, //Реализация для гражданина
+    canBeDistant: false, //Возможность реализации в дистанционном формате
+    organizationLevel: -1, //Уровень реализации проекта
+    partnership: registerInput('', textInputValidator),
+    attractingVolunteer: -1, //Привлечение добровольцев и волонтеров
+    rnsuCategories: [], //Категории по РНСУ
+    categories: [], //Категории
+    groups: [], //Целевые группы
+    worksKinds: [], //Вид услуги
+    worksNames: [], //Наименования услуг
+    gosWorkNames: [], //Наименование государственной работы
+    circumstancesRecognitionNeed: [], //Обстоятельства признания нуждаемости
+    socialHelpForm: [], //Форма социального обслуживания (сопровождения)
+    basicQualityResults: registerInput('', textInputValidator), //Основные качественные результаты
+    socialResults: registerInput('', textInputValidator), //Социальный результаты
+    replicability: registerInput('', textInputValidator), //Тиражируемость
+    innovationGround: registerInput('', textInputValidator), //Апробация на инновационной площадке
+    hasExpertOpinion: registerInput('', textInputValidator), //Наличие экспертного заключения
+    hasExpertReview: registerInput('', textInputValidator), //Наличие экспертного рецензии
+    hasExpertMention: registerInput('', textInputValidator), //Наличие экспертного отзыва
+    photo: {
+      path: null,
+      name: null,
+    }, //Фотография
+    gallery: [], //Галерея
+    video: registerInput('', textInputValidator), //Видеоролик
+    resourcesDescription: registerInput('', textInputValidator), //Краткое описание необходимого ресурсного обеспечения
+  });
+
   const [expieriencePartition, setExpieriencePartition] = useState<
     IProjectState['expieriencePartition']
   >({
-    hasResultsInformationInMassMedia: false,
-    resultsInformationInMassMedia: registerInput('', textInputValidator),
-    resultsInformationInMassMediaLink: registerInput('', textInputValidator),
-    hasResultsInformationInRadio: false,
-    resultsInformationInRadio: registerInput('', textInputValidator),
-    resultsInformationInRadioLink: registerInput('', textInputValidator),
-    hasResultsInformationInTV: false,
-    resultsInformationInTV: registerInput('', textInputValidator),
-    resultsInformationInTVLink: registerInput('', textInputValidator),
-    hasResultsDescriptionInJournal: false,
-    resultsDescriptionInJournal: registerInput('', textInputValidator),
+    resultsDescriptionInJournal: registerInput('', textInputValidator), //Описание результатов в виде статьи, опубликованной в сборнике, журнале
     resultsDescriptionInJournalLink: registerInput('', textInputValidator),
-    hasResultsInformationInDifferentLevelsEvents: false,
+    resultsInformationInMassMedia: registerInput('', textInputValidator), //Представление информации о результатах в СМИ
+    resultsInformationInMassMediaLink: registerInput('', textInputValidator),
     resultsInformationInDifferentLevelsEvents: registerInput(
       '',
       textInputValidator
-    ),
+    ), //Представление результатов на мероприятиях различного уровня
     resultsInformationInDifferentLevelsEventsLink: registerInput(
       '',
       textInputValidator
     ),
-    hasResultsMasterClasses: false,
-    resultsMasterClasses: registerInput('', textInputValidator),
+    resultsMasterClasses: registerInput('', textInputValidator), //Проведение мастер-классов (семинаров) по результатам
     resultsMasterClassesLink: registerInput('', textInputValidator),
-    hasResultsOnWebsite: false,
-    resultsOnWebsite: registerInput('', textInputValidator),
+    resultsOnWebsite: registerInput('', textInputValidator), //Проведение информации о результатах на сайте учреждения
     resultsOnWebsiteLink: registerInput('', textInputValidator),
   });
 
@@ -272,10 +274,6 @@ export const ProjectCreationPage = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(!!mainPartition.photo.name && !!mainPartition.photo.path);
-  }, [mainPartition]);
-
   const handleAddMembersEntry = () => {
     setMembersPartition({
       ...membersPartition,
@@ -315,13 +313,7 @@ export const ProjectCreationPage = () => {
 
   const handleNextStep = () => {
     const isValidationSuccessful = validatePartition();
-    if (isValidationSuccessful) {
-      if (currentStep !== 3) {
-        setCurrentStep(currentStep + 1);
-      } else {
-        handleSave();
-      }
-    } else {
+    if (!isValidationSuccessful) {
       if (currentStep !== 3) {
         addError(
           'Проверьте все поля на правильность и заполните все обязательные поля (со знаком *)'
@@ -331,6 +323,13 @@ export const ProjectCreationPage = () => {
           'Проверьте все поля на правильность и заполните все поля в отчетном периоде'
         );
       }
+      return;
+    }
+
+    if (currentStep !== 3) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      handleSave();
     }
   };
 
@@ -340,48 +339,35 @@ export const ProjectCreationPage = () => {
         const needValidation = {
           //required
           name: mainPartition.name,
+          annotation: mainPartition.annotation,
+          purpose: mainPartition.purpose,
+          tasks: mainPartition.tasks,
+          period: mainPartition.period,
+          basicQualityResults: mainPartition.basicQualityResults,
+          socialResults: mainPartition.socialResults,
+          resourcesDescription: mainPartition.resourcesDescription,
+
+          //required on switch checked
+          organisator: switchers.organisator ? mainPartition.organisator : null,
+          partnership: switchers.partnership ? mainPartition.partnership : null,
+          innovationGround: switchers.innovationGround
+            ? mainPartition.innovationGround
+            : null,
+          hasExpertOpinion: switchers.hasExpertOpinion
+            ? mainPartition.hasExpertOpinion
+            : null,
+          hasExpertReview: switchers.hasExpertReview
+            ? mainPartition.hasExpertReview
+            : null,
+          hasExpertMention: switchers.hasExpertMention
+            ? mainPartition.hasExpertMention
+            : null,
+
           //not required
-          purpose: mainPartition.purpose.value.length
-            ? mainPartition.purpose
-            : null,
-          tasks: mainPartition.tasks.value.length ? mainPartition.tasks : null,
-          period: mainPartition.period.value.length
-            ? mainPartition.period
-            : null,
-          technologies: mainPartition.technologies.value.length
-            ? mainPartition.technologies
-            : null,
-          annotation: mainPartition.annotation.value.length
-            ? mainPartition.annotation
-            : null,
-          organisator: mainPartition.organisator.value.length
-            ? mainPartition.organisator
-            : null,
-          basicQualityResults: mainPartition.basicQualityResults.value.length
-            ? mainPartition.basicQualityResults
-            : null,
-          basicAmountResults: mainPartition.basicAmountResults.value.length
-            ? mainPartition.basicAmountResults
-            : null,
-          diagnosticInstruments: mainPartition.diagnosticInstruments.value
-            .length
-            ? mainPartition.diagnosticInstruments
-            : null,
-          briefResourcesDescription: mainPartition.briefResourcesDescription
-            .value.length
-            ? mainPartition.briefResourcesDescription
-            : null,
-          bestPractiseForLeadership: mainPartition.bestPractiseForLeadership
-            .value.length
-            ? mainPartition.bestPractiseForLeadership
-            : null,
-          socialResult: mainPartition.socialResult.value.length
-            ? mainPartition.socialResult
+          replicability: mainPartition.replicability.value.length
+            ? mainPartition.replicability
             : null,
           video: mainPartition.video.value.length ? mainPartition.video : null,
-          prevalence: mainPartition.prevalence.value.length
-            ? mainPartition.prevalence
-            : null,
         };
 
         const validationSuccess = validateAll(
@@ -395,85 +381,71 @@ export const ProjectCreationPage = () => {
 
         const selectSuccess =
           mainPartition.realisationForCitizen !== -1 &&
-          mainPartition.attractingVolunteer !== -1 &&
-          mainPartition.projectStatus !== -1 &&
-          mainPartition.category !== -1 &&
-          mainPartition.kind !== -1 &&
-          mainPartition.worksName !== -1 &&
-          mainPartition.circumstancesRecognitionNeed !== -1 &&
-          mainPartition.socialHelpForm !== -1 &&
-          mainPartition.rnsuCategory !== -1;
+          mainPartition.organizationLevel !== -1 &&
+          mainPartition.attractingVolunteer !== -1;
 
         const multipleSelectSuccess =
-          mainPartition.groups.length && mainPartition.partners.length;
+          mainPartition.rnsuCategories.length &&
+          mainPartition.categories.length &&
+          mainPartition.groups.length &&
+          mainPartition.circumstancesRecognitionNeed.length &&
+          mainPartition.socialHelpForm.length;
 
-        const photoSuccess =
-          !!mainPartition.photo.name && !!mainPartition.photo.path;
+        // if work kind is selected, work name must be selected too
+        const optionalMultipleSelectSuccess = mainPartition.worksKinds.length
+          ? mainPartition.worksNames.length
+          : false;
 
         return (
           validationSuccess &&
           selectSuccess &&
           multipleSelectSuccess &&
-          photoSuccess
+          optionalMultipleSelectSuccess
         );
       }
       case 1: {
         const needValidation = {
-          resultsInformationInMassMedia: expieriencePartition
-            .resultsInformationInMassMedia.value.length
-            ? expieriencePartition.resultsInformationInMassMedia
-            : null,
-          resultsInformationInMassMediaLink: expieriencePartition
-            .resultsInformationInMassMediaLink.value.length
-            ? expieriencePartition.resultsInformationInMassMediaLink
-            : null,
-          resultsInformationInRadio: expieriencePartition
-            .resultsInformationInRadio.value.length
-            ? expieriencePartition.resultsInformationInRadio
-            : null,
-          resultsInformationInRadioLink: expieriencePartition
-            .resultsInformationInRadioLink.value.length
-            ? expieriencePartition.resultsInformationInRadioLink
-            : null,
-          resultsInformationInTV: expieriencePartition.resultsInformationInTV
-            .value.length
-            ? expieriencePartition.resultsInformationInTV
-            : null,
-          resultsInformationInTVLink: expieriencePartition
-            .resultsInformationInTVLink.value.length
-            ? expieriencePartition.resultsInformationInTVLink
-            : null,
-          resultsDescriptionInJournal: expieriencePartition
-            .resultsDescriptionInJournal.value.length
+          resultsDescriptionInJournal: switchers.hasResultsDescriptionInJournal
             ? expieriencePartition.resultsDescriptionInJournal
             : null,
-          resultsDescriptionInJournalLink: expieriencePartition
-            .resultsDescriptionInJournalLink.value.length
-            ? expieriencePartition.resultsDescriptionInJournalLink
+          resultsDescriptionInJournalLink:
+            switchers.hasResultsDescriptionInJournal &&
+            expieriencePartition.resultsDescriptionInJournalLink.value.length
+              ? expieriencePartition.resultsDescriptionInJournal
+              : null,
+          resultsInformationInMassMedia: switchers.hasResultsInformationInMassMedia
+            ? expieriencePartition.resultsInformationInMassMedia
             : null,
-          resultsInformationInDifferentLevelsEvents: expieriencePartition
-            .resultsInformationInDifferentLevelsEvents.value.length
+          resultsInformationInMassMediaLink:
+            switchers.hasResultsInformationInMassMedia &&
+            expieriencePartition.resultsInformationInMassMediaLink.value.length
+              ? expieriencePartition.resultsInformationInMassMediaLink
+              : null,
+          resultsInformationInDifferentLevelsEvents: switchers.hasResultsInformationInDifferentLevelsEvents
             ? expieriencePartition.resultsInformationInDifferentLevelsEvents
             : null,
-          resultsInformationInDifferentLevelsEventsLink: expieriencePartition
-            .resultsInformationInDifferentLevelsEventsLink.value.length
-            ? expieriencePartition.resultsInformationInDifferentLevelsEventsLink
-            : null,
-          resultsMasterClasses: expieriencePartition.resultsMasterClasses.value
-            .length
+          resultsInformationInDifferentLevelsEventsLink:
+            switchers.hasResultsInformationInDifferentLevelsEvents &&
+            expieriencePartition.resultsInformationInDifferentLevelsEventsLink
+              .value.length
+              ? expieriencePartition.resultsInformationInDifferentLevelsEventsLink
+              : null,
+          resultsMasterClasses: switchers.hasResultsMasterClasses
             ? expieriencePartition.resultsMasterClasses
             : null,
-          resultsMasterClassesLink: expieriencePartition
-            .resultsMasterClassesLink.value.length
-            ? expieriencePartition.resultsMasterClassesLink
-            : null,
-          resultsOnWebsite: expieriencePartition.resultsOnWebsite.value.length
+          resultsMasterClassesLink:
+            switchers.hasResultsMasterClasses &&
+            expieriencePartition.resultsMasterClassesLink.value.length
+              ? expieriencePartition.resultsMasterClassesLink
+              : null,
+          resultsOnWebsite: switchers.hasResultsOnWebsite
             ? expieriencePartition.resultsOnWebsite
             : null,
-          resultsOnWebsiteLink: expieriencePartition.resultsOnWebsiteLink.value
-            .length
-            ? expieriencePartition.resultsOnWebsiteLink
-            : null,
+          resultsOnWebsiteLink:
+            switchers.hasResultsOnWebsite &&
+            expieriencePartition.resultsOnWebsiteLink.value.length
+              ? expieriencePartition.resultsOnWebsiteLink
+              : null,
         };
 
         const validationSuccess = validateAll(
@@ -489,15 +461,9 @@ export const ProjectCreationPage = () => {
       }
       case 2: {
         const needValidation = {
-          responsible: contactsPartition.responsible.value.length
-            ? contactsPartition.responsible
-            : null,
-          contactNumber: contactsPartition.contactNumber.value.length
-            ? contactsPartition.contactNumber
-            : null,
-          email: contactsPartition.email.value.length
-            ? contactsPartition.email
-            : null,
+          responsible: contactsPartition.responsible,
+          contactNumber: contactsPartition.contactNumber,
+          email: contactsPartition.email,
         };
 
         const validationSuccess = validateAll(
@@ -531,25 +497,35 @@ export const ProjectCreationPage = () => {
             continue;
           }
 
-          // if any field is fullfilled and any validation fails - fails partition validation
+          // if required fields validation fails - fails partition validation
           if (
             !membersInfoEntry.commonMembersCount.validator(
               membersInfoEntry.commonMembersCount.value
             ).success ||
             !membersInfoEntry.year.validator(membersInfoEntry.year.value)
-              .success ||
-            !membersInfoEntry.familiesCount.validator(
-              membersInfoEntry.familiesCount.value
-            ).success ||
-            !membersInfoEntry.childrenCount.validator(
-              membersInfoEntry.childrenCount.value
-            ).success ||
-            !membersInfoEntry.menCount.validator(
-              membersInfoEntry.menCount.value
-            ).success ||
-            !membersInfoEntry.womenCount.validator(
-              membersInfoEntry.womenCount.value
-            ).success
+              .success
+          ) {
+            return false;
+          }
+
+          // if any field is fullfilled and any validation fails - fails partition validation
+          if (
+            (isValueProvided(membersInfoEntry.familiesCount.value) &&
+              !membersInfoEntry.familiesCount.validator(
+                membersInfoEntry.familiesCount.value
+              ).success) ||
+            (isValueProvided(membersInfoEntry.childrenCount.value) &&
+              !membersInfoEntry.childrenCount.validator(
+                membersInfoEntry.childrenCount.value
+              ).success) ||
+            (isValueProvided(membersInfoEntry.menCount.value) &&
+              !membersInfoEntry.menCount.validator(
+                membersInfoEntry.menCount.value
+              ).success) ||
+            (isValueProvided(membersInfoEntry.womenCount.value) &&
+              !membersInfoEntry.womenCount.validator(
+                membersInfoEntry.womenCount.value
+              ).success)
           ) {
             return false;
           }
@@ -574,49 +550,57 @@ export const ProjectCreationPage = () => {
         ...membersPartition,
 
         name: mainPartition.name.value,
+        annotation: mainPartition.annotation.value,
         purpose: mainPartition.purpose.value,
         tasks: mainPartition.tasks.value,
+        organisator: mainPartition.organisator.value || null,
         period: mainPartition.period.value,
-        technologies: mainPartition.technologies.value,
-        annotation: mainPartition.annotation.value,
-        organisator: mainPartition.organisator.value,
+        partnership: mainPartition.partnership.value || null,
         basicQualityResults: mainPartition.basicQualityResults.value,
-        basicAmountResults: mainPartition.basicAmountResults.value,
-        diagnosticInstruments: mainPartition.diagnosticInstruments.value,
-        briefResourcesDescription:
-          mainPartition.briefResourcesDescription.value,
-        bestPractiseForLeadership:
-          mainPartition.bestPractiseForLeadership.value,
-        socialResult: mainPartition.socialResult.value,
-        video: mainPartition.video.value,
-        prevalence: mainPartition.prevalence.value,
+        socialResults: mainPartition.socialResults.value,
+        replicability: mainPartition.replicability.value || null,
+        innovationGround: mainPartition.innovationGround.value || null,
+        hasExpertOpinion: mainPartition.hasExpertOpinion.value || null,
+        hasExpertReview: mainPartition.hasExpertReview.value || null,
+        hasExpertMention: mainPartition.hasExpertMention.value || null,
+        video: mainPartition.video.value || null,
+        resourcesDescription: mainPartition.resourcesDescription.value,
 
-        resultsInformationInMassMedia:
-          expieriencePartition.resultsInformationInMassMedia.value,
-        resultsInformationInMassMediaLink:
-          expieriencePartition.resultsInformationInMassMediaLink.value,
-        resultsInformationInRadio:
-          expieriencePartition.resultsInformationInRadio.value,
-        resultsInformationInRadioLink:
-          expieriencePartition.resultsInformationInRadioLink.value,
-        resultsInformationInTV:
-          expieriencePartition.resultsInformationInTV.value,
-        resultsInformationInTVLink:
-          expieriencePartition.resultsInformationInTVLink.value,
+        worksKinds: mainPartition.worksKinds.length
+          ? mainPartition.worksKinds
+          : null,
+        worksNames: mainPartition.worksNames.length
+          ? mainPartition.worksNames
+          : null,
+        gosWorkNames: mainPartition.gosWorkNames.length
+          ? mainPartition.gosWorkNames
+          : null,
+
+        //TODO: maybe refactor - photo is controlled by path, not name
+        photo: mainPartition.photo.path ? mainPartition.photo : null,
+        gallery: mainPartition.gallery.length ? mainPartition.gallery : null,
+
         resultsDescriptionInJournal:
-          expieriencePartition.resultsDescriptionInJournal.value,
+          expieriencePartition.resultsDescriptionInJournal.value || null,
         resultsDescriptionInJournalLink:
-          expieriencePartition.resultsDescriptionInJournalLink.value,
+          expieriencePartition.resultsDescriptionInJournalLink.value || null,
+        resultsInformationInMassMedia:
+          expieriencePartition.resultsInformationInMassMedia.value || null,
+        resultsInformationInMassMediaLink:
+          expieriencePartition.resultsInformationInMassMediaLink.value || null,
         resultsInformationInDifferentLevelsEvents:
-          expieriencePartition.resultsInformationInDifferentLevelsEvents.value,
+          expieriencePartition.resultsInformationInDifferentLevelsEvents
+            .value || null,
         resultsInformationInDifferentLevelsEventsLink:
           expieriencePartition.resultsInformationInDifferentLevelsEventsLink
-            .value,
-        resultsMasterClasses: expieriencePartition.resultsMasterClasses.value,
+            .value || null,
+        resultsMasterClasses:
+          expieriencePartition.resultsMasterClasses.value || null,
         resultsMasterClassesLink:
-          expieriencePartition.resultsMasterClassesLink.value,
-        resultsOnWebsite: expieriencePartition.resultsOnWebsite.value,
-        resultsOnWebsiteLink: expieriencePartition.resultsOnWebsiteLink.value,
+          expieriencePartition.resultsMasterClassesLink.value || null,
+        resultsOnWebsite: expieriencePartition.resultsOnWebsite.value || null,
+        resultsOnWebsiteLink:
+          expieriencePartition.resultsOnWebsiteLink.value || null,
 
         responsible: contactsPartition.responsible.value,
         contactNumber: contactsPartition.contactNumber.value,
@@ -625,31 +609,28 @@ export const ProjectCreationPage = () => {
         membersInfo: membersPartition.membersInfo
           .filter(
             (entry) =>
-              entry.commonMembersCount.value !== null &&
-              entry.commonMembersCount.value !== undefined &&
-              entry.year.value !== null &&
-              entry.year.value !== undefined &&
-              entry.familiesCount.value !== null &&
-              entry.familiesCount.value !== undefined &&
-              entry.childrenCount.value !== null &&
-              entry.childrenCount.value !== undefined &&
-              entry.menCount.value !== null &&
-              entry.menCount.value !== undefined &&
-              entry.womenCount.value !== null &&
-              entry.womenCount.value !== undefined
+              isValueProvided(entry.commonMembersCount.value) &&
+              isValueProvided(entry.year.value)
           )
           .map((entry) => ({
             commonMembersCount: Number(entry.commonMembersCount.value!),
             year: Number(entry.year.value!),
-            familiesCount: Number(entry.familiesCount.value!),
-            childrenCount: Number(entry.childrenCount.value!),
-            menCount: Number(entry.menCount.value!),
-            womenCount: Number(entry.womenCount.value!),
+            familiesCount: isValueProvided(entry.familiesCount.value)
+              ? Number(entry.familiesCount.value)
+              : null,
+            childrenCount: isValueProvided(entry.childrenCount.value)
+              ? Number(entry.childrenCount.value)
+              : null,
+            menCount: isValueProvided(entry.menCount.value)
+              ? Number(entry.menCount.value)
+              : null,
+            womenCount: isValueProvided(entry.womenCount.value)
+              ? Number(entry.womenCount.value)
+              : null,
           })),
 
         status: EProposalStatus['PENDING'],
         cause: null,
-        isBest: false,
       };
 
       const { data } = await API.project.create(

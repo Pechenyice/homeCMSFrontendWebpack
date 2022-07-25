@@ -1,15 +1,5 @@
 import { EProposalStatus } from 'types/enums';
 
-export interface IExpierienceHelpers {
-  resultsInformationInMassMedia: boolean;
-  resultsInformationInRadio: boolean;
-  resultsInformationInTV: boolean;
-  resultsDescriptionInJournal: boolean;
-  resultsInformationInDifferentLevelsEvents: boolean;
-  resultsMasterClasses: boolean;
-  resultsOnWebsite: boolean;
-}
-
 export interface IMainHelpers {
   organisatorOrMember: boolean;
 }
@@ -20,86 +10,72 @@ export interface IFileInput {
 }
 
 export interface IProjectMainPartition {
-  name: string; //наименование проекта
+  name: string; //Наименование
+  bestPracticeForLeadership: boolean; //Лучшая практика по мнению руководства организации
+  annotation: string; //Аннотация
   purpose: string; //Цель проекта
   tasks: string; //Основные задачи
-  period: string; //Период реализации проекта
-  technologies: string; //Технологии, формы, методы
-  annotation: string; //Аннотация
-  isMemberAndNotOrganisator: boolean; //Свитчер для Организатор/участник
   organisator: string | null; //Организатор/участник
+  period: string; //Период реализации проекта
   realisationForCitizen: number; //Реализация для гражданина
-  attractingVolunteer: number; //Привлечение добровольцев и волонтеров
-  projectStatus: number; //Статус проекта
-  category: number; //Категория
-  groups: number[]; //Целевые группы
-  kind: number; //Вид услуги
-  worksName: number; //Наименование работ
-  partners: number[]; //Партнеры
-  circumstancesRecognitionNeed: number; //Обстоятельства признания нуждаемости
-  socialHelpForm: number; //Форма социального обслуживания (сопровождения)
-  rnsuCategory: number; //Категория по РНСУ
-  photo: IFileInput; //Фотография
-  basicQualityResults: string; //Основные качественные результаты реализации проекта
-  basicAmountResults: string; //Основные количественные результаты
-  diagnosticInstruments: string; //Диагностический инструментарий оценки результатов
-  briefResourcesDescription: string; //Краткое описание необходимого ресурсного обеспечения
-  bestPractiseForLeadership: string; //Лучшая практика по мнению руководства организации
-  socialResult: string; //Социальный результат
-  video: string; //Видеоролик
-  prevalence: string; //Распространенность
   canBeDistant: boolean; //Возможность реализации в дистанционном формате
-  innovationGround: boolean; //Апробация на инновационной площадке
-  hasExpertOpinion: boolean; //Наличие экспертного заключения
-  hasExpertReview: boolean; //Наличие экспертного рецензии
-  hasExpertMention: boolean; //Наличие экспертного отзыва
+  organizationLevel: number; //Уровень реализации проекта
+  partnership: string | null;
+  attractingVolunteer: number; //Привлечение добровольцев и волонтеров
+  rnsuCategories: number[]; //Категории по РНСУ
+  categories: number[]; //Категории
+  groups: number[]; //Целевые группы
+  worksKinds: number[] | null; //Вид услуги
+  worksNames: number[] | null; //Наименования услуг
+  gosWorkNames: number[] | null; //Наименование государственной работы
+  circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
+  socialHelpForm: number[]; //Форма социального обслуживания (сопровождения)
+  basicQualityResults: string; //Основные качественные результаты
+  socialResults: string; //Социальный результаты
+  replicability: string | null; //Тиражируемость
+  innovationGround: string | null; //Апробация на инновационной площадке
+  hasExpertOpinion: string | null; //Наличие экспертного заключения
+  hasExpertReview: string | null; //Наличие экспертного рецензии
+  hasExpertMention: string | null; //Наличие экспертного отзыва
+  photo: IFileInput | null; //Фотография
+  gallery: IFileInput[] | null; //Галерея
+  video: string | null; //Видеоролик
+  resourcesDescription: string; //Краткое описание необходимого ресурсного обеспечения
 }
 
-export interface IProjectExpieriencePartition {
-  hasResultsInformationInMassMedia: boolean;
-  resultsInformationInMassMedia: string; //Представление информации о результатах в районных, городских СМИ
-  resultsInformationInMassMediaLink: string;
-  hasResultsInformationInRadio: boolean;
-  resultsInformationInRadio: string; //Представление информации о результатах на радио
-  resultsInformationInRadioLink: string;
-  hasResultsInformationInTV: boolean;
-  resultsInformationInTV: string; //Представление информации о результатах на телевидении
-  resultsInformationInTVLink: string;
-  hasResultsDescriptionInJournal: boolean;
-  resultsDescriptionInJournal: string; //Описание результатов в виде статьи, опубликованной в сборнике, журнале
-  resultsDescriptionInJournalLink: string;
-  hasResultsInformationInDifferentLevelsEvents: boolean;
-  resultsInformationInDifferentLevelsEvents: string; //Представление результатов на мероприятиях различного уровня
-  resultsInformationInDifferentLevelsEventsLink: string;
-  hasResultsMasterClasses: boolean;
-  resultsMasterClasses: string; //Проведение мастер-классов (семинаров) по результатам
-  resultsMasterClassesLink: string;
-  hasResultsOnWebsite: boolean;
-  resultsOnWebsite: string; //Проведение информации о результатах на сайте учреждения
-  resultsOnWebsiteLink: string;
+export interface IExpieriencePartition {
+  resultsDescriptionInJournal: string | null; //Описание результатов в виде статьи, опубликованной в сборнике, журнале
+  resultsDescriptionInJournalLink: string | null;
+  resultsInformationInMassMedia: string | null; //Представление информации о результатах в СМИ
+  resultsInformationInMassMediaLink: string | null;
+  resultsInformationInDifferentLevelsEvents: string | null; //Представление результатов на мероприятиях различного уровня
+  resultsInformationInDifferentLevelsEventsLink: string | null;
+  resultsMasterClasses: string | null; //Проведение мастер-классов (семинаров) по результатам
+  resultsMasterClassesLink: string | null;
+  resultsOnWebsite: string | null; //Проведение информации о результатах на сайте учреждения
+  resultsOnWebsiteLink: string | null;
 }
 
-export interface IProjectContactsPartition {
+export interface IContactsPartition {
   responsible: string; //ФИО ответственного лица
   contactNumber: string; //Контактный телефон
   email: string; //Электронная почта
 }
 
-export interface IProjectMembersPartition {
+export interface IMembersPartition {
   membersInfo: IMembersInfo[];
 }
 
 export interface ICommonEntityMetadata {
   status: EProposalStatus;
   cause: string | null;
-  isBest: boolean;
 }
 
 export interface IProjectData
   extends IProjectMainPartition,
-    IProjectExpieriencePartition,
-    IProjectContactsPartition,
-    IProjectMembersPartition,
+    IExpieriencePartition,
+    IContactsPartition,
+    IMembersPartition,
     ICommonEntityMetadata {
   // main partition
   // expierience partition
@@ -109,10 +85,10 @@ export interface IProjectData
 
 export interface IMembersInfo {
   commonMembersCount: number;
-  familiesCount: number;
-  childrenCount: number;
-  menCount: number;
-  womenCount: number;
+  familiesCount: number | null;
+  childrenCount: number | null;
+  menCount: number | null;
+  womenCount: number | null;
   year: number;
 }
 

@@ -1,6 +1,5 @@
 import { Button, Text } from 'components/kit';
 import { ChangeEvent } from 'react';
-import { IExpierienceHelpers, IMainHelpers } from 'types/entities/entities';
 import { IProjectState } from 'types/entities/states';
 import { EEntityPartition } from 'types/enums';
 import styles from './ProjectCreationStepsInterface.module.scss';

@@ -147,6 +147,13 @@ export const MainPartitionStep = ({
         heading="Наименование проекта *"
         placeholder="Наименование проекта"
       />
+
+      <Checkbox
+        checked={mainPartition.canBeDistant}
+        onToggle={bindCheckToggle('canBeDistant')}
+        label={<Text>Возможность реализации в дистанционном формате</Text>}
+      />
+
       <TextArea
         className={styles.half}
         name="purpose"

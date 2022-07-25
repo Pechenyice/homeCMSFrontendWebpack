@@ -29,3 +29,7 @@ export const getValueByIdFromSelect = (
 export const isValidDate = (d: any) => {
   return !isNaN(Date.parse(d.split('.').reverse().join('-')));
 };
+
+export const isValueProvided = (value: any) => {
+  return value !== null && value !== undefined;
+};
