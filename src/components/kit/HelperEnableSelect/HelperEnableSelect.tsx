@@ -27,9 +27,10 @@ export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
   return (
     <div className={styles.wrapper} {...rest}>
       {heading && (
-        <H3 className={styles.heading}>
-          {heading} {hint && <Hint text={hint} />}
-        </H3>
+        <div className={styles.heading}>
+          <H3 className={styles.heading__content}>{heading}</H3>
+          {hint && <Hint text={hint} />}
+        </div>
       )}
       <div
         className={combineClasses(

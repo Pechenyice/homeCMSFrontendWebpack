@@ -34,9 +34,10 @@ export const TextArea = (
   return (
     <div className={combineClasses(styles.wrapper, className ?? '')}>
       {heading && (
-        <H3 className={styles.heading}>
-          {heading} {hint && <Hint text={hint} />}
-        </H3>
+        <div className={styles.heading}>
+          <H3 className={styles.heading__content}>{heading}</H3>{' '}
+          {hint && <Hint text={hint} />}
+        </div>
       )}
       <div className={styles.inner}>
         <textarea

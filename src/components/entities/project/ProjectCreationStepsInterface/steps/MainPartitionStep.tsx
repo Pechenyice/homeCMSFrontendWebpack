@@ -215,7 +215,7 @@ export const MainPartitionStep = ({
         onChangeOption={bindSwitcherChange('organisator')}
         hint="Можно указать несколько организаций-организаторов проекта"
       >
-        <Input
+        <TextArea
           name="organisator"
           value={mainPartition.organisator.value}
           onChange={onChange}
@@ -291,7 +291,7 @@ export const MainPartitionStep = ({
         onChangeOption={bindSwitcherChange('partnership')}
         hint="Можно указать несколько организаций-партнеров"
       >
-        <Input
+        <TextArea
           name="partnership"
           value={mainPartition.partnership.value}
           onChange={onChange}
@@ -415,7 +415,7 @@ export const MainPartitionStep = ({
             />
           ) : worksNamesError ? (
             <Input value={''} heading="Наименования услуг" readOnly />
-          ) : mainPartition.categories.length ? (
+          ) : mainPartition.worksKinds.length ? (
             <MultipleSelect
               values={mainPartition.worksNames}
               options={worksNames!}
@@ -478,7 +478,7 @@ export const MainPartitionStep = ({
         )}
       </div>
 
-      <div>
+      <div className={styles.full}>
         <div className={styles.half}>
           {socialHelpFormLoading ? (
             <Skeleton
@@ -540,7 +540,7 @@ export const MainPartitionStep = ({
         onChangeOption={bindSwitcherChange('innovationGround')}
         hint="Укажите, где и когда проходила апробация"
       >
-        <Input
+        <TextArea
           name="innovationGround"
           value={mainPartition.innovationGround.value}
           onChange={onChange}
@@ -556,7 +556,7 @@ export const MainPartitionStep = ({
         onChangeOption={bindSwitcherChange('hasExpertOpinion')}
         hint="Укажите, кто и когда выдал экспертное заключение"
       >
-        <Input
+        <TextArea
           name="hasExpertOpinion"
           value={mainPartition.hasExpertOpinion.value}
           onChange={onChange}
@@ -571,7 +571,7 @@ export const MainPartitionStep = ({
         onChangeOption={bindSwitcherChange('hasExpertReview')}
         hint="Укажите, кто и когда выдал рецензию"
       >
-        <Input
+        <TextArea
           name="hasExpertReview"
           value={mainPartition.hasExpertReview.value}
           onChange={onChange}
@@ -580,7 +580,7 @@ export const MainPartitionStep = ({
         />
       </HelperEnableSelect>
 
-      <div>
+      <div className={styles.full}>
         <HelperEnableSelect
           className={styles.half}
           heading="Наличие отзыва"
@@ -588,7 +588,7 @@ export const MainPartitionStep = ({
           onChangeOption={bindSwitcherChange('hasExpertMention')}
           hint="Укажите, кто и когда выдал отзыв"
         >
-          <Input
+          <TextArea
             name="hasExpertMention"
             value={mainPartition.hasExpertMention.value}
             onChange={onChange}

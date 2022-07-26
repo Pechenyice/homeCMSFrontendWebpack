@@ -34,7 +34,13 @@
 }
 
 .heading {
-  margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  &__content {
+    margin-bottom: 8px;
+  }
 }
 
 .dropdown {

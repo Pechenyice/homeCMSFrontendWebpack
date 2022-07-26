@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'actionWrapper': string;
+  'full': string;
   'half': string;
   'leadHelper': string;
   'membersDeleteAction': string;

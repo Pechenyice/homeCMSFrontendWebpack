@@ -5,8 +5,12 @@
   flex-wrap: wrap;
 }
 
+.full {
+  width: 100%;
+}
+
 .half {
-  width: calc(50% - 50px);
+  width: calc(50% - 50px) !important;
 }
 
 .leadHelper {

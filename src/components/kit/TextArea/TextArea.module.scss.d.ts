@@ -3,6 +3,7 @@
 interface CssExports {
   'error': string;
   'heading': string;
+  'heading__content': string;
   'icon': string;
   'inner': string;
   'textarea': string;

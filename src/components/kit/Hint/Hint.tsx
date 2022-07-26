@@ -19,6 +19,7 @@ export const Hint = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className={combineClasses(styles.wrapper, className ?? '')}>
       <QuestionIcon
+        className={styles.cursor}
         onMouseEnter={bindHintVisibility(true)}
         onMouseLeave={bindHintVisibility(false)}
       />

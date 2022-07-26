@@ -5,6 +5,7 @@ interface CssExports {
   'chevron_inverted': string;
   'dropdown': string;
   'heading': string;
+  'heading__content': string;
   'inner': string;
   'inner_active': string;
   'option': string;
