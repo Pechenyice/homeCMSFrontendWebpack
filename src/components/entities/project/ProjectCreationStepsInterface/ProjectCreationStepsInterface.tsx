@@ -33,11 +33,11 @@ type Props = {
   onCheckToggle: (partition: EEntityPartition, name: string) => void;
   onMembersEntryChange: (
     partition: EEntityPartition,
-    index: number,
+    id: any,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onAddMembersEntry: () => void;
-  onRemoveMembersEntry: (index: number) => void;
+  onRemoveMembersEntry: (id: any) => void;
   onPhotoChange: (
     partition: EEntityPartition,
     name: string,

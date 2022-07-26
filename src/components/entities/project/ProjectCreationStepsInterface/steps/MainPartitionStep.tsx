@@ -25,6 +25,7 @@ import styles from './PartitionStep.module.scss';
 import { useStatuses } from 'hooks/queries/useStatuses';
 import { useSocialHelpForms } from 'hooks/queries/useSocialHelpForms';
 import { useKinds } from 'hooks/queries/useKinds';
+import { GalleryInput } from 'components/kit/GalleryInput/GalleryInput';
 
 type Props = {
   switchers: IProjectSwitchers;
@@ -606,19 +607,19 @@ export const MainPartitionStep = ({
             photoPath={mainPartition.photo.path}
             photoName={mainPartition.photo.name}
             onPhotoChange={bindPhotoChange('photo')}
-            heading="Фотография *"
+            heading="Фотография"
+            hint="Характеристики фото"
           />
         }
       </div>
       <div className={styles.half}>
         {
-          <PhotoInput
-            name="photo"
-            category="job_project_photo"
-            photoPath={mainPartition.photo.path}
-            photoName={mainPartition.photo.name}
-            onPhotoChange={bindPhotoChange('photo')}
-            heading="Фотография *"
+          <GalleryInput
+            name="gallery"
+            category="job_project_gallery"
+            gallery={mainPartition.gallery}
+            heading="Галерея"
+            hint="Характеристики фото галереи"
           />
         }
       </div>

@@ -25,6 +25,7 @@ export interface ICommonMembersPartitionState {
 }
 
 export interface IMembersStateInfo {
+  id: any;
   commonMembersCount: INumberInput; //Общее количество участников за отчетный период
   familiesCount: INumberInput; //Количество семей
   childrenCount: INumberInput; //Количество детей

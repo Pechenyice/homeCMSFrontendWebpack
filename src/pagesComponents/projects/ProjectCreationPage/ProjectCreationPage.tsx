@@ -10,7 +10,7 @@ import { IProjectData } from 'types/entities/entities';
 import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import { EEntityPartition, EProposalStatus } from 'types/enums';
 import { IInputsState } from 'types/interfaces';
-import { isValueProvided } from 'utils/common';
+import { isValueProvided, simpleUuid } from 'utils/common';
 import { mapProjectToAPI } from 'utils/entities/project';
 import { registerInput, registerNumberInput } from 'utils/inputs';
 import {
@@ -124,6 +124,7 @@ export const ProjectCreationPage = () => {
   >({
     membersInfo: [
       {
+        id: simpleUuid(),
         commonMembersCount: registerNumberInput(
           undefined,
           numberInputValidator
@@ -159,36 +160,6 @@ export const ProjectCreationPage = () => {
     (setState as any)({
       ...state,
       [name]: !(state as any)[name],
-    });
-  };
-
-  const handleMembersEntryChange = (
-    partition: EEntityPartition,
-    index: number,
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const validationResult = (membersPartition.membersInfo[index] as any)[
-      e.target.name
-    ].validator(e.target.value);
-
-    const newMembersInfoEntry = {
-      ...membersPartition.membersInfo[index],
-      [e.target.name]: {
-        ...(membersPartition.membersInfo[index] as any)[e.target.name],
-        value: e.target.value !== '' ? e.target.value : undefined,
-        error: {
-          exist: !validationResult.success,
-          text: validationResult.text,
-        },
-      },
-    };
-
-    const newMembersInfo = [...membersPartition.membersInfo];
-    newMembersInfo[index] = newMembersInfoEntry;
-
-    setMembersPartition({
-      ...membersPartition,
-      membersInfo: newMembersInfo,
     });
   };
 
@@ -272,6 +243,7 @@ export const ProjectCreationPage = () => {
       membersInfo: [
         ...membersPartition.membersInfo,
         {
+          id: simpleUuid(),
           commonMembersCount: registerNumberInput(
             undefined,
             numberInputValidator
@@ -286,12 +258,50 @@ export const ProjectCreationPage = () => {
     });
   };
 
-  const handleRemoveMembersEntry = (index: number) => {
+  const handleRemoveMembersEntry = (id: any) => {
     setMembersPartition({
       ...membersPartition,
       membersInfo: membersPartition.membersInfo.filter(
-        (entry, entryIndex) => entryIndex !== index
+        (entry) => entry.id !== id
       ),
+    });
+  };
+
+  const handleMembersEntryChange = (
+    partition: EEntityPartition,
+    id: any,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const targetElem = membersPartition.membersInfo.find(
+      (info) => info.id === id
+    );
+
+    if (!targetElem) return;
+
+    const validationResult = (targetElem as any)[e.target.name].validator(
+      e.target.value
+    );
+
+    const newMembersInfoEntry = {
+      ...targetElem,
+      [e.target.name]: {
+        ...(targetElem as any)[e.target.name],
+        value: e.target.value !== '' ? e.target.value : undefined,
+        error: {
+          exist: !validationResult.success,
+          text: validationResult.text,
+        },
+      },
+    };
+
+    const newMembersInfo = [
+      ...membersPartition.membersInfo.filter((info) => info.id !== id),
+      newMembersInfoEntry,
+    ];
+
+    setMembersPartition({
+      ...membersPartition,
+      membersInfo: newMembersInfo,
     });
   };
 

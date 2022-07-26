@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import styles from './PhotoInput.module.scss';
+import styles from './GalleryInput.module.scss';
 import { combineClasses } from 'utils';
 import { H3 } from '../H3/H3';
 import { Text } from '../Text/Text';
@@ -14,23 +14,20 @@ import { useErrors } from 'hooks/useErrors';
 import { CloseIcon } from 'assets/icons';
 import { ELoaderPalette, Loader } from '../Loader/Loader';
 import { Hint } from '../Hint/Hint';
+import { IFileInput } from 'types/entities/entities';
 
 type Props = {
   name: string;
   category: string;
-  photoPath: string | null;
-  photoName: string | null;
-  onPhotoChange: (path: string | null, name: string | null) => void;
+  gallery: IFileInput[];
   heading: string;
   hint?: string;
 };
 
-export const PhotoInput = ({
+export const GalleryInput = ({
   name,
   category,
-  photoName,
-  photoPath,
-  onPhotoChange,
+  gallery,
   heading,
   hint,
   className,

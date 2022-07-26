@@ -19,11 +19,11 @@ import styles from './PartitionStep.module.scss';
 type Props = {
   membersPartition: IProjectState['membersPartition'];
   onMembersEntryChange: (
-    index: number,
+    id: any,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onAddMembersEntry: () => void;
-  onRemoveMembersEntry: (index: number) => void;
+  onRemoveMembersEntry: (id: any) => void;
 };
 
 export const MembersPartitionStep = ({
@@ -35,27 +35,27 @@ export const MembersPartitionStep = ({
   /**
    * binders
    */
-  const bindRemoveMembersEntry = (index: number) => () => {
-    onRemoveMembersEntry(index);
+  const bindRemoveMembersEntry = (id: any) => () => {
+    onRemoveMembersEntry(id);
   };
 
-  const bindChangeMembersEntry = (index: number) => (
+  const bindChangeMembersEntry = (id: any) => (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    onMembersEntryChange(index, e);
+    onMembersEntryChange(id, e);
   };
 
   return (
     <div className={styles.wrapper}>
       {membersPartition.membersInfo.map((entry, index) => (
-        <div className={styles.membersEntry}>
+        <div className={styles.membersEntry} key={entry.id}>
           {!!index && (
             <div className={styles.membersDeleteAction__wrapper}>
               <Action
                 className={styles.membersDeleteAction}
                 text="Удалить отчётный период"
                 icon={<MinusIcon />}
-                onClick={bindRemoveMembersEntry(index)}
+                onClick={bindRemoveMembersEntry(entry.id)}
               />
             </div>
           )}
@@ -63,7 +63,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="commonMembersCount"
             value={String(entry.commonMembersCount.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.commonMembersCount.error}
             heading="Общее количество участников за отчетный период *"
             placeholder="Количество участников за отчетный период"
@@ -72,7 +72,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="year"
             value={String(entry.year.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.year.error}
             heading="Отчётный период *"
             placeholder="Отчётный период"
@@ -82,7 +82,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="familiesCount"
             value={String(entry.familiesCount.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.familiesCount.error}
             heading="Количество семей"
             placeholder="Количество семей"
@@ -91,7 +91,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="childrenCount"
             value={String(entry.childrenCount.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.childrenCount.error}
             heading="Количество детей"
             placeholder="Количество детей"
@@ -101,7 +101,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="menCount"
             value={String(entry.menCount.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.menCount.error}
             heading="Количество мужчин"
             placeholder="Количество мужчин"
@@ -110,7 +110,7 @@ export const MembersPartitionStep = ({
             className={styles.half}
             name="womenCount"
             value={String(entry.womenCount.value ?? '')}
-            onChange={bindChangeMembersEntry(index)}
+            onChange={bindChangeMembersEntry(entry.id)}
             error={entry.womenCount.error}
             heading="Количество женщин"
             placeholder="Количество женщин"
