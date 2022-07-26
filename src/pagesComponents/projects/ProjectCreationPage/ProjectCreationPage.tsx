@@ -14,6 +14,7 @@ import { isValueProvided } from 'utils/common';
 import { mapProjectToAPI } from 'utils/entities/project';
 import { registerInput, registerNumberInput } from 'utils/inputs';
 import {
+  annotationValidator,
   numberInputValidator,
   textInputValidator,
   validateAll,
@@ -55,7 +56,7 @@ export const ProjectCreationPage = () => {
   >({
     name: registerInput('', textInputValidator), //Наименование
     bestPracticeForLeadership: false, //Лучшая практика по мнению руководства организации
-    annotation: registerInput('', textInputValidator), //Аннотация
+    annotation: registerInput('', annotationValidator), //Аннотация
     purpose: registerInput('', textInputValidator), //Цель проекта
     tasks: registerInput('', textInputValidator), //Основные задачи
     organisator: registerInput('', textInputValidator), //Организатор/участник
@@ -219,17 +220,8 @@ export const ProjectCreationPage = () => {
     });
   };
 
-  const handleHelperChange = (
-    partition: EEntityPartition,
-    helperName: string,
-    value: boolean
-  ) => {
-    const [state, setState] = selectPartition(partition);
-
-    (setState as any)({
-      ...state,
-      [helperName]: value,
-    });
+  const handleSwitcherChange = (switcherName: string, value: boolean) => {
+    setSwitchers({ ...switchers, [switcherName]: value });
   };
 
   const handleChange = (
@@ -659,12 +651,13 @@ export const ProjectCreationPage = () => {
       <EntityCreationSteps active={currentStep} />
       <ProjectCreationStepsInterface
         active={currentStep}
+        switchers={switchers}
         mainPartition={mainPartition}
         expieriencePartition={expieriencePartition}
         contactsPartition={contactsPartition}
         membersPartition={membersPartition}
         onChange={handleChange}
-        onHelperChange={handleHelperChange}
+        onSwitcherChange={handleSwitcherChange}
         onSelectChange={handleSelectChange}
         onMultipleSelectChange={handleMultipleSelectChange}
         onCheckToggle={handleCheckToggle}

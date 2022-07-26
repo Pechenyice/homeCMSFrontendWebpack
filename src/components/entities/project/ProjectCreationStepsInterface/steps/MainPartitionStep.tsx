@@ -20,16 +20,17 @@ import { useWorksNames } from 'hooks/queries/useWorksNames';
 import { useTargetGroups } from 'hooks/queries/useTargetGroups';
 import { ChangeEvent } from 'react';
 import { IMainHelpers } from 'types/entities/entities';
-import { IProjectState } from 'types/entities/states';
+import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
 import { useStatuses } from 'hooks/queries/useStatuses';
 import { useSocialHelpForms } from 'hooks/queries/useSocialHelpForms';
 import { useKinds } from 'hooks/queries/useKinds';
 
 type Props = {
+  switchers: IProjectSwitchers;
   mainPartition: IProjectState['mainPartition'];
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onHelperChange: (helperName: string, value: boolean) => void;
+  onSwitcherChange: (switcherName: string, value: boolean) => void;
   onSelect: (name: string, option: number) => void;
   onMultipleSelect: (name: string, option: number) => void;
   onCheckToggle: (name: string) => void;
@@ -41,9 +42,10 @@ type Props = {
 };
 
 export const MainPartitionStep = ({
+  switchers,
   mainPartition,
   onChange,
-  onHelperChange,
+  onSwitcherChange,
   onSelect,
   onMultipleSelect,
   onCheckToggle,
@@ -111,11 +113,33 @@ export const MainPartitionStep = ({
     isError: rnsuCategoryError,
   } = useRNSUCategories();
 
+  const {
+    apiData: realizationLevels,
+    isLoading: realizationLevelsLoading,
+    isError: realizationLevelsError,
+  } = useDistricts();
+  const {
+    apiData: worksKinds,
+    isLoading: worksKindsLoading,
+    isError: worksKindsError,
+  } = useDistricts();
+
+  const {
+    apiData: worksNames,
+    isLoading: worksNamesLoading,
+    isError: worksNamesError,
+  } = useDistricts();
+  const {
+    apiData: gosWorkNames,
+    isLoading: gosWorkNamesLoading,
+    isError: gosWorkNamesError,
+  } = useDistricts();
+
   /**
    * binders
    */
-  const bindHelperChange = (helperName: string) => {
-    return (value: boolean) => onHelperChange(helperName, value);
+  const bindSwitcherChange = (switcherName: string) => {
+    return (value: boolean) => onSwitcherChange(switcherName, value);
   };
 
   const bindSelect = (name: string) => (option: number) => {
@@ -149,11 +173,21 @@ export const MainPartitionStep = ({
       />
 
       <Checkbox
-        checked={mainPartition.canBeDistant}
-        onToggle={bindCheckToggle('canBeDistant')}
-        label={<Text>Возможность реализации в дистанционном формате</Text>}
+        checked={mainPartition.bestPracticeForLeadership}
+        onToggle={bindCheckToggle('bestPracticeForLeadership')}
+        label={<Text>Лучшая практика по мнению руководства организации</Text>}
       />
 
+      <TextArea
+        className={styles.half}
+        name="annotation"
+        value={mainPartition.annotation.value}
+        onChange={onChange}
+        error={mainPartition.annotation.error}
+        heading="Аннотация *"
+        placeholder="Аннотация"
+        hint="Опишите проект, не более 2500 знаков без пробелов"
+      />
       <TextArea
         className={styles.half}
         name="purpose"
@@ -163,6 +197,7 @@ export const MainPartitionStep = ({
         heading="Цель проекта *"
         placeholder="Цель проекта"
       />
+
       <TextArea
         className={styles.half}
         name="tasks"
@@ -171,7 +206,24 @@ export const MainPartitionStep = ({
         error={mainPartition.tasks.error}
         heading="Основные задачи *"
         placeholder="Основные задачи"
+        hint="Укажите не более 7 задач"
       />
+      <HelperEnableSelect
+        className={styles.half}
+        heading="Вы участник, а не организатор *"
+        value={switchers.organisator}
+        onChangeOption={bindSwitcherChange('organisator')}
+        hint="Можно указать несколько организаций-организаторов проекта"
+      >
+        <Input
+          name="organisator"
+          value={mainPartition.organisator.value}
+          onChange={onChange}
+          error={mainPartition.organisator.error}
+          placeholder="Укажите организаторов"
+        />
+      </HelperEnableSelect>
+
       <TextArea
         className={styles.half}
         name="period"
@@ -180,58 +232,74 @@ export const MainPartitionStep = ({
         error={mainPartition.period.error}
         heading="Период реализации проекта *"
         placeholder="Период реализации проекта"
+        hint="Укажите дату начала и предполагаемого окончания проекта"
       />
-      <TextArea
-        className={styles.half}
-        name="technologies"
-        value={mainPartition.technologies.value}
-        onChange={onChange}
-        error={mainPartition.technologies.error}
-        heading="Технологии, формы, методы *"
-        placeholder="Технологии, формы, методы"
-      />
-      <TextArea
-        className={styles.half}
-        name="annotation"
-        value={mainPartition.annotation.value}
-        onChange={onChange}
-        error={mainPartition.annotation.error}
-        heading="Аннотация *"
-        placeholder="Аннотация"
-      />
-      <HelperEnableSelect
-        className={styles.half}
-        heading="Вы участник, а не организатор *"
-        value={mainPartition.isMemberAndNotOrganisator}
-        onChangeOption={bindHelperChange('isMemberAndNotOrganisator')}
-      >
-        <Input
-          name="organisator"
-          value={mainPartition.organisator.value}
-          onChange={onChange}
-          error={mainPartition.organisator.error}
-          placeholder="Организатор"
-        />
-      </HelperEnableSelect>
       <div className={styles.half}>
-        {realisationForCitizenLoading ? (
+        <div className={styles.leadHelper}>
+          {realisationForCitizenLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Реализация для гражданина бесплатно/платно *"
+            />
+          ) : realisationForCitizenError ? (
+            <Input
+              value={''}
+              heading="Реализация для гражданина бесплатно/платно *"
+              readOnly
+            />
+          ) : (
+            <Select
+              withUnselect
+              value={mainPartition.realisationForCitizen}
+              options={realisationForCitizen!}
+              heading="Реализация для гражданина бесплатно/платно *"
+              onChangeOption={bindSelect('realisationForCitizen')}
+            />
+          )}
+        </div>
+        <Checkbox
+          checked={mainPartition.canBeDistant}
+          onToggle={bindCheckToggle('canBeDistant')}
+          label={<Text>Возможность реализации в дистанционном формате</Text>}
+        />
+      </div>
+
+      <div className={styles.half}>
+        {realizationLevelsLoading ? (
           <Skeleton
             mode={ESkeletonMode.INPUT}
             withLoader
-            heading="Реализация для гражданина *"
+            heading="Уровень реализации проекта *"
           />
-        ) : realisationForCitizenError ? (
-          <Input value={''} heading="Реализация для гражданина *" readOnly />
+        ) : realizationLevelsError ? (
+          <Input value={''} heading="Уровень реализации проекта *" readOnly />
         ) : (
           <Select
             withUnselect
-            value={mainPartition.realisationForCitizen}
-            options={realisationForCitizen!}
-            heading="Реализация для гражданина *"
-            onChangeOption={bindSelect('realisationForCitizen')}
+            value={mainPartition.organizationLevel}
+            options={realizationLevels!}
+            heading="Уровень реализации проекта *"
+            onChangeOption={bindSelect('organizationLevel')}
           />
         )}
       </div>
+      <HelperEnableSelect
+        className={styles.half}
+        heading="Взаимодействие, партнерство с другими организациями"
+        value={switchers.partnership}
+        onChangeOption={bindSwitcherChange('partnership')}
+        hint="Можно указать несколько организаций-партнеров"
+      >
+        <Input
+          name="partnership"
+          value={mainPartition.partnership.value}
+          onChange={onChange}
+          error={mainPartition.partnership.error}
+          placeholder="Укажите партнеров"
+        />
+      </HelperEnableSelect>
+
       <div className={styles.half}>
         {attractingVolunteerLoading ? (
           <Skeleton
@@ -256,114 +324,134 @@ export const MainPartitionStep = ({
         )}
       </div>
       <div className={styles.half}>
-        {statusLoading ? (
+        {rnsuCategoryLoading ? (
           <Skeleton
             mode={ESkeletonMode.INPUT}
             withLoader
-            heading="Статус проекта *"
+            heading="Категории по РНСУ *"
           />
-        ) : statusError ? (
-          <Input value={''} heading="Статус проекта *" readOnly />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.projectStatus}
-            options={status!}
-            heading="Статус проекта *"
-            onChangeOption={bindSelect('projectStatus')}
-          />
-        )}
-      </div>
-      <div className={styles.half}>
-        {categoryLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Категория *"
-          />
-        ) : categoryError ? (
-          <Input value={''} heading="Категория *" readOnly />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.category}
-            options={category!}
-            heading="Категория *"
-            onChangeOption={bindSelect('category')}
-          />
-        )}
-      </div>
-      <div className={styles.half}>
-        {groupsLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Целевые группы *"
-          />
-        ) : groupsError ? (
-          <Input value={''} heading="Целевые группы *" readOnly />
+        ) : rnsuCategoryError ? (
+          <Input value={''} heading="Категории по РНСУ *" readOnly />
         ) : (
           <MultipleSelect
-            values={mainPartition.groups}
-            options={groups!}
-            heading="Целевые группы *"
-            onChangeOption={bindMultipleSelect('groups')}
+            values={mainPartition.rnsuCategories}
+            options={rnsuCategory!}
+            heading="Категории по РНСУ *"
+            onChangeOption={bindMultipleSelect('rnsuCategories')}
           />
         )}
       </div>
+
       <div className={styles.half}>
-        {kindLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Вид услуги *"
-          />
-        ) : kindError ? (
-          <Input value={''} heading="Вид услуги *" readOnly />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.kind}
-            options={kind!}
-            heading="Вид услуги *"
-            onChangeOption={bindSelect('kind')}
-          />
-        )}
+        <div className={styles.leadHelper}>
+          {categoryLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Категории *"
+            />
+          ) : categoryError ? (
+            <Input value={''} heading="Категории *" readOnly />
+          ) : (
+            <MultipleSelect
+              values={mainPartition.categories}
+              options={category!}
+              heading="Категории *"
+              onChangeOption={bindMultipleSelect('categories')}
+            />
+          )}
+        </div>
+        <div>
+          {groupsLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Целевые группы *"
+            />
+          ) : groupsError ? (
+            <Input value={''} heading="Целевые группы *" readOnly />
+          ) : mainPartition.categories.length ? (
+            <MultipleSelect
+              values={mainPartition.groups}
+              options={groups!}
+              heading="Целевые группы *"
+              onChangeOption={bindMultipleSelect('groups')}
+            />
+          ) : (
+            <Input
+              value={''}
+              placeholder="Сначала выберите категории нуждающихся"
+              heading="Целевые группы *"
+              readOnly
+            />
+          )}
+        </div>
       </div>
       <div className={styles.half}>
-        {worksNameLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Наименование работ *"
-          />
-        ) : worksNameError ? (
-          <Input value={''} heading="Наименование работ *" readOnly />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.worksName}
-            options={worksName!}
-            heading="Наименование работ *"
-            onChangeOption={bindSelect('worksName')}
-          />
-        )}
+        <div className={styles.leadHelper}>
+          {worksKindsLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Виды услуг"
+            />
+          ) : worksKindsError ? (
+            <Input value={''} heading="Виды услуг" readOnly />
+          ) : (
+            <MultipleSelect
+              values={mainPartition.worksKinds}
+              options={worksKinds!}
+              heading="Виды услуг"
+              onChangeOption={bindMultipleSelect('worksKinds')}
+            />
+          )}
+        </div>
+        <div>
+          {worksNamesLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Наименования услуг"
+            />
+          ) : worksNamesError ? (
+            <Input value={''} heading="Наименования услуг" readOnly />
+          ) : mainPartition.categories.length ? (
+            <MultipleSelect
+              values={mainPartition.worksNames}
+              options={worksNames!}
+              heading="Наименования услуг"
+              onChangeOption={bindMultipleSelect('worksNames')}
+            />
+          ) : (
+            <Input
+              value={''}
+              placeholder="Сначала выберите виды услуги"
+              heading="Наименования услуг"
+              readOnly
+            />
+          )}
+        </div>
       </div>
+
       <div className={styles.half}>
-        {partnersLoading ? (
+        {gosWorkNamesLoading ? (
           <Skeleton
             mode={ESkeletonMode.INPUT}
             withLoader
-            heading="Партнеры *"
+            heading="Наименования государственной работы"
           />
-        ) : partnersError ? (
-          <Input value={''} heading="Партнеры *" readOnly />
+        ) : gosWorkNamesError ? (
+          <Input
+            value={''}
+            heading="Наименования государственной работы"
+            readOnly
+          />
         ) : (
           <MultipleSelect
-            values={mainPartition.partners}
-            options={partners!}
-            heading="Партнеры *"
-            onChangeOption={bindMultipleSelect('partners')}
+            values={mainPartition.gosWorkNames}
+            options={gosWorkNames!}
+            heading="Наименования государственной работы"
+            onChangeOption={bindMultipleSelect('gosWorkNames')}
           />
         )}
       </div>
@@ -381,56 +469,146 @@ export const MainPartitionStep = ({
             readOnly
           />
         ) : (
-          <Select
-            withUnselect
-            value={mainPartition.circumstancesRecognitionNeed}
+          <MultipleSelect
+            values={mainPartition.circumstancesRecognitionNeed}
             options={circumstancesRecognitionNeed!}
             heading="Обстоятельства признания нуждаемости *"
-            onChangeOption={bindSelect('circumstancesRecognitionNeed')}
+            onChangeOption={bindMultipleSelect('circumstancesRecognitionNeed')}
           />
         )}
       </div>
-      <div className={styles.half}>
-        {socialHelpFormLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Форма социального обслуживания (сопровождения) *"
-          />
-        ) : socialHelpFormError ? (
+
+      <div>
+        <div className={styles.half}>
+          {socialHelpFormLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Формы социального обслуживания (сопровождения) *"
+            />
+          ) : socialHelpFormError ? (
+            <Input
+              value={''}
+              heading="Формы социального обслуживания (сопровождения) *"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              values={mainPartition.socialHelpForm}
+              options={socialHelpForm!}
+              heading="Формы социального обслуживания (сопровождения) *"
+              onChangeOption={bindMultipleSelect('socialHelpForm')}
+            />
+          )}
+        </div>
+      </div>
+
+      <TextArea
+        className={styles.half}
+        name="basicQualityResults"
+        value={mainPartition.basicQualityResults.value}
+        onChange={onChange}
+        error={mainPartition.basicQualityResults.error}
+        heading="Основные качественные результаты *"
+        placeholder="Основные качественные результаты"
+      />
+      <TextArea
+        className={styles.half}
+        name="socialResults"
+        value={mainPartition.socialResults.value}
+        onChange={onChange}
+        error={mainPartition.socialResults.error}
+        heading="Социальные результаты *"
+        placeholder="Социальные результаты"
+        hint={`Укажите: группу благополучателей,\nпроблемы / потребности благополучателей,\nпланируемые позитивные изменения в ситуации благополучателей (социальные результаты практики)`}
+      />
+
+      <TextArea
+        className={styles.half}
+        name="replicability"
+        value={mainPartition.replicability.value}
+        onChange={onChange}
+        error={mainPartition.replicability.error}
+        heading="Тиражируемость"
+        placeholder="Тиражируемость"
+        hint="Укажите, когда и какая организация внедрила Ваш проект в свою работу"
+      />
+      <HelperEnableSelect
+        className={styles.half}
+        heading="Апробация на инновационной площадке/в ресурсном центре"
+        value={switchers.innovationGround}
+        onChangeOption={bindSwitcherChange('innovationGround')}
+        hint="Укажите, где и когда проходила апробация"
+      >
+        <Input
+          name="innovationGround"
+          value={mainPartition.innovationGround.value}
+          onChange={onChange}
+          error={mainPartition.innovationGround.error}
+          placeholder="Описание"
+        />
+      </HelperEnableSelect>
+
+      <HelperEnableSelect
+        className={styles.half}
+        heading="Наличие экспертного заключения"
+        value={switchers.hasExpertOpinion}
+        onChangeOption={bindSwitcherChange('hasExpertOpinion')}
+        hint="Укажите, кто и когда выдал экспертное заключение"
+      >
+        <Input
+          name="hasExpertOpinion"
+          value={mainPartition.hasExpertOpinion.value}
+          onChange={onChange}
+          error={mainPartition.hasExpertOpinion.error}
+          placeholder="Описание"
+        />
+      </HelperEnableSelect>
+      <HelperEnableSelect
+        className={styles.half}
+        heading="Наличие рецензии"
+        value={switchers.hasExpertReview}
+        onChangeOption={bindSwitcherChange('hasExpertReview')}
+        hint="Укажите, кто и когда выдал рецензию"
+      >
+        <Input
+          name="hasExpertReview"
+          value={mainPartition.hasExpertReview.value}
+          onChange={onChange}
+          error={mainPartition.hasExpertReview.error}
+          placeholder="Описание"
+        />
+      </HelperEnableSelect>
+
+      <div>
+        <HelperEnableSelect
+          className={styles.half}
+          heading="Наличие отзыва"
+          value={switchers.hasExpertMention}
+          onChangeOption={bindSwitcherChange('hasExpertMention')}
+          hint="Укажите, кто и когда выдал отзыв"
+        >
           <Input
-            value={''}
-            heading="Форма социального обслуживания (сопровождения) *"
-            readOnly
+            name="hasExpertMention"
+            value={mainPartition.hasExpertMention.value}
+            onChange={onChange}
+            error={mainPartition.hasExpertMention.error}
+            placeholder="Описание"
           />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.socialHelpForm}
-            options={socialHelpForm!}
-            heading="Форма социального обслуживания (сопровождения) *"
-            onChangeOption={bindSelect('socialHelpForm')}
-          />
-        )}
+        </HelperEnableSelect>
       </div>
+
       <div className={styles.half}>
-        {rnsuCategoryLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Категория по РНСУ *"
+        {
+          <PhotoInput
+            name="photo"
+            category="job_project_photo"
+            photoPath={mainPartition.photo.path}
+            photoName={mainPartition.photo.name}
+            onPhotoChange={bindPhotoChange('photo')}
+            heading="Фотография *"
           />
-        ) : rnsuCategoryError ? (
-          <Input value={''} heading="Категория по РНСУ *" readOnly />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.rnsuCategory}
-            options={rnsuCategory!}
-            heading="Категория по РНСУ *"
-            onChangeOption={bindSelect('rnsuCategory')}
-          />
-        )}
+        }
       </div>
       <div className={styles.half}>
         {
@@ -444,103 +622,25 @@ export const MainPartitionStep = ({
           />
         }
       </div>
-      <TextArea
-        className={styles.half}
-        name="basicQualityResults"
-        value={mainPartition.basicQualityResults.value}
-        onChange={onChange}
-        error={mainPartition.basicQualityResults.error}
-        heading="Основные качественные результаты реализации проекта *"
-        placeholder="Основные качественные результаты реализации проекта"
-      />
-      <TextArea
-        className={styles.half}
-        name="basicAmountResults"
-        value={mainPartition.basicAmountResults.value}
-        onChange={onChange}
-        error={mainPartition.basicAmountResults.error}
-        heading="Основные количественные результаты *"
-        placeholder="Основные количественные результаты"
-      />
-      <TextArea
-        className={styles.half}
-        name="diagnosticInstruments"
-        value={mainPartition.diagnosticInstruments.value}
-        onChange={onChange}
-        error={mainPartition.diagnosticInstruments.error}
-        heading="Диагностический инструментарий оценки результатов *"
-        placeholder="Диагностический инструментарий оценки результатов"
-      />
-      <TextArea
-        className={styles.half}
-        name="briefResourcesDescription"
-        value={mainPartition.briefResourcesDescription.value}
-        onChange={onChange}
-        error={mainPartition.briefResourcesDescription.error}
-        heading="Краткое описание необходимого ресурсного обеспечения *"
-        placeholder="Краткое описание необходимого ресурсного обеспечения"
-      />
-      <TextArea
-        className={styles.half}
-        name="bestPractiseForLeadership"
-        value={mainPartition.bestPractiseForLeadership.value}
-        onChange={onChange}
-        error={mainPartition.bestPractiseForLeadership.error}
-        heading="Лучшая практика по мнению руководства организации *"
-        placeholder="Лучшая практика по мнению руководства организации"
-      />
-      <TextArea
-        className={styles.half}
-        name="socialResult"
-        value={mainPartition.socialResult.value}
-        onChange={onChange}
-        error={mainPartition.socialResult.error}
-        heading="Социальный результат *"
-        placeholder="Социальный результат"
-      />
+
       <TextArea
         className={styles.half}
         name="video"
         value={mainPartition.video.value}
         onChange={onChange}
         error={mainPartition.video.error}
-        heading="Видео ролик *"
+        heading="Видео ролик"
         placeholder="Видео ролик"
       />
       <TextArea
         className={styles.half}
-        name="prevalence"
-        value={mainPartition.prevalence.value}
+        name="resourcesDescription"
+        value={mainPartition.resourcesDescription.value}
         onChange={onChange}
-        error={mainPartition.prevalence.error}
-        heading="Распространенность *"
-        placeholder="Распространенность"
-      />
-
-      <Checkbox
-        checked={mainPartition.canBeDistant}
-        onToggle={bindCheckToggle('canBeDistant')}
-        label={<Text>Возможность реализации в дистанционном формате</Text>}
-      />
-      <Checkbox
-        checked={mainPartition.innovationGround}
-        onToggle={bindCheckToggle('innovationGround')}
-        label={<Text>Апробация на инновационной площадке</Text>}
-      />
-      <Checkbox
-        checked={mainPartition.hasExpertOpinion}
-        onToggle={bindCheckToggle('hasExpertOpinion')}
-        label={<Text>Наличие экспертного заключения</Text>}
-      />
-      <Checkbox
-        checked={mainPartition.hasExpertReview}
-        onToggle={bindCheckToggle('hasExpertReview')}
-        label={<Text>Наличие экспертной рецензии</Text>}
-      />
-      <Checkbox
-        checked={mainPartition.hasExpertMention}
-        onToggle={bindCheckToggle('hasExpertMention')}
-        label={<Text>Наличие экспертного отзыва</Text>}
+        error={mainPartition.resourcesDescription.error}
+        heading="Краткое описание необходимого ресурсного обеспечения *"
+        placeholder="Краткое описание необходимого ресурсного обеспечения"
+        hint="Кадровое обеспечение, специальное оборудование, материалы, помещение"
       />
     </div>
   );

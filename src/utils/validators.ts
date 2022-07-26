@@ -26,6 +26,31 @@ export const textInputValidator = (
   };
 };
 
+export const annotationValidator = (
+  value?: string | number
+): IValidationResult => {
+  value = value?.toString();
+
+  if (!value || !value.length) {
+    return {
+      success: false,
+      text: 'Пустое значение',
+    };
+  }
+
+  if (value.length > 2500) {
+    return {
+      success: false,
+      text: 'Значение не может быть длиннее 2500 символов',
+    };
+  }
+
+  return {
+    success: true,
+    text: '',
+  };
+};
+
 export const dateInputValidator = (value?: string): IValidationResult => {
   if (!value || !value.length) {
     return {

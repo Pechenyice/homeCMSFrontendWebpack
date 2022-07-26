@@ -8,3 +8,4 @@ export * from './Delete';
 export * from './Eyes';
 export * from './Loaders';
 export * from './Minus';
+export * from './Question';

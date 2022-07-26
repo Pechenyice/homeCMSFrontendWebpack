@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, useRef, useState } from 'react';
 import { combineClasses } from 'utils';
-import { Text } from 'components/kit';
+import { Hint, Text } from 'components/kit';
 import styles from './HelperEnableSelect.module.scss';
 import { ChevronVerticalIcon } from 'assets/icons';
 import { CSSTransition } from 'react-transition-group';
@@ -10,12 +10,13 @@ type Props = {
   heading?: string;
   value: boolean;
   onChangeOption: (option: boolean) => void;
+  hint?: string;
 };
 
 export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
   props
 ) => {
-  const { heading, value, onChangeOption, children, ...rest } = props;
+  const { heading, value, hint, onChangeOption, children, ...rest } = props;
 
   const [opened, setOpened] = useState(false);
 
@@ -25,7 +26,11 @@ export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
 
   return (
     <div className={styles.wrapper} {...rest}>
-      {heading && <H3 className={styles.heading}>{heading}</H3>}
+      {heading && (
+        <H3 className={styles.heading}>
+          {heading} {hint && <Hint text={hint} />}
+        </H3>
+      )}
       <div
         className={combineClasses(
           styles.inner,

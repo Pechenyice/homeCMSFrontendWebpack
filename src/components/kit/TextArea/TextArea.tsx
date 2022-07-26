@@ -2,6 +2,7 @@ import { LockHiddenIcon } from 'assets/icons';
 import { ReactNode, TextareaHTMLAttributes } from 'react';
 import { IInputError } from 'types/interfaces';
 import { combineClasses } from 'utils';
+import { Hint } from '../Hint/Hint';
 import { H3 } from '../H3/H3';
 import { H5 } from '../H5/H5';
 import styles from './TextArea.module.scss';
@@ -9,12 +10,16 @@ import styles from './TextArea.module.scss';
 interface Props {
   heading?: string | ReactNode;
   error?: IInputError;
+  hint?: string;
 }
 
-export const TextArea = (props: Props & TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+export const TextArea = (
+  props: Props & TextareaHTMLAttributes<HTMLTextAreaElement>
+) => {
   const {
     heading,
     error,
+    hint,
     name,
     placeholder,
     onChange,
@@ -28,7 +33,11 @@ export const TextArea = (props: Props & TextareaHTMLAttributes<HTMLTextAreaEleme
 
   return (
     <div className={combineClasses(styles.wrapper, className ?? '')}>
-      {heading && <H3 className={styles.heading}>{heading}</H3>}
+      {heading && (
+        <H3 className={styles.heading}>
+          {heading} {hint && <Hint text={hint} />}
+        </H3>
+      )}
       <div className={styles.inner}>
         <textarea
           readOnly={readOnly}

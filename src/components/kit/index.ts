@@ -20,3 +20,4 @@ export * from './Modal/Modal';
 export * from './HelperEnableSelect/HelperEnableSelect';
 export * from './MultipleSelect/MultipleSelect';
 export * from './PhotoInput/PhotoInput';
+export * from './Hint/Hint';

@@ -18,11 +18,6 @@ import styles from './PartitionStep.module.scss';
 
 type Props = {
   membersPartition: IProjectState['membersPartition'];
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onHelperChange: (helperName: string, value: boolean) => void;
-  onSelect: (name: string, option: number) => void;
-  onMultipleSelect: (name: string, option: number) => void;
-  onCheckToggle: (name: string) => void;
   onMembersEntryChange: (
     index: number,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -33,11 +28,6 @@ type Props = {
 
 export const MembersPartitionStep = ({
   membersPartition,
-  onChange,
-  onHelperChange,
-  onSelect,
-  onMultipleSelect,
-  onCheckToggle,
   onMembersEntryChange,
   onAddMembersEntry,
   onRemoveMembersEntry,
@@ -45,22 +35,6 @@ export const MembersPartitionStep = ({
   /**
    * binders
    */
-  const bindHelperChange = (helperName: string) => {
-    return (value: boolean) => onHelperChange(helperName, value);
-  };
-
-  const bindSelect = (name: string) => (option: number) => {
-    onSelect(name, option);
-  };
-
-  const bindMultipleSelect = (name: string) => (option: number) => {
-    onMultipleSelect(name, option);
-  };
-
-  const bindCheckToggle = (name: string) => () => {
-    onCheckToggle(name);
-  };
-
   const bindRemoveMembersEntry = (index: number) => () => {
     onRemoveMembersEntry(index);
   };
@@ -110,7 +84,7 @@ export const MembersPartitionStep = ({
             value={String(entry.familiesCount.value ?? '')}
             onChange={bindChangeMembersEntry(index)}
             error={entry.familiesCount.error}
-            heading="Количество семей *"
+            heading="Количество семей"
             placeholder="Количество семей"
           />
           <Input
@@ -119,7 +93,7 @@ export const MembersPartitionStep = ({
             value={String(entry.childrenCount.value ?? '')}
             onChange={bindChangeMembersEntry(index)}
             error={entry.childrenCount.error}
-            heading="Количество детей *"
+            heading="Количество детей"
             placeholder="Количество детей"
           />
 
@@ -129,7 +103,7 @@ export const MembersPartitionStep = ({
             value={String(entry.menCount.value ?? '')}
             onChange={bindChangeMembersEntry(index)}
             error={entry.menCount.error}
-            heading="Количество мужчин *"
+            heading="Количество мужчин"
             placeholder="Количество мужчин"
           />
           <Input
@@ -138,7 +112,7 @@ export const MembersPartitionStep = ({
             value={String(entry.womenCount.value ?? '')}
             onChange={bindChangeMembersEntry(index)}
             error={entry.womenCount.error}
-            heading="Количество женщин *"
+            heading="Количество женщин"
             placeholder="Количество женщин"
           />
         </div>
