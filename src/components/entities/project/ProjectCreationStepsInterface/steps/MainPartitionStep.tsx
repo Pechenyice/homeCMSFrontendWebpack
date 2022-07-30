@@ -10,22 +10,26 @@ import {
   Text,
   TextArea,
 } from 'components/kit';
-import { useDistricts } from 'hooks';
-import { useAttractingVolunteer } from 'hooks/queries/useAttractingVolunteer';
-import { useCategories } from 'hooks/queries/useCategories';
-import { useCircumstancesRecognitionNeed } from 'hooks/queries/useCircumstancesRecognitionNeed';
-import { useRealisationForCitizen } from 'hooks/queries/useRealisationForCitizen';
-import { useRNSUCategories } from 'hooks/queries/useRNSUCategories';
-import { useWorksNames } from 'hooks/queries/useWorksNames';
-import { useTargetGroups } from 'hooks/queries/useTargetGroups';
+import { useDistricts } from 'hooks/queries/useDistricts';
 import { ChangeEvent } from 'react';
 import { IMainHelpers } from 'types/entities/entities';
 import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
-import { useStatuses } from 'hooks/queries/useStatuses';
-import { useSocialHelpForms } from 'hooks/queries/useSocialHelpForms';
-import { useKinds } from 'hooks/queries/useKinds';
 import { GalleryInput } from 'components/kit/GalleryInput/GalleryInput';
+import { useRealisationForCitizen } from 'hooks/queries/useRealisationForCitizen';
+import { useRealizationLevels } from 'hooks/queries/useRealizationLevels';
+import { useAttractingVolunteer } from 'hooks/queries/useAttractingVolunteer';
+import { useRnsuCategory } from 'hooks/queries/useRnsuCategory';
+import { useCategories } from 'hooks/queries/useCategories';
+import { useGroups } from 'hooks/queries/useGroups';
+import { useCircumstancesRecognitionNeed } from 'hooks/queries/useCircumstancesRecognitionNeed';
+import { useWorksKinds } from 'hooks/queries/useWorksKinds';
+import { useWorksNames } from 'hooks/queries/useWorksNames';
+import { useGosWorkNames } from 'hooks/queries/useGosWorkNames';
+import { useSocialHelpForm } from 'hooks/queries/useSocialHelpForm';
+import { useWorksKindsToWorksNames } from 'hooks/queries/categoriesRelations/useWorksKindsToWorksNames';
+import { useCategoriesToGroups } from 'hooks/queries/categoriesRelations/useCategoriesToGroups';
+import { getRelatedCategoriesOptions } from 'utils/entities/common';
 
 type Props = {
   switchers: IProjectSwitchers;
@@ -34,6 +38,7 @@ type Props = {
   onSwitcherChange: (switcherName: string, value: boolean) => void;
   onSelect: (name: string, option: number) => void;
   onMultipleSelect: (name: string, option: number) => void;
+  onMultipleParentSelect: (name: string, child: string, option: number) => void;
   onCheckToggle: (name: string) => void;
   onPhotoChange: (
     name: string,
@@ -49,92 +54,81 @@ export const MainPartitionStep = ({
   onSwitcherChange,
   onSelect,
   onMultipleSelect,
+  onMultipleParentSelect,
   onCheckToggle,
   onPhotoChange,
 }: Props) => {
-  //TODO: replace useDistricts with right hooks
   const {
     apiData: realisationForCitizen,
     isLoading: realisationForCitizenLoading,
     isError: realisationForCitizenError,
   } = useRealisationForCitizen();
   const {
+    apiData: realizationLevels,
+    isLoading: realizationLevelsLoading,
+    isError: realizationLevelsError,
+  } = useRealizationLevels();
+
+  const {
     apiData: attractingVolunteer,
     isLoading: attractingVolunteerLoading,
     isError: attractingVolunteerError,
   } = useAttractingVolunteer();
+  const {
+    apiData: rnsuCategory,
+    isLoading: rnsuCategoryLoading,
+    isError: rnsuCategoryError,
+  } = useRnsuCategory();
 
   const {
-    apiData: status,
-    isLoading: statusLoading,
-    isError: statusError,
-  } = useStatuses();
-  const {
-    apiData: category,
-    isLoading: categoryLoading,
-    isError: categoryError,
+    apiData: categories,
+    isLoading: categoriesLoading,
+    isError: categoriesError,
   } = useCategories();
-
   const {
     apiData: groups,
     isLoading: groupsLoading,
     isError: groupsError,
-  } = useTargetGroups();
-  const {
-    apiData: kind,
-    isLoading: kindLoading,
-    isError: kindError,
-  } = useKinds();
+  } = useGroups();
 
   const {
-    apiData: worksName,
-    isLoading: worksNameLoading,
-    isError: worksNameError,
+    apiData: worksKinds,
+    isLoading: worksKindsLoading,
+    isError: worksKindsError,
+  } = useWorksKinds();
+  const {
+    apiData: worksNames,
+    isLoading: worksNamesLoading,
+    isError: worksNamesError,
   } = useWorksNames();
-  const {
-    apiData: partners,
-    isLoading: partnersLoading,
-    isError: partnersError,
-  } = useDistricts();
 
+  const {
+    apiData: gosWorkNames,
+    isLoading: gosWorkNamesLoading,
+    isError: gosWorkNamesError,
+  } = useGosWorkNames();
   const {
     apiData: circumstancesRecognitionNeed,
     isLoading: circumstancesRecognitionNeedLoading,
     isError: circumstancesRecognitionNeedError,
   } = useCircumstancesRecognitionNeed();
+
   const {
     apiData: socialHelpForm,
     isLoading: socialHelpFormLoading,
     isError: socialHelpFormError,
-  } = useSocialHelpForms();
+  } = useSocialHelpForm();
 
   const {
-    apiData: rnsuCategory,
-    isLoading: rnsuCategoryLoading,
-    isError: rnsuCategoryError,
-  } = useRNSUCategories();
-
+    apiData: worksKindsToWorksNames,
+    isLoading: worksKindsToWorksNamesLoading,
+    isError: worksKindsToWorksNamesError,
+  } = useWorksKindsToWorksNames();
   const {
-    apiData: realizationLevels,
-    isLoading: realizationLevelsLoading,
-    isError: realizationLevelsError,
-  } = useDistricts();
-  const {
-    apiData: worksKinds,
-    isLoading: worksKindsLoading,
-    isError: worksKindsError,
-  } = useDistricts();
-
-  const {
-    apiData: worksNames,
-    isLoading: worksNamesLoading,
-    isError: worksNamesError,
-  } = useDistricts();
-  const {
-    apiData: gosWorkNames,
-    isLoading: gosWorkNamesLoading,
-    isError: gosWorkNamesError,
-  } = useDistricts();
+    apiData: categoriesToGroups,
+    isLoading: categoriesToGroupsLoading,
+    isError: categoriesToGroupsError,
+  } = useCategoriesToGroups();
 
   /**
    * binders
@@ -149,6 +143,12 @@ export const MainPartitionStep = ({
 
   const bindMultipleSelect = (name: string) => (option: number) => {
     onMultipleSelect(name, option);
+  };
+
+  const bindMultipleParentSelect = (name: string, child: string) => (
+    option: number
+  ) => {
+    onMultipleParentSelect(name, child, option);
   };
 
   const bindCheckToggle = (name: string) => () => {
@@ -345,36 +345,40 @@ export const MainPartitionStep = ({
 
       <div className={styles.half}>
         <div className={styles.leadHelper}>
-          {categoryLoading ? (
+          {categoriesLoading || categoriesToGroupsLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
               heading="Категории *"
             />
-          ) : categoryError ? (
+          ) : categoriesError || categoriesToGroupsError ? (
             <Input value={''} heading="Категории *" readOnly />
           ) : (
             <MultipleSelect
               values={mainPartition.categories}
-              options={category!}
+              options={categories!}
               heading="Категории *"
-              onChangeOption={bindMultipleSelect('categories')}
+              onChangeOption={bindMultipleParentSelect('categories', 'groups')}
             />
           )}
         </div>
         <div>
-          {groupsLoading ? (
+          {groupsLoading || categoriesLoading || categoriesToGroupsLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
               heading="Целевые группы *"
             />
-          ) : groupsError ? (
+          ) : groupsError || categoriesError || categoriesToGroupsError ? (
             <Input value={''} heading="Целевые группы *" readOnly />
           ) : mainPartition.categories.length ? (
             <MultipleSelect
               values={mainPartition.groups}
-              options={groups!}
+              options={getRelatedCategoriesOptions(
+                mainPartition.categories,
+                groups!,
+                categoriesToGroups!
+              )}
               heading="Целевые группы *"
               onChangeOption={bindMultipleSelect('groups')}
             />
@@ -390,36 +394,47 @@ export const MainPartitionStep = ({
       </div>
       <div className={styles.half}>
         <div className={styles.leadHelper}>
-          {worksKindsLoading ? (
+          {worksKindsLoading || worksKindsToWorksNamesLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
               heading="Виды услуг"
             />
-          ) : worksKindsError ? (
+          ) : worksKindsError || worksKindsToWorksNamesError ? (
             <Input value={''} heading="Виды услуг" readOnly />
           ) : (
             <MultipleSelect
               values={mainPartition.worksKinds}
               options={worksKinds!}
               heading="Виды услуг"
-              onChangeOption={bindMultipleSelect('worksKinds')}
+              onChangeOption={bindMultipleParentSelect(
+                'worksKinds',
+                'worksNames'
+              )}
             />
           )}
         </div>
         <div>
-          {worksNamesLoading ? (
+          {worksNamesLoading ||
+          worksKindsLoading ||
+          worksKindsToWorksNamesLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
               heading="Наименования услуг"
             />
-          ) : worksNamesError ? (
+          ) : worksNamesError ||
+            worksKindsError ||
+            worksKindsToWorksNamesError ? (
             <Input value={''} heading="Наименования услуг" readOnly />
           ) : mainPartition.worksKinds.length ? (
             <MultipleSelect
               values={mainPartition.worksNames}
-              options={worksNames!}
+              options={getRelatedCategoriesOptions(
+                mainPartition.worksKinds,
+                worksNames!,
+                worksKindsToWorksNames!
+              )}
               heading="Наименования услуг"
               onChangeOption={bindMultipleSelect('worksNames')}
             />
@@ -612,7 +627,7 @@ export const MainPartitionStep = ({
           />
         }
       </div>
-      <div className={styles.half}>
+      {/* <div className={styles.half}>
         {
           <GalleryInput
             name="gallery"
@@ -622,7 +637,7 @@ export const MainPartitionStep = ({
             hint="Характеристики фото галереи"
           />
         }
-      </div>
+      </div> */}
 
       <TextArea
         className={styles.half}

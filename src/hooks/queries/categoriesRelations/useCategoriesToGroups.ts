@@ -3,20 +3,20 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
-import { realisationForCitizenKey } from './keys';
+import { categoriesKey, groupsKey } from './../keys';
 
-export const useRealisationForCitizen = () => {
+export const useCategoriesToGroups = () => {
   const { addError } = useErrors();
   const { handleLogout } = useAuth();
 
   const query = useQuery(
-    realisationForCitizenKey,
-    () => API.queries.fetchCategories(realisationForCitizenKey),
+    [categoriesKey, groupsKey, 'categories', 'relations'],
+    () => API.queries.fetchCategoriesRelations(categoriesKey, groupsKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
           addError(
-            'Произошла критическая ошибка при загрузке реализаций для гражданина!'
+            'Произошла критическая ошибка при загрузке ключей словарей категорий!'
           );
         } else if (e instanceof AuthError) {
           handleLogout();

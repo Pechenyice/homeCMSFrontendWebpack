@@ -3,21 +3,19 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
-import { realisationForCitizenKey } from './keys';
+import { worksKindsKey } from './keys';
 
-export const useRealisationForCitizen = () => {
+export const useWorksKinds = () => {
   const { addError } = useErrors();
   const { handleLogout } = useAuth();
 
   const query = useQuery(
-    realisationForCitizenKey,
-    () => API.queries.fetchCategories(realisationForCitizenKey),
+    worksKindsKey,
+    () => API.queries.fetchCategories(worksKindsKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
-          addError(
-            'Произошла критическая ошибка при загрузке реализаций для гражданина!'
-          );
+          addError('Произошла критическая ошибка при загрузке видов услуг!');
         } else if (e instanceof AuthError) {
           handleLogout();
         } else if (e instanceof ApiError) {

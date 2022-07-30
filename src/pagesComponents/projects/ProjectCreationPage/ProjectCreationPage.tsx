@@ -82,6 +82,7 @@ export const ProjectCreationPage = () => {
     hasExpertReview: registerInput('', textInputValidator), //Наличие экспертного рецензии
     hasExpertMention: registerInput('', textInputValidator), //Наличие экспертного отзыва
     photo: {
+      id: null,
       path: null,
       name: null,
     }, //Фотография
@@ -178,6 +179,23 @@ export const ProjectCreationPage = () => {
     });
   };
 
+  const handleMultipleParentSelectChange = (
+    partition: EEntityPartition,
+    name: string,
+    child: string,
+    option: number
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: (state as any)[name].includes(option)
+        ? (state as any)[name].filter((opt: number) => opt !== option)
+        : [...(state as any)[name], option],
+      [child]: [],
+    });
+  };
+
   const handleSelectChange = (
     partition: EEntityPartition,
     name: string,
@@ -220,6 +238,7 @@ export const ProjectCreationPage = () => {
     });
   };
 
+  //TODO: photo flow with id (add + validate + save) and gallery flow
   const handlePhotoChange = (
     partition: EEntityPartition,
     name: string,
@@ -670,6 +689,7 @@ export const ProjectCreationPage = () => {
         onSwitcherChange={handleSwitcherChange}
         onSelectChange={handleSelectChange}
         onMultipleSelectChange={handleMultipleSelectChange}
+        onMultipleParentSelectChange={handleMultipleParentSelectChange}
         onCheckToggle={handleCheckToggle}
         onMembersEntryChange={handleMembersEntryChange}
         onAddMembersEntry={handleAddMembersEntry}

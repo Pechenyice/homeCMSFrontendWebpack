@@ -10,18 +10,7 @@ export const aborts = {
 
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
-  QUERIES_DISTRICTS_CONTROLLER: new AbortController(),
-  QUERIES_ORGANIZATION_TYPES_CONTROLLER: new AbortController(),
-  QUERIES_REALISATION_FOR_CITIZEN_CONTROLLER: new AbortController(),
-  QUERIES_ATTRACTING_VOLUNTEER_CONTROLLER: new AbortController(),
   QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
-  QUERIES_RNSU_CATEGORIES_CONTROLLER: new AbortController(),
-  QUERIES_CIRCUMSTANCES_RECOGNITION_NEED_CONTROLLER: new AbortController(),
-  QUERIES_WORKS_NAMES_CONTROLLER: new AbortController(),
-  QUERIES_TARGET_GROUPS_CONTROLLER: new AbortController(),
-  QUERIES_STATUSES_CONTROLLER: new AbortController(),
-  QUERIES_SOCIAL_HELP_FORMS_CONTROLLER: new AbortController(),
-  QUERIES_KINDS_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {
@@ -64,62 +53,7 @@ export function abortFileUpload() {
   aborts.FILE_UPLOAD_CONTROLLER = new AbortController();
 }
 
-export function abortQueryDistricts() {
-  aborts.QUERIES_DISTRICTS_CONTROLLER.abort();
-  aborts.QUERIES_DISTRICTS_CONTROLLER = new AbortController();
-}
-
-export function abortQueryOrganizationTypes() {
-  aborts.QUERIES_ORGANIZATION_TYPES_CONTROLLER.abort();
-  aborts.QUERIES_ORGANIZATION_TYPES_CONTROLLER = new AbortController();
-}
-
-export function abortQueryRealisationForCitizen() {
-  aborts.QUERIES_REALISATION_FOR_CITIZEN_CONTROLLER.abort();
-  aborts.QUERIES_REALISATION_FOR_CITIZEN_CONTROLLER = new AbortController();
-}
-
-export function abortQueryAttractingVolunteer() {
-  aborts.QUERIES_ATTRACTING_VOLUNTEER_CONTROLLER.abort();
-  aborts.QUERIES_ATTRACTING_VOLUNTEER_CONTROLLER = new AbortController();
-}
-
 export function abortQueryCategories() {
   aborts.QUERIES_CATEGORIES_CONTROLLER.abort();
   aborts.QUERIES_CATEGORIES_CONTROLLER = new AbortController();
-}
-
-export function abortQueryRNSUCategories() {
-  aborts.QUERIES_RNSU_CATEGORIES_CONTROLLER.abort();
-  aborts.QUERIES_RNSU_CATEGORIES_CONTROLLER = new AbortController();
-}
-
-export function abortQueryCircumstancesRecognitionNeed() {
-  aborts.QUERIES_CIRCUMSTANCES_RECOGNITION_NEED_CONTROLLER.abort();
-  aborts.QUERIES_CIRCUMSTANCES_RECOGNITION_NEED_CONTROLLER = new AbortController();
-}
-
-export function abortQueryWorksNames() {
-  aborts.QUERIES_WORKS_NAMES_CONTROLLER.abort();
-  aborts.QUERIES_WORKS_NAMES_CONTROLLER = new AbortController();
-}
-
-export function abortQueryTargetGroups() {
-  aborts.QUERIES_TARGET_GROUPS_CONTROLLER.abort();
-  aborts.QUERIES_TARGET_GROUPS_CONTROLLER = new AbortController();
-}
-
-export function abortQueryStatuses() {
-  aborts.QUERIES_STATUSES_CONTROLLER.abort();
-  aborts.QUERIES_STATUSES_CONTROLLER = new AbortController();
-}
-
-export function abortQuerySocialHelpForms() {
-  aborts.QUERIES_SOCIAL_HELP_FORMS_CONTROLLER.abort();
-  aborts.QUERIES_SOCIAL_HELP_FORMS_CONTROLLER = new AbortController();
-}
-
-export function abortQueryKinds() {
-  aborts.QUERIES_KINDS_CONTROLLER.abort();
-  aborts.QUERIES_KINDS_CONTROLLER = new AbortController();
 }

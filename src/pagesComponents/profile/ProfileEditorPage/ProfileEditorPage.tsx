@@ -13,7 +13,9 @@ import {
   Button,
   Modal,
 } from 'components/kit';
-import { useAuth, useDistricts, useErrors, useOrganizationTypes } from 'hooks';
+import { useAuth, useErrors } from 'hooks';
+import { useDistricts } from 'hooks/queries/useDistricts';
+import { useOrganizationTypes } from 'hooks/queries/useOrganizationTypes';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EAuthStatus, EProposalStatus } from 'types/enums';
@@ -139,8 +141,11 @@ export const ProfileEditorPage = () => {
         innovationGround: state.innovationGround,
       };
 
+      if (!profile?.id) throw new AuthError('Данные пользователя не найдены');
+
       const { data } = await API.profile.update(
-        mapCompanyToAPI(stateValues as ICompany, true)
+        mapCompanyToAPI(stateValues as ICompany, true),
+        profile.id
       );
 
       updateProfile({

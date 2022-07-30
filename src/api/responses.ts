@@ -5,6 +5,7 @@ import {
   IAPIAuthToken,
   IAPICompany,
   IFileInfo,
+  ISelectRelations,
 } from 'types/interfaces';
 
 export interface IResponseError {
@@ -48,4 +49,8 @@ export interface IFileUploadedResponse extends IResponseError {
 
 export interface IQueriesResponse extends IResponseError {
   data: ISelectValue[] | null;
+}
+
+export interface IQueriesRelationsResponse extends IResponseError {
+  data: ISelectRelations | null;
 }

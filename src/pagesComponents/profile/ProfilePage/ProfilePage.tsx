@@ -8,7 +8,9 @@ import {
   Text,
   TextArea,
 } from 'components/kit';
-import { useAuth, useDistricts, useErrors, useOrganizationTypes } from 'hooks';
+import { useAuth, useErrors } from 'hooks';
+import { useDistricts } from 'hooks/queries/useDistricts';
+import { useOrganizationTypes } from 'hooks/queries/useOrganizationTypes';
 import { useEffect, useMemo } from 'react';
 import { getValueByIdFromSelect } from 'utils';
 import styles from './ProfilePage.module.scss';

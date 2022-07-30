@@ -3,20 +3,20 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
-import { realisationForCitizenKey } from './keys';
+import { realizationLevelsKey } from './keys';
 
-export const useRealisationForCitizen = () => {
+export const useRealizationLevels = () => {
   const { addError } = useErrors();
   const { handleLogout } = useAuth();
 
   const query = useQuery(
-    realisationForCitizenKey,
-    () => API.queries.fetchCategories(realisationForCitizenKey),
+    realizationLevelsKey,
+    () => API.queries.fetchCategories(realizationLevelsKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
           addError(
-            'Произошла критическая ошибка при загрузке реализаций для гражданина!'
+            'Произошла критическая ошибка при загрузке уровней реализации'
           );
         } else if (e instanceof AuthError) {
           handleLogout();

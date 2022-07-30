@@ -1,4 +1,4 @@
-import { HTMLAttributes, useRef, useState } from 'react';
+import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { ISelectValue } from 'types/interfaces';
 import { combineClasses } from 'utils';
 import { Checkbox, Text } from 'components/kit';
@@ -31,10 +31,26 @@ export const MultipleSelect = (
 
   const nodeRef = useRef(null);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: any) => {
+      if (opened && !wrapperRef.current?.contains(e.target)) {
+        setOpened(false);
+      }
+    };
+
+    document.addEventListener('mousedown', checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [opened]);
+
   const toggle = () => setOpened(!opened);
 
   return (
-    <div className={styles.wrapper} {...rest}>
+    <div className={styles.wrapper} ref={wrapperRef} {...rest}>
       {heading && <H3 className={styles.heading}>{heading}</H3>}
       <div
         className={combineClasses(

@@ -1,4 +1,4 @@
-import { HTMLAttributes, useRef, useState } from 'react';
+import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { ISelectValue } from 'types/interfaces';
 import { combineClasses } from 'utils';
 import { Text } from 'components/kit';
@@ -31,6 +31,22 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
 
   const [opened, setOpened] = useState(false);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: any) => {
+      if (opened && !wrapperRef.current?.contains(e.target)) {
+        setOpened(false);
+      }
+    };
+
+    document.addEventListener('mousedown', checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [opened]);
+
   const nodeRef = useRef(null);
 
   const toggle = () => setOpened(!opened);
@@ -38,7 +54,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   const valueIsSelected = value !== null && value !== undefined;
 
   return (
-    <div className={styles.wrapper} {...rest}>
+    <div className={styles.wrapper} ref={wrapperRef} {...rest}>
       {heading && <H3 className={styles.heading}>{heading}</H3>}
       <div
         className={combineClasses(

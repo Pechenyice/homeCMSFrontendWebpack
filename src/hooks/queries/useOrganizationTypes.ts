@@ -11,11 +11,13 @@ export const useOrganizationTypes = () => {
 
   const query = useQuery(
     organizationTypesKey,
-    API.queries.fetchOrganizationTypes,
+    () => API.queries.fetchCategories(organizationTypesKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
-          addError('Произошла критическая ошибка при загрузке районов!');
+          addError(
+            'Произошла критическая ошибка при загрузке уровней реализации'
+          );
         } else if (e instanceof AuthError) {
           handleLogout();
         } else if (e instanceof ApiError) {

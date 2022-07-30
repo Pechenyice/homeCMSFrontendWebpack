@@ -3,20 +3,20 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
-import { realisationForCitizenKey } from './keys';
+import { socialHelpFormKey } from './keys';
 
-export const useRealisationForCitizen = () => {
+export const useSocialHelpForm = () => {
   const { addError } = useErrors();
   const { handleLogout } = useAuth();
 
   const query = useQuery(
-    realisationForCitizenKey,
-    () => API.queries.fetchCategories(realisationForCitizenKey),
+    socialHelpFormKey,
+    () => API.queries.fetchCategories(socialHelpFormKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
           addError(
-            'Произошла критическая ошибка при загрузке реализаций для гражданина!'
+            'Произошла критическая ошибка при загрузке форм социального обслуживания (сопровождения)!'
           );
         } else if (e instanceof AuthError) {
           handleLogout();

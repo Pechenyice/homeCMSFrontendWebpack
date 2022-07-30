@@ -11,7 +11,7 @@ export const useAttractingVolunteer = () => {
 
   const query = useQuery(
     attractingVolunteerKey,
-    API.queries.fetchAttractingVolunteer,
+    () => API.queries.fetchCategories(attractingVolunteerKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {

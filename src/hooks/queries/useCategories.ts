@@ -9,17 +9,21 @@ export const useCategories = () => {
   const { addError } = useErrors();
   const { handleLogout } = useAuth();
 
-  const query = useQuery(categoriesKey, API.queries.fetchCategories, {
-    onError: (e) => {
-      if (e instanceof ServerError) {
-        addError('Произошла критическая ошибка при загрузке категорий!');
-      } else if (e instanceof AuthError) {
-        handleLogout();
-      } else if (e instanceof ApiError) {
-        addError(e.message);
-      }
-    },
-  });
+  const query = useQuery(
+    categoriesKey,
+    () => API.queries.fetchCategories(categoriesKey),
+    {
+      onError: (e) => {
+        if (e instanceof ServerError) {
+          addError('Произошла критическая ошибка при загрузке категорий!');
+        } else if (e instanceof AuthError) {
+          handleLogout();
+        } else if (e instanceof ApiError) {
+          addError(e.message);
+        }
+      },
+    }
+  );
 
   return {
     ...query,

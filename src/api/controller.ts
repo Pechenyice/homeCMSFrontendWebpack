@@ -2,7 +2,7 @@ import { IAPIProject } from 'types/entities/entities';
 import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
-import API_ROUTES from './config';
+import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
 import {
   IProfileCheckAuthResponse,
   IProfileCompanyResponse,
@@ -13,6 +13,7 @@ import {
   IProjectCreateResponse,
   IFileUploadedResponse,
   IQueriesResponse,
+  IQueriesRelationsResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -33,10 +34,12 @@ export const API = {
         { login, password }
       );
     },
-    getCompany(): Promise<IProfileCompanyResponse> {
+    getCompany(userId: number): Promise<IProfileCompanyResponse> {
+      const params = DYNAMIC_API_ROUTES.PROFILE_GET_COMPANY(userId);
+
       return safeFetch(
-        API_ROUTES.PROFILE_GET_COMPANY.url,
-        API_ROUTES.PROFILE_GET_COMPANY.method,
+        params.url,
+        params.method,
         aborts.PROFILE_GET_COMPANY_CONTROLLER
       );
     },
@@ -47,10 +50,15 @@ export const API = {
         aborts.PROFILE_LOGOUT_CONTROLLER
       );
     },
-    update(data: Partial<IAPICompany>): Promise<IProfileUpdateResponse> {
+    update(
+      data: Partial<IAPICompany>,
+      userId: number
+    ): Promise<IProfileUpdateResponse> {
+      const params = DYNAMIC_API_ROUTES.PROFILE_UPDATE(userId);
+
       return safeFetch(
-        API_ROUTES.PROFILE_UPDATE.url,
-        API_ROUTES.PROFILE_UPDATE.method,
+        params.url,
+        params.method,
         aborts.PROFILE_UPDATE_CONTROLLER,
         data
       );
@@ -85,88 +93,28 @@ export const API = {
     },
   },
   queries: {
-    fetchDistricts(): Promise<IQueriesResponse> {
+    fetchCategories(category: string): Promise<IQueriesResponse> {
+      const params = DYNAMIC_API_ROUTES.QUERIES_CATEGORIES(category);
+
       return safeFetch(
-        API_ROUTES.QUERIES_DISTRICTS.url,
-        API_ROUTES.QUERIES_DISTRICTS.method,
-        aborts.QUERIES_DISTRICTS_CONTROLLER
-      );
-    },
-    fetchOrganizationTypes(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_ORGANIZATION_TYPES.url,
-        API_ROUTES.QUERIES_ORGANIZATION_TYPES.method,
-        aborts.QUERIES_ORGANIZATION_TYPES_CONTROLLER
-      );
-    },
-    fetchRealisationForCitizen(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_REALISATION_FOR_CITIZEN.url,
-        API_ROUTES.QUERIES_REALISATION_FOR_CITIZEN.method,
-        aborts.QUERIES_REALISATION_FOR_CITIZEN_CONTROLLER
-      );
-    },
-    fetchAttractingVolunteer(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_ATTRACTING_VOLUNTEER.url,
-        API_ROUTES.QUERIES_ATTRACTING_VOLUNTEER.method,
-        aborts.QUERIES_ATTRACTING_VOLUNTEER_CONTROLLER
-      );
-    },
-    fetchCategories(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_CATEGORIES.url,
-        API_ROUTES.QUERIES_CATEGORIES.method,
+        params.url,
+        params.method,
         aborts.QUERIES_CATEGORIES_CONTROLLER
       );
     },
-    fetchRNSUCategories(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_RNSU_CATEGORIES.url,
-        API_ROUTES.QUERIES_RNSU_CATEGORIES.method,
-        aborts.QUERIES_RNSU_CATEGORIES_CONTROLLER
+    fetchCategoriesRelations(
+      parentCategory: string,
+      childCategory: string
+    ): Promise<IQueriesRelationsResponse> {
+      const params = DYNAMIC_API_ROUTES.QUERIES_CATEGORIES_RELATIONS(
+        parentCategory,
+        childCategory
       );
-    },
-    fetchCircumstancesRecognitionNeed(): Promise<IQueriesResponse> {
+
       return safeFetch(
-        API_ROUTES.QUERIES_CIRCUMSTANCES_RECOGNITION_NEED.url,
-        API_ROUTES.QUERIES_CIRCUMSTANCES_RECOGNITION_NEED.method,
-        aborts.QUERIES_CIRCUMSTANCES_RECOGNITION_NEED_CONTROLLER
-      );
-    },
-    fetchWorksNames(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_WORKS_NAMES.url,
-        API_ROUTES.QUERIES_WORKS_NAMES.method,
-        aborts.QUERIES_WORKS_NAMES_CONTROLLER
-      );
-    },
-    fetchTargetGroups(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_TARGET_GROUPS.url,
-        API_ROUTES.QUERIES_TARGET_GROUPS.method,
-        aborts.QUERIES_TARGET_GROUPS_CONTROLLER
-      );
-    },
-    fetchStatuses(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_STATUSES.url,
-        API_ROUTES.QUERIES_STATUSES.method,
-        aborts.QUERIES_STATUSES_CONTROLLER
-      );
-    },
-    fetchSocialHelpForms(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_SOCIAL_HELP_FORMS.url,
-        API_ROUTES.QUERIES_SOCIAL_HELP_FORMS.method,
-        aborts.QUERIES_SOCIAL_HELP_FORMS_CONTROLLER
-      );
-    },
-    fetchKinds(): Promise<IQueriesResponse> {
-      return safeFetch(
-        API_ROUTES.QUERIES_KINDS.url,
-        API_ROUTES.QUERIES_KINDS.method,
-        aborts.QUERIES_KINDS_CONTROLLER
+        params.url,
+        params.method,
+        aborts.QUERIES_CATEGORIES_CONTROLLER
       );
     },
   },

@@ -45,7 +45,9 @@ export const AuthProvider: FC = ({ children }) => {
 
       const { data } = await API.profile.checkAuth();
 
-      const companyResponse = await API.profile.getCompany();
+      if (!data?.id) throw new AuthError('Не удалось подтвердить пользователя');
+
+      const companyResponse = await API.profile.getCompany(data.id);
 
       const formedResponse = mapCompanyFromAPI(companyResponse.data!);
 
@@ -87,9 +89,14 @@ export const AuthProvider: FC = ({ children }) => {
 
       const response = await API.profile.login(data);
 
+      if (!response.data)
+        throw new AuthError('Не удалось аутентифицировать пользователя');
+
       localStorage.setItem('token', response.data?.token.value ?? '');
 
-      const companyResponse = await API.profile.getCompany();
+      const companyResponse = await API.profile.getCompany(
+        response.data.user.id
+      );
 
       const formedResponse = mapCompanyFromAPI(companyResponse.data!);
 

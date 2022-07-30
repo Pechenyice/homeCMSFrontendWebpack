@@ -5,6 +5,10 @@ export interface ISelectValue {
   label: string;
 }
 
+export interface ISelectRelations {
+  [key: string]: number[];
+}
+
 export interface IUser {
   login: string;
   password: string;

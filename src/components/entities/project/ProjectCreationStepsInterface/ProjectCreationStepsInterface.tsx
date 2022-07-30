@@ -30,6 +30,12 @@ type Props = {
     name: string,
     option: number
   ) => void;
+  onMultipleParentSelectChange: (
+    partition: EEntityPartition,
+    name: string,
+    child: string,
+    option: number
+  ) => void;
   onCheckToggle: (partition: EEntityPartition, name: string) => void;
   onMembersEntryChange: (
     partition: EEntityPartition,
@@ -57,6 +63,7 @@ export const ProjectCreationStepsInterface = ({
   onSwitcherChange,
   onSelectChange,
   onMultipleSelectChange,
+  onMultipleParentSelectChange,
   onCheckToggle,
   onMembersEntryChange,
   onAddMembersEntry,
@@ -76,6 +83,11 @@ export const ProjectCreationStepsInterface = ({
   const bindMultipleSelectChange = (partition: EEntityPartition) => {
     return (name: string, option: number) =>
       onMultipleSelectChange(partition, name, option);
+  };
+
+  const bindMultipleParentSelectChange = (partition: EEntityPartition) => {
+    return (name: string, child: string, option: number) =>
+      onMultipleParentSelectChange(partition, name, child, option);
   };
 
   const bindCheckToggleChange = (partition: EEntityPartition) => {
@@ -109,6 +121,9 @@ export const ProjectCreationStepsInterface = ({
           onSwitcherChange={onSwitcherChange}
           onSelect={bindSelectChange(EEntityPartition.MAIN)}
           onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
+          onMultipleParentSelect={bindMultipleParentSelectChange(
+            EEntityPartition.MAIN
+          )}
           onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
           onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
         />

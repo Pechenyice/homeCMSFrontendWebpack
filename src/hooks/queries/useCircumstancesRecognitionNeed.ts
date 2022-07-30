@@ -11,12 +11,12 @@ export const useCircumstancesRecognitionNeed = () => {
 
   const query = useQuery(
     circumstancesRecognitionNeedKey,
-    API.queries.fetchCircumstancesRecognitionNeed,
+    () => API.queries.fetchCategories(circumstancesRecognitionNeedKey),
     {
       onError: (e) => {
         if (e instanceof ServerError) {
           addError(
-            'Произошла критическая ошибка при загрузке обстоятельств признания нуждаемости!'
+            'Произошла критическая ошибка при загрузке обстоятельств призания нуждаемости!'
           );
         } else if (e instanceof AuthError) {
           handleLogout();

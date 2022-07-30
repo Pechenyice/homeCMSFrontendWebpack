@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef, useState } from 'react';
+import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { combineClasses } from 'utils';
 import { Hint, Text } from 'components/kit';
 import styles from './HelperEnableSelect.module.scss';
@@ -22,10 +22,26 @@ export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
 
   const nodeRef = useRef(null);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: any) => {
+      if (opened && !wrapperRef.current?.contains(e.target)) {
+        setOpened(false);
+      }
+    };
+
+    document.addEventListener('mousedown', checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [opened]);
+
   const toggle = () => setOpened(!opened);
 
   return (
-    <div className={styles.wrapper} {...rest}>
+    <div className={styles.wrapper} ref={wrapperRef} {...rest}>
       {heading && (
         <div className={styles.heading}>
           <H3 className={styles.heading__content}>{heading}</H3>
