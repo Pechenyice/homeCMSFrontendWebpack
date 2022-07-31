@@ -1,4 +1,5 @@
 import { EProposalStatus } from 'types/enums';
+import { IAPIFileInfo, IFileInfo } from 'types/interfaces';
 
 export interface IMainHelpers {
   organisatorOrMember: boolean;
@@ -68,8 +69,10 @@ export interface IMembersPartition {
 }
 
 export interface ICommonEntityMetadata {
+  id: number;
   status: EProposalStatus;
   cause: string | null;
+  isBest: boolean;
 }
 
 export interface IProjectData
@@ -93,70 +96,87 @@ export interface IMembersInfo {
   year: number;
 }
 
+export interface IFullAPIProject extends Omit<IAPIProject, 'primary'> {
+  primary: IAPIProjectFullPrimaryPart;
+
+  id: number;
+  status: string;
+  rejected_status_description: string | null;
+  is_best: boolean;
+}
+
+export interface IAPICommonExpieriencePart {
+  results_in_journal: IAPIOptionalExpierienceResult | null;
+  results_of_various_events: IAPIOptionalExpierienceResult | null;
+  results_info_in_site: IAPIOptionalExpierienceResult | null;
+  results_info_in_media: IAPIOptionalExpierienceResult | null;
+  results_seminars: IAPIOptionalExpierienceResult | null;
+}
+
+export interface IAPICommonContactsPart {
+  fio: string; //ФИО ответственного лица
+  email: string; //Электронная почта
+  phone: string; //Контактный телефон
+}
+
+export interface IAPIProjectPrimaryPart {
+  name: string; //наименование проекта
+  annotation: string; //Аннотация
+  objectives: string; //Основные задачи
+  purpose: string; //Цель проекта
+  payment_method_id: number; //Реализация для гражданина бесплатно/платно
+  partnership: IAPIOptionalDescriptionResult | null; //Взаимодействие, партнерство с другими организациями
+  volunteer_id: number; //Привлечение добровольцев и волонтеров
+  needy_category_ids: number[]; //Категории
+  needy_category_target_group_ids: number[]; // Целевые группы
+  social_service_ids: number[]; //Форма социального обслуживания (сопровождения)
+  qualitative_results: string; //Основные качественные результаты
+  social_results: string; //Социальные результаты
+  replicability: string | null; // Тиражируемость
+  approbation: IAPIOptionalDescriptionResult | null; //	Апробация на инновационной площадке/в ресурсном центре
+  expert_opinion: IAPIOptionalDescriptionResult | null; //Наличие экспертного заключения
+  review: IAPIOptionalDescriptionResult | null; //Наличие отзыва
+  comment: IAPIOptionalDescriptionResult | null; //Наличие рецензии
+  video: string | null; //Видео ролик
+  required_resources_description: string; //Краткое описание необходимого ресурсного обеспечения
+  photo_file_id: number | null; //ID файла обложки
+  gallery_file_ids: number[]; //Галерея
+  is_best_practice: boolean; //Лучшая практика по мнению руководства организации
+  is_remote_format_possible: boolean; //Возможность реализации в дистанционном формате
+}
+
+export interface IAPIProjectFullPrimaryPart
+  extends Omit<IAPIProjectPrimaryPart, 'photo_file_id' | 'gallery_file_ids'> {
+  photo_file: IAPIFileInfo['file'] | null; //ID файла обложки
+  gallery_files: IAPIFileInfo['file'][]; //Галерея
+}
+
+export interface IAPIProjectInfoPart {
+  participant: IAPIOptionalDescriptionResult | null; //	участник, а не организатор
+  implementation_period: IAPIOptionalDescriptionResult | null; //	Период реализации проекта
+  implementation_level_id: number; //Уровень реализации проекта
+  rnsu_category_ids: number[]; //Категории по РНСУ
+  public_work_ids: number[]; //	Наименование государственной работы
+  service_type_ids: number[]; //Вид услуги
+  service_name_ids: number[]; //Наименование услуги
+  need_recognition_ids: number[]; //Обстоятельства признания нуждаемости
+}
+
 export interface IAPIProject {
   //common info
-  primary: {
-    name: string; //наименование проекта
-    annotation: string; //Аннотация
-    objectives: string; //Основные задачи
-    purpose: string; //Цель проекта
-    payment_method_id: number; //Реализация для гражданина бесплатно/платно
-    partnership: IAPIOptionalDescriptionResult | null; //Взаимодействие, партнерство с другими организациями
-    volunteer_id: number; //Привлечение добровольцев и волонтеров
-    needy_category_ids: number[]; //Категории
-    needy_category_target_group_ids: number[]; // Целевые группы
-    social_service_ids: number[]; //Форма социального обслуживания (сопровождения)
-    qualitative_results: string; //Основные качественные результаты
-    social_results: string; //Социальные результаты
-    replicability: string | null; // Тиражируемость
-    approbation: IAPIOptionalDescriptionResult | null; //	Апробация на инновационной площадке/в ресурсном центре
-    expert_opinion: IAPIOptionalDescriptionResult | null; //Наличие экспертного заключения
-    review: IAPIOptionalDescriptionResult | null; //Наличие отзыва
-    comment: IAPIOptionalDescriptionResult | null; //Наличие рецензии
-    video: string | null; //Видео ролик
-    required_resources_description: string; //Краткое описание необходимого ресурсного обеспечения
-    photo_file_id: number | null; //ID файла обложки
-    gallery_file_ids: number[]; //Галерея
-    is_best_practice: boolean; //Лучшая практика по мнению руководства организации
-    is_remote_format_possible: boolean; //Возможность реализации в дистанционном формате
-  };
+  primary: IAPIProjectPrimaryPart;
 
   //info
-  info: {
-    participant: IAPIOptionalDescriptionResult | null; //	участник, а не организатор
-    implementation_period: IAPIOptionalDescriptionResult | null; //	Период реализации проекта
-    implementation_level_id: number; //Уровень реализации проекта
-    rnsu_category_ids: number[]; //Категории по РНСУ
-    public_work_ids: number[]; //	Наименование государственной работы
-    service_type_ids: number[]; //Вид услуги
-    service_name_ids: number[]; //Наименование услуги
-    need_recognition_ids: number[]; //Обстоятельства признания нуждаемости
-  };
+  info: IAPIProjectInfoPart;
 
   // expierience partition
-  experience: {
-    results_in_journal: IAPIOptionalExpierienceResult | null;
-    results_of_various_events: IAPIOptionalExpierienceResult | null;
-    results_info_in_site: IAPIOptionalExpierienceResult | null;
-    results_info_in_media: IAPIOptionalExpierienceResult | null;
-    results_seminars: IAPIOptionalExpierienceResult | null;
-  };
+  experience: IAPICommonExpieriencePart;
 
   // contacts partition
-  contacts: {
-    fio: string; //ФИО ответственного лица
-    email: string; //Электронная почта
-    phone: string; //Контактный телефон
-  };
+  contacts: IAPICommonContactsPart;
 
   // members partition
   reporting_periods: IAPIMembersInfo[];
-}
-
-export interface IAPIProjectWithMetadata extends IAPIProject {
-  // additional
-  status: string;
-  rejected_status_description: string | null;
 }
 
 export interface IAPIMembersInfo {

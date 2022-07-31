@@ -10,5 +10,6 @@ export * from './Header/Header';
 export * from './404/404';
 export * from './ErrorBoundary/ErrorBoundary';
 export * from './EntityCreationSteps/EntityCreationSteps';
+export * from './PageLoader/PageLoader';
 
 export * from './entities';

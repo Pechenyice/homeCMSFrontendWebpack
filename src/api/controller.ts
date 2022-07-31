@@ -3,6 +3,7 @@ import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
 import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
+import { AuthError } from './errors';
 import {
   IProfileCheckAuthResponse,
   IProfileCompanyResponse,
@@ -14,6 +15,7 @@ import {
   IFileUploadedResponse,
   IQueriesResponse,
   IQueriesRelationsResponse,
+  IProjectWithMetadataResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -65,10 +67,17 @@ export const API = {
     },
   },
   project: {
-    get(id: string): Promise<IProjectResponse> {
+    get(
+      id: string,
+      userId: number | undefined
+    ): Promise<IProjectWithMetadataResponse> {
+      if (!userId) throw new AuthError('Данные пользователя не найдены');
+
+      const params = DYNAMIC_API_ROUTES.PROJECT_GET(id, userId);
+
       return safeFetch(
-        API_ROUTES.PROJECT_GET.url,
-        API_ROUTES.PROJECT_GET.method,
+        params.url,
+        params.method,
         aborts.PROJECT_GET_CONTROLLER
       );
     },

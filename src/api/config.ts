@@ -17,6 +17,10 @@ export const DYNAMIC_API_ROUTES = {
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects`,
     method: EAPIMethod.POST,
   }),
+  PROJECT_GET: (id: string, userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
+    method: EAPIMethod.GET,
+  }),
 
   FILE_UPLOAD: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/files`,
@@ -47,11 +51,6 @@ export const API_ROUTES: IAPIRoutesConfig = {
   },
   PROFILE_LOGOUT: {
     url: `${API_PREFIX}/users/logout`,
-    method: EAPIMethod.GET,
-  },
-
-  PROJECT_GET: {
-    url: `${API_PREFIX}/jobs/projects`,
     method: EAPIMethod.GET,
   },
 };

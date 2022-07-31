@@ -1,4 +1,8 @@
-import { IAPIProject, IProjectData } from 'types/entities/entities';
+import {
+  IAPIProject,
+  IFullAPIProject,
+  IProjectData,
+} from 'types/entities/entities';
 import { EProposalStatus } from 'types/enums';
 
 export const mapProjectToAPI = (
@@ -56,6 +60,7 @@ export const mapProjectToAPI = (
       participant: project.organisator
         ? { description: project.organisator }
         : null,
+      //TODO: it's textarea string, not nullable field, fix
       implementation_period: project.period
         ? { description: project.period }
         : null,
@@ -129,4 +134,94 @@ export const mapProjectToAPI = (
   };
 };
 
-mapProjectToAPI;
+export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
+  return {
+    name: project.primary.name,
+    bestPracticeForLeadership: project.primary.is_best_practice,
+    annotation: project.primary.annotation,
+    purpose: project.primary.purpose,
+    tasks: project.primary.objectives,
+    organisator: project.info.participant?.description ?? null,
+    //TODO: it's textarea string, not nullable field, fix
+    period: project.info.implementation_period,
+    realisationForCitizen: project.primary.payment_method_id,
+    canBeDistant: project.primary.is_remote_format_possible,
+    organizationLevel: project.info.implementation_level_id,
+    partnership: project.primary.partnership?.description ?? null,
+    attractingVolunteer: project.primary.volunteer_id,
+    rnsuCategories: project.info.rnsu_category_ids,
+    categories: project.primary.needy_category_ids,
+    groups: project.primary.needy_category_target_group_ids,
+    worksKinds: project.info.service_type_ids,
+    worksNames: project.info.service_name_ids,
+    gosWorkNames: project.info.public_work_ids,
+    circumstancesRecognitionNeed: project.info.need_recognition_ids,
+    socialHelpForm: project.primary.social_service_ids,
+
+    basicQualityResults: project.primary.qualitative_results,
+    socialResults: project.primary.social_results,
+    replicability: project.primary.replicability,
+    innovationGround: project.primary.approbation?.description ?? null,
+    hasExpertOpinion: project.primary.expert_opinion?.description ?? null,
+    hasExpertReview: project.primary.review?.description ?? null,
+    hasExpertMention: project.primary.comment?.description ?? null,
+    photo: project.primary.photo_file
+      ? {
+          id: project.primary.photo_file.id,
+          name: project.primary.photo_file.original_name,
+          path: project.primary.photo_file.path,
+        }
+      : null,
+    gallery: project.primary.gallery_files.map((gf) => {
+      return {
+        id: gf.id,
+        name: gf.original_name,
+        path: gf.path,
+      };
+    }),
+    video: project.primary.video,
+    resourcesDescription: project.primary.required_resources_description,
+
+    resultsDescriptionInJournal:
+      project.experience.results_in_journal?.description ?? null,
+    resultsDescriptionInJournalLink:
+      project.experience.results_in_journal?.link ?? null,
+    resultsInformationInMassMedia:
+      project.experience.results_info_in_media?.description ?? null,
+    resultsInformationInMassMediaLink:
+      project.experience.results_info_in_media?.link ?? null,
+    resultsInformationInDifferentLevelsEvents:
+      project.experience.results_of_various_events?.description ?? null,
+    resultsInformationInDifferentLevelsEventsLink:
+      project.experience.results_of_various_events?.link ?? null,
+    resultsMasterClasses:
+      project.experience.results_seminars?.description ?? null,
+    resultsMasterClassesLink: project.experience.results_seminars?.link ?? null,
+    resultsOnWebsite:
+      project.experience.results_info_in_site?.description ?? null,
+    resultsOnWebsiteLink: project.experience.results_info_in_site?.link ?? null,
+
+    responsible: project.contacts.fio,
+    contactNumber: project.contacts.phone,
+    email: project.contacts.email,
+
+    membersInfo: project.reporting_periods.map((rp) => {
+      return {
+        commonMembersCount: rp.total,
+        familiesCount: rp.families,
+        childrenCount: rp.children,
+        menCount: rp.men,
+        womenCount: rp.women,
+        year: rp.year,
+      };
+    }),
+
+    id: project.id,
+    status:
+      EProposalStatus[
+        project.status.toUpperCase() as keyof typeof EProposalStatus
+      ],
+    cause: project.rejected_status_description,
+    isBest: project.is_best,
+  };
+};
