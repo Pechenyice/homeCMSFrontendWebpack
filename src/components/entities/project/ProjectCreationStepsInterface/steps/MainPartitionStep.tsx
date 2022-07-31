@@ -30,6 +30,7 @@ import { useSocialHelpForm } from 'hooks/queries/useSocialHelpForm';
 import { useWorksKindsToWorksNames } from 'hooks/queries/categoriesRelations/useWorksKindsToWorksNames';
 import { useCategoriesToGroups } from 'hooks/queries/categoriesRelations/useCategoriesToGroups';
 import { getRelatedCategoriesOptions } from 'utils/entities/common';
+import { IFileInfo } from 'types/interfaces';
 
 type Props = {
   switchers: IProjectSwitchers;
@@ -42,9 +43,12 @@ type Props = {
   onCheckToggle: (name: string) => void;
   onPhotoChange: (
     name: string,
+    photoId: number | null,
     photoPath: string | null,
     photoName: string | null
   ) => void;
+  onGalleryPhotosAdd: (name: string, photos: IFileInfo['file'][]) => void;
+  onGalleryPhotoDelete: (name: string, photoId: number) => void;
 };
 
 export const MainPartitionStep = ({
@@ -57,6 +61,8 @@ export const MainPartitionStep = ({
   onMultipleParentSelect,
   onCheckToggle,
   onPhotoChange,
+  onGalleryPhotosAdd,
+  onGalleryPhotoDelete,
 }: Props) => {
   const {
     apiData: realisationForCitizen,
@@ -156,10 +162,21 @@ export const MainPartitionStep = ({
   };
 
   const bindPhotoChange = (name: string) => (
+    photoId: number | null,
     photoPath: string | null,
     photoName: string | null
   ) => {
-    onPhotoChange(name, photoPath, photoName);
+    onPhotoChange(name, photoId, photoPath, photoName);
+  };
+
+  const bindGalleryPhotosAdd = (name: string) => (
+    photos: IFileInfo['file'][]
+  ) => {
+    onGalleryPhotosAdd(name, photos);
+  };
+
+  const bindGalleryPhotoDelete = (name: string) => (photoId: number) => {
+    onGalleryPhotoDelete(name, photoId);
   };
 
   return (
@@ -618,7 +635,8 @@ export const MainPartitionStep = ({
         {
           <PhotoInput
             name="photo"
-            category="job_project_photo"
+            category="job-primary-photo"
+            photoId={mainPartition.photo.id}
             photoPath={mainPartition.photo.path}
             photoName={mainPartition.photo.name}
             onPhotoChange={bindPhotoChange('photo')}
@@ -627,17 +645,19 @@ export const MainPartitionStep = ({
           />
         }
       </div>
-      {/* <div className={styles.half}>
+      <div className={styles.half}>
         {
           <GalleryInput
             name="gallery"
-            category="job_project_gallery"
+            category="job-primary-gallery"
             gallery={mainPartition.gallery}
             heading="Галерея"
             hint="Характеристики фото галереи"
+            onGalleryPhotosAdd={bindGalleryPhotosAdd('gallery')}
+            onGalleryPhotoDelete={bindGalleryPhotoDelete('gallery')}
           />
         }
-      </div> */}
+      </div>
 
       <TextArea
         className={styles.half}

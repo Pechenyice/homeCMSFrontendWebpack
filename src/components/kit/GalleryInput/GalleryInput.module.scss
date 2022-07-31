@@ -5,10 +5,23 @@
 
 .inner {
   position: relative;
-  border: 1px solid rgba(140, 145, 181, 0.5);
-  border-radius: 8px;
-  padding: 18px 20px;
-  cursor: pointer;
+}
+
+.photoInner {
+  position: relative;
+
+  &__content {
+    position: relative;
+    border: 1px solid rgba(140, 145, 181, 0.5);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 30px;
+    }
+  }
 }
 
 .heading {
@@ -56,4 +69,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.action {
+  max-width: 250px;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+  }
 }

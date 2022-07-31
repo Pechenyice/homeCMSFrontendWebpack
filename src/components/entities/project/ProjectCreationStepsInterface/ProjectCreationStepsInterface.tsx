@@ -2,6 +2,7 @@ import { Button, Text } from 'components/kit';
 import { ChangeEvent } from 'react';
 import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import { EEntityPartition } from 'types/enums';
+import { IFileInfo } from 'types/interfaces';
 import styles from './ProjectCreationStepsInterface.module.scss';
 import { ContactsPartitionStep } from './steps/ContactsPartitionStep';
 import { ExpieriencePartitionStep } from './steps/ExpieriencePartitionStep';
@@ -47,8 +48,19 @@ type Props = {
   onPhotoChange: (
     partition: EEntityPartition,
     name: string,
+    photoId: number | null,
     photoPath: string | null,
     photoName: string | null
+  ) => void;
+  onGalleryPhotosAdd: (
+    partition: EEntityPartition,
+    name: string,
+    photos: IFileInfo['file'][]
+  ) => void;
+  onGalleryPhotoDelete: (
+    partition: EEntityPartition,
+    name: string,
+    photoId: number
   ) => void;
 };
 
@@ -69,6 +81,8 @@ export const ProjectCreationStepsInterface = ({
   onAddMembersEntry,
   onRemoveMembersEntry,
   onPhotoChange,
+  onGalleryPhotosAdd,
+  onGalleryPhotoDelete,
 }: Props) => {
   const bindChange = (partition: EEntityPartition) => {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -104,10 +118,23 @@ export const ProjectCreationStepsInterface = ({
   const bindPhotoChange = (partition: EEntityPartition) => {
     return (
       name: string,
+      photoId: number | null,
       photoPath: string | null,
       photoName: string | null
     ) => {
-      onPhotoChange(partition, name, photoPath, photoName);
+      onPhotoChange(partition, name, photoId, photoPath, photoName);
+    };
+  };
+
+  const bindGalleryPhotosAdd = (partition: EEntityPartition) => {
+    return (name: string, photos: IFileInfo['file'][]) => {
+      onGalleryPhotosAdd(partition, name, photos);
+    };
+  };
+
+  const bindGalleryPhotoDelete = (partition: EEntityPartition) => {
+    return (name: string, photoId: number) => {
+      onGalleryPhotoDelete(partition, name, photoId);
     };
   };
 
@@ -126,6 +153,8 @@ export const ProjectCreationStepsInterface = ({
           )}
           onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
           onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
+          onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
+          onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
         />
       )}
       {active === 1 && (

@@ -1,5 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import { combineClasses } from 'utils';
+import { ELoaderPalette, Loader } from '../Loader/Loader';
 import { Text } from '../Text/Text';
 import styles from './Action.module.scss';
 
@@ -7,10 +8,21 @@ interface Props {
   text: string;
   isDeleteMode?: boolean;
   icon?: ReactNode;
+  isDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const Action = (props: HTMLAttributes<HTMLDivElement> & Props) => {
-  const { text, isDeleteMode, icon, className, onClick, ...rest } = props;
+  const {
+    text,
+    isDeleteMode,
+    icon,
+    isDisabled,
+    isLoading,
+    className,
+    onClick,
+    ...rest
+  } = props;
 
   return (
     <div
@@ -19,11 +31,17 @@ export const Action = (props: HTMLAttributes<HTMLDivElement> & Props) => {
         isDeleteMode ? styles.styled_delete : '',
         className ?? ''
       )}
-      onClick={onClick}
+      onClick={isDisabled ? undefined : onClick}
       {...rest}
     >
-      <Text isMedium>{text}</Text>
-      {icon && icon}
+      {isLoading ? (
+        <Loader palette={ELoaderPalette.DARK} />
+      ) : (
+        <>
+          <Text isMedium>{text}</Text>
+          {icon && icon}
+        </>
+      )}
     </div>
   );
 };

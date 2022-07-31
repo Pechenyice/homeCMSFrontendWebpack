@@ -162,6 +162,9 @@ export interface IBreadcrumbsPath {
 }
 
 export interface IFileInfo {
-  path: string;
-  name: string;
+  file: { id: number; path: string; name: string };
+}
+
+export interface IAPIFileInfo {
+  file: { id: number; path: string; original_name: string };
 }

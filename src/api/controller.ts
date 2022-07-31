@@ -72,20 +72,27 @@ export const API = {
         aborts.PROJECT_GET_CONTROLLER
       );
     },
-    create(data: Partial<IAPIProject>): Promise<IProjectCreateResponse> {
+    create(
+      data: Partial<IAPIProject>,
+      userId: number
+    ): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_CREATE(userId);
+
       return safeFetch(
-        API_ROUTES.PROJECT_CREATE.url,
-        API_ROUTES.PROJECT_CREATE.method,
+        params.url,
+        params.method,
         aborts.PROJECT_CREATE_CONTROLLER,
         data
       );
     },
   },
   file: {
-    upload(data: FormData): Promise<IFileUploadedResponse> {
+    upload(data: FormData, userId: number): Promise<IFileUploadedResponse> {
+      const params = DYNAMIC_API_ROUTES.FILE_UPLOAD(userId);
+
       return safeFetch(
-        API_ROUTES.FILE_UPLOAD.url,
-        API_ROUTES.FILE_UPLOAD.method,
+        params.url,
+        params.method,
         aborts.FILE_UPLOAD_CONTROLLER,
         data,
         'multipart/form-data'

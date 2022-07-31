@@ -13,6 +13,16 @@ export const DYNAMIC_API_ROUTES = {
     method: EAPIMethod.PUT,
   }),
 
+  PROJECT_CREATE: (userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/jobs/social-projects`,
+    method: EAPIMethod.POST,
+  }),
+
+  FILE_UPLOAD: (userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/files`,
+    method: EAPIMethod.POST,
+  }),
+
   QUERIES_CATEGORIES: (category: string) => ({
     url: `${API_PREFIX}/dictionaries/categories/${category}`,
     method: EAPIMethod.GET,
@@ -43,14 +53,5 @@ export const API_ROUTES: IAPIRoutesConfig = {
   PROJECT_GET: {
     url: `${API_PREFIX}/jobs/projects`,
     method: EAPIMethod.GET,
-  },
-  PROJECT_CREATE: {
-    url: `${API_PREFIX}/jobs/projects`,
-    method: EAPIMethod.POST,
-  },
-
-  FILE_UPLOAD: {
-    url: `${API_PREFIX}/files`,
-    method: EAPIMethod.POST,
   },
 };

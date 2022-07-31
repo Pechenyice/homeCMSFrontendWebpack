@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IProjectData } from 'types/entities/entities';
 import { IProjectState, IProjectSwitchers } from 'types/entities/states';
 import { EEntityPartition, EProposalStatus } from 'types/enums';
-import { IInputsState } from 'types/interfaces';
+import { IFileInfo, IInputsState } from 'types/interfaces';
 import { isValueProvided, simpleUuid } from 'utils/common';
 import { mapProjectToAPI } from 'utils/entities/project';
 import { registerInput, registerNumberInput } from 'utils/inputs';
@@ -26,7 +26,7 @@ const CURRENT_STEPS_NUMBER = 4;
 export const ProjectCreationPage = () => {
   const navigate = useNavigate();
 
-  const { handleLogout } = useAuth();
+  const { profile, handleLogout } = useAuth();
 
   const { addInfo } = useInfos();
   const { addError } = useErrors();
@@ -238,10 +238,10 @@ export const ProjectCreationPage = () => {
     });
   };
 
-  //TODO: photo flow with id (add + validate + save) and gallery flow
   const handlePhotoChange = (
     partition: EEntityPartition,
     name: string,
+    photoId: number | null,
     photoPath: string | null,
     photoName: string | null
   ) => {
@@ -250,9 +250,38 @@ export const ProjectCreationPage = () => {
     (setState as any)({
       ...state,
       [name]: {
+        id: photoId,
         path: photoPath,
         name: photoName,
       },
+    });
+  };
+
+  const handleGalleryPhotoAdd = (
+    partition: EEntityPartition,
+    name: string,
+    photos: IFileInfo['file'][]
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: [...((state as any)[name] as any), ...photos],
+    });
+  };
+
+  const handleGalleryPhotoDelete = (
+    partition: EEntityPartition,
+    name: string,
+    photoId: number
+  ) => {
+    const [state, setState] = selectPartition(partition);
+
+    (setState as any)({
+      ...state,
+      [name]: [...((state as any)[name] as any)].filter(
+        (photo: IFileInfo['file']) => photo.id !== photoId
+      ),
     });
   };
 
@@ -406,16 +435,16 @@ export const ProjectCreationPage = () => {
           mainPartition.attractingVolunteer !== -1;
 
         const multipleSelectSuccess =
-          mainPartition.rnsuCategories.length &&
-          mainPartition.categories.length &&
-          mainPartition.groups.length &&
-          mainPartition.circumstancesRecognitionNeed.length &&
-          mainPartition.socialHelpForm.length;
+          !!mainPartition.rnsuCategories.length &&
+          !!mainPartition.categories.length &&
+          !!mainPartition.groups.length &&
+          !!mainPartition.circumstancesRecognitionNeed.length &&
+          !!mainPartition.socialHelpForm.length;
 
         // if work kind is selected, work name must be selected too
-        const optionalMultipleSelectSuccess = mainPartition.worksKinds.length
-          ? mainPartition.worksNames.length
-          : false;
+        const optionalMultipleSelectSuccess = !!mainPartition.worksKinds.length
+          ? !!mainPartition.worksNames.length
+          : true;
 
         return (
           validationSuccess &&
@@ -426,42 +455,53 @@ export const ProjectCreationPage = () => {
       }
       case 1: {
         const needValidation = {
-          resultsDescriptionInJournal: switchers.hasResultsDescriptionInJournal
-            ? expieriencePartition.resultsDescriptionInJournal
-            : null,
+          resultsDescriptionInJournal:
+            switchers.hasResultsDescriptionInJournal &&
+            expieriencePartition.resultsDescriptionInJournal.value.length
+              ? expieriencePartition.resultsDescriptionInJournal
+              : null,
           resultsDescriptionInJournalLink:
             switchers.hasResultsDescriptionInJournal &&
             expieriencePartition.resultsDescriptionInJournalLink.value.length
-              ? expieriencePartition.resultsDescriptionInJournal
+              ? expieriencePartition.resultsDescriptionInJournalLink
               : null,
-          resultsInformationInMassMedia: switchers.hasResultsInformationInMassMedia
-            ? expieriencePartition.resultsInformationInMassMedia
-            : null,
+          resultsInformationInMassMedia:
+            switchers.hasResultsInformationInMassMedia &&
+            expieriencePartition.resultsInformationInMassMedia.value.length
+              ? expieriencePartition.resultsInformationInMassMedia
+              : null,
           resultsInformationInMassMediaLink:
             switchers.hasResultsInformationInMassMedia &&
             expieriencePartition.resultsInformationInMassMediaLink.value.length
               ? expieriencePartition.resultsInformationInMassMediaLink
               : null,
-          resultsInformationInDifferentLevelsEvents: switchers.hasResultsInformationInDifferentLevelsEvents
-            ? expieriencePartition.resultsInformationInDifferentLevelsEvents
-            : null,
+          resultsInformationInDifferentLevelsEvents:
+            switchers.hasResultsInformationInDifferentLevelsEvents &&
+            expieriencePartition.resultsInformationInDifferentLevelsEvents.value
+              .length
+              ? expieriencePartition.resultsInformationInDifferentLevelsEvents
+              : null,
           resultsInformationInDifferentLevelsEventsLink:
             switchers.hasResultsInformationInDifferentLevelsEvents &&
             expieriencePartition.resultsInformationInDifferentLevelsEventsLink
               .value.length
               ? expieriencePartition.resultsInformationInDifferentLevelsEventsLink
               : null,
-          resultsMasterClasses: switchers.hasResultsMasterClasses
-            ? expieriencePartition.resultsMasterClasses
-            : null,
+          resultsMasterClasses:
+            switchers.hasResultsMasterClasses &&
+            expieriencePartition.resultsMasterClasses.value.length
+              ? expieriencePartition.resultsMasterClasses
+              : null,
           resultsMasterClassesLink:
             switchers.hasResultsMasterClasses &&
             expieriencePartition.resultsMasterClassesLink.value.length
               ? expieriencePartition.resultsMasterClassesLink
               : null,
-          resultsOnWebsite: switchers.hasResultsOnWebsite
-            ? expieriencePartition.resultsOnWebsite
-            : null,
+          resultsOnWebsite:
+            switchers.hasResultsOnWebsite &&
+            expieriencePartition.resultsOnWebsite.value.length
+              ? expieriencePartition.resultsOnWebsite
+              : null,
           resultsOnWebsiteLink:
             switchers.hasResultsOnWebsite &&
             expieriencePartition.resultsOnWebsiteLink.value.length
@@ -477,6 +517,8 @@ export const ProjectCreationPage = () => {
               validator: val!.validator,
             }))
         );
+
+        console.log(validationSuccess);
 
         return validationSuccess;
       }
@@ -564,6 +606,8 @@ export const ProjectCreationPage = () => {
     setFetchInProgress(true);
 
     try {
+      if (!profile?.id) throw new AuthError('Данные пользователя не найдены');
+
       const stateValues: Partial<IProjectData> = {
         ...mainPartition,
         ...expieriencePartition,
@@ -597,8 +641,7 @@ export const ProjectCreationPage = () => {
           ? mainPartition.gosWorkNames
           : null,
 
-        //TODO: maybe refactor - photo is controlled by path, not name
-        photo: mainPartition.photo.path ? mainPartition.photo : null,
+        photo: mainPartition.photo.id ? mainPartition.photo : null,
         gallery: mainPartition.gallery.length ? mainPartition.gallery : null,
 
         resultsDescriptionInJournal:
@@ -655,7 +698,8 @@ export const ProjectCreationPage = () => {
       };
 
       const { data } = await API.project.create(
-        mapProjectToAPI(stateValues as IProjectData, false)
+        mapProjectToAPI(stateValues as IProjectData, false),
+        profile.id
       );
 
       addInfo(
@@ -695,6 +739,8 @@ export const ProjectCreationPage = () => {
         onAddMembersEntry={handleAddMembersEntry}
         onRemoveMembersEntry={handleRemoveMembersEntry}
         onPhotoChange={handlePhotoChange}
+        onGalleryPhotosAdd={handleGalleryPhotoAdd}
+        onGalleryPhotoDelete={handleGalleryPhotoDelete}
       />
       <div className={styles.controls}>
         <Button

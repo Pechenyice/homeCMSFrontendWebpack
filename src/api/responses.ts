@@ -4,8 +4,8 @@ import {
   IProfileData,
   IAPIAuthToken,
   IAPICompany,
-  IFileInfo,
   ISelectRelations,
+  IAPIFileInfo,
 } from 'types/interfaces';
 
 export interface IResponseError {
@@ -44,7 +44,7 @@ export interface IProjectResponse extends IResponseError {
 }
 
 export interface IFileUploadedResponse extends IResponseError {
-  data: IFileInfo | null;
+  data: IAPIFileInfo | null;
 }
 
 export interface IQueriesResponse extends IResponseError {
