@@ -1,13 +1,14 @@
 import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { ISelectValue } from 'types/interfaces';
 import { combineClasses } from 'utils';
-import { Text } from 'components/kit';
+import { Text, TextArea } from 'components/kit';
 import styles from './Select.module.scss';
 import { ChevronVerticalIcon } from 'assets/icons';
 import { CSSTransition } from 'react-transition-group';
 import { H3 } from '../H3/H3';
 
 type Props = {
+  viewMode?: boolean;
   withUnselect?: boolean;
   unselectedText?: string;
   emptyText?: string;
@@ -19,6 +20,7 @@ type Props = {
 
 export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   const {
+    viewMode,
     heading,
     value,
     options,
@@ -52,6 +54,19 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   const toggle = () => setOpened(!opened);
 
   const valueIsSelected = value !== null && value !== undefined;
+
+  if (viewMode) {
+    return (
+      <TextArea
+        readOnly
+        heading={heading}
+        value={options
+          .filter((option) => option.id === value)
+          .map((option) => option.label)
+          .join(', ')}
+      />
+    );
+  }
 
   return (
     <div className={styles.wrapper} ref={wrapperRef} {...rest}>

@@ -7,6 +7,10 @@
   border-radius: 8px;
   transition: 0.2s;
 
+  &__clickable {
+    cursor: pointer;
+  }
+
   &__active {
     background-color: var(--light-blue);
     transition: 0.2s;

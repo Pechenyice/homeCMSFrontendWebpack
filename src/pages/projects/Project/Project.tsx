@@ -3,7 +3,7 @@ import { PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { EditIcon } from 'assets/icons';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProfilePage } from 'pagesComponents';
+import { ProjectPage, ProjectsPage } from 'pagesComponents';
 import { useQuery } from 'react-query';
 import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
@@ -52,7 +52,7 @@ export const Project = () => {
               />
             }
           />
-          <ProfilePage />
+          <ProjectPage project={project!} />
         </>
       )}
     </Layout>

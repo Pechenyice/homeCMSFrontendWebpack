@@ -68,6 +68,10 @@ export interface IMembersPartition {
   membersInfo: IMembersInfo[];
 }
 
+export interface IFullMembersPartition {
+  membersInfo: IFullMembersInfo[];
+}
+
 export interface ICommonEntityMetadata {
   id: number;
   status: EProposalStatus;
@@ -87,6 +91,10 @@ export interface IProjectData
   // members partition
 }
 
+export interface IFullProjectData extends Omit<IProjectData, 'membersInfo'> {
+  membersInfo: IFullMembersPartition[];
+}
+
 export interface IMembersInfo {
   commonMembersCount: number;
   familiesCount: number | null;
@@ -96,8 +104,15 @@ export interface IMembersInfo {
   year: number;
 }
 
-export interface IFullAPIProject extends Omit<IAPIProject, 'primary'> {
+export interface IFullMembersInfo extends IMembersInfo {
+  id: number;
+}
+
+export interface IFullAPIProject
+  extends Omit<IAPIProject, 'primary' | 'reporting_periods'> {
   primary: IAPIProjectFullPrimaryPart;
+
+  reporting_periods: IFullAPIMembersInfo[];
 
   id: number;
   status: string;
@@ -153,7 +168,7 @@ export interface IAPIProjectFullPrimaryPart
 
 export interface IAPIProjectInfoPart {
   participant: IAPIOptionalDescriptionResult | null; //	участник, а не организатор
-  implementation_period: IAPIOptionalDescriptionResult | null; //	Период реализации проекта
+  implementation_period: string; //	Период реализации проекта
   implementation_level_id: number; //Уровень реализации проекта
   rnsu_category_ids: number[]; //Категории по РНСУ
   public_work_ids: number[]; //	Наименование государственной работы
@@ -180,6 +195,16 @@ export interface IAPIProject {
 }
 
 export interface IAPIMembersInfo {
+  total: number;
+  year: number;
+  families: number | null;
+  children: number | null;
+  men: number | null;
+  women: number | null;
+}
+
+export interface IFullAPIMembersInfo {
+  id: number;
   total: number;
   year: number;
   families: number | null;

@@ -60,10 +60,7 @@ export const mapProjectToAPI = (
       participant: project.organisator
         ? { description: project.organisator }
         : null,
-      //TODO: it's textarea string, not nullable field, fix
-      implementation_period: project.period
-        ? { description: project.period }
-        : null,
+      implementation_period: project.period,
       implementation_level_id: project.organizationLevel,
       rnsu_category_ids: project.rnsuCategories,
       public_work_ids: project.gosWorkNames || [],
@@ -142,7 +139,6 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
     purpose: project.primary.purpose,
     tasks: project.primary.objectives,
     organisator: project.info.participant?.description ?? null,
-    //TODO: it's textarea string, not nullable field, fix
     period: project.info.implementation_period,
     realisationForCitizen: project.primary.payment_method_id,
     canBeDistant: project.primary.is_remote_format_possible,
