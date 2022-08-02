@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CommonBaseRoutesInfo, Main } from 'components';
 import NotFound from 'components/404/404';
 import { useAuth, useInfos } from 'hooks';
-import { useEffect } from 'react';
 import {
   Profile,
   ProfileEditor,
@@ -14,10 +13,6 @@ import {
 const ClientApp = () => {
   const { addInfo } = useInfos();
   const { profile } = useAuth();
-
-  useEffect(() => {
-    addInfo(`Добро пожаловать в систему Homekid, ${profile?.company?.name}`);
-  }, []);
 
   return (
     <Router>

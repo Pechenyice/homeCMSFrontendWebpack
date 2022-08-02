@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import ImageGallery from 'react-image-gallery';
 import styles from './GalleryInput.module.scss';
 import { combineClasses } from 'utils';
 import { H3 } from '../H3/H3';
@@ -20,6 +21,8 @@ import { useAuth } from 'hooks/useAuth';
 import { AuthError } from 'api/errors';
 import { Action } from '../Action/Action';
 import { IFileInfo } from 'types/interfaces';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import './Gallery.css';
 
 type Props = {
   name: string;
@@ -29,6 +32,7 @@ type Props = {
   hint?: string;
   onGalleryPhotosAdd: (photos: IFileInfo['file'][]) => void;
   onGalleryPhotoDelete: (id: number) => void;
+  viewMode?: boolean;
 };
 
 export const GalleryInput = ({
@@ -39,6 +43,7 @@ export const GalleryInput = ({
   hint,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  viewMode,
   className,
   ...rest
 }: Props & HTMLAttributes<HTMLDivElement>) => {
@@ -105,6 +110,34 @@ export const GalleryInput = ({
     e.stopPropagation();
     onGalleryPhotoDelete(id);
   };
+
+  if (viewMode) {
+    const images = gallery.map((photo) => ({
+      original: photo.path,
+      thumbnail: photo.path,
+    }));
+
+    return (
+      <div
+        className={combineClasses(styles.wrapper, className ?? '')}
+        {...rest}
+      >
+        {heading && (
+          <div className={styles.heading}>
+            <H3 className={styles.heading__content}>{heading}</H3>{' '}
+            {hint && <Hint text={hint} />}
+          </div>
+        )}
+        <div className={styles.image}>
+          {gallery.length ? (
+            <ImageGallery showPlayButton={false} items={images as any} />
+          ) : (
+            <Text>[Файлы не добавлены]</Text>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={combineClasses(styles.wrapper, className ?? '')} {...rest}>

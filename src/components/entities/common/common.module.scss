@@ -6,10 +6,16 @@
 }
 
 .flex {
+  width: 100%;
   display: flex;
   column-gap: 100px;
   row-gap: 30px;
   flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.flex:last-child {
+  margin-bottom: 0px;
 }
 
 .full {

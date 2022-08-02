@@ -6,6 +6,9 @@ import styles from './ProjectPage.module.scss';
 import { IProjectData } from 'types/entities/entities';
 import { Action, Button, Text } from 'components/kit';
 import { combineClasses } from 'utils/common';
+import { ExpierienceView } from 'components/entities/common/ExpierienceView';
+import { ContactsView } from 'components/entities/common/ContactsView';
+import { MembersView } from 'components/entities/common/membersView';
 
 type Props = {
   project: IProjectData;
@@ -32,6 +35,9 @@ export const ProjectPage = ({ project }: Props) => {
       />
       <div className={styles.content}>
         {currentStep === 0 && <ProjectViewMainPartition project={project} />}
+        {currentStep === 1 && <ExpierienceView data={project} />}
+        {currentStep === 2 && <ContactsView data={project} />}
+        {currentStep === 3 && <MembersView data={project} />}
       </div>
       <div
         className={combineClasses(

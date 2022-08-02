@@ -56,14 +56,15 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   const valueIsSelected = value !== null && value !== undefined;
 
   if (viewMode) {
+    const value: any = options
+      .filter((option) => option.id === value)
+      .map((option) => option.label);
+
     return (
       <TextArea
         readOnly
         heading={heading}
-        value={options
-          .filter((option) => option.id === value)
-          .map((option) => option.label)
-          .join(', ')}
+        value={value.length ? value.join(', ') : '-'}
       />
     );
   }

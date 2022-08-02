@@ -4,6 +4,7 @@ interface CssExports {
   'clear': string;
   'heading': string;
   'heading__content': string;
+  'image': string;
   'inner': string;
   'input__file': string;
   'loaderWrapper': string;

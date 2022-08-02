@@ -1,7 +1,7 @@
 import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { ISelectValue } from 'types/interfaces';
 import { combineClasses } from 'utils';
-import { Checkbox, Text } from 'components/kit';
+import { Checkbox, Text, TextArea } from 'components/kit';
 import styles from './MultipleSelect.module.scss';
 import { ChevronVerticalIcon } from 'assets/icons';
 import { CSSTransition } from 'react-transition-group';
@@ -13,6 +13,7 @@ type Props = {
   values?: ISelectValue['id'][] | null;
   options: ISelectValue[];
   onChangeOption: (option: ISelectValue['id']) => void;
+  viewMode?: boolean;
 };
 
 export const MultipleSelect = (
@@ -24,6 +25,7 @@ export const MultipleSelect = (
     options,
     onChangeOption,
     emptyText,
+    viewMode,
     ...rest
   } = props;
 
@@ -48,6 +50,20 @@ export const MultipleSelect = (
   }, [opened]);
 
   const toggle = () => setOpened(!opened);
+
+  if (viewMode) {
+    const value = options
+      .filter((option) => values?.includes(option.id))
+      .map((option) => option.label);
+
+    return (
+      <TextArea
+        readOnly
+        heading={heading}
+        value={value.length ? value.join(', ') : '-'}
+      />
+    );
+  }
 
   return (
     <div className={styles.wrapper} ref={wrapperRef} {...rest}>

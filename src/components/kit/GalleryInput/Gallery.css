@@ -1,0 +1,27 @@
+.image-gallery .image-gallery-image {
+  max-width: 560px !important;
+  height: 560px !important;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.image-gallery .image-gallery-thumbnail-image {
+  max-height: 100px !important;
+  object-fit: contain;
+}
+
+.image-gallery svg * {
+  color: var(--light-gray) !important;
+}
+
+.image-gallery .fullscreen .image-gallery-image {
+  max-width: 560px !important;
+  height: calc(100vh - 150px) !important;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.image-gallery .image-gallery-right-nav, .image-gallery .image-gallery-left-nav {
+  padding: 0;
+  transform: scale(.5) translateY(-100%);
+}

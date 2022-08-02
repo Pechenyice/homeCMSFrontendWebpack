@@ -11,12 +11,21 @@ type Props = {
   value: boolean;
   onChangeOption: (option: boolean) => void;
   hint?: string;
+  readOnly?: boolean;
 };
 
 export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
   props
 ) => {
-  const { heading, value, hint, onChangeOption, children, ...rest } = props;
+  const {
+    heading,
+    value,
+    hint,
+    onChangeOption,
+    readOnly,
+    children,
+    ...rest
+  } = props;
 
   const [opened, setOpened] = useState(false);
 
@@ -53,7 +62,7 @@ export const HelperEnableSelect: FC<Props & HTMLAttributes<HTMLDivElement>> = (
           styles.inner,
           opened ? styles.inner_active : ''
         )}
-        onClick={toggle}
+        onClick={readOnly ? undefined : toggle}
       >
         <Text>{value ? 'Да' : 'Нет'}</Text>
         <ChevronVerticalIcon

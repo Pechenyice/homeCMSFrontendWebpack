@@ -30,6 +30,7 @@ type Props = {
   ) => void;
   heading: string;
   hint?: string;
+  viewMode?: boolean;
 };
 
 export const PhotoInput = ({
@@ -41,6 +42,7 @@ export const PhotoInput = ({
   onPhotoChange,
   heading,
   hint,
+  viewMode,
   className,
   ...rest
 }: Props & HTMLAttributes<HTMLDivElement>) => {
@@ -90,6 +92,27 @@ export const PhotoInput = ({
     e.stopPropagation();
     onPhotoChange(null, null, null);
   };
+
+  if (viewMode) {
+    return (
+      <div
+        className={combineClasses(styles.wrapper, className ?? '')}
+        {...rest}
+      >
+        {heading && (
+          <div className={styles.heading}>
+            <H3 className={styles.heading__content}>{heading}</H3>{' '}
+            {hint && <Hint text={hint} />}
+          </div>
+        )}
+        {photoPath ? (
+          <img className={styles.image} src={photoPath} />
+        ) : (
+          <Text>[Файл не добавлен]</Text>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div
