@@ -7,6 +7,7 @@ export const aborts = {
 
   PROJECT_GET_CONTROLLER: new AbortController(),
   PROJECT_CREATE_CONTROLLER: new AbortController(),
+  PROJECT_UPDATE_CONTROLLER: new AbortController(),
 
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
@@ -46,6 +47,11 @@ export function abortGetProject() {
 export function abortCreateProject() {
   aborts.PROJECT_CREATE_CONTROLLER.abort();
   aborts.PROJECT_CREATE_CONTROLLER = new AbortController();
+}
+
+export function abortUpdateProject() {
+  aborts.PROJECT_UPDATE_CONTROLLER.abort();
+  aborts.PROJECT_UPDATE_CONTROLLER = new AbortController();
 }
 
 export function abortFileUpload() {

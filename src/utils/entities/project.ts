@@ -118,7 +118,9 @@ export const mapProjectToAPI = (
       email: project.email,
     },
 
+    // on front id is UUID, on backend id is number
     reporting_periods: project.membersInfo.map((memberInfo) => ({
+      id: isNaN(memberInfo.id) ? undefined : memberInfo.id,
       total: memberInfo.commonMembersCount,
       year: memberInfo.year,
       families: memberInfo.familiesCount,
@@ -203,6 +205,7 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
 
     membersInfo: project.reporting_periods.map((rp) => {
       return {
+        id: rp.id,
         commonMembersCount: rp.total,
         familiesCount: rp.families,
         childrenCount: rp.children,

@@ -68,10 +68,6 @@ export interface IMembersPartition {
   membersInfo: IMembersInfo[];
 }
 
-export interface IFullMembersPartition {
-  membersInfo: IFullMembersInfo[];
-}
-
 export interface ICommonEntityMetadata {
   id: number;
   status: EProposalStatus;
@@ -91,21 +87,14 @@ export interface IProjectData
   // members partition
 }
 
-export interface IFullProjectData extends Omit<IProjectData, 'membersInfo'> {
-  membersInfo: IFullMembersPartition[];
-}
-
 export interface IMembersInfo {
+  id: any;
   commonMembersCount: number;
   familiesCount: number | null;
   childrenCount: number | null;
   menCount: number | null;
   womenCount: number | null;
   year: number;
-}
-
-export interface IFullMembersInfo extends IMembersInfo {
-  id: number;
 }
 
 export interface IFullAPIProject

@@ -94,6 +94,20 @@ export const API = {
         data
       );
     },
+    update(
+      data: Partial<IAPIProject>,
+      projectId: number,
+      userId: number
+    ): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_UPDATE(projectId, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_UPDATE_CONTROLLER,
+        data
+      );
+    },
   },
   file: {
     upload(data: FormData, userId: number): Promise<IFileUploadedResponse> {

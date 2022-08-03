@@ -9,6 +9,7 @@ import {
   ProjectCreation,
   Projects,
 } from 'pages';
+import { ProjectEdition } from 'pages/projects/ProjectEdition/ProjectEdition';
 
 const ClientApp = () => {
   const { addInfo } = useInfos();
@@ -32,7 +33,7 @@ const ClientApp = () => {
             <Route path="create" element={<ProjectCreation />} />
             <Route path=":id">
               <Route index element={<Project />} />
-              {/* <Route path="edit" element={<ProjectEditor />} /> */}
+              <Route path="edit" element={<ProjectEdition />} />
             </Route>
           </Route>
         </Route>
