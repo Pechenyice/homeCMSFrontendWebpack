@@ -1,4 +1,4 @@
-import { IFullAPIProject, IProjectData } from 'types/entities/entities';
+import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import {
   ISelectValue,
   IProfileData,

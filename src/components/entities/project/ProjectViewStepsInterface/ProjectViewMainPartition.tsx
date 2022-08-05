@@ -24,7 +24,7 @@ import { useRnsuCategory } from 'hooks/queries/useRnsuCategory';
 import { useSocialHelpForm } from 'hooks/queries/useSocialHelpForm';
 import { useWorksKinds } from 'hooks/queries/useWorksKinds';
 import { useWorksNames } from 'hooks/queries/useWorksNames';
-import { IProjectData } from 'types/entities/entities';
+import { IProjectData } from 'types/entities/project';
 import { combineClasses } from 'utils/common';
 import { getRelatedCategoriesOptions } from 'utils/entities/common';
 import styles from './ProjectViewMainPartition.module.scss';

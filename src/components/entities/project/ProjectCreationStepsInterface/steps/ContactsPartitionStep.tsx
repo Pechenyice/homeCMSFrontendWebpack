@@ -10,7 +10,6 @@ import {
   TextArea,
 } from 'components/kit';
 import { ChangeEvent } from 'react';
-import { IMainHelpers } from 'types/entities/entities';
 import { IProjectState } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
 

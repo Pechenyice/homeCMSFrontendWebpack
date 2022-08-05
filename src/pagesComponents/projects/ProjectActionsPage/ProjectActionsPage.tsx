@@ -6,8 +6,8 @@ import { Action, Button, Text } from 'components/kit';
 import { useAuth, useErrors, useInfos } from 'hooks';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IProjectData } from 'types/entities/entities';
-import { IProjectState, IProjectSwitchers } from 'types/entities/states';
+import { IProjectData } from 'types/entities/project';
+import { IProjectState, IProjectSwitchers } from 'types/entities/project';
 import { EEntityPartition, EProposalStatus } from 'types/enums';
 import { IFileInfo, IInputsState } from 'types/interfaces';
 import { isValueProvided, simpleUuid } from 'utils/common';
@@ -19,15 +19,15 @@ import {
   textInputValidator,
   validateAll,
 } from 'utils/validators';
-import styles from './ProjectEditionPage.module.scss';
+import styles from './ProjectActionsPage.module.scss';
 
 const CURRENT_STEPS_NUMBER = 4;
 
 type Props = {
-  project: IProjectData;
+  project: IProjectData | null;
 };
 
-export const ProjectEditionPage = ({ project }: Props) => {
+export const ProjectActionsPage = ({ project }: Props) => {
   const navigate = useNavigate();
 
   const { profile, handleLogout } = useAuth();

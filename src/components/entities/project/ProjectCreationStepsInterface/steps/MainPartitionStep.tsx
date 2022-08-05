@@ -12,8 +12,7 @@ import {
 } from 'components/kit';
 import { useDistricts } from 'hooks/queries/useDistricts';
 import { ChangeEvent } from 'react';
-import { IMainHelpers } from 'types/entities/entities';
-import { IProjectState, IProjectSwitchers } from 'types/entities/states';
+import { IProjectState, IProjectSwitchers } from 'types/entities/project';
 import styles from './PartitionStep.module.scss';
 import { GalleryInput } from 'components/kit/GalleryInput/GalleryInput';
 import { useRealisationForCitizen } from 'hooks/queries/useRealisationForCitizen';

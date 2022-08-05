@@ -10,8 +10,7 @@ import {
   TextArea,
 } from 'components/kit';
 import { ChangeEvent } from 'react';
-import { IMainHelpers } from 'types/entities/entities';
-import { IProjectState, IProjectSwitchers } from 'types/entities/states';
+import { IProjectState, IProjectSwitchers } from 'types/entities/project';
 import styles from './PartitionStep.module.scss';
 
 type Props = {

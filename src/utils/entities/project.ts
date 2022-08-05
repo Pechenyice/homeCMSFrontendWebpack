@@ -1,8 +1,5 @@
-import {
-  IAPIProject,
-  IFullAPIProject,
-  IProjectData,
-} from 'types/entities/entities';
+import { IAPIProject, IFullAPIProject } from 'types/entities/project';
+import { IProjectData } from 'types/entities/project';
 import { EProposalStatus } from 'types/enums';
 
 export const mapProjectToAPI = (

@@ -1,4 +1,4 @@
-import { IAPIProject } from 'types/entities/entities';
+import { IAPIProject } from 'types/entities/project';
 import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
