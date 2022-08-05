@@ -3,7 +3,7 @@ import { PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { PlusIcon } from 'assets/icons';
 import { useNavigate } from 'react-router-dom';
-import { ProjectCreationPage } from 'pagesComponents';
+import { ProjectActionsPage } from 'pagesComponents/projects/ProjectActionsPage/ProjectActionsPage';
 
 export const ProjectCreation = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const ProjectCreation = () => {
         ]}
       />
       <PageHeading heading="Создать проект" />
-      <ProjectCreationPage />
+      <ProjectActionsPage project={null} />
     </Layout>
   );
 };

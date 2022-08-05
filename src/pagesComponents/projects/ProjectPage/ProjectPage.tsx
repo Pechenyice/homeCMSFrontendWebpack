@@ -8,7 +8,7 @@ import { Action, Button, Text } from 'components/kit';
 import { combineClasses } from 'utils/common';
 import { ExpierienceView } from 'components/entities/common/ExpierienceView';
 import { ContactsView } from 'components/entities/common/ContactsView';
-import { MembersView } from 'components/entities/common/membersView';
+import { MembersView } from 'components/entities/common/MembersView';
 
 type Props = {
   project: IProjectData;

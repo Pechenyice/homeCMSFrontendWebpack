@@ -43,83 +43,86 @@ export const ProjectActionsPage = ({ project }: Props) => {
 
   const [switchers, setSwitchers] = useState<IProjectSwitchers>({
     hasResultsDescriptionInJournal:
-      !!project.resultsDescriptionInJournal ||
-      !!project.resultsDescriptionInJournalLink,
+      !!project?.resultsDescriptionInJournal ||
+      !!project?.resultsDescriptionInJournalLink,
     hasResultsInformationInMassMedia:
-      !!project.resultsInformationInMassMedia ||
-      !!project.resultsInformationInMassMediaLink,
+      !!project?.resultsInformationInMassMedia ||
+      !!project?.resultsInformationInMassMediaLink,
     hasResultsInformationInDifferentLevelsEvents:
-      !!project.resultsInformationInDifferentLevelsEvents ||
-      !!project.resultsInformationInDifferentLevelsEventsLink,
+      !!project?.resultsInformationInDifferentLevelsEvents ||
+      !!project?.resultsInformationInDifferentLevelsEventsLink,
     hasResultsMasterClasses:
-      !!project.resultsMasterClasses || !!project.resultsMasterClassesLink,
+      !!project?.resultsMasterClasses || !!project?.resultsMasterClassesLink,
     hasResultsOnWebsite:
-      !!project.resultsOnWebsite || !!project.resultsOnWebsiteLink,
-    organisator: !!project.organisator,
-    partnership: !!project.partnership,
-    innovationGround: !!project.innovationGround,
-    hasExpertOpinion: !!project.hasExpertOpinion,
-    hasExpertReview: !!project.hasExpertReview,
-    hasExpertMention: !!project.hasExpertMention,
+      !!project?.resultsOnWebsite || !!project?.resultsOnWebsiteLink,
+    organisator: !!project?.organisator,
+    partnership: !!project?.partnership,
+    innovationGround: !!project?.innovationGround,
+    hasExpertOpinion: !!project?.hasExpertOpinion,
+    hasExpertReview: !!project?.hasExpertReview,
+    hasExpertMention: !!project?.hasExpertMention,
   });
 
   const [mainPartition, setMainPartition] = useState<
     IProjectState['mainPartition']
   >({
-    name: registerInput(project.name, textInputValidator), //Наименование
-    bestPracticeForLeadership: project.bestPracticeForLeadership, //Лучшая практика по мнению руководства организации
-    annotation: registerInput(project.annotation, annotationValidator), //Аннотация
-    purpose: registerInput(project.purpose, textInputValidator), //Цель проекта
-    tasks: registerInput(project.tasks, textInputValidator), //Основные задачи
-    organisator: registerInput(project.organisator ?? '', textInputValidator), //Организатор/участник
-    period: registerInput(project.period ?? '', textInputValidator), //Период реализации проекта
-    realisationForCitizen: project.realisationForCitizen, //Реализация для гражданина
-    canBeDistant: project.canBeDistant, //Возможность реализации в дистанционном формате
-    organizationLevel: project.organizationLevel, //Уровень реализации проекта
-    partnership: registerInput(project.partnership ?? '', textInputValidator),
-    attractingVolunteer: project.attractingVolunteer, //Привлечение добровольцев и волонтеров
-    rnsuCategories: project.rnsuCategories, //Категории по РНСУ
-    categories: project.categories, //Категории
-    groups: project.groups, //Целевые группы
-    worksKinds: project.worksKinds ?? [], //Вид услуги
-    worksNames: project.worksNames ?? [], //Наименования услуг
-    gosWorkNames: project.gosWorkNames ?? [], //Наименование государственной работы
-    circumstancesRecognitionNeed: project.circumstancesRecognitionNeed, //Обстоятельства признания нуждаемости
-    socialHelpForm: project.socialHelpForm, //Форма социального обслуживания (сопровождения)
+    name: registerInput(project?.name ?? '', textInputValidator), //Наименование
+    bestPracticeForLeadership: project?.bestPracticeForLeadership ?? false, //Лучшая практика по мнению руководства организации
+    annotation: registerInput(project?.annotation ?? '', annotationValidator), //Аннотация
+    purpose: registerInput(project?.purpose ?? '', textInputValidator), //Цель проекта
+    tasks: registerInput(project?.tasks ?? '', textInputValidator), //Основные задачи
+    organisator: registerInput(project?.organisator ?? '', textInputValidator), //Организатор/участник
+    period: registerInput(project?.period ?? '', textInputValidator), //Период реализации проекта
+    realisationForCitizen: project?.realisationForCitizen ?? -1, //Реализация для гражданина
+    canBeDistant: project?.canBeDistant ?? false, //Возможность реализации в дистанционном формате
+    organizationLevel: project?.organizationLevel ?? -1, //Уровень реализации проекта
+    partnership: registerInput(project?.partnership ?? '', textInputValidator),
+    attractingVolunteer: project?.attractingVolunteer ?? -1, //Привлечение добровольцев и волонтеров
+    rnsuCategories: project?.rnsuCategories ?? [], //Категории по РНСУ
+    categories: project?.categories ?? [], //Категории
+    groups: project?.groups ?? [], //Целевые группы
+    worksKinds: project?.worksKinds ?? [], //Вид услуги
+    worksNames: project?.worksNames ?? [], //Наименования услуг
+    gosWorkNames: project?.gosWorkNames ?? [], //Наименование государственной работы
+    circumstancesRecognitionNeed: project?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
+    socialHelpForm: project?.socialHelpForm ?? [], //Форма социального обслуживания (сопровождения)
     basicQualityResults: registerInput(
-      project.basicQualityResults,
+      project?.basicQualityResults ?? '',
       textInputValidator
     ), //Основные качественные результаты
-    socialResults: registerInput(project.socialResults, textInputValidator), //Социальный результаты
+    socialResults: registerInput(
+      project?.socialResults ?? '',
+      textInputValidator
+    ), //Социальный результаты
     replicability: registerInput(
-      project.replicability ?? '',
+      project?.replicability ?? '',
       textInputValidator
     ), //Тиражируемость
     innovationGround: registerInput(
-      project.innovationGround ?? '',
+      project?.innovationGround ?? '',
       textInputValidator
     ), //Апробация на инновационной площадке
     hasExpertOpinion: registerInput(
-      project.hasExpertOpinion ?? '',
+      project?.hasExpertOpinion ?? '',
       textInputValidator
     ), //Наличие экспертного заключения
     hasExpertReview: registerInput(
-      project.hasExpertReview ?? '',
+      project?.hasExpertReview ?? '',
       textInputValidator
     ), //Наличие экспертного рецензии
     hasExpertMention: registerInput(
-      project.hasExpertMention ?? '',
+      project?.hasExpertMention ?? '',
       textInputValidator
     ), //Наличие экспертного отзыва
-    photo: project.photo ?? {
+    photo: project?.photo ?? {
       id: null,
       path: null,
       name: null,
     }, //Фотография
-    gallery: project.gallery ?? [], //Галерея
-    video: registerInput(project.video ?? '', textInputValidator), //Видеоролик
+    gallery: project?.gallery ?? [], //Галерея
+    video: registerInput(project?.video ?? '', textInputValidator), //Видеоролик
     resourcesDescription: registerInput(
-      project.resourcesDescription,
+      project?.resourcesDescription ?? '',
       textInputValidator
     ), //Краткое описание необходимого ресурсного обеспечения
   });
@@ -128,43 +131,43 @@ export const ProjectActionsPage = ({ project }: Props) => {
     IProjectState['expieriencePartition']
   >({
     resultsDescriptionInJournal: registerInput(
-      project.resultsDescriptionInJournal ?? '',
+      project?.resultsDescriptionInJournal ?? '',
       textInputValidator
     ), //Описание результатов в виде статьи, опубликованной в сборнике, журнале
     resultsDescriptionInJournalLink: registerInput(
-      project.resultsDescriptionInJournalLink ?? '',
+      project?.resultsDescriptionInJournalLink ?? '',
       textInputValidator
     ),
     resultsInformationInMassMedia: registerInput(
-      project.resultsInformationInMassMedia ?? '',
+      project?.resultsInformationInMassMedia ?? '',
       textInputValidator
     ), //Представление информации о результатах в СМИ
     resultsInformationInMassMediaLink: registerInput(
-      project.resultsInformationInMassMediaLink ?? '',
+      project?.resultsInformationInMassMediaLink ?? '',
       textInputValidator
     ),
     resultsInformationInDifferentLevelsEvents: registerInput(
-      project.resultsInformationInDifferentLevelsEvents ?? '',
+      project?.resultsInformationInDifferentLevelsEvents ?? '',
       textInputValidator
     ), //Представление результатов на мероприятиях различного уровня
     resultsInformationInDifferentLevelsEventsLink: registerInput(
-      project.resultsInformationInDifferentLevelsEventsLink ?? '',
+      project?.resultsInformationInDifferentLevelsEventsLink ?? '',
       textInputValidator
     ),
     resultsMasterClasses: registerInput(
-      project.resultsMasterClasses ?? '',
+      project?.resultsMasterClasses ?? '',
       textInputValidator
     ), //Проведение мастер-классов (семинаров) по результатам
     resultsMasterClassesLink: registerInput(
-      project.resultsMasterClassesLink ?? '',
+      project?.resultsMasterClassesLink ?? '',
       textInputValidator
     ),
     resultsOnWebsite: registerInput(
-      project.resultsOnWebsite ?? '',
+      project?.resultsOnWebsite ?? '',
       textInputValidator
     ), //Проведение информации о результатах на сайте учреждения
     resultsOnWebsiteLink: registerInput(
-      project.resultsOnWebsiteLink ?? '',
+      project?.resultsOnWebsiteLink ?? '',
       textInputValidator
     ),
   });
@@ -172,15 +175,18 @@ export const ProjectActionsPage = ({ project }: Props) => {
   const [contactsPartition, setContactsPartition] = useState<
     IProjectState['contactsPartition']
   >({
-    responsible: registerInput(project.responsible, textInputValidator),
-    contactNumber: registerInput(project.contactNumber, textInputValidator),
-    email: registerInput(project.email, textInputValidator),
+    responsible: registerInput(project?.responsible ?? '', textInputValidator),
+    contactNumber: registerInput(
+      project?.contactNumber ?? '',
+      textInputValidator
+    ),
+    email: registerInput(project?.email ?? '', textInputValidator),
   });
 
   const [membersPartition, setMembersPartition] = useState<
     IProjectState['membersPartition']
   >({
-    membersInfo: project.membersInfo.map((mi) => ({
+    membersInfo: project?.membersInfo.map((mi) => ({
       id: mi.id,
       commonMembersCount: registerNumberInput(
         mi.commonMembersCount,
@@ -203,7 +209,23 @@ export const ProjectActionsPage = ({ project }: Props) => {
         numberInputValidator
       ),
       year: registerNumberInput(mi.year, numberInputValidator),
-    })),
+    })) ?? [
+      {
+        id: simpleUuid(),
+        commonMembersCount: registerNumberInput(
+          undefined,
+          numberInputValidator
+        ),
+        familiesCount: registerNumberInput(undefined, numberInputValidator),
+        childrenCount: registerNumberInput(undefined, numberInputValidator),
+        menCount: registerNumberInput(undefined, numberInputValidator),
+        womenCount: registerNumberInput(undefined, numberInputValidator),
+        year: registerNumberInput(
+          new Date().getFullYear(),
+          numberInputValidator
+        ),
+      },
+    ],
   });
 
   const selectPartition = (partition: EEntityPartition) => {
