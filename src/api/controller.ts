@@ -16,6 +16,7 @@ import {
   IQueriesResponse,
   IQueriesRelationsResponse,
   IProjectWithMetadataResponse,
+  IProjectsListResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -74,6 +75,27 @@ export const API = {
       if (!userId) throw new AuthError('Данные пользователя не найдены');
 
       const params = DYNAMIC_API_ROUTES.PROJECT_GET(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_GET_CONTROLLER
+      );
+    },
+    getList(
+      page: number,
+      limit: number,
+      queryParams: { [key: string]: string },
+      userId: number | undefined
+    ): Promise<IProjectsListResponse> {
+      if (!userId) throw new AuthError('Данные пользователя не найдены');
+
+      const params = DYNAMIC_API_ROUTES.PROJECT_GET_LIST(
+        page,
+        limit,
+        queryParams,
+        userId
+      );
 
       return safeFetch(
         params.url,

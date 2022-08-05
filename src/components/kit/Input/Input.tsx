@@ -9,12 +9,14 @@ import styles from './Input.module.scss';
 interface Props {
   heading?: string | ReactNode;
   error?: IInputError;
+  leftIcon?: ReactNode;
 }
 
 export const Input = (props: Props & InputHTMLAttributes<HTMLInputElement>) => {
   const {
     heading,
     error,
+    leftIcon,
     type = 'text',
     name,
     placeholder,
@@ -39,6 +41,7 @@ export const Input = (props: Props & InputHTMLAttributes<HTMLInputElement>) => {
     <div className={combineClasses(styles.wrapper, className ?? '')} {...rest}>
       {heading && <H3 className={styles.heading}>{heading}</H3>}
       <div className={styles.inner}>
+        <div className={styles.asideIcon}>{leftIcon}</div>
         <input
           readOnly={readOnly}
           type={isHidden ? type : 'text'}
@@ -52,7 +55,8 @@ export const Input = (props: Props & InputHTMLAttributes<HTMLInputElement>) => {
             styles.input,
             error?.exist ? styles.input_error : '',
             readOnly ? styles.input_readonly : '',
-            isPassword ? styles.input_password : ''
+            isPassword ? styles.input_password : '',
+            leftIcon ? styles.withLeftIcon : ''
           )}
         />
         {error?.exist && <H5 className={styles.error}>{error.text}</H5>}

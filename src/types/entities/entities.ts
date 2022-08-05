@@ -120,3 +120,17 @@ export interface IAPICommonFullPrimaryPart
   photo_file: IAPIFileInfo['file'] | null; //ID файла обложки
   gallery_files: IAPIFileInfo['file'][]; //Галерея
 }
+
+export interface IAPIEntitiesList {
+  items: IAPIEntitiesListElement[];
+  total: number;
+}
+
+export interface IAPIEntitiesListElement {
+  id: number;
+  name: string;
+  status: EProposalStatus;
+  created_at: string;
+  updated_at: string;
+  rating: number;
+}

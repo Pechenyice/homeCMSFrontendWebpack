@@ -1,3 +1,4 @@
+import { IAPIEntitiesList } from 'types/entities/entities';
 import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import {
   ISelectValue,
@@ -57,4 +58,8 @@ export interface IQueriesRelationsResponse extends IResponseError {
 
 export interface IProjectWithMetadataResponse extends IResponseError {
   data: IFullAPIProject | null;
+}
+
+export interface IProjectsListResponse extends IResponseError {
+  data: IAPIEntitiesList | null;
 }

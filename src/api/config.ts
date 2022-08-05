@@ -25,6 +25,25 @@ export const DYNAMIC_API_ROUTES = {
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
     method: EAPIMethod.GET,
   }),
+  PROJECT_GET_LIST: (
+    page: number,
+    limit: number,
+    queryParams: { [key: string]: string },
+    userId: number
+  ) => {
+    let url = `${API_PREFIX}/users/${userId}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
+      queryParams
+    )
+      .map(([key, value]) => `filter_${key.toLowerCase()}=${value}`)
+      .join('&')}`;
+
+    if (url.endsWith('&')) url = url.slice(0, -1);
+
+    return {
+      url,
+      method: EAPIMethod.GET,
+    };
+  },
 
   FILE_UPLOAD: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/files`,

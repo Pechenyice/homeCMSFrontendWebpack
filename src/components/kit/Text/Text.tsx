@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Text: FC<HTMLAttributes<HTMLHeadingElement> & Props> = (props) => {
-  const { children, className, isMedium } = props;
+  const { children, className, isMedium, ...rest } = props;
 
   return (
     <p
@@ -16,6 +16,7 @@ export const Text: FC<HTMLAttributes<HTMLHeadingElement> & Props> = (props) => {
         isMedium ? styles.styled_medium : styles.styled_regular,
         className ?? ''
       )}
+      {...rest}
     >
       {children}
     </p>

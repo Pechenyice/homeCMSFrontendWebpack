@@ -76,3 +76,18 @@
   transform: translateY(100%);
   color: var(--error);
 }
+
+.asideIcon {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  cursor: text;
+}
+
+.withLeftIcon {
+  padding-left: 60px;
+}
