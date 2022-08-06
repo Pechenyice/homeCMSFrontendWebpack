@@ -9,4 +9,5 @@ export * from './Eyes';
 export * from './Loaders';
 export * from './Minus';
 export * from './Question';
-export * from './search';
+export * from './Search';
+export * from './Stars';

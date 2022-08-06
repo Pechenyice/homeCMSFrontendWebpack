@@ -34,7 +34,13 @@ export const DYNAMIC_API_ROUTES = {
     let url = `${API_PREFIX}/users/${userId}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
       queryParams
     )
-      .map(([key, value]) => `filter_${key.toLowerCase()}=${value}`)
+      .map(([key, value]) =>
+        key === 'sortBy'
+          ? `sort_by=${value}`
+          : key === 'sortDirection'
+          ? `sort_direction=${value}`
+          : `filter_${key.toLowerCase()}=${value}`
+      )
       .join('&')}`;
 
     if (url.endsWith('&')) url = url.slice(0, -1);

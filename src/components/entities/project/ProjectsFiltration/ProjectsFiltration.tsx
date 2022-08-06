@@ -37,7 +37,24 @@ export const ProjectsFiltration = ({ onSearchClick, onClearClick }: Props) => {
       status: state.status === -1 ? undefined : state.status,
     };
 
-    return JSON.parse(JSON.stringify(preparedQueryParams));
+    const withSortingPreparedQueryParams = {
+      ...preparedQueryParams,
+      sortBy: params.sortBy || undefined,
+      sortDirection: params.sortDirection || undefined,
+    };
+
+    return JSON.parse(JSON.stringify(withSortingPreparedQueryParams));
+  };
+
+  const getPreparedQueryParamsKeysWithoutSorting = () => {
+    let queryParams = getPreparedQueryParams();
+    queryParams = Object.keys(queryParams)
+      .map((key) =>
+        key === 'sortBy' || key === 'sortDirection' ? undefined : key
+      )
+      .filter((key) => !!key);
+
+    return queryParams;
   };
 
   useEffect(() => {
@@ -47,11 +64,13 @@ export const ProjectsFiltration = ({ onSearchClick, onClearClick }: Props) => {
   }, [state]);
 
   const notEmptyFiltersCount = useMemo(
-    () => Object.keys(getPreparedQueryParams()).length,
+    () => getPreparedQueryParamsKeysWithoutSorting().length,
     [state]
   );
 
   const clearFilters = () => {
+    if (!getPreparedQueryParamsKeysWithoutSorting().length) return;
+
     setState(defaultState);
     onClearClick();
   };

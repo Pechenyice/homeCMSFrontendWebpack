@@ -603,8 +603,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
             }))
         );
 
-        console.log(validationSuccess);
-
         return validationSuccess;
       }
       case 2: {

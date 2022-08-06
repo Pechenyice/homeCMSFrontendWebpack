@@ -1,8 +1,18 @@
 import styles from './common.module.scss';
 import { IAPIEntitiesListElement } from 'types/entities/entities';
 import { ChevronLeftIcon, ChevronRightIcon } from 'assets/icons';
-import { ELoaderPalette, H4, Loader, Text } from 'components/kit';
-import { ChangeEvent, useState } from 'react';
+import {
+  ELoaderPalette,
+  H4,
+  Loader,
+  Rating,
+  Status,
+  Text,
+} from 'components/kit';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { combineClasses } from 'utils/common';
+import { EProposalStatus } from 'types/enums';
+import { formatDate } from 'utils/format';
 
 const COLUMNS = [
   {
@@ -16,18 +26,13 @@ const COLUMNS = [
     key: 'status',
   },
   {
-    title: 'Организация',
-    dataIndex: 'organization',
-    key: 'organization',
-  },
-  {
     title: 'Дата создания',
-    dataIndex: 'creation',
+    dataIndex: 'created_at',
     key: 'creation',
   },
   {
     title: 'Дата изменения',
-    dataIndex: 'edition',
+    dataIndex: 'updated_at',
     key: 'edition',
   },
   {
@@ -37,12 +42,17 @@ const COLUMNS = [
   },
 ];
 
+const SORTING_COLUMNS = ['created_at', 'updated_at', 'rating'];
+
 type Props = {
   data: IAPIEntitiesListElement[];
   total: number;
   page: number;
   limit: number;
   isLoading: boolean;
+  sortBy: string;
+  sortDirection: string;
+  onColumnHeaderClick: (columnHeader: string) => void;
   onUpdatePage: (page: number) => void;
 };
 
@@ -52,14 +62,22 @@ export const EntitiesTable = ({
   page,
   limit,
   isLoading,
+  sortBy,
+  sortDirection,
+  onColumnHeaderClick,
   onUpdatePage,
 }: Props) => {
   const [localPageState, setLocalPageState] = useState(page);
 
+  useEffect(() => {
+    if (localPageState !== page) setLocalPageState(page);
+  }, [page]);
+
   const totalNumber = total;
   const maxPagesNumber = Math.ceil(total / limit);
 
-  const startNumber = (page - 1) * limit + 1;
+  let startNumber = (page - 1) * limit + 1;
+  startNumber = totalNumber === 0 ? 0 : startNumber;
   let endNumber = startNumber + limit - 1;
   endNumber = endNumber > total ? total : endNumber;
 
@@ -88,22 +106,59 @@ export const EntitiesTable = ({
     handleSafeUpdatePage(pageToCheck);
   };
 
+  const handleBindFilter = (columnName: string) => () =>
+    onColumnHeaderClick(columnName);
+
+  //simple switch for cells type rendering
+  const getCellContent = (row: IAPIEntitiesListElement, dataIndex: string) => {
+    return dataIndex === 'name' ? (
+      <Text>{row[dataIndex as keyof typeof row]}</Text>
+    ) : dataIndex === 'status' ? (
+      <Status
+        className={styles.fit}
+        status={
+          EProposalStatus[
+            row[dataIndex as keyof typeof row]
+              .toString()
+              .toUpperCase() as keyof typeof EProposalStatus
+          ]
+        }
+      />
+    ) : dataIndex === 'rating' ? (
+      <Rating stars={row[dataIndex as keyof typeof row] as any} />
+    ) : (
+      <Text>{formatDate(new Date(row[dataIndex as keyof typeof row]))}</Text>
+    );
+  };
+
   const tableHeader = (
     <div className={styles.table__header}>
-      {COLUMNS.map((column, index) => (
-        <div
-          className={
-            index
-              ? styles.table__columnHeader_main
-              : styles.table__columnHeader_secondary
-          }
-          key={column.key}
-        >
-          <H4 className={styles.table__columnHeader_label}>
-            {column.title.toUpperCase()}
-          </H4>
-        </div>
-      ))}
+      {COLUMNS.map((column, index) => {
+        const withSorting = SORTING_COLUMNS.includes(column.dataIndex);
+
+        const isSortedByThisColumn = sortBy === column.dataIndex;
+        const sortingOrder = sortDirection === 'DESC' ? '⯆' : '⯅';
+        const sortingContent = isSortedByThisColumn ? sortingOrder : null;
+
+        return (
+          <div
+            className={combineClasses(
+              withSorting ? styles.table__columnHeader_sorting : '',
+              index
+                ? styles.table__columnHeader_main
+                : styles.table__columnHeader_secondary
+            )}
+            onClick={
+              withSorting ? handleBindFilter(column.dataIndex) : undefined
+            }
+            key={column.key}
+          >
+            <H4 className={styles.table__columnHeader_label}>
+              {column.title.toUpperCase()} {sortingContent}
+            </H4>
+          </div>
+        );
+      })}
     </div>
   );
 
@@ -120,7 +175,7 @@ export const EntitiesTable = ({
               }
               key={value.key}
             >
-              <Text>{row[value.dataIndex as keyof typeof row]}</Text>
+              {getCellContent(row, value.dataIndex)}
             </div>
           ))}
         </div>
@@ -135,39 +190,47 @@ export const EntitiesTable = ({
           Показано: {startNumber} - {endNumber} из {totalNumber}
         </H4>
       </div>
-      <div className={styles.table__footerPagination}>
-        <ChevronLeftIcon
-          className={styles.table__footerControl}
-          onClick={() => handleSafeUpdatePage(page - 1)}
-        />
-        <div className={styles.table__footerPaginationController}>
-          <input
-            type="number"
-            className={styles.table__paginator}
-            value={localPageState}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />{' '}
-          <H4>/ {maxPagesNumber}</H4>
+      {!!totalNumber && (
+        <div className={styles.table__footerPagination}>
+          <ChevronLeftIcon
+            className={styles.table__footerControl}
+            onClick={() => handleSafeUpdatePage(page - 1)}
+          />
+          <div className={styles.table__footerPaginationController}>
+            <input
+              type="number"
+              className={styles.table__paginator}
+              value={localPageState}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />{' '}
+            <H4>/ {maxPagesNumber}</H4>
+          </div>
+          <ChevronRightIcon
+            className={styles.table__footerControl}
+            onClick={() => handleSafeUpdatePage(page + 1)}
+          />
         </div>
-        <ChevronRightIcon
-          className={styles.table__footerControl}
-          onClick={() => handleSafeUpdatePage(page + 1)}
-        />
-      </div>
+      )}
+    </div>
+  );
+
+  const selectedContent = isLoading ? (
+    <div className={styles.table__loader}>
+      <Loader palette={ELoaderPalette.DARK} />
+    </div>
+  ) : totalNumber ? (
+    tableContent
+  ) : (
+    <div className={styles.table__loader}>
+      <H4>С данными фильтрами ничего не найдено</H4>
     </div>
   );
 
   return (
     <div className={styles.table__wrapper}>
       {tableHeader}
-      {isLoading ? (
-        <div className={styles.table__loader}>
-          <Loader palette={ELoaderPalette.DARK} />
-        </div>
-      ) : (
-        tableContent
-      )}
+      {selectedContent}
       {tableFooter}
     </div>
   );

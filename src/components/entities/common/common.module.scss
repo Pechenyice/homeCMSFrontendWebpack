@@ -30,6 +30,10 @@
   margin-bottom: 30px;
 }
 
+.fit {
+  max-width: fit-content;
+}
+
 .table {
   &__wrapper {
     width: 100%;
@@ -48,6 +52,10 @@
   }
 
   &__columnHeader {    
+    &_sorting {
+      user-select: none;
+      cursor: pointer;
+    }
 
     &_label {
       color: var(--gray);
