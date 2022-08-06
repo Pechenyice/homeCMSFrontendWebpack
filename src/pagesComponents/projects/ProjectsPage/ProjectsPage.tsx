@@ -14,7 +14,7 @@ import { useQueryParams } from 'hooks/utils/useQueryParams';
 
 export const ProjectsPage = () => {
   const [page, setPage] = useState(1);
-  const [limit] = useState(50);
+  const [limit] = useState(3);
 
   const params = useQueryParams();
   const [, setSearchParams] = useSearchParams();
@@ -34,13 +34,22 @@ export const ProjectsPage = () => {
   }, [params]);
 
   const handleSearchClick = () => {
-    getProjects(page, limit);
-    setPage(1);
+    if (page === 1) {
+      getProjects(page, limit);
+    } else {
+      setPage(1);
+    }
   };
 
   const handleClearClick = () => {
-    getProjects(page, limit, {});
-    setPage(1);
+    if (page === 1) {
+      getProjects(page, limit, {
+        sortBy: params.sortBy || undefined,
+        sortDirection: params.sortDirection || undefined,
+      } as any);
+    } else {
+      setPage(1);
+    }
   };
 
   const handleUpdatePage = (newPage: number) => {
@@ -66,8 +75,11 @@ export const ProjectsPage = () => {
     setSortBy(newSortBy);
     setSortDirection(newSortDirection);
 
-    getProjects(page, limit, preparedQueryParams as any);
-    setPage(1);
+    if (page === 1) {
+      getProjects(page, limit, preparedQueryParams as any);
+    } else {
+      setPage(1);
+    }
   };
 
   return (

@@ -518,8 +518,6 @@ export const ProjectCreationPage = () => {
             }))
         );
 
-        console.log(validationSuccess);
-
         return validationSuccess;
       }
       case 2: {
