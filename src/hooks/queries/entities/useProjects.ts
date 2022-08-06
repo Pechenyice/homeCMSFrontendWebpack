@@ -3,6 +3,7 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQueryParams } from 'hooks/utils/useQueryParams';
+import { ParsedQuery } from 'query-string';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
@@ -23,7 +24,11 @@ export const useProjects = () => {
 
   const params = useQueryParams();
 
-  const getProjects = async (page: number, limit: number) => {
+  const getProjects = async (
+    page: number,
+    limit: number,
+    lockedParams?: ParsedQuery<string>
+  ) => {
     setIsLoading(true);
     let projects;
 
@@ -31,7 +36,7 @@ export const useProjects = () => {
       projects = await API.project.getList(
         page,
         limit,
-        params as any,
+        lockedParams || (params as any),
         profile?.id
       );
 

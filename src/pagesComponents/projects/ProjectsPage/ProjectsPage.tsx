@@ -8,63 +8,44 @@ import { Action, Button, Text } from 'components/kit';
 import { useProjects } from 'hooks/queries/entities/useProjects';
 import { ProjectsFiltration } from 'components/entities/project/ProjectsFiltration/ProjectsFiltration';
 import PageLoader from 'components/PageLoader/PageLoader';
-import Table from 'rc-table';
-
-const COLUMNS = [
-  {
-    title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Статус',
-    dataIndex: 'status',
-    key: 'status',
-  },
-  {
-    title: 'Организация',
-    dataIndex: 'organization',
-    key: 'organization',
-  },
-  {
-    title: 'Дата создания',
-    dataIndex: 'creation',
-    key: 'creation',
-  },
-  {
-    title: 'Дата изменения',
-    dataIndex: 'edition',
-    key: 'edition',
-  },
-  {
-    title: 'Рейтинг',
-    dataIndex: 'rating',
-    key: 'rating',
-  },
-];
+import { EntitiesTable } from 'components/entities/common/EntitiesTable';
 
 export const ProjectsPage = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(50);
+  const [limit, setLimit] = useState(3);
 
   const { projects, isLoading, getProjects } = useProjects();
 
   useEffect(() => {
     getProjects(page, limit);
-  }, []);
+  }, [page, limit]);
 
   const handleSearchClick = () => {
     getProjects(page, limit);
   };
 
+  const handleClearClick = () => {
+    getProjects(page, limit, {});
+  };
+
+  const handleUpdatePage = (newPage: number) => {
+    setPage(newPage);
+  };
+
   return (
     <>
-      <ProjectsFiltration onSearchClick={handleSearchClick} />
-      {isLoading ? (
-        <PageLoader />
-      ) : (
-        <Table columns={COLUMNS} data={projects.items} />
-      )}
+      <ProjectsFiltration
+        onSearchClick={handleSearchClick}
+        onClearClick={handleClearClick}
+      />
+      <EntitiesTable
+        data={projects.items}
+        total={projects.total}
+        page={page}
+        limit={limit}
+        isLoading={isLoading}
+        onUpdatePage={handleUpdatePage}
+      />
     </>
   );
 };

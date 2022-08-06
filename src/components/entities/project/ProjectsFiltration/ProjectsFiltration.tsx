@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 
 type Props = {
   onSearchClick: () => void;
+  onClearClick: () => void;
 };
 
 const STATUS_OPTIONS = [
@@ -20,7 +21,7 @@ const defaultState = {
   status: -1,
 };
 
-export const ProjectsFiltration = ({ onSearchClick }: Props) => {
+export const ProjectsFiltration = ({ onSearchClick, onClearClick }: Props) => {
   const params = useQueryParams();
   const [, setSearchParams] = useSearchParams();
 
@@ -52,6 +53,7 @@ export const ProjectsFiltration = ({ onSearchClick }: Props) => {
 
   const clearFilters = () => {
     setState(defaultState);
+    onClearClick();
   };
 
   const bindChange = (name: string) => (
