@@ -2,6 +2,7 @@ import { IAPIRoutesConfig } from './interfaces';
 import { EAPIMethod } from './enums';
 
 export const API_PREFIX = '/api/client/v1';
+export const ADMIN_API_PREFIX = '/api/admin/v1';
 
 export const DYNAMIC_API_ROUTES = {
   PROFILE_GET_COMPANY: (userId: number) => ({
@@ -67,6 +68,26 @@ export const DYNAMIC_API_ROUTES = {
     url: `${API_PREFIX}/dictionaries/categories/${parentCategory}/${childCategory}`,
     method: EAPIMethod.GET,
   }),
+
+  ADMIN: {
+    PROJECT_REJECT: (id: number, userId: number) => ({
+      url: `${ADMIN_API_PREFIX}/users/${userId}/jobs/social-projects/${id}/reject`,
+      method: EAPIMethod.PATCH,
+    }),
+    PROJECT_APPROVE: (id: number, userId: number) => ({
+      url: `${ADMIN_API_PREFIX}/users/${userId}/jobs/social-projects/${id}/approve`,
+      method: EAPIMethod.PATCH,
+    }),
+
+    COMPANY_REJECT: (userId: number) => ({
+      url: `${ADMIN_API_PREFIX}/users/${userId}/company/reject`,
+      method: EAPIMethod.PATCH,
+    }),
+    COMPANY_APPROVE: (userId: number) => ({
+      url: `${ADMIN_API_PREFIX}/users/${userId}/company/approve`,
+      method: EAPIMethod.PATCH,
+    }),
+  },
 };
 
 export const API_ROUTES: IAPIRoutesConfig = {

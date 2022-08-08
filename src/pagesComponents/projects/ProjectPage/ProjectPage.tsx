@@ -16,6 +16,11 @@ import { combineClasses } from 'utils/common';
 import { ExpierienceView } from 'components/entities/common/ExpierienceView';
 import { ContactsView } from 'components/entities/common/ContactsView';
 import { MembersView } from 'components/entities/common/MembersView';
+import { API } from 'api/controller';
+import { ApiError, AuthError, ServerError } from 'api/errors';
+import { useErrors } from 'hooks/useErrors';
+import { useAuth, useInfos } from 'hooks/index';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type Props = {
   project: IProjectData;
@@ -25,12 +30,21 @@ type Props = {
 const CURRENT_STEPS_NUMBER = 4;
 
 export const ProjectPage = ({ project, isAdmin }: Props) => {
+  const { addError } = useErrors();
+  const { addInfo } = useInfos();
+  const { handleLogout } = useAuth();
+
+  const { userId } = useParams();
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
 
-  const [isBest, setIsBest] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [isBest, setIsBest] = useState(project.isBest);
   const [cause, setCause] = useState('');
 
   const handleCauseChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,9 +63,63 @@ export const ProjectPage = ({ project, isAdmin }: Props) => {
     setIsApproveModalOpen(!isApproveModalOpen);
   };
 
-  const handleReject = () => {};
+  const handleReject = async () => {
+    try {
+      if (!cause) {
+        addError('Заполните причину отклонения заявки!');
+        return;
+      }
+      if (!userId || isNaN(userId as any)) {
+        addError('Не удалось отклонить заявку');
+        return;
+      }
 
-  const handleApprove = () => {};
+      setIsLoading(true);
+
+      await API.project.reject(userId as any, project.id, cause);
+
+      setIsLoading(false);
+
+      addInfo('Заявка успешно отклонена!');
+
+      navigate('/projects');
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при отклонении проекта!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
+  };
+
+  const handleApprove = async () => {
+    try {
+      if (!userId || isNaN(userId as any)) {
+        addError('Не удалось принять заявку');
+        return;
+      }
+
+      setIsLoading(true);
+
+      await API.project.approve(userId as any, project.id, isBest);
+
+      setIsLoading(false);
+
+      addInfo('Заявка успешно принята!');
+
+      navigate('/projects');
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при принятии проекта!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
+  };
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);

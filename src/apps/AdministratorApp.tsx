@@ -3,6 +3,7 @@ import CommonBaseAdminRoutesInfo from 'components/CommonRoutesNesting/CommonBase
 import { Project } from 'pages/admin';
 import NotFound from 'components/404/404';
 import { AdminMain } from 'components/AdminMain/AdminMain';
+import { Company } from 'pages/admin/Company/Company';
 
 const AdministratorApp = () => {
   return (
@@ -16,7 +17,7 @@ const AdministratorApp = () => {
           <Route path="users">
             {/* <Route index element={<Companies />} /> */}
             <Route path=":userId">
-              {/* <Route index element={<Company />} /> */}
+              <Route index element={<Company />} />
               <Route path="projects/:id" element={<Project />} />
             </Route>
           </Route>

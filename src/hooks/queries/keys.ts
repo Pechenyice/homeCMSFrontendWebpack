@@ -17,3 +17,5 @@ export const getProjectKey = (id: string, userId?: number) => [
   id,
   userId,
 ];
+
+export const getCompanyKey = (userId: string) => ['company', userId];

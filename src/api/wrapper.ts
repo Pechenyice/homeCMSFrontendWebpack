@@ -1,3 +1,4 @@
+import { EAPIMethod } from './enums';
 import { ApiError, AuthError, ServerError } from './errors';
 
 async function checkResponse(response: any) {
@@ -36,10 +37,13 @@ export function safeFetch(
     signal: controller.signal,
   };
 
-  if (method === 'POST')
+  if (method === EAPIMethod.POST)
     options.body =
       contentType === 'multipart/form-data' ? body : JSON.stringify(body);
-  if (method === 'PUT')
+  if (method === EAPIMethod.PUT)
+    options.body =
+      contentType === 'multipart/form-data' ? body : JSON.stringify(body);
+  if (method === EAPIMethod.PATCH)
     options.body =
       contentType === 'multipart/form-data' ? body : JSON.stringify(body);
 

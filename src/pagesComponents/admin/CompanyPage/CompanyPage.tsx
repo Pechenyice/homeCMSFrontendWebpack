@@ -1,23 +1,46 @@
+import styles from './CompanyPage.module.scss';
+import { Dropdown, PageHeading } from 'components';
 import {
   Action,
+  Breadcrumbs,
+  Button,
   Checkbox,
-  H3,
-  Input,
-  Skeleton,
   ESkeletonMode,
+  Input,
+  Layout,
+  Modal,
+  Skeleton,
   Text,
   TextArea,
 } from 'components/kit';
-import { useAuth, useErrors } from 'hooks';
+import { EditIcon } from 'assets/icons';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ProjectPage, ProjectsPage } from 'pagesComponents';
+import { useQuery } from 'react-query';
+import { getProjectKey } from 'hooks/queries/keys';
+import { API } from 'api/controller';
+import { useProject } from 'hooks/queries/entities/useProject';
+import PageLoader from 'components/PageLoader/PageLoader';
+import { useAuth, useErrors, useInfos } from 'hooks';
 import { useDistricts } from 'hooks/queries/useDistricts';
 import { useOrganizationTypes } from 'hooks/queries/useOrganizationTypes';
-import { useMemo } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
+import { useCompany } from 'hooks/queries/useCompany';
 import { getValueByIdFromSelect } from 'utils';
-import styles from './ProfilePage.module.scss';
+import { ICompany } from 'types/interfaces';
+import { ApiError, AuthError, ServerError } from 'api/errors';
 
-export const ProfilePage = () => {
+type Props = {
+  company: ICompany | null;
+};
+
+export const CompanyPage = ({ company }: Props) => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+
   const { profile, handleLogout } = useAuth();
   const { addError } = useErrors();
+  const { addInfo } = useInfos();
 
   const {
     apiData: districts,
@@ -32,7 +55,82 @@ export const ProfilePage = () => {
     isError: organizationTypesError,
   } = useOrganizationTypes();
 
-  const { company } = useMemo(() => profile ?? { company: null }, [profile]);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [cause, setCause] = useState('');
+
+  const handleCauseChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setCause(e.target.value);
+  };
+
+  const handleToggleRejectModal = () => {
+    setIsRejectModalOpen(!isRejectModalOpen);
+  };
+
+  const handleToggleApproveModal = () => {
+    setIsApproveModalOpen(!isApproveModalOpen);
+  };
+
+  const handleReject = async () => {
+    try {
+      if (!cause) {
+        addError('Заполните причину отклонения заявки!');
+        return;
+      }
+      if (!userId || isNaN(userId as any)) {
+        addError('Не удалось отклонить заявку');
+        return;
+      }
+
+      setIsLoading(true);
+
+      await API.company.reject(userId as any, cause);
+
+      setIsLoading(false);
+
+      addInfo('Профиль успешно отклонен!');
+
+      navigate('/users');
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при отклонении профиля!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
+  };
+
+  const handleApprove = async () => {
+    try {
+      if (!userId || isNaN(userId as any)) {
+        addError('Не удалось принять заявку');
+        return;
+      }
+
+      setIsLoading(true);
+
+      await API.company.approve(userId as any);
+
+      setIsLoading(false);
+
+      addInfo('Профиль успешно принят!');
+
+      navigate('/users');
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при принятии профиля!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
+  };
 
   return (
     <div className={styles.styled}>
@@ -203,9 +301,53 @@ export const ProfilePage = () => {
         readOnly
       />
 
-      <div className={styles.footer}>
-        <Action isDeleteMode text="Выйти из аккаунта" onClick={handleLogout} />
+      <div className={styles.adminControls}>
+        <Button
+          className={styles.adminControls__reject}
+          onClick={handleToggleRejectModal}
+        >
+          <Text isMedium>Отклонить</Text>
+        </Button>
+        <Button
+          className={styles.adminControls__approve}
+          onClick={handleToggleApproveModal}
+        >
+          <Text isMedium>Принять</Text>
+        </Button>
       </div>
+
+      {isRejectModalOpen && (
+        <Modal
+          isOpen
+          isNegative
+          content={
+            <TextArea
+              className={styles.modalContent}
+              name="cause"
+              value={cause}
+              onChange={handleCauseChange}
+              heading="Причина отклонения *"
+              placeholder="Причина отклонения"
+            />
+          }
+          text="Отклонить профиль"
+          submitText="Отклонить"
+          cancelText="Назад"
+          onSubmit={handleReject}
+          onCancel={handleToggleRejectModal}
+        />
+      )}
+      {isApproveModalOpen && (
+        <Modal
+          isOpen
+          isPositive
+          text={`Вы точно хотите принять профиль “${company?.name ?? ''}”?`}
+          submitText="Принять"
+          cancelText="Назад"
+          onSubmit={handleApprove}
+          onCancel={handleToggleApproveModal}
+        />
+      )}
     </div>
   );
 };

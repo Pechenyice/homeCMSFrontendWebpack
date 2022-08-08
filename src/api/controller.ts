@@ -67,6 +67,27 @@ export const API = {
       );
     },
   },
+  company: {
+    reject(userId: number, cause: string): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.COMPANY_REJECT(userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.COMPANY_REJECT_CONTROLLER,
+        { comment: cause }
+      );
+    },
+    approve(userId: number): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.COMPANY_APPROVE(userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.COMPANY_APPROVE_CONTROLLER
+      );
+    },
+  },
   project: {
     get(
       id: string,
@@ -100,7 +121,7 @@ export const API = {
       return safeFetch(
         params.url,
         params.method,
-        aborts.PROJECT_GET_CONTROLLER
+        aborts.PROJECT_GET_LIST_CONTROLLER
       );
     },
     create(
@@ -128,6 +149,34 @@ export const API = {
         params.method,
         aborts.PROJECT_UPDATE_CONTROLLER,
         data
+      );
+    },
+    reject(
+      userId: number,
+      id: number,
+      cause: string
+    ): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.PROJECT_REJECT(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_REJECT_CONTROLLER,
+        { comment: cause }
+      );
+    },
+    approve(
+      userId: number,
+      id: number,
+      isBest: boolean
+    ): Promise<IProjectCreateResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.PROJECT_APPROVE(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_APPROVE_CONTROLLER,
+        { is_favorite: isBest }
       );
     },
   },

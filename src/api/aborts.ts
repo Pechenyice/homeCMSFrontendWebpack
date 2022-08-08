@@ -6,8 +6,14 @@ export const aborts = {
   PROFILE_UPDATE_CONTROLLER: new AbortController(),
 
   PROJECT_GET_CONTROLLER: new AbortController(),
+  PROJECT_GET_LIST_CONTROLLER: new AbortController(),
   PROJECT_CREATE_CONTROLLER: new AbortController(),
   PROJECT_UPDATE_CONTROLLER: new AbortController(),
+  PROJECT_REJECT_CONTROLLER: new AbortController(),
+  PROJECT_APPROVE_CONTROLLER: new AbortController(),
+
+  COMPANY_REJECT_CONTROLLER: new AbortController(),
+  COMPANY_APPROVE_CONTROLLER: new AbortController(),
 
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
@@ -42,6 +48,31 @@ export function abortUpdateProfile() {
 export function abortGetProject() {
   aborts.PROJECT_GET_CONTROLLER.abort();
   aborts.PROJECT_GET_CONTROLLER = new AbortController();
+}
+
+export function abortGetListProject() {
+  aborts.PROJECT_GET_LIST_CONTROLLER.abort();
+  aborts.PROJECT_GET_LIST_CONTROLLER = new AbortController();
+}
+
+export function abortRejectProject() {
+  aborts.PROJECT_REJECT_CONTROLLER.abort();
+  aborts.PROJECT_REJECT_CONTROLLER = new AbortController();
+}
+
+export function abortApproveProject() {
+  aborts.PROJECT_APPROVE_CONTROLLER.abort();
+  aborts.PROJECT_APPROVE_CONTROLLER = new AbortController();
+}
+
+export function abortRejectCompany() {
+  aborts.COMPANY_REJECT_CONTROLLER.abort();
+  aborts.COMPANY_REJECT_CONTROLLER = new AbortController();
+}
+
+export function abortApproveCompany() {
+  aborts.COMPANY_APPROVE_CONTROLLER.abort();
+  aborts.COMPANY_APPROVE_CONTROLLER = new AbortController();
 }
 
 export function abortCreateProject() {
