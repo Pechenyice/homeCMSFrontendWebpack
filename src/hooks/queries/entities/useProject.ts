@@ -6,13 +6,13 @@ import { useQuery } from 'react-query';
 import { mapProjectFromAPI } from 'utils/entities/project';
 import { getProjectKey } from './../keys';
 
-export const useProject = (id: string) => {
+export const useProject = (id: string, userId?: number) => {
   const { addError } = useErrors();
   const { profile, handleLogout } = useAuth();
 
   const query = useQuery(
-    getProjectKey(id),
-    () => API.project.get(id, profile?.id),
+    getProjectKey(id, userId),
+    () => API.project.get(id, userId || profile?.id),
     {
       onError: (e) => {
         if (e instanceof ServerError) {

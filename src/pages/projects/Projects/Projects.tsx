@@ -12,7 +12,7 @@ export const Projects = () => {
     <Layout>
       <Breadcrumbs paths={[{ link: '/projects', alias: 'Проекты' }]} />
       <PageHeading
-        heading="Мои проекты"
+        heading="Наши проекты"
         action={
           <Action
             text="Создать новый"

@@ -223,54 +223,67 @@ export const ProfileEditorPage = () => {
 
   return (
     <div className={styles.styled}>
-      <div className={styles.half}>
-        <Input
-          name="name"
-          value={state.name.value}
-          onChange={handleChange}
-          error={state.name.error}
-          heading="Краткое наименование организации"
-        />
+      <div className={styles.group}>
         <TextArea
+          className={styles.half}
           name="fullName"
           value={state.fullName.value}
           onChange={handleChange}
           error={state.fullName.error}
           heading="Полное наименование организации"
         />
-        {organizationTypesLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Тип организации"
-          />
-        ) : organizationTypesError ? (
-          <Input value={''} heading="Тип организации" readOnly />
-        ) : (
-          <Select
-            value={state.type}
-            options={organizationTypes!}
-            heading="Тип организации"
-            onChangeOption={bindSelect('type')}
-          />
-        )}
-        {districtsLoading ? (
-          <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
-        ) : districtsError ? (
-          <Input
-            value={''}
-            heading="Подведомственное КСП, администрации района или СО НКО"
-            readOnly
-          />
-        ) : (
-          <Select
-            value={state.district}
-            options={districts!}
-            heading="Подведомственное КСП, администрации района или СО НКО"
-            onChangeOption={bindSelect('district')}
-          />
-        )}
         <Input
+          className={styles.half}
+          name="name"
+          value={state.name.value}
+          onChange={handleChange}
+          error={state.name.error}
+          heading="Краткое наименование организации"
+        />
+      </div>
+
+      <div className={styles.group}>
+        <div className={styles.half}>
+          {districtsLoading ? (
+            <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
+          ) : districtsError ? (
+            <Input
+              value={''}
+              heading="Подведомственное КСП, администрации района или СО НКО"
+              readOnly
+            />
+          ) : (
+            <Select
+              value={state.district}
+              options={districts!}
+              heading="Подведомственное КСП, администрации района или СО НКО"
+              onChangeOption={bindSelect('district')}
+            />
+          )}
+        </div>
+        <div className={styles.half}>
+          {organizationTypesLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Тип организации"
+            />
+          ) : organizationTypesError ? (
+            <Input value={''} heading="Тип организации" readOnly />
+          ) : (
+            <Select
+              value={state.type}
+              options={organizationTypes!}
+              heading="Тип организации"
+              onChangeOption={bindSelect('type')}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className={styles.group}>
+        <Input
+          className={styles.half}
           name="link"
           value={state.link.value}
           onChange={handleChange}
@@ -278,12 +291,18 @@ export const ProfileEditorPage = () => {
           heading="Ссылка на официальный сайт организации"
         />
         <Input
+          className={styles.half}
           name="phoneNumber"
           value={state.phoneNumber.value}
           onChange={handleChange}
           error={state.phoneNumber.error}
+          heading="Номер телефона организации"
         />
+      </div>
+
+      <div className={styles.group}>
         <Input
+          className={styles.half}
           name="email"
           value={state.email.value}
           onChange={handleChange}
@@ -291,6 +310,7 @@ export const ProfileEditorPage = () => {
           heading="Электронная почта организации"
         />
         <Input
+          className={styles.half}
           name="supervisor"
           value={state.supervisor.value}
           onChange={handleChange}
@@ -298,25 +318,11 @@ export const ProfileEditorPage = () => {
           heading="Руководитель организации"
         />
       </div>
-      <div className={styles.half}>
-        <Input
-          name="responsible"
-          value={state.responsible.value}
-          onChange={handleChange}
-          error={state.responsible.error}
-          heading="Ответственный за предоставление информации"
-        />
-        <Input
-          name="responsiblePhoneNumber"
-          value={state.responsiblePhoneNumber.value}
-          onChange={handleChange}
-          error={state.responsiblePhoneNumber.error}
-          heading="Телефон ответственного за предоставление информации"
-        />
-        <div className={styles.group}>
-          <H3>Об организации</H3>
 
+      <div className={styles.group}>
+        <div className={styles.half}>
           <Checkbox
+            className={styles.leadField}
             checked={state.educationLicense}
             onToggle={bindCheckToggle('educationLicense')}
             label={
@@ -328,6 +334,7 @@ export const ProfileEditorPage = () => {
           {state.educationLicense && (
             <>
               <Input
+                className={styles.leadField}
                 name="educationLicenseNumber"
                 value={state.educationLicenseNumber.value}
                 onChange={handleChange}
@@ -335,6 +342,7 @@ export const ProfileEditorPage = () => {
                 heading="Номер лицензии на осуществление образовательной деятельности"
               />
               <Input
+                className={styles.leadField}
                 name="educationLicenseDate"
                 value={state.educationLicenseDate.value}
                 onChange={handleChange}
@@ -350,8 +358,10 @@ export const ProfileEditorPage = () => {
               />
             </>
           )}
-
+        </div>
+        <div className={styles.half}>
           <Checkbox
+            className={styles.leadField}
             checked={state.medicineLicense}
             onToggle={bindCheckToggle('medicineLicense')}
             label={
@@ -363,6 +373,7 @@ export const ProfileEditorPage = () => {
           {state.medicineLicense && (
             <>
               <Input
+                className={styles.leadField}
                 name="medicineLicenseNumber"
                 value={state.medicineLicenseNumber.value}
                 onChange={handleChange}
@@ -378,14 +389,34 @@ export const ProfileEditorPage = () => {
               />
             </>
           )}
-
-          <Checkbox
-            checked={state.innovationGround}
-            onToggle={bindCheckToggle('innovationGround')}
-            label={<Text>Наличие инновационной площадки в организации</Text>}
-          />
         </div>
       </div>
+
+      <div className={styles.group}>
+        <Checkbox
+          checked={state.innovationGround}
+          onToggle={bindCheckToggle('innovationGround')}
+          label={<Text>Наличие инновационной площадки в организации</Text>}
+        />
+      </div>
+
+      <Input
+        className={styles.half}
+        name="responsible"
+        value={state.responsible.value}
+        onChange={handleChange}
+        error={state.responsible.error}
+        heading="Ответственный за предоставление информации"
+      />
+      <Input
+        className={styles.half}
+        name="responsiblePhoneNumber"
+        value={state.responsiblePhoneNumber.value}
+        onChange={handleChange}
+        error={state.responsiblePhoneNumber.error}
+        heading="Телефон ответственного за предоставление информации"
+      />
+
       <div className={styles.footer}>
         <Button
           onClick={toggleModal}

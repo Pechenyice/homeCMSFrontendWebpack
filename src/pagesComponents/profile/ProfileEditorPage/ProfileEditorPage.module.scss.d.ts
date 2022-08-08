@@ -5,6 +5,7 @@ interface CssExports {
   'footer__button': string;
   'group': string;
   'half': string;
+  'leadField': string;
   'styled': string;
 }
 export const cssExports: CssExports;

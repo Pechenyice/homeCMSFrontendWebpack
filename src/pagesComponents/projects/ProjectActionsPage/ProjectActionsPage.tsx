@@ -2,7 +2,7 @@ import { API } from 'api';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import { EntityCreationSteps } from 'components';
 import { ProjectCreationStepsInterface } from 'components/entities';
-import { Action, Button, Text } from 'components/kit';
+import { Action, Button, Modal, Text } from 'components/kit';
 import { useAuth, useErrors, useInfos } from 'hooks';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -464,8 +464,12 @@ export const ProjectActionsPage = ({ project }: Props) => {
     if (currentStep !== 3) {
       setCurrentStep(currentStep + 1);
     } else {
-      handleSave();
+      toggleModal();
     }
+  };
+
+  const handleEntityUpdate = () => {
+    handleSave();
   };
 
   const validatePartition = () => {
@@ -685,7 +689,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
   };
 
   const handleSave = async () => {
-    toggleModal();
     setFetchInProgress(true);
 
     try {
@@ -860,6 +863,14 @@ export const ProjectActionsPage = ({ project }: Props) => {
           />
         )}
       </div>
+      <Modal
+        isOpen={modalState}
+        text="Вы точно хотите отправить заявку на рассмотрение  в ГИМЦ «Семья»?"
+        submitText="Отправить"
+        cancelText="Отменить"
+        onSubmit={handleEntityUpdate}
+        onCancel={toggleModal}
+      />
     </>
   );
 };

@@ -42,5 +42,23 @@
 
   &__button {
     width: 200px;
+
+    &_negative {
+      background: var(--error);
+
+      &:hover {
+        background: var(--error);
+        opacity: .6;
+      }
+    }
+
+    &_positive {
+      background: var(--success);
+
+      &:hover {
+        background: var(--success);
+        opacity: .6;
+      }
+    }
   }
 }

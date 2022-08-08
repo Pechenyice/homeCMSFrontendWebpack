@@ -14,7 +14,7 @@ import { useQueryParams } from 'hooks/utils/useQueryParams';
 
 export const ProjectsPage = () => {
   const [page, setPage] = useState(1);
-  const [limit] = useState(3);
+  const [limit] = useState(50);
 
   const params = useQueryParams();
   const [, setSearchParams] = useSearchParams();
@@ -56,11 +56,11 @@ export const ProjectsPage = () => {
     setPage(newPage);
   };
 
-  // sort rule: DESC -> ASC -> null
+  // sort rule: desc -> asc -> null
   const handleColumnHeaderClick = (columnHeader: string) => {
     let newSortDirection =
-      sortDirection === 'ASC' ? '' : sortDirection === 'DESC' ? 'ASC' : 'DESC';
-    newSortDirection = sortBy === columnHeader ? newSortDirection : 'DESC';
+      sortDirection === 'asc' ? '' : sortDirection === 'desc' ? 'asc' : 'desc';
+    newSortDirection = sortBy === columnHeader ? newSortDirection : 'desc';
 
     const newSortBy = newSortDirection === '' ? '' : columnHeader;
 
@@ -98,6 +98,7 @@ export const ProjectsPage = () => {
         sortDirection={sortDirection}
         onColumnHeaderClick={handleColumnHeaderClick}
         onUpdatePage={handleUpdatePage}
+        entityPath="projects"
       />
     </>
   );

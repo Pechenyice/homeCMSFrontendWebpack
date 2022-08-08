@@ -8,10 +8,11 @@ interface Props {
   status?: EProposalStatus | number;
   cause?: ReactNode | string;
   action?: ReactNode;
+  menu?: ReactNode;
 }
 
 export const PageHeading = (props: Props) => {
-  const { heading, status, cause, action } = props;
+  const { heading, status, cause, action, menu } = props;
 
   return (
     <div className={styles.styled}>
@@ -20,9 +21,14 @@ export const PageHeading = (props: Props) => {
           <H1>{heading}</H1>
           {status !== undefined && <Status status={status} />}
         </div>
-        {action && action}
+        <div className={styles.metaWrapper}>
+          {action}
+          {menu}
+        </div>
       </div>
-      {status === EProposalStatus.REJECTED && <div className={styles.errorText}>{cause}</div>}
+      {status === EProposalStatus.REJECTED && (
+        <div className={styles.errorText}>{cause}</div>
+      )}
     </div>
   );
 };

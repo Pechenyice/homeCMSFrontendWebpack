@@ -2,7 +2,7 @@ import { IAPIEntitiesList } from 'types/entities/entities';
 import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import {
   ISelectValue,
-  IProfileData,
+  IAPIProfileData,
   IAPIAuthToken,
   IAPICompany,
   ISelectRelations,
@@ -14,12 +14,12 @@ export interface IResponseError {
 }
 
 export interface IProfileCheckAuthResponse extends IResponseError {
-  data: IProfileData | null;
+  data: IAPIProfileData | null;
 }
 
 export interface IProfileLoginResponse extends IResponseError {
   data: {
-    user: IProfileData;
+    user: IAPIProfileData;
     token: IAPIAuthToken;
   } | null;
 }

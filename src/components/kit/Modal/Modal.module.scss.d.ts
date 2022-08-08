@@ -3,6 +3,8 @@
 interface CssExports {
   'actions': string;
   'actions__button': string;
+  'actions__button_negative': string;
+  'actions__button_positive': string;
   'closer': string;
   'content': string;
   'styled': string;

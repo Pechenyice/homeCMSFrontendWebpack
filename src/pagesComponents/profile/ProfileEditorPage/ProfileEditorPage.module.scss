@@ -3,22 +3,22 @@
   display: flex;
   flex-wrap: wrap;
   column-gap: 100px;
+  row-gap: 30px;
 }
 
 .half {
   width: calc(50% - 50px);
-  height: max-content;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+}
+
+.leadField {
+  margin-bottom: 30px;
 }
 
 .group {
   width: 100%;
-
-  & > * {
-    margin-bottom: 20px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 100px;
 }
 
 .footer {

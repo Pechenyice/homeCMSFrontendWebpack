@@ -54,83 +54,92 @@ export const ProfilePage = () => {
 
   return (
     <div className={styles.styled}>
-      <div className={styles.half}>
-        <Input
-          value={company?.name}
-          heading="Краткое наименование организации"
-          readOnly
-        />
+      <div className={styles.group}>
         <TextArea
+          className={styles.half}
           value={company?.fullName}
           heading="Полное наименование организации"
           readOnly
         />
-        {organizationTypesLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Тип организации"
-          />
-        ) : organizationTypesError ? (
-          <Input value={''} heading="Тип организации" readOnly />
-        ) : (
-          <Input
-            value={getValueByIdFromSelect(organizationTypes!, company?.type)}
-            heading="Тип организации"
-            readOnly
-          />
-        )}
-        {districtsLoading ? (
-          <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
-        ) : districtsError ? (
-          <Input
-            value={''}
-            heading="Подведомственное КСП, администрации района или СО НКО"
-            readOnly
-          />
-        ) : (
-          <Input
-            value={getValueByIdFromSelect(districts!, company?.district)}
-            heading="Подведомственное КСП, администрации района или СО НКО"
-            readOnly
-          />
-        )}
         <Input
+          className={styles.half}
+          value={company?.name}
+          heading="Краткое наименование организации"
+          readOnly
+        />
+      </div>
+
+      <div className={styles.group}>
+        <div className={styles.half}>
+          {districtsLoading ? (
+            <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
+          ) : districtsError ? (
+            <Input
+              value={''}
+              heading="Подведомственное КСП, администрации района или СО НКО"
+              readOnly
+            />
+          ) : (
+            <Input
+              value={getValueByIdFromSelect(districts!, company?.district)}
+              heading="Подведомственное КСП, администрации района или СО НКО"
+              readOnly
+            />
+          )}
+        </div>
+        <div className={styles.half}>
+          {organizationTypesLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Тип организации"
+            />
+          ) : organizationTypesError ? (
+            <Input value={''} heading="Тип организации" readOnly />
+          ) : (
+            <Input
+              value={getValueByIdFromSelect(organizationTypes!, company?.type)}
+              heading="Тип организации"
+              readOnly
+            />
+          )}
+        </div>
+      </div>
+
+      <div className={styles.group}>
+        <Input
+          className={styles.half}
           value={company?.link}
           heading="Ссылка на официальный сайт организации"
           readOnly
         />
         <Input
+          className={styles.half}
           value={company?.phoneNumber}
           heading="Номер телефона организации"
           readOnly
         />
+      </div>
+
+      <div className={styles.group}>
         <Input
+          className={styles.half}
           value={company?.email}
           heading="Электронная почта организации"
           readOnly
         />
         <Input
+          className={styles.half}
           value={company?.supervisor}
           heading="Руководитель организации"
           readOnly
         />
       </div>
-      <div className={styles.half}>
-        <Input
-          value={company?.responsible}
-          heading="Ответственный за предоставление информации"
-          readOnly
-        />
-        <Input
-          value={company?.responsiblePhoneNumber}
-          heading="Телефон ответственного за предоставление информации"
-          readOnly
-        />
-        <div className={styles.group}>
-          <H3>Об организации</H3>
 
+      <div className={styles.group}>
+        <div className={styles.half}>
           <Checkbox
+            className={styles.leadField}
             checked={company?.educationLicense}
             readOnly
             label={
@@ -142,11 +151,13 @@ export const ProfilePage = () => {
           {company?.educationLicense && (
             <>
               <Input
+                className={styles.leadField}
                 value={company?.educationLicenseNumber}
                 heading="Номер лицензии на осуществление образовательной деятельности"
                 readOnly
               />
               <Input
+                className={styles.leadField}
                 value={company?.educationLicenseDate}
                 heading="Дата выдачи лицензии"
                 readOnly
@@ -158,8 +169,10 @@ export const ProfilePage = () => {
               />
             </>
           )}
-
+        </div>
+        <div className={styles.half}>
           <Checkbox
+            className={styles.leadField}
             checked={company?.medicineLicense}
             readOnly
             label={
@@ -171,6 +184,7 @@ export const ProfilePage = () => {
           {company?.medicineLicense && (
             <>
               <Input
+                className={styles.leadField}
                 value={company?.medicineLicenseNumber}
                 heading="Номер лицензии на осуществление медицинской деятельности"
                 readOnly
@@ -182,14 +196,31 @@ export const ProfilePage = () => {
               />
             </>
           )}
-
-          <Checkbox
-            checked={company?.innovationGround}
-            readOnly
-            label={<Text>Наличие инновационной площадки в организации</Text>}
-          />
         </div>
       </div>
+
+      <div className={styles.group}>
+        <Checkbox
+          className={styles.half}
+          checked={company?.innovationGround}
+          readOnly
+          label={<Text>Наличие инновационной площадки в организации</Text>}
+        />
+      </div>
+
+      <Input
+        className={styles.half}
+        value={company?.responsible}
+        heading="Ответственный за предоставление информации"
+        readOnly
+      />
+      <Input
+        className={styles.half}
+        value={company?.responsiblePhoneNumber}
+        heading="Телефон ответственного за предоставление информации"
+        readOnly
+      />
+
       <div className={styles.footer}>
         <Action isDeleteMode text="Выйти из аккаунта" onClick={handleLogout} />
       </div>

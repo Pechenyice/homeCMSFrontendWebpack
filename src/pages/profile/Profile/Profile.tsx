@@ -1,5 +1,5 @@
 import styles from './Profile.module.scss';
-import { PageHeading } from 'components';
+import { Dropdown, PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { useAuth } from 'hooks';
 import { EditIcon } from 'assets/icons';
@@ -9,6 +9,10 @@ import { ProfilePage } from 'pagesComponents';
 export const Profile = () => {
   const { profile } = useAuth();
   const navigate = useNavigate();
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   return (
     <Layout>
@@ -29,6 +33,13 @@ export const Profile = () => {
             icon={<EditIcon />}
             onClick={() => navigate('/profile/edit')}
           />
+        }
+        menu={
+          <Dropdown placement="right">
+            <div className={styles.dropdownElem} onClick={handlePrint}>
+              <Text isMedium>Распечатать</Text>
+            </div>
+          </Dropdown>
         }
       />
       <ProfilePage />

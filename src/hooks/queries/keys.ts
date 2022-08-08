@@ -12,4 +12,8 @@ export const worksNamesKey = 'service-name';
 export const gosWorkNamesKey = 'public-work';
 export const socialHelpFormKey = 'social-service';
 
-export const getProjectKey = (id: string) => ['project', id];
+export const getProjectKey = (id: string, userId?: number) => [
+  'project',
+  id,
+  userId,
+];

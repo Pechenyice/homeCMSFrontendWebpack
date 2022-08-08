@@ -13,6 +13,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { combineClasses } from 'utils/common';
 import { EProposalStatus } from 'types/enums';
 import { formatDate } from 'utils/format';
+import { Link } from 'react-router-dom';
 
 const COLUMNS = [
   {
@@ -54,6 +55,7 @@ type Props = {
   sortDirection: string;
   onColumnHeaderClick: (columnHeader: string) => void;
   onUpdatePage: (page: number) => void;
+  entityPath: string;
 };
 
 export const EntitiesTable = ({
@@ -66,6 +68,7 @@ export const EntitiesTable = ({
   sortDirection,
   onColumnHeaderClick,
   onUpdatePage,
+  entityPath,
 }: Props) => {
   const [localPageState, setLocalPageState] = useState(page);
 
@@ -137,7 +140,7 @@ export const EntitiesTable = ({
         const withSorting = SORTING_COLUMNS.includes(column.dataIndex);
 
         const isSortedByThisColumn = sortBy === column.dataIndex;
-        const sortingOrder = sortDirection === 'DESC' ? '⯆' : '⯅';
+        const sortingOrder = sortDirection === 'desc' ? '⯆' : '⯅';
         const sortingContent = isSortedByThisColumn ? sortingOrder : null;
 
         return (
@@ -165,20 +168,22 @@ export const EntitiesTable = ({
   const tableContent = (
     <div className={styles.table__content}>
       {data.map((row, rowIndex) => (
-        <div className={styles.table__row} key={row.id}>
-          {Object.values(COLUMNS).map((value, columnIndex) => (
-            <div
-              className={
-                columnIndex
-                  ? styles.table__row_main
-                  : styles.table__row_secondary
-              }
-              key={value.key}
-            >
-              {getCellContent(row, value.dataIndex)}
-            </div>
-          ))}
-        </div>
+        <Link className={styles.link} to={`/${entityPath}/${row.id}`}>
+          <div className={styles.table__row} key={row.id}>
+            {Object.values(COLUMNS).map((value, columnIndex) => (
+              <div
+                className={
+                  columnIndex
+                    ? styles.table__row_main
+                    : styles.table__row_secondary
+                }
+                key={value.key}
+              >
+                {getCellContent(row, value.dataIndex)}
+              </div>
+            ))}
+          </div>
+        </Link>
       ))}
     </div>
   );

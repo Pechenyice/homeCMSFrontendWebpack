@@ -11,14 +11,14 @@ import { useProject } from 'hooks/queries/entities/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 
 export const Project = () => {
-  const { id } = useParams();
+  const { id, userId } = useParams();
   const navigate = useNavigate();
 
   const {
     apiData: project,
     isLoading: isProjectLoading,
     isError: isProjectError,
-  } = useProject(id as string);
+  } = useProject(id as string, userId as any);
 
   const handlePrint = () => {
     window.print();
@@ -48,13 +48,6 @@ export const Project = () => {
                 {project!.cause}
               </Text>
             }
-            action={
-              <Action
-                text="Редактировать"
-                icon={<EditIcon />}
-                onClick={() => navigate(`/projects/${id}/edit`)}
-              />
-            }
             menu={
               <Dropdown placement="right">
                 <div className={styles.dropdownElem} onClick={handlePrint}>
@@ -63,7 +56,7 @@ export const Project = () => {
               </Dropdown>
             }
           />
-          <ProjectPage project={project!} />
+          <ProjectPage project={project!} isAdmin />
         </>
       )}
     </Layout>

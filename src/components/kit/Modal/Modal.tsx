@@ -1,5 +1,5 @@
 import { CloseIcon } from 'assets/icons';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { combineClasses } from 'utils';
 import { Action } from '../Action/Action';
 import { Button } from '../Button/Button';
@@ -14,10 +14,25 @@ type Props = {
   onSubmit: () => void;
   onCancel: () => void;
   isOpen: boolean;
+  isNegative?: boolean;
+  isPositive?: boolean;
+  content?: ReactNode;
 };
 
 export const Modal = (props: HTMLAttributes<HTMLDivElement> & Props) => {
-  const { text, cancelText, submitText, onCancel, onSubmit, isOpen, className, ...rest } = props;
+  const {
+    text,
+    cancelText,
+    submitText,
+    onCancel,
+    onSubmit,
+    isOpen,
+    isNegative,
+    isPositive,
+    content,
+    className,
+    ...rest
+  } = props;
 
   if (!isOpen) return null;
 
@@ -30,9 +45,17 @@ export const Modal = (props: HTMLAttributes<HTMLDivElement> & Props) => {
         <div className={styles.content}>
           <H2>{text}</H2>
         </div>
+        {content}
         <div className={styles.actions}>
           <Action text={cancelText} onClick={onCancel} />
-          <Button className={styles.actions__button} onClick={onSubmit}>
+          <Button
+            className={combineClasses(
+              styles.actions__button,
+              isNegative ? styles.actions__button_negative : '',
+              isPositive ? styles.actions__button_positive : ''
+            )}
+            onClick={onSubmit}
+          >
             <Text>{submitText}</Text>
           </Button>
         </div>

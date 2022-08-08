@@ -4,6 +4,7 @@ interface CssExports {
   'errorText': string;
   'line': string;
   'lineMain': string;
+  'metaWrapper': string;
   'styled': string;
 }
 export const cssExports: CssExports;

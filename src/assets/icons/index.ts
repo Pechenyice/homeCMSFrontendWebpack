@@ -11,3 +11,4 @@ export * from './Minus';
 export * from './Question';
 export * from './Search';
 export * from './Stars';
+export * from './Kebab';

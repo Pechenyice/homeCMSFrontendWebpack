@@ -6,6 +6,7 @@ interface CssExports {
   'full': string;
   'half': string;
   'leadHelper': string;
+  'link': string;
   'table__columnHeader_label': string;
   'table__columnHeader_main': string;
   'table__columnHeader_secondary': string;

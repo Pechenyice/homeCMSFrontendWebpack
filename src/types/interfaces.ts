@@ -19,6 +19,12 @@ export interface IAPIAuthToken {
   type: string;
 }
 
+export interface IAPIProfileData {
+  id: number;
+  login: string;
+  is_admin: boolean;
+}
+
 export interface IProfileData {
   id: number;
   login: string;

@@ -47,16 +47,23 @@ export const AuthProvider: FC = ({ children }) => {
 
       if (!data?.id) throw new AuthError('Не удалось подтвердить пользователя');
 
-      const companyResponse = await API.profile.getCompany(data.id);
+      //TODO: remove this fixture, for tests only
+      data.is_admin = data.login === 'admin';
 
-      const formedResponse = mapCompanyFromAPI(companyResponse.data!);
+      let formedResponse = null;
+
+      if (!data.is_admin) {
+        const companyResponse = await API.profile.getCompany(data.id);
+
+        formedResponse = mapCompanyFromAPI(companyResponse.data!);
+      }
 
       setState({
         ...state,
         status: EAuthStatus.SUCCESS,
         profile: {
           id: data!.id,
-          isAdmin: data!.isAdmin,
+          isAdmin: data!.is_admin,
           login: data!.login,
           company: formedResponse,
         },
@@ -94,18 +101,25 @@ export const AuthProvider: FC = ({ children }) => {
 
       localStorage.setItem('token', response.data?.token.value ?? '');
 
-      const companyResponse = await API.profile.getCompany(
-        response.data.user.id
-      );
+      //TODO: remove this fixture, for tests only
+      response.data.user.is_admin = data.login === 'admin';
 
-      const formedResponse = mapCompanyFromAPI(companyResponse.data!);
+      let formedResponse = null;
+
+      if (!response.data.user.is_admin) {
+        const companyResponse = await API.profile.getCompany(
+          response.data.user.id
+        );
+
+        formedResponse = mapCompanyFromAPI(companyResponse.data!);
+      }
 
       setState({
         ...state,
         status: EAuthStatus.SUCCESS,
         profile: {
           id: response.data!.user.id,
-          isAdmin: response.data!.user.isAdmin,
+          isAdmin: response.data!.user.is_admin,
           login: response.data!.user.login,
           company: formedResponse,
         },
