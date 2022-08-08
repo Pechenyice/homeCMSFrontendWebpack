@@ -1,4 +1,7 @@
-import { IAPIEntitiesList } from 'types/entities/entities';
+import {
+  IAPIAdminEntitiesList,
+  IAPIEntitiesList,
+} from 'types/entities/entities';
 import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import {
   ISelectValue,
@@ -62,4 +65,8 @@ export interface IProjectWithMetadataResponse extends IResponseError {
 
 export interface IProjectsListResponse extends IResponseError {
   data: IAPIEntitiesList | null;
+}
+
+export interface IProjectsAdminListResponse extends IResponseError {
+  data: IAPIAdminEntitiesList | null;
 }

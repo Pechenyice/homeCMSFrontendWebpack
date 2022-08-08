@@ -7,17 +7,17 @@ import { ParsedQuery } from 'query-string';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
-import { IAPIEntitiesList } from 'types/entities/entities';
+import { IAPIAdminEntitiesList } from 'types/entities/entities';
 import { mapProjectFromAPI } from 'utils/entities/project';
 import { getProjectKey } from './../keys';
 
-export const useProjects = () => {
+export const useAdminProjects = () => {
   const { addError } = useErrors();
-  const { profile, handleLogout } = useAuth();
+  const { handleLogout } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [projects, setProjects] = useState<IAPIEntitiesList>({
+  const [projects, setProjects] = useState<IAPIAdminEntitiesList>({
     items: [],
     total: 0,
   });
@@ -33,11 +33,10 @@ export const useProjects = () => {
     let projects;
 
     try {
-      projects = await API.project.getList(
+      projects = await API.project.getAdminList(
         page,
         limit,
-        lockedParams || (params as any),
-        profile?.id
+        lockedParams || (params as any)
       );
 
       setIsLoading(false);

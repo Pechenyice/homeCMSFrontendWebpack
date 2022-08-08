@@ -44,7 +44,7 @@ export const Company = () => {
 
   return (
     <Layout>
-      <Breadcrumbs paths={[{ link: '/profile', alias: 'Профиль' }]} />
+      <Breadcrumbs paths={[{ alias: 'Профиль' }]} />
       <PageHeading
         heading="Профиль"
         status={company?.status}

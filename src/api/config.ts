@@ -1,5 +1,6 @@
 import { IAPIRoutesConfig } from './interfaces';
 import { EAPIMethod } from './enums';
+import { EProposalStatus } from 'types/enums';
 
 export const API_PREFIX = '/api/client/v1';
 export const ADMIN_API_PREFIX = '/api/admin/v1';
@@ -35,11 +36,45 @@ export const DYNAMIC_API_ROUTES = {
     let url = `${API_PREFIX}/users/${userId}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
       queryParams
     )
+      .filter(([_key, value]) => value !== undefined && value !== null)
       .map(([key, value]) =>
         key === 'sortBy'
           ? `sort_by=${value}`
           : key === 'sortDirection'
           ? `sort_direction=${value}`
+          : key === 'status'
+          ? `filter_${key.toLowerCase()}=${
+              EProposalStatus[value as keyof typeof EProposalStatus]
+            }`
+          : `filter_${key.toLowerCase()}=${value}`
+      )
+      .join('&')}`;
+
+    if (url.endsWith('&')) url = url.slice(0, -1);
+
+    return {
+      url,
+      method: EAPIMethod.GET,
+    };
+  },
+  PROJECT_GET_ADMIN_LIST: (
+    page: number,
+    limit: number,
+    queryParams: { [key: string]: string }
+  ) => {
+    let url = `${ADMIN_API_PREFIX}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
+      queryParams
+    )
+      .filter(([_key, value]) => value !== undefined && value !== null)
+      .map(([key, value]) =>
+        key === 'sortBy'
+          ? `sort_by=${value}`
+          : key === 'sortDirection'
+          ? `sort_direction=${value}`
+          : key === 'status'
+          ? `filter_${key.toLowerCase()}=${
+              EProposalStatus[value as keyof typeof EProposalStatus]
+            }`
           : `filter_${key.toLowerCase()}=${value}`
       )
       .join('&')}`;

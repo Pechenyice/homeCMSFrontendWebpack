@@ -7,6 +7,7 @@ export const aborts = {
 
   PROJECT_GET_CONTROLLER: new AbortController(),
   PROJECT_GET_LIST_CONTROLLER: new AbortController(),
+  PROJECT_GET_ADMIN_LIST_CONTROLLER: new AbortController(),
   PROJECT_CREATE_CONTROLLER: new AbortController(),
   PROJECT_UPDATE_CONTROLLER: new AbortController(),
   PROJECT_REJECT_CONTROLLER: new AbortController(),
@@ -53,6 +54,11 @@ export function abortGetProject() {
 export function abortGetListProject() {
   aborts.PROJECT_GET_LIST_CONTROLLER.abort();
   aborts.PROJECT_GET_LIST_CONTROLLER = new AbortController();
+}
+
+export function abortGetAdminListProject() {
+  aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER.abort();
+  aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER = new AbortController();
 }
 
 export function abortRejectProject() {

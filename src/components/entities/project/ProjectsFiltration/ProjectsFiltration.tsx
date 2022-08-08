@@ -6,6 +6,7 @@ import styles from './ProjectsFiltration.module.scss';
 import { useSearchParams } from 'react-router-dom';
 
 type Props = {
+  isAdmin?: boolean;
   onSearchClick: () => void;
   onClearClick: () => void;
 };
@@ -21,7 +22,11 @@ const defaultState = {
   status: -1,
 };
 
-export const ProjectsFiltration = ({ onSearchClick, onClearClick }: Props) => {
+export const ProjectsFiltration = ({
+  isAdmin,
+  onSearchClick,
+  onClearClick,
+}: Props) => {
   const params = useQueryParams();
   const [, setSearchParams] = useSearchParams();
 

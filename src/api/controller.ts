@@ -17,6 +17,7 @@ import {
   IQueriesRelationsResponse,
   IProjectWithMetadataResponse,
   IProjectsListResponse,
+  IProjectsAdminListResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -116,6 +117,23 @@ export const API = {
         limit,
         queryParams,
         userId
+      );
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_GET_LIST_CONTROLLER
+      );
+    },
+    getAdminList(
+      page: number,
+      limit: number,
+      queryParams: { [key: string]: string }
+    ): Promise<IProjectsAdminListResponse> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_GET_ADMIN_LIST(
+        page,
+        limit,
+        queryParams
       );
 
       return safeFetch(

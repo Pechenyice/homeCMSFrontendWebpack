@@ -1,5 +1,8 @@
 import styles from './common.module.scss';
-import { IAPIEntitiesListElement } from 'types/entities/entities';
+import {
+  IAPIAdminEntitiesListElement,
+  IAPIEntitiesListElement,
+} from 'types/entities/entities';
 import { ChevronLeftIcon, ChevronRightIcon } from 'assets/icons';
 import {
   ELoaderPalette,
@@ -27,6 +30,11 @@ const COLUMNS = [
     key: 'status',
   },
   {
+    title: 'Организация',
+    dataIndex: 'company_name',
+    key: 'company',
+  },
+  {
     title: 'Дата создания',
     dataIndex: 'created_at',
     key: 'creation',
@@ -46,7 +54,7 @@ const COLUMNS = [
 const SORTING_COLUMNS = ['created_at', 'updated_at', 'rating'];
 
 type Props = {
-  data: IAPIEntitiesListElement[];
+  data: IAPIAdminEntitiesListElement[];
   total: number;
   page: number;
   limit: number;
@@ -58,7 +66,7 @@ type Props = {
   entityPath: string;
 };
 
-export const EntitiesTable = ({
+export const EntitiesAdminTable = ({
   data,
   total,
   page,
@@ -116,6 +124,8 @@ export const EntitiesTable = ({
   const getCellContent = (row: IAPIEntitiesListElement, dataIndex: string) => {
     return dataIndex === 'name' ? (
       <Text>{row[dataIndex as keyof typeof row]}</Text>
+    ) : dataIndex === 'company_name' ? (
+      <Text>{row[dataIndex as keyof typeof row]}</Text>
     ) : dataIndex === 'status' ? (
       <Status
         className={styles.fit}
@@ -170,7 +180,10 @@ export const EntitiesTable = ({
   const tableContent = (
     <div className={styles.table__content}>
       {data.map((row, rowIndex) => (
-        <Link className={styles.link} to={`/${entityPath}/${row.id}`}>
+        <Link
+          className={styles.link}
+          to={`/users/${row.user_id}/${entityPath}/${row.id}`}
+        >
           <div className={styles.table__row} key={row.id}>
             {Object.values(COLUMNS).map((value, columnIndex) => (
               <div

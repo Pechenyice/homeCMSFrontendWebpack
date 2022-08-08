@@ -132,5 +132,34 @@ export interface IAPIEntitiesListElement {
   status: EProposalStatus;
   created_at: string;
   updated_at: string;
-  rating: number;
+  rating: IAPIRating;
+}
+
+export interface IAPIAdminEntitiesList {
+  items: IAPIAdminEntitiesListElement[];
+  total: number;
+}
+
+export interface IAPIAdminEntitiesListElement {
+  id: number;
+  name: string;
+  user_id: number;
+  company_name: string;
+  status: EProposalStatus;
+  created_at: string;
+  updated_at: string;
+  rating: IAPIRating;
+}
+
+export interface IAPIRating {
+  count: number;
+  fields: IAPIRatingFields;
+}
+
+export interface IAPIRatingFields {
+  is_favorite: boolean;
+  is_has_publication: boolean;
+  is_has_approbation: boolean;
+  is_has_replicability: boolean;
+  is_has_any_review: boolean;
 }
