@@ -5,6 +5,20 @@ import { EProposalStatus } from 'types/enums';
 export const API_PREFIX = '/api/client/v1';
 export const ADMIN_API_PREFIX = '/api/admin/v1';
 
+const listFilter = ([_key, value]: [_key: any, value: any]) =>
+  value !== undefined && value !== null;
+
+const listMapper = ([key, value]: [key: any, value: any]) =>
+  key === 'sortBy'
+    ? `sort_by=${value}`
+    : key === 'sortDirection'
+    ? `sort_direction=${value}`
+    : key === 'status'
+    ? `filter_${key.toLowerCase()}=${
+        EProposalStatus[value as keyof typeof EProposalStatus]
+      }`
+    : `filter_${key.toLowerCase()}=${value}`;
+
 export const DYNAMIC_API_ROUTES = {
   PROFILE_GET_COMPANY: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/company`,
@@ -36,18 +50,8 @@ export const DYNAMIC_API_ROUTES = {
     let url = `${API_PREFIX}/users/${userId}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
       queryParams
     )
-      .filter(([_key, value]) => value !== undefined && value !== null)
-      .map(([key, value]) =>
-        key === 'sortBy'
-          ? `sort_by=${value}`
-          : key === 'sortDirection'
-          ? `sort_direction=${value}`
-          : key === 'status'
-          ? `filter_${key.toLowerCase()}=${
-              EProposalStatus[value as keyof typeof EProposalStatus]
-            }`
-          : `filter_${key.toLowerCase()}=${value}`
-      )
+      .filter(listFilter)
+      .map(listMapper)
       .join('&')}`;
 
     if (url.endsWith('&')) url = url.slice(0, -1);
@@ -62,21 +66,11 @@ export const DYNAMIC_API_ROUTES = {
     limit: number,
     queryParams: { [key: string]: string }
   ) => {
-    let url = `${ADMIN_API_PREFIX}/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
+    let url = `${ADMIN_API_PREFIX}/users/jobs/social-projects?page=${page}&limit=${limit}&${Object.entries(
       queryParams
     )
-      .filter(([_key, value]) => value !== undefined && value !== null)
-      .map(([key, value]) =>
-        key === 'sortBy'
-          ? `sort_by=${value}`
-          : key === 'sortDirection'
-          ? `sort_direction=${value}`
-          : key === 'status'
-          ? `filter_${key.toLowerCase()}=${
-              EProposalStatus[value as keyof typeof EProposalStatus]
-            }`
-          : `filter_${key.toLowerCase()}=${value}`
-      )
+      .filter(listFilter)
+      .map(listMapper)
       .join('&')}`;
 
     if (url.endsWith('&')) url = url.slice(0, -1);
@@ -122,6 +116,25 @@ export const DYNAMIC_API_ROUTES = {
       url: `${ADMIN_API_PREFIX}/users/${userId}/company/approve`,
       method: EAPIMethod.PATCH,
     }),
+    COMPANY_GET_ADMIN_LIST: (
+      page: number,
+      limit: number,
+      queryParams: { [key: string]: string }
+    ) => {
+      let url = `${ADMIN_API_PREFIX}/users/companies?page=${page}&limit=${limit}&${Object.entries(
+        queryParams
+      )
+        .filter(listFilter)
+        .map(listMapper)
+        .join('&')}`;
+
+      if (url.endsWith('&')) url = url.slice(0, -1);
+
+      return {
+        url,
+        method: EAPIMethod.GET,
+      };
+    },
   },
 };
 

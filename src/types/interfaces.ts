@@ -174,3 +174,17 @@ export interface IFileInfo {
 export interface IAPIFileInfo {
   file: { id: number; path: string; original_name: string };
 }
+
+export interface IAPIAdminCompaniesList {
+  items: IAPIAdminCompaniesListElement[];
+  total: number;
+}
+
+export interface IAPIAdminCompaniesListElement {
+  name: string;
+  user_id: number;
+  status: EProposalStatus;
+  created_at: string;
+  updated_at: string;
+  district: string;
+}

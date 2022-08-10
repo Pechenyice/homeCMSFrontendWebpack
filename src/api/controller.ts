@@ -18,6 +18,7 @@ import {
   IProjectWithMetadataResponse,
   IProjectsListResponse,
   IProjectsAdminListResponse,
+  ICompaniesAdminListResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -88,6 +89,23 @@ export const API = {
         aborts.COMPANY_APPROVE_CONTROLLER
       );
     },
+    getAdminList(
+      page: number,
+      limit: number,
+      queryParams: { [key: string]: string }
+    ): Promise<ICompaniesAdminListResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.COMPANY_GET_ADMIN_LIST(
+        page,
+        limit,
+        queryParams
+      );
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.COMPANY_GET_LIST_CONTROLLER
+      );
+    },
   },
   project: {
     get(
@@ -139,7 +157,7 @@ export const API = {
       return safeFetch(
         params.url,
         params.method,
-        aborts.PROJECT_GET_LIST_CONTROLLER
+        aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER
       );
     },
     create(

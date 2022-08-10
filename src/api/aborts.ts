@@ -15,6 +15,7 @@ export const aborts = {
 
   COMPANY_REJECT_CONTROLLER: new AbortController(),
   COMPANY_APPROVE_CONTROLLER: new AbortController(),
+  COMPANY_GET_LIST_CONTROLLER: new AbortController(),
 
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
@@ -79,6 +80,11 @@ export function abortRejectCompany() {
 export function abortApproveCompany() {
   aborts.COMPANY_APPROVE_CONTROLLER.abort();
   aborts.COMPANY_APPROVE_CONTROLLER = new AbortController();
+}
+
+export function abortGetCompanyAdminList() {
+  aborts.COMPANY_GET_LIST_CONTROLLER.abort();
+  aborts.COMPANY_GET_LIST_CONTROLLER = new AbortController();
 }
 
 export function abortCreateProject() {

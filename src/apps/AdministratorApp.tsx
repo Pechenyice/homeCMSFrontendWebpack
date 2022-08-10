@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CommonBaseAdminRoutesInfo from 'components/CommonRoutesNesting/CommonBaseAdminRoutesInfo';
-import { Project, Projects } from 'pages/admin';
+import { Companies, Project, Projects } from 'pages/admin';
 import NotFound from 'components/404/404';
 import { AdminMain } from 'components/AdminMain/AdminMain';
 import { Company } from 'pages/admin/Company/Company';
@@ -15,7 +15,7 @@ const AdministratorApp = () => {
           <Route index element={<AdminMain />} />
 
           <Route path="users">
-            {/* <Route index element={<Companies />} /> */}
+            <Route index element={<Companies />} />
             <Route path=":userId">
               <Route index element={<Company />} />
               <Route path="projects/:id" element={<Project />} />

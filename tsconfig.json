@@ -40,6 +40,8 @@
       "types": [ "types" ],
       "utils/*": [ "utils/*" ],
       "utils": [ "utils" ],
+      "constants/*": [ "constants/*" ],
+      "constants": [ "constants" ],
     }
   },
   "include": ["src"]

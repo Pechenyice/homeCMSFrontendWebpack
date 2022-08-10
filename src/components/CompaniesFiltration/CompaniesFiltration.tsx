@@ -1,11 +1,19 @@
 import { ChevronLeftIcon, SearchIcon } from 'assets/icons';
-import { Button, Input, Select, Text } from 'components/kit';
+import {
+  Button,
+  ESkeletonMode,
+  Input,
+  Select,
+  Skeleton,
+  Text,
+} from 'components/kit';
 import { useQueryParams } from 'hooks/utils/useQueryParams';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import styles from './ProjectsFiltration.module.scss';
+import styles from './CompaniesFiltration.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import { combineClasses } from 'utils/common';
-import { RATING_OPTIONS, STATUS_OPTIONS } from './../../../../constants';
+import { combineClasses, getValueByIdFromSelect } from 'utils/common';
+import { STATUS_OPTIONS } from './../../constants';
+import { useDistricts } from 'hooks/queries/useDistricts';
 
 type Props = {
   isAdmin?: boolean;
@@ -16,16 +24,22 @@ type Props = {
 const defaultState = {
   name: '',
   status: -1,
-  rating: -1,
+  district_id: -1,
 };
 
-export const ProjectsFiltration = ({
+export const CompaniesFiltration = ({
   isAdmin,
   onSearchClick,
   onClearClick,
 }: Props) => {
   const params = useQueryParams();
   const [, setSearchParams] = useSearchParams();
+
+  const {
+    apiData: districts,
+    isLoading: districtsLoading,
+    isError: districtsError,
+  } = useDistricts();
 
   const [isOpened, setIsOpened] = useState(false);
 
@@ -44,7 +58,7 @@ export const ProjectsFiltration = ({
       name: state.name || undefined,
       status: state.status === -1 ? undefined : state.status,
 
-      rating: state.rating === -1 ? undefined : state.rating,
+      district_id: state.district_id === -1 ? undefined : state.district_id,
     };
 
     const withSortingPreparedQueryParams = {
@@ -110,6 +124,28 @@ export const ProjectsFiltration = ({
             onChange={bindChange('name')}
           />
 
+          <div className={styles.filter}>
+            {districtsLoading ? (
+              <Skeleton
+                mode={ESkeletonMode.INPUT}
+                withLoader
+                heading="Принадлежность"
+              />
+            ) : districtsError ? (
+              <Input value={''} heading="Принадлежность" readOnly />
+            ) : (
+              <Select
+                withUnselect
+                emptyText="Все"
+                unselectedText="Все"
+                value={isNaN(+state.district_id) ? -1 : +state.district_id}
+                options={districts!}
+                heading="Принадлежность"
+                onChangeOption={bindSelectChange('district_id')}
+              />
+            )}
+          </div>
+
           <Select
             className={styles.filter}
             withUnselect
@@ -129,44 +165,6 @@ export const ProjectsFiltration = ({
           <Button onClick={onSearchClick} className={styles.action}>
             <Text isMedium>Поиск</Text>
           </Button>
-        </div>
-      </div>
-
-      <div
-        className={combineClasses(
-          styles.filtrationAddon,
-          isOpened ? styles.filtrationAddon_opened : ''
-        )}
-      >
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.rating) ? -1 : +state.rating}
-          options={RATING_OPTIONS}
-          heading="Рейтинг"
-          onChangeOption={bindSelectChange('rating')}
-        />
-      </div>
-
-      <div className={styles.openedBlock}>
-        <div
-          className={styles.openedBlock__control}
-          onClick={handleToggleIsOpened}
-        >
-          {isOpened ? (
-            <Text isMedium>Скрыть</Text>
-          ) : (
-            <Text isMedium>Показать</Text>
-          )}
-          <div
-            className={
-              isOpened ? styles.chevron_rotatedReverse : styles.chevron_rotated
-            }
-          >
-            <ChevronLeftIcon className={styles.chevron} />
-          </div>
         </div>
       </div>
     </div>

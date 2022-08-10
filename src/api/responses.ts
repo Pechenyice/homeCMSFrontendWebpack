@@ -10,6 +10,7 @@ import {
   IAPICompany,
   ISelectRelations,
   IAPIFileInfo,
+  IAPIAdminCompaniesList,
 } from 'types/interfaces';
 
 export interface IResponseError {
@@ -69,4 +70,8 @@ export interface IProjectsListResponse extends IResponseError {
 
 export interface IProjectsAdminListResponse extends IResponseError {
   data: IAPIAdminEntitiesList | null;
+}
+
+export interface ICompaniesAdminListResponse extends IResponseError {
+  data: IAPIAdminCompaniesList | null;
 }

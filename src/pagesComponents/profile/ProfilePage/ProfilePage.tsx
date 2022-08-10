@@ -54,7 +54,11 @@ export const ProfilePage = () => {
       <div className={styles.group}>
         <div className={styles.half}>
           {districtsLoading ? (
-            <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Район" />
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Подведомственное КСП, администрации района или СО НКО"
+            />
           ) : districtsError ? (
             <Input
               value={''}

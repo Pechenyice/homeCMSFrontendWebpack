@@ -1,0 +1,182 @@
+.wrapper {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.flex:last-child {
+  margin-bottom: 0px;
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: calc(50% - 50px) !important;
+}
+
+.leadHelper {
+  margin-bottom: 30px;
+}
+
+.fit {
+  max-width: fit-content;
+}
+
+.link {
+  width: 100%;
+}
+
+.table {
+  &__wrapper {
+    width: 100%;
+    margin-top: 100px;
+    min-height: 70vh;
+  }
+
+  &__header {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: var(--background);
+    border-radius: 6px;
+  }
+
+  &__columnHeader {    
+    &_sorting {
+      user-select: none;
+      cursor: pointer;
+    }
+
+    &_label {
+      color: var(--gray);
+    }
+
+    &_main {      
+      flex: 1;
+    }
+
+    &_secondary {
+      flex: 2;
+    }
+  }
+
+  &__content {
+    margin: 15px 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__row {
+    padding: 25px 20px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      border: 1px solid var(--blue);
+      box-shadow: 0px 5px 60px rgba(140, 145, 181, 0.15);
+      transition: .2s;
+    }
+
+    &_main {
+      flex: 1;
+    }
+
+    &_secondary {
+      flex: 2;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    padding: 30px 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background);
+    border-radius: 6px;
+
+    &Info *{
+      color: var(--gray);
+    }
+
+    &Pagination {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      &Controller {
+        display: flex;
+        gap: 4px;
+      }
+
+      & * {
+        color: var(--gray);
+      }
+    }
+
+    &Control {
+      width: 8px;
+      height: 16px;
+      cursor: pointer;
+    }
+  }
+
+  &__paginator {
+    border: none;
+    background: none;
+    width: 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--gray);
+    transition: .2s;
+
+    font-family: "Commissioner Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    &:focus {
+      border-bottom: 1px solid var(--blue);
+      transition: .2s;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  &__loader {
+    width: 100%;
+    min-height: calc(70vh - 155px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

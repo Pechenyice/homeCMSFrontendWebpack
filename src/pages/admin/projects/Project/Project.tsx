@@ -1,7 +1,7 @@
 import styles from './Project.module.scss';
 import { Dropdown, PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
-import { EditIcon } from 'assets/icons';
+import { ChevronRightIcon, EditIcon } from 'assets/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProjectPage, ProjectsPage } from 'pagesComponents';
 import { useQuery } from 'react-query';
@@ -47,6 +47,12 @@ export const Project = () => {
                 <br />
                 {project!.cause}
               </Text>
+            }
+            action={
+              <Action
+                text="Перейти к организации-создателю"
+                onClick={() => navigate(`/users/${userId}`)}
+              />
             }
             menu={
               <Dropdown placement="right">
