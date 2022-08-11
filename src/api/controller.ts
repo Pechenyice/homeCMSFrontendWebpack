@@ -19,6 +19,7 @@ import {
   IProjectsListResponse,
   IProjectsAdminListResponse,
   ICompaniesAdminListResponse,
+  IProjectDeleteResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -185,6 +186,15 @@ export const API = {
         params.method,
         aborts.PROJECT_UPDATE_CONTROLLER,
         data
+      );
+    },
+    delete(id: number, userId: number): Promise<IProjectDeleteResponse> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_DELETE(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_DELETE_CONTROLLER
       );
     },
     reject(

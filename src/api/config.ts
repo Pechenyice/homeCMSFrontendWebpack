@@ -37,6 +37,10 @@ export const DYNAMIC_API_ROUTES = {
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
     method: EAPIMethod.PUT,
   }),
+  PROJECT_DELETE: (id: number, userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
+    method: EAPIMethod.DELETE,
+  }),
   PROJECT_GET: (id: string, userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
     method: EAPIMethod.GET,

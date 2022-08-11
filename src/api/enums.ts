@@ -3,4 +3,5 @@ export enum EAPIMethod {
   POST = 'POST',
   PUT = 'PUT',
   PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
