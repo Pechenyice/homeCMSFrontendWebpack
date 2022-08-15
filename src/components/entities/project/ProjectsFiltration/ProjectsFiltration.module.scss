@@ -10,7 +10,7 @@
   transition: .2s;
 
   &_opened {
-    max-height: 800px;
+    max-height: 1030px;
     opacity: 1;
     transition: .2s;
   }
@@ -39,7 +39,8 @@
 }
 
 .filter {
-  width: 256px;
+  width: 439px;
+  align-self: flex-end;
 }
 
 .clear {
@@ -100,6 +101,7 @@
   padding-top: 40px;
   display: flex;
   gap: 20px;
+  row-gap: 40px;
   flex-wrap: wrap;
   opacity: 0;
   transition: .2s;

@@ -37,6 +37,10 @@
 }
 
 .heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-bottom: 8px;
 }
 

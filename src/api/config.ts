@@ -155,4 +155,9 @@ export const API_ROUTES: IAPIRoutesConfig = {
     url: `${API_PREFIX}/users/logout`,
     method: EAPIMethod.GET,
   },
+
+  QUERIES_YEARS: {
+    url: `${API_PREFIX}/dictionaries/jobs/reporting-periods/years`,
+    method: EAPIMethod.GET,
+  },
 };

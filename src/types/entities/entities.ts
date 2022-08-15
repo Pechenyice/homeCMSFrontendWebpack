@@ -97,6 +97,7 @@ export interface IAPICommonPrimaryPart {
   payment_method_id: number; //Реализация для гражданина бесплатно/платно
   partnership: IAPIOptionalDescriptionResult | null; //Взаимодействие, партнерство с другими организациями
   volunteer_id: number; //Привлечение добровольцев и волонтеров
+  rnsu_category_ids: number[]; //Категории по РНСУ
   needy_category_ids: number[]; //Категории
   needy_category_target_group_ids: number[]; // Целевые группы
   social_service_ids: number[]; //Форма социального обслуживания (сопровождения)

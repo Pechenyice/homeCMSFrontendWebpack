@@ -1,7 +1,7 @@
 import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { ISelectValue } from 'types/interfaces';
 import { combineClasses } from 'utils';
-import { Checkbox, Text, TextArea } from 'components/kit';
+import { Checkbox, Hint, Text, TextArea } from 'components/kit';
 import styles from './MultipleSelect.module.scss';
 import { ChevronVerticalIcon } from 'assets/icons';
 import { CSSTransition } from 'react-transition-group';
@@ -9,7 +9,9 @@ import { H3 } from '../H3/H3';
 
 type Props = {
   emptyText?: string;
+  unselectedText?: string;
   heading?: string;
+  hint?: string;
   values?: ISelectValue['id'][] | null;
   options: ISelectValue[];
   onChangeOption: (option: ISelectValue['id']) => void;
@@ -21,10 +23,12 @@ export const MultipleSelect = (
 ) => {
   const {
     heading,
+    hint,
     values,
     options,
     onChangeOption,
     emptyText,
+    unselectedText,
     viewMode,
     ...rest
   } = props;
@@ -67,7 +71,10 @@ export const MultipleSelect = (
 
   return (
     <div className={styles.wrapper} ref={wrapperRef} {...rest}>
-      {heading && <H3 className={styles.heading}>{heading}</H3>}
+      <div className={styles.heading}>
+        <H3>{heading}</H3>
+        {hint && <Hint text={hint} />}
+      </div>
       <div
         className={combineClasses(
           styles.inner,
@@ -77,7 +84,9 @@ export const MultipleSelect = (
         onClick={toggle}
       >
         <Text>
-          {values?.length ? `Выбрано (${values.length})` : 'Выберите категории'}
+          {values?.length
+            ? `Выбрано (${values.length})`
+            : unselectedText || 'Выберите категории'}
         </Text>
         <ChevronVerticalIcon
           className={combineClasses(

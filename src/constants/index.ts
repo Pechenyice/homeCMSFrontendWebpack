@@ -12,3 +12,8 @@ export const RATING_OPTIONS = [
   { id: 4, label: '4 звезды' },
   { id: 5, label: '5 звезд' },
 ];
+
+export const YES_NO_OPTIONS = [
+  { id: 0, label: 'Нет' },
+  { id: 1, label: 'Да' },
+];

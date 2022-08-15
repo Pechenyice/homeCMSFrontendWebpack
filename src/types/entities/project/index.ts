@@ -99,7 +99,6 @@ export interface IAPIProjectInfoPart {
   participant: IAPIOptionalDescriptionResult | null; //	участник, а не организатор
   implementation_period: string; //	Период реализации проекта
   implementation_level_id: number; //Уровень реализации проекта
-  rnsu_category_ids: number[]; //Категории по РНСУ
   public_work_ids: number[]; //	Наименование государственной работы
   service_type_ids: number[]; //Вид услуги
   service_name_ids: number[]; //Наименование услуги

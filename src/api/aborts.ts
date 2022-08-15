@@ -21,6 +21,7 @@ export const aborts = {
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
   QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
+  QUERIES_YEARS_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {
@@ -111,4 +112,9 @@ export function abortFileUpload() {
 export function abortQueryCategories() {
   aborts.QUERIES_CATEGORIES_CONTROLLER.abort();
   aborts.QUERIES_CATEGORIES_CONTROLLER = new AbortController();
+}
+
+export function abortQueryYears() {
+  aborts.QUERIES_YEARS_CONTROLLER.abort();
+  aborts.QUERIES_YEARS_CONTROLLER = new AbortController();
 }

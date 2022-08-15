@@ -4,17 +4,20 @@ import { IInputError } from 'types/interfaces';
 import { combineClasses } from 'utils';
 import { H3 } from '../H3/H3';
 import { H5 } from '../H5/H5';
+import { Hint } from '../Hint/Hint';
 import styles from './Input.module.scss';
 
 interface Props {
   heading?: string | ReactNode;
   error?: IInputError;
   leftIcon?: ReactNode;
+  hint?: string;
 }
 
 export const Input = (props: Props & InputHTMLAttributes<HTMLInputElement>) => {
   const {
     heading,
+    hint,
     error,
     leftIcon,
     type = 'text',
@@ -39,7 +42,12 @@ export const Input = (props: Props & InputHTMLAttributes<HTMLInputElement>) => {
 
   return (
     <div className={combineClasses(styles.wrapper, className ?? '')} {...rest}>
-      {heading && <H3 className={styles.heading}>{heading}</H3>}
+      {heading && (
+        <div className={styles.heading}>
+          <H3 className={styles.heading__content}>{heading}</H3>{' '}
+          {hint && <Hint text={hint} />}
+        </div>
+      )}
       <div className={styles.inner}>
         <div className={styles.asideIcon}>{leftIcon}</div>
         <input

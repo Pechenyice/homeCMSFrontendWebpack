@@ -240,6 +240,15 @@ export const API = {
     },
   },
   queries: {
+    fetchYears(): Promise<IQueriesResponse> {
+      const params = API_ROUTES.QUERIES_YEARS;
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.QUERIES_YEARS_CONTROLLER
+      );
+    },
     fetchCategories(category: string): Promise<IQueriesResponse> {
       const params = DYNAMIC_API_ROUTES.QUERIES_CATEGORIES(category);
 

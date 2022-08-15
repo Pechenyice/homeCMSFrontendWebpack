@@ -4,6 +4,7 @@ interface CssExports {
   'asideIcon': string;
   'error': string;
   'heading': string;
+  'heading__content': string;
   'icon': string;
   'inner': string;
   'input': string;

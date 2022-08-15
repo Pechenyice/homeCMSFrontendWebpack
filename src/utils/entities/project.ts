@@ -23,6 +23,7 @@ export const mapProjectToAPI = (
       partnership: project.partnership
         ? { description: project.partnership }
         : null,
+      rnsu_category_ids: project.rnsuCategories,
       volunteer_id: project.attractingVolunteer,
       needy_category_ids: project.categories,
       needy_category_target_group_ids: project.groups,
@@ -59,7 +60,6 @@ export const mapProjectToAPI = (
         : null,
       implementation_period: project.period,
       implementation_level_id: project.organizationLevel,
-      rnsu_category_ids: project.rnsuCategories,
       public_work_ids: project.gosWorkNames || [],
       service_type_ids: project.worksKinds || [],
       service_name_ids: project.worksNames || [],
@@ -144,7 +144,7 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
     organizationLevel: project.info.implementation_level_id,
     partnership: project.primary.partnership?.description ?? null,
     attractingVolunteer: project.primary.volunteer_id,
-    rnsuCategories: project.info.rnsu_category_ids,
+    rnsuCategories: project.primary.rnsu_category_ids,
     categories: project.primary.needy_category_ids,
     groups: project.primary.needy_category_target_group_ids,
     worksKinds: project.info.service_type_ids,
