@@ -9,10 +9,18 @@
   max-height: 195px;
   transition: .2s;
 
+  & .filtrationAddon {
+    pointer-events: none;
+  }
+
   &_opened {
     max-height: 1030px;
     opacity: 1;
     transition: .2s;
+
+    & .filtrationAddon {
+      pointer-events: all;
+    }
   }
 }
 
@@ -24,7 +32,7 @@
 
 .mainFiltration {
   display: flex;
-  gap: 30px;
+  gap: 20px;
 }
 
 .actionsFiltration {
@@ -34,13 +42,13 @@
   gap: 20px;
 }
 
-.search {
-  width: 430px;
-}
-
 .filter {
   width: 439px;
   align-self: flex-end;
+
+  &_small {
+    width: 287px;
+  }
 }
 
 .clear {

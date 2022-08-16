@@ -41,6 +41,7 @@ type Props = {
 };
 
 const defaultState = {
+  //common
   name: '',
   status: -1,
   rating: -1,
@@ -55,12 +56,19 @@ const defaultState = {
   rnsu_category_ids: [],
   social_service_ids: [],
   volunteer_id: -1,
+
+  //specific
   implementation_level_id: -1,
   is_participant: -1,
   need_recognition_ids: [],
   public_work_ids: [],
   service_name_ids: [],
   service_type_ids: [],
+};
+
+const defaultAdminState = {
+  ...defaultState,
+  company: '',
 };
 
 export const ProjectsFiltration = ({
@@ -147,7 +155,7 @@ export const ProjectsFiltration = ({
 
   //default values for filtration
   const [state, setState] = useState({
-    ...defaultState,
+    ...(isAdmin ? defaultAdminState : defaultState),
     ...parseFilterParams(params, [
       'needy_category_ids',
       'needy_category_target_group_ids',
@@ -219,8 +227,11 @@ export const ProjectsFiltration = ({
         : state.service_type_ids.join(','),
     };
 
+    const adminAddon = isAdmin ? { company: state.company || undefined } : {};
+
     const withSortingPreparedQueryParams = {
       ...preparedQueryParams,
+      ...adminAddon,
       sortBy: params.sortBy || undefined,
       sortDirection: params.sortDirection || undefined,
     };
@@ -253,7 +264,7 @@ export const ProjectsFiltration = ({
   const clearFilters = () => {
     if (!getPreparedQueryParamsKeysWithoutSorting().length) return;
 
-    setState(defaultState);
+    setState(isAdmin ? defaultAdminState : defaultState);
     onClearClick();
   };
 
@@ -294,7 +305,10 @@ export const ProjectsFiltration = ({
       <div className={styles.inner}>
         <div className={styles.mainFiltration}>
           <Input
-            className={styles.search}
+            className={combineClasses(
+              styles.filter,
+              isAdmin ? styles.filter_small : ''
+            )}
             leftIcon={<SearchIcon />}
             placeholder="Поиск..."
             value={state.name}
@@ -302,8 +316,25 @@ export const ProjectsFiltration = ({
             onChange={bindChange('name')}
           />
 
+          {isAdmin && (
+            <Input
+              className={combineClasses(
+                styles.filter,
+                isAdmin ? styles.filter_small : ''
+              )}
+              leftIcon={<SearchIcon />}
+              placeholder="Поиск..."
+              value={state.company}
+              heading="Поиск по организациям"
+              onChange={bindChange('company')}
+            />
+          )}
+
           <Select
-            className={styles.filter}
+            className={combineClasses(
+              styles.filter,
+              isAdmin ? styles.filter_small : ''
+            )}
             withUnselect
             emptyText="Все"
             unselectedText="Все"
@@ -330,9 +361,23 @@ export const ProjectsFiltration = ({
           isOpened ? styles.filtrationAddon_opened : ''
         )}
       >
-        {
-          // Common
-        }
+        {/**
+         *
+         *
+         * common
+         *
+         *
+         */}
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.rating) ? -1 : +state.rating}
+          options={RATING_OPTIONS}
+          heading="Рейтинг"
+          onChangeOption={bindSelectChange('rating')}
+        />
         <div className={styles.filter}>
           {entitiesYearsLoading ? (
             <Skeleton mode={ESkeletonMode.INPUT} withLoader heading="Год" />
@@ -356,62 +401,31 @@ export const ProjectsFiltration = ({
           withUnselect
           emptyText="Все"
           unselectedText="Все"
-          value={isNaN(+state.rating) ? -1 : +state.rating}
-          options={RATING_OPTIONS}
-          heading="Рейтинг"
-          onChangeOption={bindSelectChange('rating')}
-        />
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.is_any_review) ? -1 : +state.is_any_review}
-          options={YES_NO_OPTIONS}
-          heading="Экспертное заключение, рецензия, отзыв"
-          onChangeOption={bindSelectChange('is_any_review')}
-        />
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.is_approbation) ? -1 : +state.is_approbation}
-          options={YES_NO_OPTIONS}
-          heading="Апробация на инновационной площадке/в ресурсном центре"
-          onChangeOption={bindSelectChange('is_approbation')}
-        />
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.is_favorite) ? -1 : +state.is_favorite}
-          options={YES_NO_OPTIONS}
-          heading="Включен в виртуальную гостиную"
-          onChangeOption={bindSelectChange('is_favorite')}
-        />
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.is_publication) ? -1 : +state.is_publication}
-          options={YES_NO_OPTIONS}
-          heading="Наличие публикации"
-          onChangeOption={bindSelectChange('is_publication')}
-        />
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
           value={isNaN(+state.is_remote_format) ? -1 : +state.is_remote_format}
           options={YES_NO_OPTIONS}
           heading="Возможность реализации в дистанционном формате"
           onChangeOption={bindSelectChange('is_remote_format')}
         />
-
+        <div className={styles.filter}>
+          {rnsuCategoryLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Категории РНСУ"
+            />
+          ) : rnsuCategoryError ? (
+            <Input value={''} heading="Категории РНСУ" readOnly />
+          ) : (
+            <MultipleSelect
+              emptyText="Все"
+              unselectedText="Все"
+              values={state.rnsu_category_ids}
+              options={rnsuCategory!}
+              heading="Категории РНСУ"
+              onChangeOption={bindMultipleSelectChange('rnsu_category_ids')}
+            />
+          )}
+        </div>
         <div className={styles.filter}>
           {categoriesLoading ? (
             <Skeleton
@@ -470,153 +484,13 @@ export const ProjectsFiltration = ({
           )}
         </div>
 
-        <div className={styles.filter}>
-          {rnsuCategoryLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Категории РНСУ"
-            />
-          ) : rnsuCategoryError ? (
-            <Input value={''} heading="Категории РНСУ" readOnly />
-          ) : (
-            <MultipleSelect
-              emptyText="Все"
-              unselectedText="Все"
-              values={state.rnsu_category_ids}
-              options={rnsuCategory!}
-              heading="Категории РНСУ"
-              onChangeOption={bindMultipleSelectChange('rnsu_category_ids')}
-            />
-          )}
-        </div>
-        <div className={styles.filter}>
-          {socialHelpFormLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Форма социального обслуживания"
-            />
-          ) : socialHelpFormError ? (
-            <Input
-              value={''}
-              heading="Форма социального обслуживания"
-              readOnly
-            />
-          ) : (
-            <MultipleSelect
-              emptyText="Все"
-              unselectedText="Все"
-              values={state.social_service_ids}
-              options={socialHelpForm!}
-              heading="Форма социального обслуживания"
-              onChangeOption={bindMultipleSelectChange('social_service_ids')}
-            />
-          )}
-        </div>
-        <div className={styles.filter}>
-          {attractingVolunteerLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Привлечение добровольцев/волонтеров"
-            />
-          ) : attractingVolunteerError ? (
-            <Input
-              value={''}
-              heading="Привлечение добровольцев/волонтеров"
-              readOnly
-            />
-          ) : (
-            <Select
-              emptyText="Все"
-              unselectedText="Все"
-              value={state.volunteer_id}
-              options={attractingVolunteer!}
-              heading="Привлечение добровольцев/волонтеров"
-              onChangeOption={bindSelectChange('volunteer_id')}
-            />
-          )}
-        </div>
-        <div className={styles.filter}>
-          {realizationLevelsLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Уровень реализации проекта"
-            />
-          ) : realizationLevelsError ? (
-            <Input value={''} heading="Уровень реализации проекта" readOnly />
-          ) : (
-            <Select
-              emptyText="Все"
-              unselectedText="Все"
-              value={state.implementation_level_id}
-              options={realizationLevels!}
-              heading="Уровень реализации проекта"
-              onChangeOption={bindSelectChange('implementation_level_id')}
-            />
-          )}
-        </div>
-        <Select
-          className={styles.filter}
-          withUnselect
-          emptyText="Все"
-          unselectedText="Все"
-          value={isNaN(+state.is_participant) ? -1 : +state.is_participant}
-          options={YES_NO_OPTIONS}
-          heading="Участник, а не организатор"
-          onChangeOption={bindSelectChange('is_participant')}
-        />
-        <div className={styles.filter}>
-          {circumstancesRecognitionNeedLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Обстоятельства признания нуждаемости"
-            />
-          ) : circumstancesRecognitionNeedError ? (
-            <Input
-              value={''}
-              heading="Обстоятельства признания нуждаемости"
-              readOnly
-            />
-          ) : (
-            <MultipleSelect
-              emptyText="Все"
-              unselectedText="Все"
-              values={state.need_recognition_ids}
-              options={circumstancesRecognitionNeed!}
-              heading="Обстоятельства признания нуждаемости"
-              onChangeOption={bindMultipleSelectChange('need_recognition_ids')}
-            />
-          )}
-        </div>
-        <div className={styles.filter}>
-          {gosWorkNamesLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Наименование государственной работы"
-            />
-          ) : gosWorkNamesError ? (
-            <Input
-              value={''}
-              heading="Наименование государственной работы"
-              readOnly
-            />
-          ) : (
-            <MultipleSelect
-              emptyText="Все"
-              unselectedText="Все"
-              values={state.public_work_ids}
-              options={circumstancesRecognitionNeed!}
-              heading="Наименование государственной работы"
-              onChangeOption={bindMultipleSelectChange('public_work_ids')}
-            />
-          )}
-        </div>
-
+        {/**
+         *
+         *
+         * specific
+         *
+         *
+         */}
         <div className={styles.filter}>
           {worksKindsLoading ? (
             <Skeleton
@@ -673,6 +547,196 @@ export const ProjectsFiltration = ({
               placeholder="Все"
               heading="Наименование услуги"
               readOnly
+            />
+          )}
+        </div>
+        <div className={styles.filter}>
+          {gosWorkNamesLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Наименование государственной работы"
+            />
+          ) : gosWorkNamesError ? (
+            <Input
+              value={''}
+              heading="Наименование государственной работы"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              emptyText="Все"
+              unselectedText="Все"
+              values={state.public_work_ids}
+              options={circumstancesRecognitionNeed!}
+              heading="Наименование государственной работы"
+              onChangeOption={bindMultipleSelectChange('public_work_ids')}
+            />
+          )}
+        </div>
+        <div className={styles.filter}>
+          {circumstancesRecognitionNeedLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Обстоятельства признания нуждаемости"
+            />
+          ) : circumstancesRecognitionNeedError ? (
+            <Input
+              value={''}
+              heading="Обстоятельства признания нуждаемости"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              emptyText="Все"
+              unselectedText="Все"
+              values={state.need_recognition_ids}
+              options={circumstancesRecognitionNeed!}
+              heading="Обстоятельства признания нуждаемости"
+              onChangeOption={bindMultipleSelectChange('need_recognition_ids')}
+            />
+          )}
+        </div>
+
+        {/**
+         *
+         *
+         * common
+         *
+         *
+         */}
+        <div className={styles.filter}>
+          {socialHelpFormLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Форма социального обслуживания"
+            />
+          ) : socialHelpFormError ? (
+            <Input
+              value={''}
+              heading="Форма социального обслуживания"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              emptyText="Все"
+              unselectedText="Все"
+              values={state.social_service_ids}
+              options={socialHelpForm!}
+              heading="Форма социального обслуживания"
+              onChangeOption={bindMultipleSelectChange('social_service_ids')}
+            />
+          )}
+        </div>
+
+        {/**
+         *
+         *
+         * specific
+         *
+         *
+         */}
+        <div className={styles.filter}>
+          {realizationLevelsLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Уровень реализации проекта"
+            />
+          ) : realizationLevelsError ? (
+            <Input value={''} heading="Уровень реализации проекта" readOnly />
+          ) : (
+            <Select
+              emptyText="Все"
+              unselectedText="Все"
+              value={state.implementation_level_id}
+              options={realizationLevels!}
+              heading="Уровень реализации проекта"
+              onChangeOption={bindSelectChange('implementation_level_id')}
+            />
+          )}
+        </div>
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.is_participant) ? -1 : +state.is_participant}
+          options={YES_NO_OPTIONS}
+          heading="Участник, а не организатор"
+          onChangeOption={bindSelectChange('is_participant')}
+        />
+
+        {/**
+         *
+         *
+         * common
+         *
+         *
+         */}
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.is_favorite) ? -1 : +state.is_favorite}
+          options={YES_NO_OPTIONS}
+          heading="Включен в виртуальную гостиную"
+          onChangeOption={bindSelectChange('is_favorite')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.is_publication) ? -1 : +state.is_publication}
+          options={YES_NO_OPTIONS}
+          heading="Наличие публикации"
+          onChangeOption={bindSelectChange('is_publication')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.is_approbation) ? -1 : +state.is_approbation}
+          options={YES_NO_OPTIONS}
+          heading="Апробация на инновационной площадке/в ресурсном центре"
+          onChangeOption={bindSelectChange('is_approbation')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={isNaN(+state.is_any_review) ? -1 : +state.is_any_review}
+          options={YES_NO_OPTIONS}
+          heading="Экспертное заключение, рецензия, отзыв"
+          onChangeOption={bindSelectChange('is_any_review')}
+        />
+        <div className={styles.filter}>
+          {attractingVolunteerLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Привлечение добровольцев/волонтеров"
+            />
+          ) : attractingVolunteerError ? (
+            <Input
+              value={''}
+              heading="Привлечение добровольцев/волонтеров"
+              readOnly
+            />
+          ) : (
+            <Select
+              emptyText="Все"
+              unselectedText="Все"
+              value={state.volunteer_id}
+              options={attractingVolunteer!}
+              heading="Привлечение добровольцев/волонтеров"
+              onChangeOption={bindSelectChange('volunteer_id')}
             />
           )}
         </div>

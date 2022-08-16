@@ -29,6 +29,11 @@ export const DYNAMIC_API_ROUTES = {
     method: EAPIMethod.PUT,
   }),
 
+  COMPANY_DOWNLOAD: (userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/company/download`,
+    method: EAPIMethod.GET,
+  }),
+
   PROJECT_CREATE: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects`,
     method: EAPIMethod.POST,
@@ -43,6 +48,10 @@ export const DYNAMIC_API_ROUTES = {
   }),
   PROJECT_GET: (id: string, userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
+    method: EAPIMethod.GET,
+  }),
+  PROJECT_DOWNLOAD: (id: number, userId: number) => ({
+    url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}/download`,
     method: EAPIMethod.GET,
   }),
   PROJECT_GET_LIST: (

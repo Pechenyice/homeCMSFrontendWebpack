@@ -13,10 +13,12 @@ export const aborts = {
   PROJECT_DELETE_CONTROLLER: new AbortController(),
   PROJECT_REJECT_CONTROLLER: new AbortController(),
   PROJECT_APPROVE_CONTROLLER: new AbortController(),
+  PROJECT_DOWNLOAD_CONTROLLER: new AbortController(),
 
   COMPANY_REJECT_CONTROLLER: new AbortController(),
   COMPANY_APPROVE_CONTROLLER: new AbortController(),
   COMPANY_GET_LIST_CONTROLLER: new AbortController(),
+  COMPANY_DOWNLOAD_CONTROLLER: new AbortController(),
 
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
@@ -74,6 +76,11 @@ export function abortApproveProject() {
   aborts.PROJECT_APPROVE_CONTROLLER = new AbortController();
 }
 
+export function abortDownloadProject() {
+  aborts.PROJECT_DOWNLOAD_CONTROLLER.abort();
+  aborts.PROJECT_DOWNLOAD_CONTROLLER = new AbortController();
+}
+
 export function abortRejectCompany() {
   aborts.COMPANY_REJECT_CONTROLLER.abort();
   aborts.COMPANY_REJECT_CONTROLLER = new AbortController();
@@ -87,6 +94,11 @@ export function abortApproveCompany() {
 export function abortGetCompanyAdminList() {
   aborts.COMPANY_GET_LIST_CONTROLLER.abort();
   aborts.COMPANY_GET_LIST_CONTROLLER = new AbortController();
+}
+
+export function abortDownloadCompany() {
+  aborts.COMPANY_DOWNLOAD_CONTROLLER.abort();
+  aborts.COMPANY_DOWNLOAD_CONTROLLER = new AbortController();
 }
 
 export function abortCreateProject() {

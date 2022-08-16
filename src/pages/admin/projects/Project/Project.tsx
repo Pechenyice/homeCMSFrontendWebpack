@@ -9,10 +9,16 @@ import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
 import { useProject } from 'hooks/queries/entities/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
+import { ApiError, AuthError, ServerError } from 'api/errors';
+import { useAuth, useErrors } from 'hooks/index';
+import { downloadProject } from 'utils/print';
 
 export const Project = () => {
   const { id, userId } = useParams();
   const navigate = useNavigate();
+
+  const { handleLogout } = useAuth();
+  const { addError } = useErrors();
 
   const {
     apiData: project,
@@ -20,8 +26,18 @@ export const Project = () => {
     isError: isProjectError,
   } = useProject(id as string, userId as any);
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = async () => {
+    try {
+      await downloadProject(userId as any, id as any);
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при скачивании проекта!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
   };
 
   return (

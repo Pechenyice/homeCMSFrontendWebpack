@@ -16,6 +16,21 @@ async function checkResponse(response: any) {
   throw new ApiError((await response.json()).error);
 }
 
+async function checkFileResponse(response: any) {
+  if (response.status === 200) {
+    return response;
+  }
+  if (response.status === 401) {
+    throw new AuthError((await response.json()).error || 'Ошибка авторизации');
+  }
+  if (response.status === 500 || response.status === 504) {
+    throw new ServerError(
+      'Произошла ошибка при взаимодействии с сервером, попробуйте позже!'
+    );
+  }
+  throw new ApiError((await response.json()).error || 'Неизвестная ошибка');
+}
+
 /* Maybe TODO: refactor to safeFetch и safeUpload */
 export function safeFetch(
   url: string,
@@ -46,6 +61,9 @@ export function safeFetch(
   if (method === EAPIMethod.PATCH)
     options.body =
       contentType === 'multipart/form-data' ? body : JSON.stringify(body);
+
+  if (contentType === 'application/pdf')
+    return fetch(url, options).then(checkFileResponse);
 
   return fetch(url, options).then(checkResponse);
 }

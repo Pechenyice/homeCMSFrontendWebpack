@@ -18,6 +18,7 @@ const AdministratorApp = () => {
             <Route index element={<Companies />} />
             <Route path=":userId">
               <Route index element={<Company />} />
+
               <Route path="projects/:id" element={<Project />} />
             </Route>
           </Route>

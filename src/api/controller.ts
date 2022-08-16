@@ -20,6 +20,7 @@ import {
   IProjectsAdminListResponse,
   ICompaniesAdminListResponse,
   IProjectDeleteResponse,
+  ICompanyStatusResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -71,7 +72,7 @@ export const API = {
     },
   },
   company: {
-    reject(userId: number, cause: string): Promise<IProjectCreateResponse> {
+    reject(userId: number, cause: string): Promise<ICompanyStatusResponse> {
       const params = DYNAMIC_API_ROUTES.ADMIN.COMPANY_REJECT(userId);
 
       return safeFetch(
@@ -81,7 +82,7 @@ export const API = {
         { comment: cause }
       );
     },
-    approve(userId: number): Promise<IProjectCreateResponse> {
+    approve(userId: number): Promise<ICompanyStatusResponse> {
       const params = DYNAMIC_API_ROUTES.ADMIN.COMPANY_APPROVE(userId);
 
       return safeFetch(
@@ -105,6 +106,17 @@ export const API = {
         params.url,
         params.method,
         aborts.COMPANY_GET_LIST_CONTROLLER
+      );
+    },
+    download(userId: number): Promise<any> {
+      const params = DYNAMIC_API_ROUTES.COMPANY_DOWNLOAD(userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.COMPANY_DOWNLOAD_CONTROLLER,
+        {},
+        'application/pdf'
       );
     },
   },
@@ -223,6 +235,17 @@ export const API = {
         params.method,
         aborts.PROJECT_APPROVE_CONTROLLER,
         { is_favorite: isBest }
+      );
+    },
+    download(userId: number, id: number): Promise<any> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_DOWNLOAD(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_DOWNLOAD_CONTROLLER,
+        {},
+        'application/pdf'
       );
     },
   },

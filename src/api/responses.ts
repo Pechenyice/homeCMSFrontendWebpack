@@ -79,3 +79,7 @@ export interface IProjectsAdminListResponse extends IResponseError {
 export interface ICompaniesAdminListResponse extends IResponseError {
   data: IAPIAdminCompaniesList | null;
 }
+
+export interface ICompanyStatusResponse extends IResponseError {
+  data: boolean | null;
+}

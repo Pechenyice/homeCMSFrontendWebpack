@@ -14,6 +14,7 @@ import { useErrors } from 'hooks/useErrors';
 import { useInfos } from 'hooks/useInfos';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useAuth } from 'hooks';
+import { downloadProject } from 'utils/print';
 
 export const Project = () => {
   const { id } = useParams();
@@ -37,8 +38,20 @@ export const Project = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = async () => {
+    try {
+      if (!profile?.id) throw new AuthError('Данные пользователя не найдены');
+
+      await downloadProject(profile.id as any, id as any);
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при скачивании проекта!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
   };
 
   const handleDelete = async () => {

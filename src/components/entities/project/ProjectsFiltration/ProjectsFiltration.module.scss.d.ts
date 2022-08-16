@@ -8,13 +8,13 @@ interface CssExports {
   'chevron_rotatedReverse': string;
   'clear': string;
   'filter': string;
+  'filter_small': string;
   'filtrationAddon': string;
   'filtrationAddon_opened': string;
   'inner': string;
   'mainFiltration': string;
   'openedBlock': string;
   'openedBlock__control': string;
-  'search': string;
   'wrapper': string;
   'wrapper_opened': string;
 }

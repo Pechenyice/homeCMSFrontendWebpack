@@ -26,9 +26,15 @@ import { useMemo } from 'react';
 import { useCompany } from 'hooks/queries/useCompany';
 import { getValueByIdFromSelect } from 'utils';
 import { CompanyPage } from 'pagesComponents/admin';
+import { ApiError, AuthError, ServerError } from 'api/errors';
+import { downloadCompany } from 'utils/print';
 
 export const Company = () => {
   const { userId } = useParams();
+
+  const { handleLogout } = useAuth();
+  const { addError } = useErrors();
+
   const {
     apiData: company,
     apiError: companyApiError,
@@ -36,8 +42,18 @@ export const Company = () => {
     isError: companyError,
   } = useCompany(userId as string);
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = async () => {
+    try {
+      await downloadCompany(userId as any);
+    } catch (e) {
+      if (e instanceof ServerError) {
+        addError('Произошла критическая ошибка при скачивании организации!');
+      } else if (e instanceof AuthError) {
+        handleLogout();
+      } else if (e instanceof ApiError) {
+        addError(e.message);
+      }
+    }
   };
 
   if (companyLoading) return <PageLoader />;
