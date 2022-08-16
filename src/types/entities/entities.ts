@@ -35,6 +35,7 @@ export interface ICommonEntityMetadata {
   status: EProposalStatus;
   cause: string | null;
   isBest: boolean;
+  isDeleted: boolean;
 }
 
 export interface IMembersInfo {
@@ -149,6 +150,22 @@ export interface IAPIAdminEntitiesListElement {
   status: EProposalStatus;
   created_at: string;
   updated_at: string;
+  rating: IAPIRating;
+}
+
+export interface IAPIAdminEntitiesArchiveList {
+  items: IAPIAdminEntitiesArchiveListElement[];
+  total: number;
+}
+
+export interface IAPIAdminEntitiesArchiveListElement {
+  id: number;
+  name: string;
+  user_id: number;
+  company_name: string;
+  status: EProposalStatus;
+  created_at: string;
+  deleted_at: string;
   rating: IAPIRating;
 }
 

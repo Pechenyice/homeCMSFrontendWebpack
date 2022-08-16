@@ -93,6 +93,25 @@ export const DYNAMIC_API_ROUTES = {
       method: EAPIMethod.GET,
     };
   },
+  PROJECT_GET_ADMIN_ARCHIVE_LIST: (
+    page: number,
+    limit: number,
+    queryParams: { [key: string]: string }
+  ) => {
+    let url = `${ADMIN_API_PREFIX}/users/jobs/social-projects/deleted?page=${page}&limit=${limit}&${Object.entries(
+      queryParams
+    )
+      .filter(listFilter)
+      .map(listMapper)
+      .join('&')}`;
+
+    if (url.endsWith('&')) url = url.slice(0, -1);
+
+    return {
+      url,
+      method: EAPIMethod.GET,
+    };
+  },
 
   FILE_UPLOAD: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/files`,

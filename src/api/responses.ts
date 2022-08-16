@@ -1,4 +1,5 @@
 import {
+  IAPIAdminEntitiesArchiveList,
   IAPIAdminEntitiesList,
   IAPIEntitiesList,
 } from 'types/entities/entities';
@@ -74,6 +75,10 @@ export interface IProjectsListResponse extends IResponseError {
 
 export interface IProjectsAdminListResponse extends IResponseError {
   data: IAPIAdminEntitiesList | null;
+}
+
+export interface IProjectsAdminArchiveListResponse extends IResponseError {
+  data: IAPIAdminEntitiesArchiveList | null;
 }
 
 export interface ICompaniesAdminListResponse extends IResponseError {

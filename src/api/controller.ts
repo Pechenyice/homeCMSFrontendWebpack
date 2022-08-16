@@ -21,6 +21,7 @@ import {
   ICompaniesAdminListResponse,
   IProjectDeleteResponse,
   ICompanyStatusResponse,
+  IProjectsAdminArchiveListResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -171,6 +172,23 @@ export const API = {
         params.url,
         params.method,
         aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER
+      );
+    },
+    getAdminArchiveList(
+      page: number,
+      limit: number,
+      queryParams: { [key: string]: string }
+    ): Promise<IProjectsAdminArchiveListResponse> {
+      const params = DYNAMIC_API_ROUTES.PROJECT_GET_ADMIN_ARCHIVE_LIST(
+        page,
+        limit,
+        queryParams
+      );
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_GET_ADMIN_ARCHIVE_LIST_CONTROLLER
       );
     },
     create(

@@ -1,5 +1,6 @@
 import styles from './common.module.scss';
 import {
+  IAPIAdminEntitiesArchiveListElement,
   IAPIAdminEntitiesListElement,
   IAPIEntitiesListElement,
 } from 'types/entities/entities';
@@ -18,43 +19,9 @@ import { EProposalStatus } from 'types/enums';
 import { formatDate } from 'utils/format';
 import { Link } from 'react-router-dom';
 
-const COLUMNS = [
-  {
-    title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Статус',
-    dataIndex: 'status',
-    key: 'status',
-  },
-  {
-    title: 'Организация',
-    dataIndex: 'company_name',
-    key: 'company',
-  },
-  {
-    title: 'Дата создания',
-    dataIndex: 'created_at',
-    key: 'creation',
-  },
-  {
-    title: 'Дата изменения',
-    dataIndex: 'updated_at',
-    key: 'edition',
-  },
-  {
-    title: 'Рейтинг',
-    dataIndex: 'rating',
-    key: 'rating',
-  },
-];
-
-const SORTING_COLUMNS = ['created_at', 'updated_at', 'rating'];
-
 type Props = {
-  data: IAPIAdminEntitiesListElement[];
+  isArchived: boolean;
+  data: IAPIAdminEntitiesListElement[] | IAPIAdminEntitiesArchiveListElement[];
   total: number;
   page: number;
   limit: number;
@@ -67,6 +34,7 @@ type Props = {
 };
 
 export const EntitiesAdminTable = ({
+  isArchived,
   data,
   total,
   page,
@@ -78,6 +46,45 @@ export const EntitiesAdminTable = ({
   onUpdatePage,
   entityPath,
 }: Props) => {
+  const COLUMNS = [
+    {
+      title: 'Наименование',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Статус',
+      dataIndex: 'status',
+      key: 'status',
+    },
+    {
+      title: 'Организация',
+      dataIndex: 'company_name',
+      key: 'company',
+    },
+    {
+      title: 'Дата создания',
+      dataIndex: 'created_at',
+      key: 'creation',
+    },
+    {
+      title: isArchived ? 'Дата удаления' : 'Дата изменения',
+      dataIndex: isArchived ? 'deleted_at' : 'updated_at',
+      key: isArchived ? 'deletion' : 'edition',
+    },
+    {
+      title: 'Рейтинг',
+      dataIndex: 'rating',
+      key: 'rating',
+    },
+  ];
+
+  const SORTING_COLUMNS = [
+    'created_at',
+    isArchived ? 'deleted_at' : 'updated_at',
+    'rating',
+  ];
+
   const [localPageState, setLocalPageState] = useState(page);
 
   useEffect(() => {
@@ -121,7 +128,10 @@ export const EntitiesAdminTable = ({
     onColumnHeaderClick(columnName);
 
   //simple switch for cells type rendering
-  const getCellContent = (row: IAPIEntitiesListElement, dataIndex: string) => {
+  const getCellContent = (
+    row: IAPIAdminEntitiesListElement | IAPIAdminEntitiesArchiveListElement,
+    dataIndex: string
+  ) => {
     return dataIndex === 'name' ? (
       <Text>{row[dataIndex as keyof typeof row]}</Text>
     ) : dataIndex === 'company_name' ? (
@@ -141,6 +151,7 @@ export const EntitiesAdminTable = ({
       <Rating stars={(row[dataIndex as keyof typeof row] as any).count} />
     ) : (
       <Text>
+        {console.log(row, row[dataIndex as keyof typeof row])}
         {formatDate(new Date(row[dataIndex as keyof typeof row] as any))}
       </Text>
     );

@@ -6,7 +6,13 @@ import { useQueryParams } from 'hooks/utils/useQueryParams';
 import { useAdminProjects } from 'hooks/queries/entities/useAdminProjects';
 import { EntitiesAdminTable } from 'components/entities/common/EntitiesAdminTable';
 
-export const ProjectsAdminPage = () => {
+type Props = {
+  isArchived?: boolean;
+};
+
+export const ProjectsAdminPage = (props: Props) => {
+  const { isArchived } = props;
+
   const [page, setPage] = useState(1);
   const [limit] = useState(50);
 
@@ -16,7 +22,7 @@ export const ProjectsAdminPage = () => {
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('');
 
-  const { projects, isLoading, getProjects } = useAdminProjects();
+  const { projects, isLoading, getProjects } = useAdminProjects(!!isArchived);
 
   useEffect(() => {
     getProjects(page, limit);
@@ -84,6 +90,7 @@ export const ProjectsAdminPage = () => {
         onClearClick={handleClearClick}
       />
       <EntitiesAdminTable
+        isArchived={!!isArchived}
         data={projects.items}
         total={projects.total}
         page={page}

@@ -22,3 +22,4 @@ export * from './MultipleSelect/MultipleSelect';
 export * from './PhotoInput/PhotoInput';
 export * from './Hint/Hint';
 export * from './Rating/Rating';
+export * from './Label/Label';

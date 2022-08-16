@@ -93,6 +93,7 @@ export interface IFullAPIProject
   status: string;
   rejected_status_description: string | null;
   is_best: boolean;
+  is_deleted: boolean;
 }
 
 export interface IAPIProjectInfoPart {

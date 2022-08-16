@@ -219,5 +219,6 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
       ],
     cause: project.rejected_status_description,
     isBest: project.is_best,
+    isDeleted: project.is_deleted,
   };
 };

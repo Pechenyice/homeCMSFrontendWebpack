@@ -57,6 +57,8 @@ export const Project = () => {
           <PageHeading
             heading="Просмотр проекта"
             status={project!.status}
+            isDeleted={project!.isDeleted}
+            isBest={project!.isBest}
             cause={
               <Text isMedium>
                 Проект отклонен со следующими ошибками:
