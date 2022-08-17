@@ -21,6 +21,7 @@ import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useErrors } from 'hooks/useErrors';
 import { useAuth, useInfos } from 'hooks/index';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 type Props = {
   project: IProjectData;
@@ -33,6 +34,8 @@ export const ProjectPage = ({ project, isAdmin }: Props) => {
   const { addError } = useErrors();
   const { addInfo } = useInfos();
   const { handleLogout } = useAuth();
+
+  const queryClient = useQueryClient();
 
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -82,6 +85,8 @@ export const ProjectPage = ({ project, isAdmin }: Props) => {
 
       addInfo('Заявка успешно отклонена!');
 
+      queryClient.invalidateQueries('project');
+
       navigate('/projects');
     } catch (e) {
       if (e instanceof ServerError) {
@@ -108,6 +113,8 @@ export const ProjectPage = ({ project, isAdmin }: Props) => {
       setIsLoading(false);
 
       addInfo('Заявка успешно принята!');
+
+      queryClient.invalidateQueries('project');
 
       navigate('/projects');
     } catch (e) {
@@ -157,7 +164,7 @@ export const ProjectPage = ({ project, isAdmin }: Props) => {
         {!!currentStep && <Action text="Назад" onClick={handlePrevStep} />}
       </div>
 
-      {isAdmin && (
+      {isAdmin && !project.isDeleted && (
         <div className={styles.adminControls}>
           <Button
             className={styles.adminControls__reject}

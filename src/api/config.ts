@@ -14,9 +14,11 @@ const listMapper = ([key, value]: [key: any, value: any]) =>
     : key === 'sortDirection'
     ? `sort_direction=${value}`
     : key === 'status'
-    ? `filter_${key.toLowerCase()}=${
-        EProposalStatus[value as keyof typeof EProposalStatus]
-      }`
+    ? `filter_${key.toLowerCase()}=${EProposalStatus[
+        value as keyof typeof EProposalStatus
+      ]
+        .toString()
+        .toLowerCase()}`
     : `filter_${key.toLowerCase()}=${value}`;
 
 export const DYNAMIC_API_ROUTES = {

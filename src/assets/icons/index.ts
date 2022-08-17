@@ -12,3 +12,5 @@ export * from './Question';
 export * from './Search';
 export * from './Stars';
 export * from './Kebab';
+export * from './Trash';
+export * from './Best';

@@ -1,28 +1,20 @@
 .styled {
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 26px;
 }
 
-.green {
-  background: var(--success);
+.yellow {
+  background: #F4B74026;
 
   & * {
-    color: var(--white);
-  }
-}
-
-.blue {
-  background: var(--blue);
-
-  & * {
-    color: var(--white);
+    color: #F4B740;
   }
 }
 
 .red {
-  background: var(--error);
+  background: #F13F4426;
 
   & * {
-    color: var(--white);
+    color: var(--error);
   }
 }

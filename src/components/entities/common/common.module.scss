@@ -130,6 +130,7 @@
 
       &Controller {
         display: flex;
+        align-items: center;
         gap: 4px;
       }
 
@@ -148,9 +149,11 @@
   &__paginator {
     border: none;
     background: none;
-    width: 30px;
+    width: 70px;
+    height: 60px;
     text-align: center;
-    border-bottom: 1px solid var(--gray);
+    border: 1px solid rgba(140, 145, 181, 0.5);
+    border-radius: 8px;
     transition: .2s;
 
     font-family: "Commissioner Regular";
@@ -160,7 +163,7 @@
     line-height: 17px;
 
     &:focus {
-      border-bottom: 1px solid var(--blue);
+      border-color: var(--blue);
       transition: .2s;
     }
 
@@ -170,6 +173,10 @@
       margin: 0;
     }
     -moz-appearance: textfield;
+
+    &Heading {
+      color: var(--black);
+    }
   }
 
   &__loader {

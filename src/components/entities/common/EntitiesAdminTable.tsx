@@ -7,6 +7,7 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from 'assets/icons';
 import {
   ELoaderPalette,
+  H3,
   H4,
   Loader,
   Rating,
@@ -148,7 +149,7 @@ export const EntitiesAdminTable = ({
         }
       />
     ) : dataIndex === 'rating' ? (
-      <Rating stars={(row[dataIndex as keyof typeof row] as any).count} />
+      <Rating stars={row[dataIndex as keyof typeof row] as any} />
     ) : (
       <Text>
         {console.log(row, row[dataIndex as keyof typeof row])}
@@ -235,7 +236,9 @@ export const EntitiesAdminTable = ({
               onChange={handleChange}
               onBlur={handleBlur}
             />{' '}
-            <H4>/ {maxPagesNumber}</H4>
+            <H3 className={styles.table__paginatorHeading}>
+              из {maxPagesNumber}
+            </H3>
           </div>
           <ChevronRightIcon
             className={styles.table__footerControl}
@@ -254,7 +257,7 @@ export const EntitiesAdminTable = ({
     tableContent
   ) : (
     <div className={styles.table__loader}>
-      <H4>С данными фильтрами ничего не найдено</H4>
+      <H4>По вашему запросу ничего не найдено</H4>
     </div>
   );
 

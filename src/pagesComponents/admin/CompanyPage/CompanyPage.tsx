@@ -16,7 +16,7 @@ import {
 import { EditIcon } from 'assets/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProjectPage, ProjectsPage } from 'pagesComponents';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
 import { useProject } from 'hooks/queries/entities/useProject';
@@ -37,6 +37,8 @@ type Props = {
 export const CompanyPage = ({ company }: Props) => {
   const { userId } = useParams();
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const { profile, handleLogout } = useAuth();
   const { addError } = useErrors();
@@ -93,6 +95,8 @@ export const CompanyPage = ({ company }: Props) => {
 
       addInfo('Профиль успешно отклонен!');
 
+      queryClient.invalidateQueries('company');
+
       navigate('/users');
     } catch (e) {
       if (e instanceof ServerError) {
@@ -119,6 +123,8 @@ export const CompanyPage = ({ company }: Props) => {
       setIsLoading(false);
 
       addInfo('Профиль успешно принят!');
+
+      queryClient.invalidateQueries('company');
 
       navigate('/users');
     } catch (e) {

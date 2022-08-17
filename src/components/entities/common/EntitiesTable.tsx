@@ -3,6 +3,7 @@ import { IAPIEntitiesListElement } from 'types/entities/entities';
 import { ChevronLeftIcon, ChevronRightIcon } from 'assets/icons';
 import {
   ELoaderPalette,
+  H3,
   H4,
   Loader,
   Rating,
@@ -128,7 +129,7 @@ export const EntitiesTable = ({
         }
       />
     ) : dataIndex === 'rating' ? (
-      <Rating stars={(row[dataIndex as keyof typeof row] as any).count} />
+      <Rating stars={row[dataIndex as keyof typeof row] as any} />
     ) : (
       <Text>
         {formatDate(new Date(row[dataIndex as keyof typeof row] as any))}
@@ -211,7 +212,10 @@ export const EntitiesTable = ({
               onChange={handleChange}
               onBlur={handleBlur}
             />{' '}
-            <H4>/ {maxPagesNumber}</H4>
+            <H3 className={styles.table__paginatorHeading}>
+              {' '}
+              из {maxPagesNumber}
+            </H3>
           </div>
           <ChevronRightIcon
             className={styles.table__footerControl}
@@ -230,7 +234,7 @@ export const EntitiesTable = ({
     tableContent
   ) : (
     <div className={styles.table__loader}>
-      <H4>С данными фильтрами ничего не найдено</H4>
+      <H4>По вашему запросу ничего не найдено</H4>
     </div>
   );
 

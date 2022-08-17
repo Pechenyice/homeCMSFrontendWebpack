@@ -6,6 +6,7 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from 'assets/icons';
 import {
   ELoaderPalette,
+  H3,
   H4,
   Loader,
   Rating,
@@ -216,7 +217,9 @@ export const CompaniesAdminTable = ({
               onChange={handleChange}
               onBlur={handleBlur}
             />{' '}
-            <H4>/ {maxPagesNumber}</H4>
+            <H3 className={styles.table__paginatorHeading}>
+              из {maxPagesNumber}
+            </H3>
           </div>
           <ChevronRightIcon
             className={styles.table__footerControl}
@@ -235,7 +238,7 @@ export const CompaniesAdminTable = ({
     tableContent
   ) : (
     <div className={styles.table__loader}>
-      <H4>С данными фильтрами ничего не найдено</H4>
+      <H4>По вашему запросу ничего не найдено</H4>
     </div>
   );
 

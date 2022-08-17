@@ -20,6 +20,7 @@ interface CssExports {
   'table__header': string;
   'table__loader': string;
   'table__paginator': string;
+  'table__paginatorHeading': string;
   'table__row': string;
   'table__row_main': string;
   'table__row_secondary': string;

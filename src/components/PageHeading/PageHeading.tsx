@@ -2,6 +2,7 @@ import { H1, Status, Label, H3 } from 'components/kit';
 import styles from './PageHeading.module.scss';
 import { ReactNode } from 'react';
 import { EProposalStatus } from 'types/enums';
+import { BestIcon, TrashIcon } from 'assets/icons';
 
 interface Props {
   heading: string;
@@ -21,7 +22,27 @@ export const PageHeading = (props: Props) => {
       <div className={styles.line}>
         <div className={styles.lineMain}>
           <H1>{heading}</H1>
-          {status !== undefined && <Status status={status} />}
+          <div className={styles.metadata__wrapper}>
+            {status !== undefined && (
+              <Status className={styles.lifted} status={status} />
+            )}
+            {isDeleted && (
+              <Label className={styles.lifted} palette="red">
+                <div className={styles.metadata}>
+                  <H3 isMedium>Удален</H3>
+                  <TrashIcon />
+                </div>
+              </Label>
+            )}
+            {isBest && (
+              <Label className={styles.lifted} palette="yellow">
+                <div className={styles.metadata}>
+                  <H3 isMedium>Один из лучших</H3>
+                  <BestIcon />
+                </div>
+              </Label>
+            )}
+          </div>
         </div>
         <div className={styles.metaWrapper}>
           {action}
@@ -31,18 +52,6 @@ export const PageHeading = (props: Props) => {
       {status === EProposalStatus.REJECTED && (
         <div className={styles.errorText}>{cause}</div>
       )}
-      <div className={styles.metadata}>
-        {isDeleted && (
-          <Label palette="red">
-            <H3 isMedium>Удален</H3>
-          </Label>
-        )}
-        {isBest && (
-          <Label palette="green">
-            <H3 isMedium>Один из лучших</H3>
-          </Label>
-        )}
-      </div>
     </div>
   );
 };

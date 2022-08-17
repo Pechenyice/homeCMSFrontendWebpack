@@ -4,7 +4,9 @@ import { EntityCreationSteps } from 'components';
 import { ProjectCreationStepsInterface } from 'components/entities';
 import { Action, Button, Modal, Text } from 'components/kit';
 import { useAuth, useErrors, useInfos } from 'hooks';
+import { getProjectKey } from 'hooks/queries/keys';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IProjectData } from 'types/entities/project';
 import { IProjectState, IProjectSwitchers } from 'types/entities/project';
@@ -29,6 +31,8 @@ type Props = {
 
 export const ProjectActionsPage = ({ project }: Props) => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const { profile, handleLogout } = useAuth();
 
@@ -799,6 +803,8 @@ export const ProjectActionsPage = ({ project }: Props) => {
           project.id,
           profile.id
         );
+
+        queryClient.invalidateQueries('project');
 
         addInfo(
           'Заявка успешно обновлена и отправлена на рассмотрение в ГИМЦ «Семья»'
