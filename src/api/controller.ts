@@ -22,6 +22,7 @@ import {
   IProjectDeleteResponse,
   ICompanyStatusResponse,
   IProjectsAdminArchiveListResponse,
+  IProjectRestoreResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -253,6 +254,15 @@ export const API = {
         params.method,
         aborts.PROJECT_APPROVE_CONTROLLER,
         { is_favorite: isBest }
+      );
+    },
+    restore(userId: number, id: number): Promise<IProjectRestoreResponse> {
+      const params = DYNAMIC_API_ROUTES.ADMIN.PROJECT_RESTORE(id, userId);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.PROJECT_RESTORE_CONTROLLER
       );
     },
     download(userId: number, id: number): Promise<any> {

@@ -79,6 +79,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
     period: registerInput(project?.period ?? '', textInputValidator), //Период реализации проекта
     realisationForCitizen: project?.realisationForCitizen ?? -1, //Реализация для гражданина
     canBeDistant: project?.canBeDistant ?? false, //Возможность реализации в дистанционном формате
+    isInASI: project?.isInASI ?? false, //Возможность реализации в дистанционном формате
     organizationLevel: project?.organizationLevel ?? -1, //Уровень реализации проекта
     partnership: registerInput(project?.partnership ?? '', textInputValidator),
     attractingVolunteer: project?.attractingVolunteer ?? -1, //Привлечение добровольцев и волонтеров

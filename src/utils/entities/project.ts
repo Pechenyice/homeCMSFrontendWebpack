@@ -52,6 +52,7 @@ export const mapProjectToAPI = (
           .filter((id) => !!id) as number[]) || [],
       is_best_practice: project.bestPracticeForLeadership,
       is_remote_format_possible: project.canBeDistant,
+      is_practice_placed_in_asi_smarteka: project.isInASI,
     },
 
     info: {
@@ -141,6 +142,7 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
     period: project.info.implementation_period,
     realisationForCitizen: project.primary.payment_method_id,
     canBeDistant: project.primary.is_remote_format_possible,
+    isInASI: project.primary.is_practice_placed_in_asi_smarteka,
     organizationLevel: project.info.implementation_level_id,
     partnership: project.primary.partnership?.description ?? null,
     attractingVolunteer: project.primary.volunteer_id,
@@ -218,7 +220,7 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
         project.status.toUpperCase() as keyof typeof EProposalStatus
       ],
     cause: project.rejected_status_description,
-    isBest: project.is_best,
+    isBest: project.is_favorite,
     isDeleted: project.is_deleted,
   };
 };

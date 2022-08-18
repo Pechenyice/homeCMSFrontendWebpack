@@ -45,6 +45,10 @@ export interface IProjectCreateResponse extends IResponseError {
   data: boolean | null;
 }
 
+export interface IProjectRestoreResponse extends IResponseError {
+  data: null;
+}
+
 export interface IProjectDeleteResponse extends IResponseError {
   data: null;
 }

@@ -628,6 +628,12 @@ export const MainPartitionStep = ({
             placeholder="Описание"
           />
         </HelperEnableSelect>
+        <Checkbox
+          className={styles.half}
+          checked={mainPartition.isInASI}
+          onToggle={bindCheckToggle('isInASI')}
+          label={<Text>Практика размещена в АСИ 'Смартека'</Text>}
+        />
       </div>
 
       <div className={styles.half}>

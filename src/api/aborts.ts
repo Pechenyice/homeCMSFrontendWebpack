@@ -14,6 +14,7 @@ export const aborts = {
   PROJECT_DELETE_CONTROLLER: new AbortController(),
   PROJECT_REJECT_CONTROLLER: new AbortController(),
   PROJECT_APPROVE_CONTROLLER: new AbortController(),
+  PROJECT_RESTORE_CONTROLLER: new AbortController(),
   PROJECT_DOWNLOAD_CONTROLLER: new AbortController(),
 
   COMPANY_REJECT_CONTROLLER: new AbortController(),
@@ -80,6 +81,11 @@ export function abortRejectProject() {
 export function abortApproveProject() {
   aborts.PROJECT_APPROVE_CONTROLLER.abort();
   aborts.PROJECT_APPROVE_CONTROLLER = new AbortController();
+}
+
+export function abortRestoreProject() {
+  aborts.PROJECT_RESTORE_CONTROLLER.abort();
+  aborts.PROJECT_RESTORE_CONTROLLER = new AbortController();
 }
 
 export function abortDownloadProject() {

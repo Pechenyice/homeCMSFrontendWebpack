@@ -51,6 +51,7 @@ const defaultState = {
   is_favorite: -1,
   is_publication: -1,
   is_remote_format: -1,
+  is_practice_placed_in_asi_smarteka: -1,
   needy_category_ids: [],
   needy_category_target_group_ids: [],
   rnsu_category_ids: [],
@@ -189,6 +190,10 @@ export const ProjectsFiltration = ({
         state.is_publication === -1 ? undefined : state.is_publication,
       is_remote_format:
         state.is_remote_format === -1 ? undefined : state.is_remote_format,
+      is_practice_placed_in_asi_smarteka:
+        state.is_practice_placed_in_asi_smarteka === -1
+          ? undefined
+          : state.is_practice_placed_in_asi_smarteka,
       rnsu_category_ids: !state.rnsu_category_ids.length
         ? undefined
         : state.rnsu_category_ids.join(','),
@@ -568,7 +573,7 @@ export const ProjectsFiltration = ({
               emptyText="Все"
               unselectedText="Все"
               values={state.public_work_ids}
-              options={circumstancesRecognitionNeed!}
+              options={gosWorkNames!}
               heading="Наименование государственной работы"
               onChangeOption={bindMultipleSelectChange('public_work_ids')}
             />
@@ -715,6 +720,22 @@ export const ProjectsFiltration = ({
           options={YES_NO_OPTIONS}
           heading="Экспертное заключение, рецензия, отзыв"
           onChangeOption={bindSelectChange('is_any_review')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={
+            isNaN(+state.is_practice_placed_in_asi_smarteka)
+              ? -1
+              : +state.is_practice_placed_in_asi_smarteka
+          }
+          options={YES_NO_OPTIONS}
+          heading="Практика размещена в АСИ 'Смартека'"
+          onChangeOption={bindSelectChange(
+            'is_practice_placed_in_asi_smarteka'
+          )}
         />
         <div className={styles.filter}>
           {attractingVolunteerLoading ? (

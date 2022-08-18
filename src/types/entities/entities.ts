@@ -115,6 +115,7 @@ export interface IAPICommonPrimaryPart {
   gallery_file_ids: number[]; //Галерея
   is_best_practice: boolean; //Лучшая практика по мнению руководства организации
   is_remote_format_possible: boolean; //Возможность реализации в дистанционном формате
+  is_practice_placed_in_asi_smarteka: boolean; //Практика размещена в АСИ "Смартека"
 }
 
 export interface IAPICommonFullPrimaryPart
@@ -176,6 +177,7 @@ export interface IAPIRating {
 
 export interface IAPIRatingFields {
   is_favorite: boolean;
+  is_practice_placed_in_asi_smarteka: boolean;
   is_has_publication: boolean;
   is_has_approbation: boolean;
   is_has_replicability: boolean;

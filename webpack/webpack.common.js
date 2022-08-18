@@ -64,11 +64,16 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-           target: 'http://localhost:8080',
-           router: () => 'http://localhost:8081',
-           logLevel: 'debug'
+        target: 'http://localhost:8080',
+        router: () => 'http://localhost:8081',
+        logLevel: 'debug'
+      },
+      '/storage': {
+        target: 'http://localhost:8080',
+        router: () => 'http://localhost:8081',
+        logLevel: 'debug'
       }
-   }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

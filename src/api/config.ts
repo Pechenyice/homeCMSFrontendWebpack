@@ -141,6 +141,10 @@ export const DYNAMIC_API_ROUTES = {
       url: `${ADMIN_API_PREFIX}/users/${userId}/jobs/social-projects/${id}/approve`,
       method: EAPIMethod.PATCH,
     }),
+    PROJECT_RESTORE: (id: number, userId: number) => ({
+      url: `${ADMIN_API_PREFIX}/users/${userId}/jobs/social-projects/${id}/restore`,
+      method: EAPIMethod.PATCH,
+    }),
 
     COMPANY_REJECT: (userId: number) => ({
       url: `${ADMIN_API_PREFIX}/users/${userId}/company/reject`,

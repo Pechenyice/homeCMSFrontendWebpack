@@ -42,6 +42,7 @@ export interface IProjectMainPartition {
   period: string; //Период реализации проекта
   realisationForCitizen: number; //Реализация для гражданина
   canBeDistant: boolean; //Возможность реализации в дистанционном формате
+  isInASI: boolean; //Практика размещена в АСИ "Смартека"
   organizationLevel: number; //Уровень реализации проекта
   partnership: string | null;
   attractingVolunteer: number; //Привлечение добровольцев и волонтеров
@@ -92,7 +93,7 @@ export interface IFullAPIProject
   id: number;
   status: string;
   rejected_status_description: string | null;
-  is_best: boolean;
+  is_favorite: boolean;
   is_deleted: boolean;
 }
 
@@ -135,6 +136,7 @@ export interface IProjectState {
     period: IInput; //Период реализации проекта
     realisationForCitizen: number; //Реализация для гражданина
     canBeDistant: boolean; //Возможность реализации в дистанционном формате
+    isInASI: boolean; //Практика размещена в АСИ "Смартека"
     organizationLevel: number; //Уровень реализации проекта
     partnership: IInput;
     attractingVolunteer: number; //Привлечение добровольцев и волонтеров

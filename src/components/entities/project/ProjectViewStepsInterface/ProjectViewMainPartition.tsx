@@ -549,6 +549,12 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
             placeholder="Описание"
           />
         </HelperEnableSelect>
+        <Checkbox
+          readOnly
+          className={styles.half}
+          label="Практика размещена в АСИ 'Смартека'"
+          checked={project.isInASI}
+        />
       </div>
 
       <div className={styles.half}>

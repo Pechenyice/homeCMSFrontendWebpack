@@ -11,6 +11,7 @@ export const RATING_OPTIONS = [
   { id: 3, label: '3 звезды' },
   { id: 4, label: '4 звезды' },
   { id: 5, label: '5 звезд' },
+  { id: 6, label: '6 звезд' },
 ];
 
 export const YES_NO_OPTIONS = [
