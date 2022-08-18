@@ -30,6 +30,7 @@ import { useWorksKindsToWorksNames } from 'hooks/queries/categoriesRelations/use
 import { useCategoriesToGroups } from 'hooks/queries/categoriesRelations/useCategoriesToGroups';
 import { getRelatedCategoriesOptions } from 'utils/entities/common';
 import { IFileInfo } from 'types/interfaces';
+import { combineClasses } from 'utils/common';
 
 type Props = {
   switchers: IProjectSwitchers;
@@ -614,7 +615,7 @@ export const MainPartitionStep = ({
 
       <div className={styles.full}>
         <HelperEnableSelect
-          className={styles.half}
+          className={combineClasses(styles.half, styles.leadHelper)}
           heading="Наличие отзыва"
           value={switchers.hasExpertMention}
           onChangeOption={bindSwitcherChange('hasExpertMention')}

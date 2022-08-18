@@ -536,7 +536,7 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
       <div className={styles.full}>
         <HelperEnableSelect
           readOnly
-          className={styles.half}
+          className={combineClasses(styles.half, styles.leadHelper)}
           heading="Наличие отзыва"
           value={!!project.hasExpertMention}
           onChangeOption={() => {}}
