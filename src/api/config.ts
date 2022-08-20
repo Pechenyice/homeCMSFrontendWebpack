@@ -48,8 +48,10 @@ export const DYNAMIC_API_ROUTES = {
     url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
     method: EAPIMethod.DELETE,
   }),
-  PROJECT_GET: (id: string, userId: number) => ({
-    url: `${API_PREFIX}/users/${userId}/jobs/social-projects/${id}`,
+  PROJECT_GET: (id: string, userId: number, isAdmin?: boolean) => ({
+    url: `${
+      isAdmin ? ADMIN_API_PREFIX : API_PREFIX
+    }/users/${userId}/jobs/social-projects/${id}`,
     method: EAPIMethod.GET,
   }),
   PROJECT_DOWNLOAD: (id: number, userId: number) => ({

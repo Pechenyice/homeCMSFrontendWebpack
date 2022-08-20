@@ -5,6 +5,16 @@ export const aborts = {
   PROFILE_LOGOUT_CONTROLLER: new AbortController(),
   PROFILE_UPDATE_CONTROLLER: new AbortController(),
 
+  COMPANY_REJECT_CONTROLLER: new AbortController(),
+  COMPANY_APPROVE_CONTROLLER: new AbortController(),
+  COMPANY_GET_LIST_CONTROLLER: new AbortController(),
+  COMPANY_DOWNLOAD_CONTROLLER: new AbortController(),
+
+  FILE_UPLOAD_CONTROLLER: new AbortController(),
+
+  QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
+  QUERIES_YEARS_CONTROLLER: new AbortController(),
+
   PROJECT_GET_CONTROLLER: new AbortController(),
   PROJECT_GET_LIST_CONTROLLER: new AbortController(),
   PROJECT_GET_ADMIN_LIST_CONTROLLER: new AbortController(),
@@ -16,16 +26,6 @@ export const aborts = {
   PROJECT_APPROVE_CONTROLLER: new AbortController(),
   PROJECT_RESTORE_CONTROLLER: new AbortController(),
   PROJECT_DOWNLOAD_CONTROLLER: new AbortController(),
-
-  COMPANY_REJECT_CONTROLLER: new AbortController(),
-  COMPANY_APPROVE_CONTROLLER: new AbortController(),
-  COMPANY_GET_LIST_CONTROLLER: new AbortController(),
-  COMPANY_DOWNLOAD_CONTROLLER: new AbortController(),
-
-  FILE_UPLOAD_CONTROLLER: new AbortController(),
-
-  QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
-  QUERIES_YEARS_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {

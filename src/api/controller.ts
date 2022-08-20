@@ -125,11 +125,12 @@ export const API = {
   project: {
     get(
       id: string,
-      userId: number | undefined
+      userId: number | undefined,
+      isAdmin: boolean | undefined
     ): Promise<IProjectWithMetadataResponse> {
       if (!userId) throw new AuthError('Данные пользователя не найдены');
 
-      const params = DYNAMIC_API_ROUTES.PROJECT_GET(id, userId);
+      const params = DYNAMIC_API_ROUTES.PROJECT_GET(id, userId, isAdmin);
 
       return safeFetch(
         params.url,

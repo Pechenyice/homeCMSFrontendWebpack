@@ -13,10 +13,10 @@ export const textInputValidator = (
     };
   }
 
-  if (value.length > 100) {
+  if (value.length > 1000) {
     return {
       success: false,
-      text: 'Значение не может быть длиннее 100 символов',
+      text: 'Значение не может быть длиннее 1000 символов',
     };
   }
 

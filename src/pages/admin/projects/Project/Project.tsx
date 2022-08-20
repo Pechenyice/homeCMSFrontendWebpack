@@ -27,7 +27,7 @@ export const Project = () => {
     apiData: project,
     isLoading: isProjectLoading,
     isError: isProjectError,
-  } = useProject(id as string, userId as any);
+  } = useProject(id as string, userId as any, true);
 
   const handlePrint = async () => {
     try {

@@ -221,6 +221,8 @@ export const mapProjectFromAPI = (project: IFullAPIProject): IProjectData => {
       ],
     cause: project.rejected_status_description,
     isBest: project.is_favorite,
-    isDeleted: project.is_deleted,
+
+    // for non-admin interfaces is_deleted is just undefined
+    isDeleted: !!project.is_deleted,
   };
 };
