@@ -3,7 +3,7 @@ import {
   IAPIAdminEntitiesList,
   IAPIEntitiesList,
 } from 'types/entities/entities';
-import { IFullAPIProject, IProjectData } from 'types/entities/project';
+import { IFullAPIProject } from 'types/entities/project';
 import {
   ISelectValue,
   IAPIProfileData,
@@ -41,20 +41,28 @@ export interface IProfileUpdateResponse extends IResponseError {
   data: boolean | null;
 }
 
-export interface IProjectCreateResponse extends IResponseError {
+export interface IEntityCreateResponse extends IResponseError {
   data: boolean | null;
 }
 
-export interface IProjectRestoreResponse extends IResponseError {
+export interface IEntityApproveResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface IEntityRejectResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface IEntityUpdateResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface IEntityRestoreResponse extends IResponseError {
   data: null;
 }
 
-export interface IProjectDeleteResponse extends IResponseError {
+export interface IEntityDeleteResponse extends IResponseError {
   data: null;
-}
-
-export interface IProjectResponse extends IResponseError {
-  data: IProjectData | null;
 }
 
 export interface IFileUploadedResponse extends IResponseError {
@@ -69,19 +77,15 @@ export interface IQueriesRelationsResponse extends IResponseError {
   data: ISelectRelations | null;
 }
 
-export interface IProjectWithMetadataResponse extends IResponseError {
-  data: IFullAPIProject | null;
-}
-
-export interface IProjectsListResponse extends IResponseError {
+export interface IEntitiesListResponse extends IResponseError {
   data: IAPIEntitiesList | null;
 }
 
-export interface IProjectsAdminListResponse extends IResponseError {
+export interface IEntitiesAdminListResponse extends IResponseError {
   data: IAPIAdminEntitiesList | null;
 }
 
-export interface IProjectsAdminArchiveListResponse extends IResponseError {
+export interface IEntitiesAdminArchiveListResponse extends IResponseError {
   data: IAPIAdminEntitiesArchiveList | null;
 }
 
@@ -91,4 +95,16 @@ export interface ICompaniesAdminListResponse extends IResponseError {
 
 export interface ICompanyStatusResponse extends IResponseError {
   data: boolean | null;
+}
+
+/**
+ *
+ *
+ * entities
+ *
+ *
+ */
+
+export interface IProjectWithMetadataResponse extends IResponseError {
+  data: IFullAPIProject | null;
 }

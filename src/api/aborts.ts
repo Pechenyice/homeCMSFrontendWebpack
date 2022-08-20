@@ -15,17 +15,17 @@ export const aborts = {
   QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
   QUERIES_YEARS_CONTROLLER: new AbortController(),
 
-  PROJECT_GET_CONTROLLER: new AbortController(),
-  PROJECT_GET_LIST_CONTROLLER: new AbortController(),
-  PROJECT_GET_ADMIN_LIST_CONTROLLER: new AbortController(),
-  PROJECT_GET_ADMIN_ARCHIVE_LIST_CONTROLLER: new AbortController(),
-  PROJECT_CREATE_CONTROLLER: new AbortController(),
-  PROJECT_UPDATE_CONTROLLER: new AbortController(),
-  PROJECT_DELETE_CONTROLLER: new AbortController(),
-  PROJECT_REJECT_CONTROLLER: new AbortController(),
-  PROJECT_APPROVE_CONTROLLER: new AbortController(),
-  PROJECT_RESTORE_CONTROLLER: new AbortController(),
-  PROJECT_DOWNLOAD_CONTROLLER: new AbortController(),
+  ENTITY_GET_CONTROLLER: new AbortController(),
+  ENTITY_GET_LIST_CONTROLLER: new AbortController(),
+  ENTITY_GET_ADMIN_LIST_CONTROLLER: new AbortController(),
+  ENTITY_GET_ADMIN_ARCHIVE_LIST_CONTROLLER: new AbortController(),
+  ENTITY_CREATE_CONTROLLER: new AbortController(),
+  ENTITY_UPDATE_CONTROLLER: new AbortController(),
+  ENTITY_DELETE_CONTROLLER: new AbortController(),
+  ENTITY_REJECT_CONTROLLER: new AbortController(),
+  ENTITY_APPROVE_CONTROLLER: new AbortController(),
+  ENTITY_RESTORE_CONTROLLER: new AbortController(),
+  ENTITY_DOWNLOAD_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {
@@ -53,44 +53,44 @@ export function abortUpdateProfile() {
   aborts.PROFILE_UPDATE_CONTROLLER = new AbortController();
 }
 
-export function abortGetProject() {
-  aborts.PROJECT_GET_CONTROLLER.abort();
-  aborts.PROJECT_GET_CONTROLLER = new AbortController();
+export function abortGetEntity() {
+  aborts.ENTITY_GET_CONTROLLER.abort();
+  aborts.ENTITY_GET_CONTROLLER = new AbortController();
 }
 
-export function abortGetListProject() {
-  aborts.PROJECT_GET_LIST_CONTROLLER.abort();
-  aborts.PROJECT_GET_LIST_CONTROLLER = new AbortController();
+export function abortGetListEntity() {
+  aborts.ENTITY_GET_LIST_CONTROLLER.abort();
+  aborts.ENTITY_GET_LIST_CONTROLLER = new AbortController();
 }
 
-export function abortGetAdminListProject() {
-  aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER.abort();
-  aborts.PROJECT_GET_ADMIN_LIST_CONTROLLER = new AbortController();
+export function abortGetAdminListEntity() {
+  aborts.ENTITY_GET_ADMIN_LIST_CONTROLLER.abort();
+  aborts.ENTITY_GET_ADMIN_LIST_CONTROLLER = new AbortController();
 }
 
-export function abortGetAdminArchiveListProject() {
-  aborts.PROJECT_GET_ADMIN_ARCHIVE_LIST_CONTROLLER.abort();
-  aborts.PROJECT_GET_ADMIN_ARCHIVE_LIST_CONTROLLER = new AbortController();
+export function abortGetAdminArchiveListEntity() {
+  aborts.ENTITY_GET_ADMIN_ARCHIVE_LIST_CONTROLLER.abort();
+  aborts.ENTITY_GET_ADMIN_ARCHIVE_LIST_CONTROLLER = new AbortController();
 }
 
-export function abortRejectProject() {
-  aborts.PROJECT_REJECT_CONTROLLER.abort();
-  aborts.PROJECT_REJECT_CONTROLLER = new AbortController();
+export function abortRejectEntity() {
+  aborts.ENTITY_REJECT_CONTROLLER.abort();
+  aborts.ENTITY_REJECT_CONTROLLER = new AbortController();
 }
 
-export function abortApproveProject() {
-  aborts.PROJECT_APPROVE_CONTROLLER.abort();
-  aborts.PROJECT_APPROVE_CONTROLLER = new AbortController();
+export function abortApproveEntity() {
+  aborts.ENTITY_APPROVE_CONTROLLER.abort();
+  aborts.ENTITY_APPROVE_CONTROLLER = new AbortController();
 }
 
-export function abortRestoreProject() {
-  aborts.PROJECT_RESTORE_CONTROLLER.abort();
-  aborts.PROJECT_RESTORE_CONTROLLER = new AbortController();
+export function abortRestoreEntity() {
+  aborts.ENTITY_RESTORE_CONTROLLER.abort();
+  aborts.ENTITY_RESTORE_CONTROLLER = new AbortController();
 }
 
-export function abortDownloadProject() {
-  aborts.PROJECT_DOWNLOAD_CONTROLLER.abort();
-  aborts.PROJECT_DOWNLOAD_CONTROLLER = new AbortController();
+export function abortDownloadEntity() {
+  aborts.ENTITY_DOWNLOAD_CONTROLLER.abort();
+  aborts.ENTITY_DOWNLOAD_CONTROLLER = new AbortController();
 }
 
 export function abortRejectCompany() {
@@ -113,19 +113,19 @@ export function abortDownloadCompany() {
   aborts.COMPANY_DOWNLOAD_CONTROLLER = new AbortController();
 }
 
-export function abortCreateProject() {
-  aborts.PROJECT_CREATE_CONTROLLER.abort();
-  aborts.PROJECT_CREATE_CONTROLLER = new AbortController();
+export function abortCreateEntity() {
+  aborts.ENTITY_CREATE_CONTROLLER.abort();
+  aborts.ENTITY_CREATE_CONTROLLER = new AbortController();
 }
 
-export function abortUpdateProject() {
-  aborts.PROJECT_UPDATE_CONTROLLER.abort();
-  aborts.PROJECT_UPDATE_CONTROLLER = new AbortController();
+export function abortUpdateEntity() {
+  aborts.ENTITY_UPDATE_CONTROLLER.abort();
+  aborts.ENTITY_UPDATE_CONTROLLER = new AbortController();
 }
 
-export function abortDeleteProject() {
-  aborts.PROJECT_DELETE_CONTROLLER.abort();
-  aborts.PROJECT_DELETE_CONTROLLER = new AbortController();
+export function abortDeleteEntity() {
+  aborts.ENTITY_DELETE_CONTROLLER.abort();
+  aborts.ENTITY_DELETE_CONTROLLER = new AbortController();
 }
 
 export function abortFileUpload() {

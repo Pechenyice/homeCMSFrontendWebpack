@@ -5,3 +5,7 @@ export enum EAPIMethod {
   PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
+
+export enum EEntity {
+  PROJECT = 'PROJECT',
+}
