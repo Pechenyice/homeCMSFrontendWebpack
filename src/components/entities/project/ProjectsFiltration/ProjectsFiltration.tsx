@@ -32,7 +32,7 @@ import { useGosWorkNames } from 'hooks/queries/useGosWorkNames';
 import { useWorksKinds } from 'hooks/queries/useWorksKinds';
 import { useWorksNames } from 'hooks/queries/useWorksNames';
 import { useWorksKindsToWorksNames } from 'hooks/queries/categoriesRelations/useWorksKindsToWorksNames';
-import { useEntitiesYears } from 'hooks/queries/entities/useEntitiesYears';
+import { useEntitiesYears } from 'hooks/queries/useEntitiesYears';
 
 type Props = {
   isAdmin?: boolean;

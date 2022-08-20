@@ -13,10 +13,11 @@ import {
 } from 'components/kit';
 import { ChangeEvent } from 'react';
 import { IProjectState } from 'types/entities/project';
+import { ICommonMembersPartitionState } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
 
 type Props = {
-  membersPartition: IProjectState['membersPartition'];
+  membersPartition: ICommonMembersPartitionState;
   onMembersEntryChange: (
     id: any,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

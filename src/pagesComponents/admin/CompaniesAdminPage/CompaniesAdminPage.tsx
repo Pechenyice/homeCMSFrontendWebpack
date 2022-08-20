@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ICompany } from 'types/interfaces';
 import { useQueryParams } from 'hooks/utils/useQueryParams';
-import { useAdminCompanies } from 'hooks/queries/entities/useAdminCompanies';
+import { useAdminCompanies } from 'hooks/queries/useAdminCompanies';
 import { CompaniesFiltration } from 'components/CompaniesFiltration/CompaniesFiltration';
 import { CompaniesAdminTable } from 'components/CompaniesAdminTable/CompaniesAdminTable';
 

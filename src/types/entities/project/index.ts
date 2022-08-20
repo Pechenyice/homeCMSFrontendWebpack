@@ -33,26 +33,28 @@ export interface IProjectData
 }
 
 export interface IProjectMainPartition {
+  organisator: string | null; //Организатор/участник
+  period: string; //Период реализации проекта
+  organizationLevel: number; //Уровень реализации проекта
+  worksKinds: number[] | null; //Вид услуги
+  worksNames: number[] | null; //Наименования услуг
+  gosWorkNames: number[] | null; //Наименование государственной работы
+  circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
+
+  //common
   name: string; //Наименование
   bestPracticeForLeadership: boolean; //Лучшая практика по мнению руководства организации
   annotation: string; //Аннотация
   purpose: string; //Цель проекта
   tasks: string; //Основные задачи
-  organisator: string | null; //Организатор/участник
-  period: string; //Период реализации проекта
   realisationForCitizen: number; //Реализация для гражданина
   canBeDistant: boolean; //Возможность реализации в дистанционном формате
   isInASI: boolean; //Практика размещена в АСИ "Смартека"
-  organizationLevel: number; //Уровень реализации проекта
   partnership: string | null;
   attractingVolunteer: number; //Привлечение добровольцев и волонтеров
   rnsuCategories: number[]; //Категории по РНСУ
   categories: number[]; //Категории
   groups: number[]; //Целевые группы
-  worksKinds: number[] | null; //Вид услуги
-  worksNames: number[] | null; //Наименования услуг
-  gosWorkNames: number[] | null; //Наименование государственной работы
-  circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
   socialHelpForm: number[]; //Форма социального обслуживания (сопровождения)
   basicQualityResults: string; //Основные качественные результаты
   socialResults: string; //Социальный результаты
@@ -127,26 +129,28 @@ export interface IProjectSwitchers extends ICommonExpierienceSwitchers {
 export interface IProjectState {
   // main partition
   mainPartition: {
+    organisator: IInput; //Организатор/участник
+    period: IInput; //Период реализации проекта
+    organizationLevel: number; //Уровень реализации проекта
+    worksKinds: number[]; //Вид услуги
+    worksNames: number[]; //Наименования услуг
+    gosWorkNames: number[]; //Наименование государственной работы
+    circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
+
+    //common
     name: IInput; //Наименование
     bestPracticeForLeadership: boolean; //Лучшая практика по мнению руководства организации
     annotation: IInput; //Аннотация
     purpose: IInput; //Цель проекта
     tasks: IInput; //Основные задачи
-    organisator: IInput; //Организатор/участник
-    period: IInput; //Период реализации проекта
     realisationForCitizen: number; //Реализация для гражданина
     canBeDistant: boolean; //Возможность реализации в дистанционном формате
     isInASI: boolean; //Практика размещена в АСИ "Смартека"
-    organizationLevel: number; //Уровень реализации проекта
     partnership: IInput;
     attractingVolunteer: number; //Привлечение добровольцев и волонтеров
     rnsuCategories: number[]; //Категории по РНСУ
     categories: number[]; //Категории
     groups: number[]; //Целевые группы
-    worksKinds: number[]; //Вид услуги
-    worksNames: number[]; //Наименования услуг
-    gosWorkNames: number[]; //Наименование государственной работы
-    circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
     socialHelpForm: number[]; //Форма социального обслуживания (сопровождения)
     basicQualityResults: IInput; //Основные качественные результаты
     socialResults: IInput; //Социальный результаты

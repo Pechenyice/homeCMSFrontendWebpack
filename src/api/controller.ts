@@ -165,5 +165,6 @@ export const API = {
   },
 
   // entities
+  // TODO: can be abstracted to one line generation with TS Generic generateController<IEntityWithMetadataResponse, IAPIEntity>(EEntity)
   project: PROJECT_CONTROLLER,
 };

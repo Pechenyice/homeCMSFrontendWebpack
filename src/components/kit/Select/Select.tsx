@@ -56,7 +56,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
   const valueIsSelected = value !== null && value !== undefined;
 
   if (viewMode) {
-    const value: any = options
+    const selectedValue: any = options
       .filter((option) => option.id === value)
       .map((option) => option.label);
 
@@ -64,7 +64,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
       <TextArea
         readOnly
         heading={heading}
-        value={value.length ? value.join(', ') : '-'}
+        value={selectedValue.length ? selectedValue.join(', ') : '-'}
       />
     );
   }

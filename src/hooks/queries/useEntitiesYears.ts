@@ -4,7 +4,7 @@ import { useErrors } from 'hooks';
 import { useAuth } from 'hooks/useAuth';
 import { useQuery } from 'react-query';
 import { mapProjectFromAPI } from 'utils/entities/project';
-import { getEntitiesYearsKey } from '../keys';
+import { getEntitiesYearsKey } from './keys';
 
 export const useEntitiesYears = () => {
   const { addError } = useErrors();

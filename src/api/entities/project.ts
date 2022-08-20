@@ -35,7 +35,6 @@ const CONFIG = {
   RESTORE: INTERNAL.RESTORE(ENTITY),
 };
 
-// TODO: can be abstracted to one line generation with TS Generic <IEntityWithMetadataResponse, IAPIEntity>
 export const PROJECT_CONTROLLER = {
   get(
     id: string,

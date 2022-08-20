@@ -1,7 +1,7 @@
-import { API } from 'api';
+import { API, EEntity } from 'api';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import { EntityCreationSteps } from 'components';
-import { ProjectCreationStepsInterface } from 'components/entities';
+import { EntityActionsStepsInterface } from 'components/entities/common/action/EntityActionsStepsInterface';
 import { Action, Button, Modal, Text } from 'components/kit';
 import { useAuth, useErrors, useInfos } from 'hooks';
 import { getProjectKey } from 'hooks/queries/keys';
@@ -70,26 +70,27 @@ export const ProjectActionsPage = ({ project }: Props) => {
   const [mainPartition, setMainPartition] = useState<
     IProjectState['mainPartition']
   >({
+    organisator: registerInput(project?.organisator ?? '', textInputValidator), //Организатор/участник
+    period: registerInput(project?.period ?? '', textInputValidator), //Период реализации проекта
+    organizationLevel: project?.organizationLevel ?? -1, //Уровень реализации проекта
+    worksKinds: project?.worksKinds ?? [], //Вид услуги
+    worksNames: project?.worksNames ?? [], //Наименования услуг
+    gosWorkNames: project?.gosWorkNames ?? [], //Наименование государственной работы
+    circumstancesRecognitionNeed: project?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
+
     name: registerInput(project?.name ?? '', textInputValidator), //Наименование
     bestPracticeForLeadership: project?.bestPracticeForLeadership ?? false, //Лучшая практика по мнению руководства организации
     annotation: registerInput(project?.annotation ?? '', annotationValidator), //Аннотация
     purpose: registerInput(project?.purpose ?? '', textInputValidator), //Цель проекта
     tasks: registerInput(project?.tasks ?? '', textInputValidator), //Основные задачи
-    organisator: registerInput(project?.organisator ?? '', textInputValidator), //Организатор/участник
-    period: registerInput(project?.period ?? '', textInputValidator), //Период реализации проекта
     realisationForCitizen: project?.realisationForCitizen ?? -1, //Реализация для гражданина
     canBeDistant: project?.canBeDistant ?? false, //Возможность реализации в дистанционном формате
     isInASI: project?.isInASI ?? false, //Возможность реализации в дистанционном формате
-    organizationLevel: project?.organizationLevel ?? -1, //Уровень реализации проекта
     partnership: registerInput(project?.partnership ?? '', textInputValidator),
     attractingVolunteer: project?.attractingVolunteer ?? -1, //Привлечение добровольцев и волонтеров
     rnsuCategories: project?.rnsuCategories ?? [], //Категории по РНСУ
     categories: project?.categories ?? [], //Категории
     groups: project?.groups ?? [], //Целевые группы
-    worksKinds: project?.worksKinds ?? [], //Вид услуги
-    worksNames: project?.worksNames ?? [], //Наименования услуг
-    gosWorkNames: project?.gosWorkNames ?? [], //Наименование государственной работы
-    circumstancesRecognitionNeed: project?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
     socialHelpForm: project?.socialHelpForm ?? [], //Форма социального обслуживания (сопровождения)
     basicQualityResults: registerInput(
       project?.basicQualityResults ?? '',
@@ -477,6 +478,14 @@ export const ProjectActionsPage = ({ project }: Props) => {
     handleSave();
   };
 
+  // organisator: string | null; //Организатор/участник
+  // period: string; //Период реализации проекта
+  // organizationLevel: number; //Уровень реализации проекта
+  // worksKinds: number[] | null; //Вид услуги
+  // worksNames: number[] | null; //Наименования услуг
+  // gosWorkNames: number[] | null; //Наименование государственной работы
+  // circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
+
   const validatePartition = () => {
     switch (currentStep) {
       case 0: {
@@ -705,12 +714,26 @@ export const ProjectActionsPage = ({ project }: Props) => {
         ...contactsPartition,
         ...membersPartition,
 
+        organisator: mainPartition.organisator.value || null,
+        period: mainPartition.period.value,
+        organizationLevel: mainPartition.organizationLevel,
+        worksKinds: mainPartition.worksKinds.length
+          ? mainPartition.worksKinds
+          : null,
+        worksNames: mainPartition.worksNames.length
+          ? mainPartition.worksNames
+          : null,
+        gosWorkNames: mainPartition.gosWorkNames.length
+          ? mainPartition.gosWorkNames
+          : null,
+        circumstancesRecognitionNeed:
+          mainPartition.circumstancesRecognitionNeed,
+
+        //common
         name: mainPartition.name.value,
         annotation: mainPartition.annotation.value,
         purpose: mainPartition.purpose.value,
         tasks: mainPartition.tasks.value,
-        organisator: mainPartition.organisator.value || null,
-        period: mainPartition.period.value,
         partnership: mainPartition.partnership.value || null,
         basicQualityResults: mainPartition.basicQualityResults.value,
         socialResults: mainPartition.socialResults.value,
@@ -721,16 +744,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
         hasExpertMention: mainPartition.hasExpertMention.value || null,
         video: mainPartition.video.value || null,
         resourcesDescription: mainPartition.resourcesDescription.value,
-
-        worksKinds: mainPartition.worksKinds.length
-          ? mainPartition.worksKinds
-          : null,
-        worksNames: mainPartition.worksNames.length
-          ? mainPartition.worksNames
-          : null,
-        gosWorkNames: mainPartition.gosWorkNames.length
-          ? mainPartition.gosWorkNames
-          : null,
 
         photo: mainPartition.photo.id ? mainPartition.photo : null,
         gallery: mainPartition.gallery.length ? mainPartition.gallery : null,
@@ -817,7 +830,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
       setFetchInProgress(false);
 
       if (e instanceof ServerError) {
-        addError('Произошла критическая ошибка при обновлении данных профиля!');
+        addError('Произошла критическая ошибка при обновлении данных проекта!');
       } else if (e instanceof AuthError) {
         handleLogout();
       } else if (e instanceof ApiError) {
@@ -829,7 +842,8 @@ export const ProjectActionsPage = ({ project }: Props) => {
   return (
     <>
       <EntityCreationSteps active={currentStep} />
-      <ProjectCreationStepsInterface
+      <EntityActionsStepsInterface
+        entity={EEntity.PROJECT}
         active={currentStep}
         switchers={switchers}
         mainPartition={mainPartition}

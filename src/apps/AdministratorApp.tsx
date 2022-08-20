@@ -20,12 +20,18 @@ const AdministratorApp = () => {
               <Route index element={<Company />} />
 
               <Route path="projects/:id" element={<Project />} />
+              {/* <Route path="education/:id" element={<EducationProgram />} /> */}
             </Route>
           </Route>
 
           <Route path="projects">
             <Route index element={<Projects />} />
             <Route path="archive" element={<ProjectsArchive />} />
+          </Route>
+
+          <Route path="education">
+            {/* <Route index element={<EducationPrograms />} /> */}
+            {/* <Route path="archive" element={<EducationProgramsArchive />} /> */}
           </Route>
         </Route>
       </Routes>

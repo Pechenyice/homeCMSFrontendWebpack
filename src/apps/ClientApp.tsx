@@ -32,6 +32,15 @@ const ClientApp = () => {
               <Route path="edit" element={<ProjectEdition />} />
             </Route>
           </Route>
+
+          <Route path="education">
+            {/* <Route index element={<EducationPrograms />} /> */}
+            {/* <Route path="create" element={<EducationProgramCreation />} /> */}
+            <Route path=":id">
+              {/* <Route index element={<EducationProgram />} /> */}
+              {/* <Route path="edit" element={<EducationProgramEdition />} /> */}
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </Router>

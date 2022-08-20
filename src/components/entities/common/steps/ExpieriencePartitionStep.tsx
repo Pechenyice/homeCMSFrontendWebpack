@@ -10,12 +10,15 @@ import {
   TextArea,
 } from 'components/kit';
 import { ChangeEvent } from 'react';
-import { IProjectState, IProjectSwitchers } from 'types/entities/project';
+import {
+  ICommonExpieriencePartitionState,
+  ICommonExpierienceSwitchers,
+} from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
 
 type Props = {
-  switchers: IProjectSwitchers;
-  expieriencePartition: IProjectState['expieriencePartition'];
+  switchers: ICommonExpierienceSwitchers;
+  expieriencePartition: ICommonExpieriencePartitionState;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSwitcherChange: (switcherName: string, value: boolean) => void;
 };

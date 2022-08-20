@@ -51,7 +51,7 @@ type Props = {
   onGalleryPhotoDelete: (name: string, photoId: number) => void;
 };
 
-export const MainPartitionStep = ({
+export const ProjectMainPartitionStep = ({
   switchers,
   mainPartition,
   onChange,

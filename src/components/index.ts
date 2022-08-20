@@ -13,5 +13,3 @@ export * from './ErrorBoundary/ErrorBoundary';
 export * from './EntityCreationSteps/EntityCreationSteps';
 export * from './PageLoader/PageLoader';
 export * from './Dropdown/Dropdown';
-
-export * from './entities';

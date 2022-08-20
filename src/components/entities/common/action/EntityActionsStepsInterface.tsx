@@ -1,20 +1,26 @@
-import { Button, Text } from 'components/kit';
-import { ChangeEvent } from 'react';
-import { IProjectState, IProjectSwitchers } from 'types/entities/project';
+import { EEntity } from 'api/enums';
+import { ProjectMainPartitionStep } from 'components/entities/project/ProjectCreationStepsInterface/steps/ProjectMainPartitionStep';
+import { ChangeEvent, useMemo } from 'react';
+import { IProjectSwitchers } from 'types/entities/project';
+import {
+  ICommonContactsPartitionState,
+  ICommonExpieriencePartitionState,
+  ICommonMembersPartitionState,
+} from 'types/entities/states';
 import { EEntityPartition } from 'types/enums';
 import { IFileInfo } from 'types/interfaces';
-import styles from './ProjectCreationStepsInterface.module.scss';
-import { ContactsPartitionStep } from './steps/ContactsPartitionStep';
-import { ExpieriencePartitionStep } from './steps/ExpieriencePartitionStep';
-import { MainPartitionStep } from './steps/MainPartitionStep';
-import { MembersPartitionStep } from './steps/MembersPartitionStep';
+import { ContactsPartitionStep } from '../steps/ContactsPartitionStep';
+import { ExpieriencePartitionStep } from '../steps/ExpieriencePartitionStep';
+import { MembersPartitionStep } from '../steps/MembersPartitionStep';
+import styles from './EntityActionsStepsInterface.module.scss';
 
 type Props = {
+  entity: EEntity;
   switchers: IProjectSwitchers;
-  mainPartition: IProjectState['mainPartition'];
-  expieriencePartition: IProjectState['expieriencePartition'];
-  contactsPartition: IProjectState['contactsPartition'];
-  membersPartition: IProjectState['membersPartition'];
+  mainPartition: any; //main partition of any entity (IProjectState['mainPartition'])
+  expieriencePartition: ICommonExpieriencePartitionState;
+  contactsPartition: ICommonContactsPartitionState;
+  membersPartition: ICommonMembersPartitionState;
   active: number;
   onChange: (
     partition: EEntityPartition,
@@ -64,7 +70,8 @@ type Props = {
   ) => void;
 };
 
-export const ProjectCreationStepsInterface = ({
+export const EntityActionsStepsInterface = ({
+  entity,
   switchers,
   mainPartition,
   expieriencePartition,
@@ -138,25 +145,32 @@ export const ProjectCreationStepsInterface = ({
     };
   };
 
+  const getMainPartitionStep = () => {
+    switch (entity) {
+      case EEntity.PROJECT:
+        return (
+          <ProjectMainPartitionStep
+            switchers={switchers}
+            mainPartition={mainPartition}
+            onChange={bindChange(EEntityPartition.MAIN)}
+            onSwitcherChange={onSwitcherChange}
+            onSelect={bindSelectChange(EEntityPartition.MAIN)}
+            onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
+            onMultipleParentSelect={bindMultipleParentSelectChange(
+              EEntityPartition.MAIN
+            )}
+            onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
+            onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
+            onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
+            onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+          />
+        );
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
-      {active === 0 && (
-        <MainPartitionStep
-          switchers={switchers}
-          mainPartition={mainPartition}
-          onChange={bindChange(EEntityPartition.MAIN)}
-          onSwitcherChange={onSwitcherChange}
-          onSelect={bindSelectChange(EEntityPartition.MAIN)}
-          onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
-          onMultipleParentSelect={bindMultipleParentSelectChange(
-            EEntityPartition.MAIN
-          )}
-          onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
-          onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
-          onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
-          onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
-        />
-      )}
+      {active === 0 && getMainPartitionStep()}
       {active === 1 && (
         <ExpieriencePartitionStep
           switchers={switchers}

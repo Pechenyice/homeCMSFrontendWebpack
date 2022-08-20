@@ -10,11 +10,11 @@ import {
   TextArea,
 } from 'components/kit';
 import { ChangeEvent } from 'react';
-import { IProjectState } from 'types/entities/project';
+import { ICommonContactsPartitionState } from 'types/entities/states';
 import styles from './PartitionStep.module.scss';
 
 type Props = {
-  contactsPartition: IProjectState['contactsPartition'];
+  contactsPartition: ICommonContactsPartitionState;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
