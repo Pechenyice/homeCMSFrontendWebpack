@@ -8,4 +8,5 @@ export enum EAPIMethod {
 
 export enum EEntity {
   PROJECT = 'PROJECT',
+  EDUCATION_PROGRAM = 'EDUCATION_PROGRAM',
 }

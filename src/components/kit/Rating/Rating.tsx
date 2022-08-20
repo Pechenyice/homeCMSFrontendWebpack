@@ -12,8 +12,6 @@ interface Props {
 export const Rating = (props: HTMLAttributes<HTMLDivElement> & Props) => {
   const { stars, className, children, ...rest } = props;
 
-  console.log(stars);
-
   return (
     <div className={combineClasses(styles.styled, className ?? '')} {...rest}>
       <div title="Одна из лучших практик">

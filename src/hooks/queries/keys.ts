@@ -11,11 +11,19 @@ export const worksKindsKey = 'service-type';
 export const worksNamesKey = 'service-name';
 export const gosWorkNamesKey = 'public-work';
 export const socialHelpFormKey = 'social-service';
+export const directionsKey = 'direction';
+export const conductingClassesFormKey = 'conducting-classes-form';
 
 export const getEntitiesYearsKey = 'entitiesYears';
 
 export const getProjectKey = (id: string, userId?: number) => [
   'project',
+  id,
+  userId,
+];
+
+export const getEducationProgramKey = (id: string, userId?: number) => [
+  'educationProgram',
   id,
   userId,
 ];

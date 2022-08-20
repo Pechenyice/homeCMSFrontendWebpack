@@ -9,6 +9,10 @@ import {
   Projects,
 } from 'pages';
 import { ProjectEdition } from 'pages/projects/ProjectEdition/ProjectEdition';
+import { EducationPrograms } from 'pages/educationPrograms/EducationPrograms/EducationPrograms';
+import { EducationProgram } from 'pages/educationPrograms/EducationProgram/EducationProgram';
+import { EducationProgramCreation } from 'pages/educationPrograms/EducationProgramCreation/EducationProgramCreation';
+import { EducationProgramEdition } from 'pages/educationPrograms/EducationProgramEdition/EducationProgramEdition';
 
 const ClientApp = () => {
   return (
@@ -34,11 +38,11 @@ const ClientApp = () => {
           </Route>
 
           <Route path="education">
-            {/* <Route index element={<EducationPrograms />} /> */}
-            {/* <Route path="create" element={<EducationProgramCreation />} /> */}
+            <Route index element={<EducationPrograms />} />
+            <Route path="create" element={<EducationProgramCreation />} />
             <Route path=":id">
-              {/* <Route index element={<EducationProgram />} /> */}
-              {/* <Route path="edit" element={<EducationProgramEdition />} /> */}
+              <Route index element={<EducationProgram />} />
+              <Route path="edit" element={<EducationProgramEdition />} />
             </Route>
           </Route>
         </Route>

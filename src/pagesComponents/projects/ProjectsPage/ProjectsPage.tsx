@@ -5,7 +5,7 @@ import styles from './ProjectsPage.module.scss';
 
 import { IProjectData } from 'types/entities/project';
 import { Action, Button, Text } from 'components/kit';
-import { useProjects } from 'hooks/queries/entities/useProjects';
+import { useProjects } from 'hooks/queries/entities/project/useProjects';
 import { ProjectsFiltration } from 'components/entities/project/ProjectsFiltration/ProjectsFiltration';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { EntitiesTable } from 'components/entities/common/EntitiesTable';

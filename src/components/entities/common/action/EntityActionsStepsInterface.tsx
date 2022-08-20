@@ -1,4 +1,5 @@
 import { EEntity } from 'api/enums';
+import { EducationProgramMainPartitionStep } from 'components/entities/educationProgram/EducationProgramCreationStepsInterface/steps/EducationProgramMainPartitionStep';
 import { ProjectMainPartitionStep } from 'components/entities/project/ProjectCreationStepsInterface/steps/ProjectMainPartitionStep';
 import { ChangeEvent, useMemo } from 'react';
 import { IProjectSwitchers } from 'types/entities/project';
@@ -16,7 +17,7 @@ import styles from './EntityActionsStepsInterface.module.scss';
 
 type Props = {
   entity: EEntity;
-  switchers: IProjectSwitchers;
+  switchers: any; // switchers of any entity (IProjectSwitchers)
   mainPartition: any; //main partition of any entity (IProjectState['mainPartition'])
   expieriencePartition: ICommonExpieriencePartitionState;
   contactsPartition: ICommonContactsPartitionState;
@@ -147,7 +148,7 @@ export const EntityActionsStepsInterface = ({
 
   const getMainPartitionStep = () => {
     switch (entity) {
-      case EEntity.PROJECT:
+      case EEntity.PROJECT: {
         return (
           <ProjectMainPartitionStep
             switchers={switchers}
@@ -165,8 +166,30 @@ export const EntityActionsStepsInterface = ({
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
           />
         );
+      }
+      case EEntity.EDUCATION_PROGRAM: {
+        return (
+          <EducationProgramMainPartitionStep
+            switchers={switchers}
+            mainPartition={mainPartition}
+            onChange={bindChange(EEntityPartition.MAIN)}
+            onSwitcherChange={onSwitcherChange}
+            onSelect={bindSelectChange(EEntityPartition.MAIN)}
+            onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
+            onMultipleParentSelect={bindMultipleParentSelectChange(
+              EEntityPartition.MAIN
+            )}
+            onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
+            onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
+            onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
+            onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+          />
+        );
+      }
     }
   };
+
+  console.log(getMainPartitionStep());
 
   return (
     <div className={styles.wrapper}>

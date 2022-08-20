@@ -4,7 +4,7 @@ import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { EditIcon, PlusIcon } from 'assets/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProjectActionsPage } from 'pagesComponents/projects/ProjectActionsPage/ProjectActionsPage';
-import { useProject } from 'hooks/queries/entities/useProject';
+import { useProject } from 'hooks/queries/entities/project/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 
 export const ProjectEdition = () => {

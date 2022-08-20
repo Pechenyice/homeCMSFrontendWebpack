@@ -21,7 +21,7 @@ export const PageHeading = (props: Props) => {
     <div className={styles.styled}>
       <div className={styles.line}>
         <div className={styles.lineMain}>
-          <H1>{heading}</H1>
+          <H1 className={styles.heading}>{heading}</H1>
           <div className={styles.metadata__wrapper}>
             {status !== undefined && (
               <Status className={styles.lifted} status={status} />

@@ -23,6 +23,9 @@ export const getEntityPath = (entity: EEntity) => {
     case EEntity.PROJECT: {
       return 'social-projects';
     }
+    case EEntity.EDUCATION_PROGRAM: {
+      return 'edu-programs';
+    }
   }
 };
 
@@ -54,10 +57,10 @@ export const INTERNAL = {
     });
   },
   DOWNLOAD: (entity: EEntity) => {
-    return (id: number, userId: number) => ({
-      url: `${API_PREFIX}/users/${userId}/jobs/${getEntityPath(
-        entity
-      )}/${id}/download`,
+    return (id: number, userId: number, isAdmin?: boolean) => ({
+      url: `${
+        isAdmin ? ADMIN_API_PREFIX : API_PREFIX
+      }/users/${userId}/jobs/${getEntityPath(entity)}/${id}/download`,
       method: EAPIMethod.GET,
     });
   },

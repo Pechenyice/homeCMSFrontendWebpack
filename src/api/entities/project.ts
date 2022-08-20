@@ -166,8 +166,8 @@ export const PROJECT_CONTROLLER = {
     );
   },
 
-  download(userId: number, id: number): Promise<any> {
-    const params = CONFIG.DOWNLOAD(id, userId);
+  download(userId: number, id: number, isAdmin?: boolean): Promise<any> {
+    const params = CONFIG.DOWNLOAD(id, userId, isAdmin);
 
     return safeFetch(
       params.url,

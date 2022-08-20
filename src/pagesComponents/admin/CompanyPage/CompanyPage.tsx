@@ -19,7 +19,7 @@ import { ProjectPage, ProjectsPage } from 'pagesComponents';
 import { useQuery, useQueryClient } from 'react-query';
 import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
-import { useProject } from 'hooks/queries/entities/useProject';
+import { useProject } from 'hooks/queries/entities/project/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { useAuth, useErrors, useInfos } from 'hooks';
 import { useDistricts } from 'hooks/queries/useDistricts';

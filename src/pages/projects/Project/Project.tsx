@@ -7,7 +7,7 @@ import { ProjectPage, ProjectsPage } from 'pagesComponents';
 import { useQuery, useQueryClient } from 'react-query';
 import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
-import { useProject } from 'hooks/queries/entities/useProject';
+import { useProject } from 'hooks/queries/entities/project/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { useState } from 'react';
 import { useErrors } from 'hooks/useErrors';
@@ -76,7 +76,7 @@ export const Project = () => {
       navigate('/projects');
     } catch (e) {
       if (e instanceof ServerError) {
-        addError('Произошла критическая ошибка при отклонении профиля!');
+        addError('Произошла критическая ошибка при удалении проекта!');
       } else if (e instanceof AuthError) {
         handleLogout();
       } else if (e instanceof ApiError) {

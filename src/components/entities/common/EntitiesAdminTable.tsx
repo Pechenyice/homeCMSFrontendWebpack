@@ -152,7 +152,6 @@ export const EntitiesAdminTable = ({
       <Rating stars={row[dataIndex as keyof typeof row] as any} />
     ) : (
       <Text>
-        {console.log(row, row[dataIndex as keyof typeof row])}
         {formatDate(new Date(row[dataIndex as keyof typeof row] as any))}
       </Text>
     );

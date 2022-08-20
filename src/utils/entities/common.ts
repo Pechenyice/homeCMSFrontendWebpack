@@ -1,3 +1,7 @@
+import {
+  IEducationProgramData,
+  IFullAPIEducationProgram,
+} from 'types/entities/educationProgram';
 import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import { EProposalStatus } from 'types/enums';
 import { ISelectRelations, ISelectValue } from 'types/interfaces';
@@ -21,7 +25,9 @@ export const getRelatedCategoriesOptions = (
   return children.filter((child) => options.includes(child.id));
 };
 
-export const generateCommonToAPIPart = (entity: IProjectData) => {
+export const generateCommonToAPIPart = (
+  entity: IProjectData | IEducationProgramData
+) => {
   return {
     primary: {
       name: entity.name,
@@ -126,7 +132,9 @@ export const generateCommonToAPIPart = (entity: IProjectData) => {
   };
 };
 
-export const generateCommonFromAPIPart = (entity: IFullAPIProject) => {
+export const generateCommonFromAPIPart = (
+  entity: IFullAPIProject | IFullAPIEducationProgram
+) => {
   return {
     name: entity.primary.name,
     bestPracticeForLeadership: entity.primary.is_best_practice,

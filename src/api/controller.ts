@@ -3,6 +3,7 @@ import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
 import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
+import { EDUCATION_PROGRAM_CONTROLLER } from './entities/educationProgram';
 import { PROJECT_CONTROLLER } from './entities/project';
 import { AuthError } from './errors';
 import {
@@ -167,4 +168,5 @@ export const API = {
   // entities
   // TODO: can be abstracted to one line generation with TS Generic generateController<IEntityWithMetadataResponse, IAPIEntity>(EEntity)
   project: PROJECT_CONTROLLER,
+  educationProgram: EDUCATION_PROGRAM_CONTROLLER,
 };

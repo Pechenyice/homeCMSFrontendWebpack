@@ -7,7 +7,7 @@ import { ProjectPage, ProjectsPage } from 'pagesComponents';
 import { useQuery, useQueryClient } from 'react-query';
 import { getProjectKey } from 'hooks/queries/keys';
 import { API } from 'api/controller';
-import { useProject } from 'hooks/queries/entities/useProject';
+import { useProject } from 'hooks/queries/entities/project/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useAuth, useErrors, useInfos } from 'hooks/index';
@@ -31,7 +31,7 @@ export const Project = () => {
 
   const handlePrint = async () => {
     try {
-      await downloadProject(userId as any, id as any);
+      await downloadProject(userId as any, id as any, true);
     } catch (e) {
       if (e instanceof ServerError) {
         addError('Произошла критическая ошибка при скачивании проекта!');

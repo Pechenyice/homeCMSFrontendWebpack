@@ -41,3 +41,11 @@ export interface ICommonExpierienceSwitchers {
   hasResultsMasterClasses: boolean;
   hasResultsOnWebsite: boolean;
 }
+
+export interface ICommonSwitchers extends ICommonExpierienceSwitchers {
+  partnership: boolean;
+  innovationGround: boolean;
+  hasExpertOpinion: boolean;
+  hasExpertReview: boolean;
+  hasExpertMention: boolean;
+}

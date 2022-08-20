@@ -16,8 +16,8 @@ import {
 import {
   ICommonContactsPartitionState,
   ICommonExpieriencePartitionState,
-  ICommonExpierienceSwitchers,
   ICommonMembersPartitionState,
+  ICommonSwitchers,
 } from '../states';
 
 export interface IProjectData
@@ -117,13 +117,8 @@ export interface IAPIProjectInfoPart {
  *
  */
 
-export interface IProjectSwitchers extends ICommonExpierienceSwitchers {
+export interface IProjectSwitchers extends ICommonSwitchers {
   organisator: boolean;
-  partnership: boolean;
-  innovationGround: boolean;
-  hasExpertOpinion: boolean;
-  hasExpertReview: boolean;
-  hasExpertMention: boolean;
 }
 
 export interface IProjectState {

@@ -3,7 +3,7 @@ import styles from './ProjectsAdminPage.module.scss';
 import { ProjectsFiltration } from 'components/entities/project/ProjectsFiltration/ProjectsFiltration';
 import { useSearchParams } from 'react-router-dom';
 import { useQueryParams } from 'hooks/utils/useQueryParams';
-import { useAdminProjects } from 'hooks/queries/entities/useAdminProjects';
+import { useAdminProjects } from 'hooks/queries/entities/project/useAdminProjects';
 import { EntitiesAdminTable } from 'components/entities/common/EntitiesAdminTable';
 
 type Props = {
