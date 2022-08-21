@@ -1,0 +1,54 @@
+.wrapper {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.flex {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: calc(50% - 50px) !important;
+}
+
+.leadHelper {
+  margin-bottom: 30px;
+}
+
+.membersEntry {
+  width: 100%;
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.membersDeleteAction {
+  width: max-content;
+  border-color: var(--light-error);
+  
+  
+  & > * {
+    color: var(--error);
+  }
+
+  &__wrapper {
+    width: 100%;
+  }
+}
+
+.actionWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,3 +1,4 @@
+import { IFullAPIClub } from 'types/entities/club';
 import { IFullAPIEducationProgram } from 'types/entities/educationProgram';
 import {
   IAPIAdminEntitiesArchiveList,
@@ -117,4 +118,8 @@ export interface IEducationProgramWithMetadataResponse extends IResponseError {
 
 export interface ISocialWorkWithMetadataResponse extends IResponseError {
   data: IFullAPISocialWork | null;
+}
+
+export interface IClubWithMetadataResponse extends IResponseError {
+  data: IFullAPIClub | null;
 }

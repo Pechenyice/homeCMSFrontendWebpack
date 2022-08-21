@@ -17,6 +17,10 @@ import { SocialWorks } from 'pages/socialWorks/SocialWorks/SocialWorks';
 import { SocialWork } from 'pages/socialWorks/SocialWork/SocialWork';
 import { SocialWorkCreation } from 'pages/socialWorks/SocialWorkCreation/SocialWorkCreation';
 import { SocialWorkEdition } from 'pages/socialWorks/SocialWorkEdition/SocialWorkEdition';
+import { Clubs } from 'pages/Clubs/Clubs/Clubs';
+import { Club } from 'pages/clubs/Club/Club';
+import { ClubCreation } from 'pages/clubs/ClubCreation/ClubCreation';
+import { ClubEdition } from 'pages/clubs/ClubEdition/ClubEdition';
 
 const ClientApp = () => {
   return (
@@ -56,6 +60,15 @@ const ClientApp = () => {
             <Route path=":id">
               <Route index element={<SocialWork />} />
               <Route path="edit" element={<SocialWorkEdition />} />
+            </Route>
+          </Route>
+
+          <Route path="clubs">
+            <Route index element={<Clubs />} />
+            <Route path="create" element={<ClubCreation />} />
+            <Route path=":id">
+              <Route index element={<Club />} />
+              <Route path="edit" element={<ClubEdition />} />
             </Route>
           </Route>
         </Route>

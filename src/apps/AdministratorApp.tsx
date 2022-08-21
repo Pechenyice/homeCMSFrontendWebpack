@@ -8,8 +8,11 @@ import { EducationProgram } from 'pages/admin/educationPrograms/EducationProgram
 import { EducationPrograms } from 'pages/admin/educationPrograms/EducationPrograms/EducationPrograms';
 import { EducationProgramsArchive } from 'pages/admin/educationPrograms/EducationProgramsArchive/EducationProgramsArchive';
 import { SocialWork } from 'pages/admin/socialWorks/SocialWork/SocialWork';
-import { SocialWorksPrograms } from 'pages/admin/socialWorks/SocialWorksPrograms/SocialWorksPrograms';
+import { SocialWorks } from 'pages/admin/socialWorks/SocialWorks/SocialWorks';
 import { SocialWorksArchive } from 'pages/admin/socialWorks/SocialWorksArchive/SocialWorksArchive';
+import { Club } from 'pages/admin/clubs/Club/Club';
+import { Clubs } from 'pages/admin/clubs/Clubs/Clubs';
+import { ClubsArchive } from 'pages/admin/clubs/ClubsArchive/ClubsArchive';
 
 const AdministratorApp = () => {
   return (
@@ -28,6 +31,7 @@ const AdministratorApp = () => {
               <Route path="projects/:id" element={<Project />} />
               <Route path="education/:id" element={<EducationProgram />} />
               <Route path="social/:id" element={<SocialWork />} />
+              <Route path="clubs/:id" element={<Club />} />
             </Route>
           </Route>
 
@@ -42,8 +46,13 @@ const AdministratorApp = () => {
           </Route>
 
           <Route path="social">
-            <Route index element={<SocialWorksPrograms />} />
+            <Route index element={<SocialWorks />} />
             <Route path="archive" element={<SocialWorksArchive />} />
+          </Route>
+
+          <Route path="clubs">
+            <Route index element={<Clubs />} />
+            <Route path="archive" element={<ClubsArchive />} />
           </Route>
         </Route>
       </Routes>

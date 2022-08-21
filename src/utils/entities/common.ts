@@ -1,3 +1,4 @@
+import { IClubData, IFullAPIClub } from 'types/entities/club';
 import {
   IEducationProgramData,
   IFullAPIEducationProgram,
@@ -27,7 +28,7 @@ export const getRelatedCategoriesOptions = (
 };
 
 export const generateCommonToAPIPart = (
-  entity: IProjectData | IEducationProgramData | ISocialWorkData
+  entity: IProjectData | IEducationProgramData | ISocialWorkData | IClubData
 ) => {
   return {
     primary: {
@@ -135,7 +136,11 @@ export const generateCommonToAPIPart = (
 };
 
 export const generateCommonFromAPIPart = (
-  entity: IFullAPIProject | IFullAPIEducationProgram | IFullAPISocialWork
+  entity:
+    | IFullAPIProject
+    | IFullAPIEducationProgram
+    | IFullAPISocialWork
+    | IFullAPIClub
 ) => {
   return {
     name: entity.primary.name,

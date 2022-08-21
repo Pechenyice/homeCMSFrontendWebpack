@@ -52,6 +52,21 @@ export const downloadSocialWork = async (
 
   const a = document.createElement('a');
   a.href = window.URL.createObjectURL(blob);
-  a.download = `company_${userId}_social_program_${id}.pdf`;
+  a.download = `company_${userId}_social_work_${id}.pdf`;
+  a.click();
+};
+
+export const downloadClub = async (
+  userId: number,
+  id: number,
+  isAdmin?: boolean
+) => {
+  const response = await API.club.download(userId, id, isAdmin);
+
+  const blob = await response.blob();
+
+  const a = document.createElement('a');
+  a.href = window.URL.createObjectURL(blob);
+  a.download = `company_${userId}_club_${id}.pdf`;
   a.click();
 };

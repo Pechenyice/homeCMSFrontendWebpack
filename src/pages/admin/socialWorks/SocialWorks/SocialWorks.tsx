@@ -4,7 +4,7 @@ import { Action, Breadcrumbs, Layout } from 'components/kit';
 import { useNavigate } from 'react-router-dom';
 import { SocialWorksAdminPage } from 'pagesComponents/admin/entities/socialWork/SocialWorksAdminPage/SocialWorksAdminPage';
 
-export const SocialWorksPrograms = () => {
+export const SocialWorks = () => {
   const navigate = useNavigate();
 
   return (

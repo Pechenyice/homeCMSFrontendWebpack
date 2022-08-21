@@ -35,4 +35,6 @@ export const getSocialWorkKey = (id: string, userId?: number) => [
   userId,
 ];
 
+export const getClubKey = (id: string, userId?: number) => ['club', id, userId];
+
 export const getCompanyKey = (userId: string) => ['company', userId];

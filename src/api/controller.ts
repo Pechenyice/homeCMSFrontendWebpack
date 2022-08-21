@@ -3,6 +3,7 @@ import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
 import { aborts } from './aborts';
 import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
+import { CLUB_CONTROLLER } from './entities/club';
 import { EDUCATION_PROGRAM_CONTROLLER } from './entities/educationProgram';
 import { PROJECT_CONTROLLER } from './entities/project';
 import { SOCIAL_WORK_CONTROLLER } from './entities/socialWork';
@@ -171,4 +172,5 @@ export const API = {
   project: PROJECT_CONTROLLER,
   educationProgram: EDUCATION_PROGRAM_CONTROLLER,
   socialWork: SOCIAL_WORK_CONTROLLER,
+  club: CLUB_CONTROLLER,
 };
