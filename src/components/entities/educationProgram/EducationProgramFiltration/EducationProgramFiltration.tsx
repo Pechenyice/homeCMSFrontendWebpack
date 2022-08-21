@@ -61,7 +61,7 @@ const defaultState = {
 
   //specific
   need_recognition_ids: [],
-  direction: -1,
+  direction_id: -1,
 };
 
 const defaultAdminState = {
@@ -190,7 +190,7 @@ export const EducationProgramsFiltration = ({
       need_recognition_ids: !state.need_recognition_ids.length
         ? undefined
         : state.need_recognition_ids.join(','),
-      direction: state.direction === -1 ? undefined : state.direction,
+      direction_id: state.direction_id === -1 ? undefined : state.direction_id,
     };
 
     const adminAddon = isAdmin ? { company: state.company || undefined } : {};
@@ -470,10 +470,10 @@ export const EducationProgramsFiltration = ({
             <Select
               emptyText="Все"
               unselectedText="Все"
-              value={isNaN(+state.direction) ? -1 : +state.direction}
+              value={isNaN(+state.direction_id) ? -1 : +state.direction_id}
               options={directions!}
               heading="Направленность"
-              onChangeOption={bindSelectChange('direction')}
+              onChangeOption={bindSelectChange('direction_id')}
             />
           )}
         </div>

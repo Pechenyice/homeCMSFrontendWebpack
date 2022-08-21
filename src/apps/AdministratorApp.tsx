@@ -4,6 +4,9 @@ import { Companies, Project, Projects, ProjectsArchive } from 'pages/admin';
 import NotFound from 'components/404/404';
 import { AdminMain } from 'components/AdminMain/AdminMain';
 import { Company } from 'pages/admin/Company/Company';
+import { EducationProgram } from 'pages/admin/educationPrograms/EducationProgram/EducationProgram';
+import { EducationPrograms } from 'pages/admin/educationPrograms/EducationPrograms/EducationPrograms';
+import { EducationProgramsArchive } from 'pages/admin/educationPrograms/EducationProgramsArchive/EducationProgramsArchive';
 
 const AdministratorApp = () => {
   return (
@@ -20,7 +23,7 @@ const AdministratorApp = () => {
               <Route index element={<Company />} />
 
               <Route path="projects/:id" element={<Project />} />
-              {/* <Route path="education/:id" element={<EducationProgram />} /> */}
+              <Route path="education/:id" element={<EducationProgram />} />
             </Route>
           </Route>
 
@@ -30,8 +33,8 @@ const AdministratorApp = () => {
           </Route>
 
           <Route path="education">
-            {/* <Route index element={<EducationPrograms />} /> */}
-            {/* <Route path="archive" element={<EducationProgramsArchive />} /> */}
+            <Route index element={<EducationPrograms />} />
+            <Route path="archive" element={<EducationProgramsArchive />} />
           </Route>
         </Route>
       </Routes>

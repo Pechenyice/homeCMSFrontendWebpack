@@ -76,7 +76,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
     worksKinds: project?.worksKinds ?? [], //Вид услуги
     worksNames: project?.worksNames ?? [], //Наименования услуг
     gosWorkNames: project?.gosWorkNames ?? [], //Наименование государственной работы
-    circumstancesRecognitionNeed: project?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
 
     name: registerInput(project?.name ?? '', textInputValidator), //Наименование
     bestPracticeForLeadership: project?.bestPracticeForLeadership ?? false, //Лучшая практика по мнению руководства организации
@@ -92,6 +91,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
     categories: project?.categories ?? [], //Категории
     groups: project?.groups ?? [], //Целевые группы
     socialHelpForm: project?.socialHelpForm ?? [], //Форма социального обслуживания (сопровождения)
+    circumstancesRecognitionNeed: project?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
     basicQualityResults: registerInput(
       project?.basicQualityResults ?? '',
       textInputValidator
@@ -484,7 +484,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
   // worksKinds: number[] | null; //Вид услуги
   // worksNames: number[] | null; //Наименования услуг
   // gosWorkNames: number[] | null; //Наименование государственной работы
-  // circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
 
   const validatePartition = () => {
     switch (currentStep) {
@@ -726,8 +725,6 @@ export const ProjectActionsPage = ({ project }: Props) => {
         gosWorkNames: mainPartition.gosWorkNames.length
           ? mainPartition.gosWorkNames
           : null,
-        circumstancesRecognitionNeed:
-          mainPartition.circumstancesRecognitionNeed,
 
         //common
         name: mainPartition.name.value,

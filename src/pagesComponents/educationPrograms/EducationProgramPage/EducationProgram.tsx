@@ -115,7 +115,11 @@ export const EducationProgramPage = ({ educationProgram, isAdmin }: Props) => {
 
       setIsLoading(true);
 
-      await API.project.approve(userId as any, educationProgram.id, isBest);
+      await API.educationProgram.approve(
+        userId as any,
+        educationProgram.id,
+        isBest
+      );
 
       setIsLoading(false);
 

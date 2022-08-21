@@ -353,55 +353,53 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
         </div>
       </div>
 
-      {
-        // TODO: add this field after refactor it to common field
-      }
-      {/* <div className={styles.half}>
-        {circumstancesRecognitionNeedLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Обстоятельства признания нуждаемости"
-          />
-        ) : circumstancesRecognitionNeedError ? (
-          <Input
-            value={''}
-            heading="Обстоятельства признания нуждаемости"
-            readOnly
-          />
-        ) : (
-          <MultipleSelect
-            viewMode
-            values={data.circumstancesRecognitionNeed}
-            options={circumstancesRecognitionNeed!}
-            heading="Обстоятельства признания нуждаемости"
-            onChangeOption={() => {}}
-          />
-        )}
-      </div> */}
-
       <div className={styles.half}>
-        {socialHelpFormLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Формы социального обслуживания (сопровождения)"
-          />
-        ) : socialHelpFormError ? (
-          <Input
-            value={''}
-            heading="Формы социального обслуживания (сопровождения)"
-            readOnly
-          />
-        ) : (
-          <MultipleSelect
-            viewMode
-            values={data.socialHelpForm}
-            options={socialHelpForm!}
-            heading="Формы социального обслуживания (сопровождения)"
-            onChangeOption={() => {}}
-          />
-        )}
+        <div className={styles.leadHelper}>
+          {circumstancesRecognitionNeedLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Обстоятельства признания нуждаемости"
+            />
+          ) : circumstancesRecognitionNeedError ? (
+            <Input
+              value={''}
+              heading="Обстоятельства признания нуждаемости"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              viewMode
+              values={data.circumstancesRecognitionNeed}
+              options={circumstancesRecognitionNeed!}
+              heading="Обстоятельства признания нуждаемости"
+              onChangeOption={() => {}}
+            />
+          )}
+        </div>
+        <div>
+          {socialHelpFormLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Формы социального обслуживания (сопровождения)"
+            />
+          ) : socialHelpFormError ? (
+            <Input
+              value={''}
+              heading="Формы социального обслуживания (сопровождения)"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              viewMode
+              values={data.socialHelpForm}
+              options={socialHelpForm!}
+              heading="Формы социального обслуживания (сопровождения)"
+              onChangeOption={() => {}}
+            />
+          )}
+        </div>
       </div>
 
       <TextArea

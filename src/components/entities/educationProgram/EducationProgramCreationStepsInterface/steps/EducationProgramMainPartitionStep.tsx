@@ -200,8 +200,8 @@ export const EducationProgramMainPartitionStep = ({
         value={mainPartition.name.value}
         onChange={onChange}
         error={mainPartition.name.error}
-        heading="Наименование проекта *"
-        placeholder="Наименование проекта"
+        heading="Наименование программы *"
+        placeholder="Наименование программы"
       />
 
       <Checkbox
@@ -218,7 +218,7 @@ export const EducationProgramMainPartitionStep = ({
         error={mainPartition.annotation.error}
         heading="Аннотация *"
         placeholder="Аннотация"
-        hint="Опишите проект, не более 2500 знаков без пробелов"
+        hint="Опишите программу, не более 2500 знаков без пробелов"
       />
       <TextArea
         className={styles.half}
@@ -226,8 +226,8 @@ export const EducationProgramMainPartitionStep = ({
         value={mainPartition.purpose.value}
         onChange={onChange}
         error={mainPartition.purpose.error}
-        heading="Цель проекта *"
-        placeholder="Цель проекта"
+        heading="Цель программы *"
+        placeholder="Цель программы"
       />
 
       <TextArea
@@ -428,34 +428,32 @@ export const EducationProgramMainPartitionStep = ({
         </div>
       </div>
 
-      {
-        // TODO: add this field after refactor it to common field
-      }
-      {/* <div className={styles.half}>
-        {circumstancesRecognitionNeedLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Обстоятельства признания нуждаемости *"
-          />
-        ) : circumstancesRecognitionNeedError ? (
-          <Input
-            value={''}
-            heading="Обстоятельства признания нуждаемости *"
-            readOnly
-          />
-        ) : (
-          <MultipleSelect
-            values={mainPartition.circumstancesRecognitionNeed}
-            options={circumstancesRecognitionNeed!}
-            heading="Обстоятельства признания нуждаемости *"
-            onChangeOption={bindMultipleSelect('circumstancesRecognitionNeed')}
-          />
-        )}
-      </div> */}
-
-      <div className={styles.full}>
-        <div className={styles.half}>
+      <div className={styles.half}>
+        <div className={styles.leadHelper}>
+          {circumstancesRecognitionNeedLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Обстоятельства признания нуждаемости *"
+            />
+          ) : circumstancesRecognitionNeedError ? (
+            <Input
+              value={''}
+              heading="Обстоятельства признания нуждаемости *"
+              readOnly
+            />
+          ) : (
+            <MultipleSelect
+              values={mainPartition.circumstancesRecognitionNeed}
+              options={circumstancesRecognitionNeed!}
+              heading="Обстоятельства признания нуждаемости *"
+              onChangeOption={bindMultipleSelect(
+                'circumstancesRecognitionNeed'
+              )}
+            />
+          )}
+        </div>
+        <div>
           {socialHelpFormLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -507,7 +505,7 @@ export const EducationProgramMainPartitionStep = ({
         error={mainPartition.replicability.error}
         heading="Тиражируемость"
         placeholder="Тиражируемость"
-        hint="Укажите, когда и какая организация внедрила Ваш проект в свою работу"
+        hint="Укажите, когда и какая организация внедрила Вашу программу в свою работу"
       />
       <HelperEnableSelect
         className={styles.half}

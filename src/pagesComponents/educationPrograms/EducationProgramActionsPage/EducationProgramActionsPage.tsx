@@ -96,6 +96,7 @@ export const EducationProgramActionsPage = ({ data }: Props) => {
     categories: data?.categories ?? [], //Категории
     groups: data?.groups ?? [], //Целевые группы
     socialHelpForm: data?.socialHelpForm ?? [], //Форма социального обслуживания (сопровождения)
+    circumstancesRecognitionNeed: data?.circumstancesRecognitionNeed ?? [], //Обстоятельства признания нуждаемости
     basicQualityResults: registerInput(
       data?.basicQualityResults ?? '',
       textInputValidator
@@ -532,8 +533,7 @@ export const EducationProgramActionsPage = ({ data }: Props) => {
           !!mainPartition.rnsuCategories.length &&
           !!mainPartition.categories.length &&
           !!mainPartition.groups.length &&
-          // TODO: add this field after refactor it to common field
-          // !!mainPartition.circumstancesRecognitionNeed.length &&
+          !!mainPartition.circumstancesRecognitionNeed.length &&
           !!mainPartition.socialHelpForm.length;
 
         return validationSuccess && selectSuccess && multipleSelectSuccess;

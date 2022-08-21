@@ -1,0 +1,15 @@
+.content {
+  margin-top: 50px;
+}
+
+.controls {
+  width: 100%;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  &__button {
+    width: 250px;
+  }
+}

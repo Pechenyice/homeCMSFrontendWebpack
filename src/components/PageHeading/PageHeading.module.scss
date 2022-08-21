@@ -10,8 +10,10 @@
 }
 
 .lineMain {
+  max-width: 700px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 30px;
 }
 
@@ -29,6 +31,7 @@
 
 .metaWrapper {
   display: flex;
+  align-self: flex-start;
   gap: 20px;
 }
 

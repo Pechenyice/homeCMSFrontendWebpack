@@ -1,4 +1,4 @@
-import styles from './Project.module.scss';
+import styles from './EducationProgram.module.scss';
 import { Dropdown, PageHeading } from 'components';
 import { Action, Breadcrumbs, Layout, Text } from 'components/kit';
 import { ChevronRightIcon, EditIcon } from 'assets/icons';
@@ -11,9 +11,11 @@ import { useProject } from 'hooks/queries/entities/project/useProject';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import { useAuth, useErrors, useInfos } from 'hooks/index';
-import { downloadProject } from 'utils/print';
+import { downloadEducationProgram, downloadProject } from 'utils/print';
+import { useEducationProgram } from 'hooks/queries/entities/educationProgram/useEducationProgram';
+import { EducationProgramPage } from 'pagesComponents/educationPrograms/EducationProgramPage/EducationProgram';
 
-export const Project = () => {
+export const EducationProgram = () => {
   const { id, userId } = useParams();
   const navigate = useNavigate();
 
@@ -24,17 +26,19 @@ export const Project = () => {
   const { addInfo } = useInfos();
 
   const {
-    apiData: project,
-    isLoading: isProjectLoading,
-    isError: isProjectError,
-  } = useProject(id as string, userId as any, true);
+    apiData: educationProgram,
+    isLoading: isEducationProgramLoading,
+    isError: isEducationProgramError,
+  } = useEducationProgram(id as string, userId as any, true);
 
   const handlePrint = async () => {
     try {
-      await downloadProject(userId as any, id as any, true);
+      await downloadEducationProgram(userId as any, id as any, true);
     } catch (e) {
       if (e instanceof ServerError) {
-        addError('Произошла критическая ошибка при скачивании проекта!');
+        addError(
+          'Произошла критическая ошибка при скачивании образовательной программы!'
+        );
       } else if (e instanceof AuthError) {
         handleLogout();
       } else if (e instanceof ApiError) {
@@ -45,16 +49,18 @@ export const Project = () => {
 
   const handleRestore = async () => {
     try {
-      await API.project.restore(userId as any, id as any);
+      await API.educationProgram.restore(userId as any, id as any);
 
-      addInfo('Проект успешно восстановлен!');
+      addInfo('Образовательная программа успешно восстановлена!');
 
-      queryClient.invalidateQueries('project');
+      queryClient.invalidateQueries('educationProgram');
 
-      navigate('/projects');
+      navigate('/education');
     } catch (e) {
       if (e instanceof ServerError) {
-        addError('Произошла критическая ошибка при восстановлении проекта!');
+        addError(
+          'Произошла критическая ошибка при восстановлении образовательной программы!'
+        );
       } else if (e instanceof AuthError) {
         handleLogout();
       } else if (e instanceof ApiError) {
@@ -67,26 +73,26 @@ export const Project = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { link: '/projects', alias: 'Проекты' },
-          { alias: 'Просмотр проекта' },
+          { link: '/education', alias: 'Доп. образовательные программы' },
+          { alias: 'Просмотр доп. образовательной программы' },
         ]}
       />
-      {isProjectLoading ? (
+      {isEducationProgramLoading ? (
         <PageLoader />
-      ) : isProjectError ? (
+      ) : isEducationProgramError ? (
         <></>
       ) : (
         <>
           <PageHeading
-            heading="Просмотр проекта"
-            status={project!.status}
-            isDeleted={project!.isDeleted}
-            isBest={project!.isBest}
+            heading="Просмотр доп. образовательной программы"
+            status={educationProgram!.status}
+            isDeleted={educationProgram!.isDeleted}
+            isBest={educationProgram!.isBest}
             cause={
               <Text isMedium>
-                Проект отклонен со следующими ошибками:
+                Доп. образовательная программа отклонена со следующими ошибками:
                 <br />
-                {project!.cause}
+                {educationProgram!.cause}
               </Text>
             }
             action={
@@ -100,7 +106,7 @@ export const Project = () => {
                 <div className={styles.dropdownElem} onClick={handlePrint}>
                   <Text isMedium>Распечатать</Text>
                 </div>
-                {project!.isDeleted && (
+                {educationProgram!.isDeleted && (
                   <div className={styles.dropdownElem} onClick={handleRestore}>
                     <Text isMedium>Восстановить</Text>
                   </div>
@@ -108,7 +114,7 @@ export const Project = () => {
               </Dropdown>
             }
           />
-          <ProjectPage project={project!} isAdmin />
+          <EducationProgramPage educationProgram={educationProgram!} isAdmin />
         </>
       )}
     </Layout>

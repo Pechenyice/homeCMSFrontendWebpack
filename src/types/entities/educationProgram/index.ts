@@ -52,6 +52,7 @@ export interface IEducationProgramMainPartition {
   categories: number[]; //Категории
   groups: number[]; //Целевые группы
   socialHelpForm: number[]; //Форма социального обслуживания (сопровождения)
+  circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
   basicQualityResults: string; //Основные качественные результаты
   socialResults: string; //Социальный результаты
   replicability: string | null; //Тиражируемость
@@ -133,6 +134,7 @@ export interface IEducationProgramState {
     categories: number[]; //Категории
     groups: number[]; //Целевые группы
     socialHelpForm: number[]; //Форма социального обслуживания (сопровождения)
+    circumstancesRecognitionNeed: number[]; //Обстоятельства признания нуждаемости
     basicQualityResults: IInput; //Основные качественные результаты
     socialResults: IInput; //Социальный результаты
     replicability: IInput; //Тиражируемость

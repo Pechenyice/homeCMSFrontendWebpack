@@ -102,6 +102,7 @@ export interface IAPICommonPrimaryPart {
   needy_category_ids: number[]; //Категории
   needy_category_target_group_ids: number[]; // Целевые группы
   social_service_ids: number[]; //Форма социального обслуживания (сопровождения)
+  need_recognition_ids: number[]; //Обстоятельства признания нуждаемости
   qualitative_results: string; //Основные качественные результаты
   social_results: string; //Социальные результаты
   replicability: string | null; // Тиражируемость
