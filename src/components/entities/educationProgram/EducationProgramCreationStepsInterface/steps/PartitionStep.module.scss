@@ -5,6 +5,13 @@
   flex-wrap: wrap;
 }
 
+.flex {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
 .full {
   width: 100%;
 }

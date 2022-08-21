@@ -13,6 +13,7 @@ export const gosWorkNamesKey = 'public-work';
 export const socialHelpFormKey = 'social-service';
 export const directionsKey = 'direction';
 export const conductingClassesFormKey = 'conducting-classes-form';
+export const programTypesKey = 'program-type';
 
 export const getEntitiesYearsKey = 'entitiesYears';
 
@@ -24,6 +25,12 @@ export const getProjectKey = (id: string, userId?: number) => [
 
 export const getEducationProgramKey = (id: string, userId?: number) => [
   'educationProgram',
+  id,
+  userId,
+];
+
+export const getSocialWorkKey = (id: string, userId?: number) => [
+  'socialWork',
   id,
   userId,
 ];

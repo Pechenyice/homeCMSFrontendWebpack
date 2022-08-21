@@ -13,6 +13,10 @@ import { EducationPrograms } from 'pages/educationPrograms/EducationPrograms/Edu
 import { EducationProgram } from 'pages/educationPrograms/EducationProgram/EducationProgram';
 import { EducationProgramCreation } from 'pages/educationPrograms/EducationProgramCreation/EducationProgramCreation';
 import { EducationProgramEdition } from 'pages/educationPrograms/EducationProgramEdition/EducationProgramEdition';
+import { SocialWorks } from 'pages/socialWorks/SocialWorks/SocialWorks';
+import { SocialWork } from 'pages/socialWorks/SocialWork/SocialWork';
+import { SocialWorkCreation } from 'pages/socialWorks/SocialWorkCreation/SocialWorkCreation';
+import { SocialWorkEdition } from 'pages/socialWorks/SocialWorkEdition/SocialWorkEdition';
 
 const ClientApp = () => {
   return (
@@ -43,6 +47,15 @@ const ClientApp = () => {
             <Route path=":id">
               <Route index element={<EducationProgram />} />
               <Route path="edit" element={<EducationProgramEdition />} />
+            </Route>
+          </Route>
+
+          <Route path="social">
+            <Route index element={<SocialWorks />} />
+            <Route path="create" element={<SocialWorkCreation />} />
+            <Route path=":id">
+              <Route index element={<SocialWork />} />
+              <Route path="edit" element={<SocialWorkEdition />} />
             </Route>
           </Route>
         </Route>

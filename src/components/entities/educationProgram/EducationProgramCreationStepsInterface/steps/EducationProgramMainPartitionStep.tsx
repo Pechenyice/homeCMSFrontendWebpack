@@ -428,8 +428,8 @@ export const EducationProgramMainPartitionStep = ({
         </div>
       </div>
 
-      <div className={styles.half}>
-        <div className={styles.leadHelper}>
+      <div className={combineClasses(styles.full, styles.flex)}>
+        <div className={styles.half}>
           {circumstancesRecognitionNeedLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -453,7 +453,7 @@ export const EducationProgramMainPartitionStep = ({
             />
           )}
         </div>
-        <div>
+        <div className={styles.half}>
           {socialHelpFormLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}

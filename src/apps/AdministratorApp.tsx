@@ -7,6 +7,9 @@ import { Company } from 'pages/admin/Company/Company';
 import { EducationProgram } from 'pages/admin/educationPrograms/EducationProgram/EducationProgram';
 import { EducationPrograms } from 'pages/admin/educationPrograms/EducationPrograms/EducationPrograms';
 import { EducationProgramsArchive } from 'pages/admin/educationPrograms/EducationProgramsArchive/EducationProgramsArchive';
+import { SocialWork } from 'pages/admin/socialWorks/SocialWork/SocialWork';
+import { SocialWorksPrograms } from 'pages/admin/socialWorks/SocialWorksPrograms/SocialWorksPrograms';
+import { SocialWorksArchive } from 'pages/admin/socialWorks/SocialWorksArchive/SocialWorksArchive';
 
 const AdministratorApp = () => {
   return (
@@ -24,6 +27,7 @@ const AdministratorApp = () => {
 
               <Route path="projects/:id" element={<Project />} />
               <Route path="education/:id" element={<EducationProgram />} />
+              <Route path="social/:id" element={<SocialWork />} />
             </Route>
           </Route>
 
@@ -35,6 +39,11 @@ const AdministratorApp = () => {
           <Route path="education">
             <Route index element={<EducationPrograms />} />
             <Route path="archive" element={<EducationProgramsArchive />} />
+          </Route>
+
+          <Route path="social">
+            <Route index element={<SocialWorksPrograms />} />
+            <Route path="archive" element={<SocialWorksArchive />} />
           </Route>
         </Route>
       </Routes>

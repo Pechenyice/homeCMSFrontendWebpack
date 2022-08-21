@@ -40,3 +40,18 @@ export const downloadEducationProgram = async (
   a.download = `company_${userId}_edu_program_${id}.pdf`;
   a.click();
 };
+
+export const downloadSocialWork = async (
+  userId: number,
+  id: number,
+  isAdmin?: boolean
+) => {
+  const response = await API.socialWork.download(userId, id, isAdmin);
+
+  const blob = await response.blob();
+
+  const a = document.createElement('a');
+  a.href = window.URL.createObjectURL(blob);
+  a.download = `company_${userId}_social_program_${id}.pdf`;
+  a.click();
+};

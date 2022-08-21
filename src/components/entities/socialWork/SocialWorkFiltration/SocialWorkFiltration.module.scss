@@ -1,0 +1,121 @@
+.wrapper {
+  position: relative;
+  background: var(--white);
+  border: 1px solid #EFF1F8;
+  box-shadow: 0px 5px 80px rgba(140, 145, 181, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  padding-bottom: 70px;
+  max-height: 195px;
+  transition: .2s;
+
+  & .filtrationAddon {
+    pointer-events: none;
+  }
+
+  &_opened {
+    max-height: 1160px;
+    opacity: 1;
+    transition: .2s;
+
+    & .filtrationAddon {
+      pointer-events: all;
+    }
+  }
+}
+
+.inner {
+  display: flex;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.mainFiltration {
+  display: flex;
+  gap: 20px;
+}
+
+.actionsFiltration {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filter {
+  width: 439px;
+  align-self: flex-end;
+
+  &_small {
+    width: 287px;
+  }
+}
+
+.clear {
+  min-width: max-content;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.action {
+  width: 200px;
+}
+
+.chevron {
+  transform: rotateZ(-90deg);
+  fill: var(--blue);
+  transition: .2s;
+
+  &_rotated {
+    transform: rotateZ(0deg);
+    transition: .2s;
+
+    &Reverse {
+      transform: rotateZ(180deg);
+    transition: .2s;
+    }
+  }
+}
+
+.openedBlock {
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.openedBlock__control {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  cursor: pointer;
+  
+  & * {
+    color: var(--blue);
+  }
+
+  & .chevron {
+    margin-top: 5px;
+  }
+}
+
+.filtrationAddon {
+  height: max-content;
+  margin-top: 40px;
+  border-top: 1px solid var(--light-gray);
+  padding-top: 40px;
+  display: flex;
+  gap: 20px;
+  row-gap: 40px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transition: .2s;
+
+  &_opened {
+    opacity: 1;
+    transition: .2s;
+  }
+}

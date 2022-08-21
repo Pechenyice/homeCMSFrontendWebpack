@@ -12,7 +12,7 @@ export const EducationProgramCreation = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { link: '/Education', alias: 'Доп. образовательные программы' },
+          { link: '/education', alias: 'Доп. образовательные программы' },
           { alias: 'Создать доп. образовательную программу' },
         ]}
       />

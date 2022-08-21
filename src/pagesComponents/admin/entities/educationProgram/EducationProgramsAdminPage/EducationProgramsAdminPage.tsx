@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './ProjectsAdminPage.module.scss';
+import styles from './EducationProgramsAdminPage.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useQueryParams } from 'hooks/utils/useQueryParams';
 import { useAdminProjects } from 'hooks/queries/entities/project/useAdminProjects';

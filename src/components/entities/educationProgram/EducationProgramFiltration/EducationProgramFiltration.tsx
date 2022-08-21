@@ -57,10 +57,10 @@ const defaultState = {
   needy_category_target_group_ids: [],
   rnsu_category_ids: [],
   social_service_ids: [],
+  need_recognition_ids: [],
   volunteer_id: -1,
 
   //specific
-  need_recognition_ids: [],
   direction_id: -1,
 };
 
@@ -110,23 +110,24 @@ export const EducationProgramsFiltration = ({
     isError: attractingVolunteerError,
   } = useAttractingVolunteer();
 
-  // specific
   const {
     apiData: circumstancesRecognitionNeed,
     isLoading: circumstancesRecognitionNeedLoading,
     isError: circumstancesRecognitionNeedError,
   } = useCircumstancesRecognitionNeed();
-  const {
-    apiData: directions,
-    isLoading: directionsLoading,
-    isError: directionsError,
-  } = useDirections();
 
   const {
     apiData: entitiesYears,
     isLoading: entitiesYearsLoading,
     isError: entitiesYearsError,
   } = useEntitiesYears();
+
+  // specific
+  const {
+    apiData: directions,
+    isLoading: directionsLoading,
+    isError: directionsError,
+  } = useDirections();
 
   const [isOpened, setIsOpened] = useState(false);
 
@@ -185,11 +186,11 @@ export const EducationProgramsFiltration = ({
         .length
         ? undefined
         : state.needy_category_target_group_ids.join(','),
-
-      //specific
       need_recognition_ids: !state.need_recognition_ids.length
         ? undefined
         : state.need_recognition_ids.join(','),
+
+      //specific
       direction_id: state.direction_id === -1 ? undefined : state.direction_id,
     };
 

@@ -21,7 +21,7 @@ export const EducationProgramEdition = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { link: '/Education', alias: 'Доп. образовательные программы' },
+          { link: '/education', alias: 'Доп. образовательные программы' },
           { alias: 'Редактировать доп. образовательную программу' },
         ]}
       />

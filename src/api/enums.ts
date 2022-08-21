@@ -9,4 +9,5 @@ export enum EAPIMethod {
 export enum EEntity {
   PROJECT = 'PROJECT',
   EDUCATION_PROGRAM = 'EDUCATION_PROGRAM',
+  SOCIAL_WORK = 'SOCIAL_WORK',
 }

@@ -5,6 +5,7 @@ import {
   IAPIEntitiesList,
 } from 'types/entities/entities';
 import { IFullAPIProject } from 'types/entities/project';
+import { IFullAPISocialWork } from 'types/entities/socialWork';
 import {
   ISelectValue,
   IAPIProfileData,
@@ -112,4 +113,8 @@ export interface IProjectWithMetadataResponse extends IResponseError {
 
 export interface IEducationProgramWithMetadataResponse extends IResponseError {
   data: IFullAPIEducationProgram | null;
+}
+
+export interface ISocialWorkWithMetadataResponse extends IResponseError {
+  data: IFullAPISocialWork | null;
 }

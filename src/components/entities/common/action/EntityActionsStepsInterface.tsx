@@ -1,6 +1,7 @@
 import { EEntity } from 'api/enums';
 import { EducationProgramMainPartitionStep } from 'components/entities/educationProgram/EducationProgramCreationStepsInterface/steps/EducationProgramMainPartitionStep';
 import { ProjectMainPartitionStep } from 'components/entities/project/ProjectCreationStepsInterface/steps/ProjectMainPartitionStep';
+import { SocialWorkMainPartitionStep } from 'components/entities/socialWork/SocialWorkCreationStepsInterface/steps/SocialWorkMainPartitionStep';
 import { ChangeEvent, useMemo } from 'react';
 import { IProjectSwitchers } from 'types/entities/project';
 import {
@@ -170,6 +171,25 @@ export const EntityActionsStepsInterface = ({
       case EEntity.EDUCATION_PROGRAM: {
         return (
           <EducationProgramMainPartitionStep
+            switchers={switchers}
+            mainPartition={mainPartition}
+            onChange={bindChange(EEntityPartition.MAIN)}
+            onSwitcherChange={onSwitcherChange}
+            onSelect={bindSelectChange(EEntityPartition.MAIN)}
+            onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
+            onMultipleParentSelect={bindMultipleParentSelectChange(
+              EEntityPartition.MAIN
+            )}
+            onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
+            onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
+            onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
+            onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+          />
+        );
+      }
+      case EEntity.SOCIAL_WORK: {
+        return (
+          <SocialWorkMainPartitionStep
             switchers={switchers}
             mainPartition={mainPartition}
             onChange={bindChange(EEntityPartition.MAIN)}

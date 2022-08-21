@@ -56,12 +56,12 @@ const defaultState = {
   needy_category_target_group_ids: [],
   rnsu_category_ids: [],
   social_service_ids: [],
+  need_recognition_ids: [],
   volunteer_id: -1,
 
   //specific
   implementation_level_id: -1,
   is_participant: -1,
-  need_recognition_ids: [],
   public_work_ids: [],
   service_name_ids: [],
   service_type_ids: [],
@@ -113,17 +113,24 @@ export const ProjectsFiltration = ({
     isError: attractingVolunteerError,
   } = useAttractingVolunteer();
 
+  const {
+    apiData: circumstancesRecognitionNeed,
+    isLoading: circumstancesRecognitionNeedLoading,
+    isError: circumstancesRecognitionNeedError,
+  } = useCircumstancesRecognitionNeed();
+
+  const {
+    apiData: entitiesYears,
+    isLoading: entitiesYearsLoading,
+    isError: entitiesYearsError,
+  } = useEntitiesYears();
+
   // specific
   const {
     apiData: realizationLevels,
     isLoading: realizationLevelsLoading,
     isError: realizationLevelsError,
   } = useRealizationLevels();
-  const {
-    apiData: circumstancesRecognitionNeed,
-    isLoading: circumstancesRecognitionNeedLoading,
-    isError: circumstancesRecognitionNeedError,
-  } = useCircumstancesRecognitionNeed();
   const {
     apiData: gosWorkNames,
     isLoading: gosWorkNamesLoading,
@@ -145,12 +152,6 @@ export const ProjectsFiltration = ({
     isLoading: worksKindsToWorksNamesLoading,
     isError: worksKindsToWorksNamesError,
   } = useWorksKindsToWorksNames();
-
-  const {
-    apiData: entitiesYears,
-    isLoading: entitiesYearsLoading,
-    isError: entitiesYearsError,
-  } = useEntitiesYears();
 
   const [isOpened, setIsOpened] = useState(false);
 
@@ -209,6 +210,9 @@ export const ProjectsFiltration = ({
         .length
         ? undefined
         : state.needy_category_target_group_ids.join(','),
+      need_recognition_ids: !state.need_recognition_ids.length
+        ? undefined
+        : state.need_recognition_ids.join(','),
 
       //specific
       implementation_level_id:
@@ -217,9 +221,6 @@ export const ProjectsFiltration = ({
           : state.implementation_level_id,
       is_participant:
         state.is_participant === -1 ? undefined : state.is_participant,
-      need_recognition_ids: !state.need_recognition_ids.length
-        ? undefined
-        : state.need_recognition_ids.join(','),
       public_work_ids: !state.public_work_ids.length
         ? undefined
         : state.public_work_ids.join(','),

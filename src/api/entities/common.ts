@@ -26,6 +26,9 @@ export const getEntityPath = (entity: EEntity) => {
     case EEntity.EDUCATION_PROGRAM: {
       return 'edu-programs';
     }
+    case EEntity.SOCIAL_WORK: {
+      return 'social-works';
+    }
   }
 };
 

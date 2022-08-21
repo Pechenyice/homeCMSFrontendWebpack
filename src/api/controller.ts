@@ -5,6 +5,7 @@ import { aborts } from './aborts';
 import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
 import { EDUCATION_PROGRAM_CONTROLLER } from './entities/educationProgram';
 import { PROJECT_CONTROLLER } from './entities/project';
+import { SOCIAL_WORK_CONTROLLER } from './entities/socialWork';
 import { AuthError } from './errors';
 import {
   IProfileCheckAuthResponse,
@@ -169,4 +170,5 @@ export const API = {
   // TODO: can be abstracted to one line generation with TS Generic generateController<IEntityWithMetadataResponse, IAPIEntity>(EEntity)
   project: PROJECT_CONTROLLER,
   educationProgram: EDUCATION_PROGRAM_CONTROLLER,
+  socialWork: SOCIAL_WORK_CONTROLLER,
 };
