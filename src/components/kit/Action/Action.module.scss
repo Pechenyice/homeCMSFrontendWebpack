@@ -28,4 +28,12 @@
       color: var(--error);
     }
   }
+
+  &_disabled {
+    opacity: .6;
+
+    & > * {
+      opacity: .6;
+    }
+  }
 }

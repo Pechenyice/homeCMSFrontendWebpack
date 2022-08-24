@@ -34,7 +34,7 @@ export const Header = (props: Props) => {
         <Link to={'/clubs'}>
           <Text isMedium>Клубы</Text>
         </Link>
-        <Link to={'/technologies'}>
+        <Link to={'/methodologies'}>
           <Text isMedium>Методики и технологии</Text>
         </Link>
       </nav>

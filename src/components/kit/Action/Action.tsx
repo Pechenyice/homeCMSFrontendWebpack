@@ -29,6 +29,7 @@ export const Action = (props: HTMLAttributes<HTMLDivElement> & Props) => {
       className={combineClasses(
         styles.styled,
         isDeleteMode ? styles.styled_delete : '',
+        isDisabled ? styles.styled_disabled : '',
         className ?? ''
       )}
       onClick={isDisabled ? undefined : onClick}

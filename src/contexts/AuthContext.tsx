@@ -1,9 +1,10 @@
 import { API } from 'api';
 import { ApiError, AuthError, ServerError } from 'api/errors';
 import UnauthorizedApp from 'apps/UnauthorizedApp/UnauthorizedApp';
-import { ErrorsList, InfosList, Preloader } from 'components';
+import { Preloader } from 'components';
 import { useErrors, useInfos } from 'hooks';
 import { createContext, FC, useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { EAuthStatus } from 'types/enums';
 import { ICompany, IProfile, IUser } from 'types/interfaces';
 import { mapCompanyFromAPI } from 'utils/api';
@@ -31,6 +32,8 @@ export const AuthProvider: FC = ({ children }) => {
 
   const { addError, removeAllErrors } = useErrors();
   const { removeAllInfos } = useInfos();
+
+  const queryClient = useQueryClient();
 
   const updateProfile = (company: ICompany) => {
     setState({ ...state, profile: { ...state.profile!, company } });
@@ -149,22 +152,27 @@ export const AuthProvider: FC = ({ children }) => {
 
   const internalLogout = async () => {
     try {
-      setState({
-        ...state,
-        status: EAuthStatus.PENDING,
-      });
+      // setState({
+      //   ...state,
+      //   status: EAuthStatus.PENDING,
+      // });
 
       removeAllErrors();
       removeAllInfos();
 
-      /**
-       * TODO: check if need API here
-       * const { error } = await API.profile.logout();
-       */
+      queryClient.invalidateQueries('project');
+      queryClient.invalidateQueries('educationProgram');
+      queryClient.invalidateQueries('socialWork');
+      queryClient.invalidateQueries('club');
+      queryClient.invalidateQueries('methodology');
+
+      queryClient.invalidateQueries('company');
 
       localStorage.removeItem('token');
 
-      setState({ ...state, status: EAuthStatus.ERROR, profile: null });
+      // setState({ ...state, status: EAuthStatus.ERROR, profile: null });
+
+      window.location.reload();
     } catch (e) {
       if (e instanceof ServerError) {
         addError(

@@ -6,10 +6,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { EducationProgramActionsPage } from 'pagesComponents/educationPrograms/EducationProgramActionsPage/EducationProgramActionsPage';
 import PageLoader from 'components/PageLoader/PageLoader';
 import { useEducationProgram } from 'hooks/queries/entities/educationProgram/useEducationProgram';
+import { useAuth } from 'hooks';
+import { useEffect } from 'react';
 
 export const EducationProgramEdition = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { profile } = useAuth();
+
+  const isDisabled = !profile?.company?.educationLicense;
+
+  useEffect(() => {
+    if (isDisabled) navigate('/education');
+  }, [profile]);
 
   const {
     apiData: educationProgram,

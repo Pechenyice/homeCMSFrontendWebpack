@@ -1,6 +1,8 @@
 import { LogoIcon } from 'assets/icons';
 import { Button, Text } from 'components/kit';
-import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks/index';
+import { Link, useNavigate } from 'react-router-dom';
+import { Dropdown } from '..';
 import styles from './AdminHeader.module.scss';
 
 interface Props {
@@ -10,6 +12,9 @@ interface Props {
 export const AdminHeader = (props: Props) => {
   const { isUnauthorized } = props;
 
+  const { handleLogout } = useAuth();
+  const navigate = useNavigate();
+
   if (isUnauthorized) {
     return (
       <div className={styles.wrapper}>
@@ -17,6 +22,10 @@ export const AdminHeader = (props: Props) => {
       </div>
     );
   }
+
+  const bindNavigate = (path: string) => () => {
+    navigate(path);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -37,15 +46,36 @@ export const AdminHeader = (props: Props) => {
         <Link to={'/clubs'}>
           <Text isMedium>Клубы</Text>
         </Link>
-        <Link to={'/technologies'}>
+        <Link to={'/methodologies'}>
           <Text isMedium>Методики и технологии</Text>
         </Link>
       </nav>
-      <Link to={'/admin'}>
-        <Button className={styles.button}>
-          <Text isMedium>Админ-панель</Text>
-        </Button>
-      </Link>
+      <Dropdown
+        customControl={
+          <Button className={styles.button}>
+            <Text isMedium>Админ-панель</Text>
+          </Button>
+        }
+        placement="right"
+      >
+        <div className={styles.dropdownElem} onClick={bindNavigate('/admin')}>
+          <Text isMedium>Админ-меню</Text>
+        </div>
+        <div className={styles.dropdownElem} onClick={bindNavigate('/library')}>
+          <Text isMedium>Библиотека терминов</Text>
+        </div>
+        <div
+          className={styles.dropdownElem}
+          onClick={bindNavigate('/statistic')}
+        >
+          <Text isMedium>Статистика</Text>
+        </div>
+        <div className={styles.dropdownElem} onClick={handleLogout}>
+          <Text isMedium className={styles.delete}>
+            Выйти
+          </Text>
+        </div>
+      </Dropdown>
     </div>
   );
 };

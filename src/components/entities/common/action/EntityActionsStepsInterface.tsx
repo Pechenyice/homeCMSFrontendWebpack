@@ -229,8 +229,6 @@ export const EntityActionsStepsInterface = ({
     }
   };
 
-  console.log(getMainPartitionStep());
-
   return (
     <div className={styles.wrapper}>
       {active === 0 && getMainPartitionStep()}

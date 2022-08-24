@@ -3,6 +3,7 @@
 interface CssExports {
   'cursor': string;
   'hint': string;
+  'hint_left': string;
   'wrapper': string;
 }
 export const cssExports: CssExports;

@@ -37,4 +37,10 @@ export const getSocialWorkKey = (id: string, userId?: number) => [
 
 export const getClubKey = (id: string, userId?: number) => ['club', id, userId];
 
+export const getMethodologyKey = (id: string, userId?: number) => [
+  'methodology',
+  id,
+  userId,
+];
+
 export const getCompanyKey = (userId: string) => ['company', userId];

@@ -7,10 +7,11 @@ import styles from './Hint.module.scss';
 
 interface Props {
   text: string;
+  placement?: string;
 }
 
 export const Hint = (props: Props & HTMLAttributes<HTMLDivElement>) => {
-  const { text, className, ...rest } = props;
+  const { text, placement = 'right', className, ...rest } = props;
 
   const [isHintVisible, setIsHintVisible] = useState(false);
 
@@ -23,7 +24,16 @@ export const Hint = (props: Props & HTMLAttributes<HTMLDivElement>) => {
         onMouseEnter={bindHintVisibility(true)}
         onMouseLeave={bindHintVisibility(false)}
       />
-      {isHintVisible && <div className={styles.hint}>{text}</div>}
+      {isHintVisible && (
+        <div
+          className={combineClasses(
+            styles.hint,
+            placement === 'left' ? styles.hint_left : ''
+          )}
+        >
+          {text}
+        </div>
+      )}
     </div>
   );
 };

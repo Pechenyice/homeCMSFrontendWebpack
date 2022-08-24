@@ -2,6 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'button': string;
+  'delete': string;
+  'dropdownElem': string;
   'nav': string;
   'wrapper': string;
 }

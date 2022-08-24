@@ -17,3 +17,23 @@
   padding: 0;
   width: 150px;
 }
+
+.dropdownElem {
+  padding: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: .2s;
+
+  &:hover {
+    background: #F1F5F9;
+    transition: .2s;
+  }
+
+  & * {
+    color: var(--blue);
+
+    &.delete {
+      color: var(--error);
+    }
+  }
+}

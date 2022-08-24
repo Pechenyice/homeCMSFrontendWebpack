@@ -13,6 +13,9 @@ import { SocialWorksArchive } from 'pages/admin/socialWorks/SocialWorksArchive/S
 import { Club } from 'pages/admin/clubs/Club/Club';
 import { Clubs } from 'pages/admin/clubs/Clubs/Clubs';
 import { ClubsArchive } from 'pages/admin/clubs/ClubsArchive/ClubsArchive';
+import { AdminPanel } from 'pages/admin/AdminPanel/AdminPanel';
+import { Library } from 'pages/admin/Library/Library';
+import { Statistic } from 'pages/admin/Statistic/Statistic';
 
 const AdministratorApp = () => {
   return (
@@ -23,6 +26,10 @@ const AdministratorApp = () => {
         <Route path="/" element={<CommonBaseAdminRoutesInfo />}>
           <Route index element={<AdminMain />} />
 
+          <Route path="admin" element={<AdminPanel />} />
+          <Route path="library" element={<Library />} />
+          <Route path="statistic" element={<Statistic />} />
+
           <Route path="users">
             <Route index element={<Companies />} />
             <Route path=":userId">
@@ -32,6 +39,7 @@ const AdministratorApp = () => {
               <Route path="education/:id" element={<EducationProgram />} />
               <Route path="social/:id" element={<SocialWork />} />
               <Route path="clubs/:id" element={<Club />} />
+              {/* <Route path="methodologies/:id" element={<Club />} /> */}
             </Route>
           </Route>
 
@@ -53,6 +61,11 @@ const AdministratorApp = () => {
           <Route path="clubs">
             <Route index element={<Clubs />} />
             <Route path="archive" element={<ClubsArchive />} />
+          </Route>
+
+          <Route path="methodologies">
+            {/* <Route index element={<Clubs />} /> */}
+            {/* <Route path="archive" element={<ClubsArchive />} /> */}
           </Route>
         </Route>
       </Routes>
