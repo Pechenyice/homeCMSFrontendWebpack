@@ -72,7 +72,7 @@ export const ProfileEditorPage = () => {
     ),
     educationLicense: company?.educationLicense ?? false,
     educationLicenseNumber: registerInput(
-      company?.educationLicenseNumber?.toString() ?? '',
+      company?.educationLicenseNumber ?? '',
       textInputValidator
     ),
     educationLicenseDate: registerDateInput(
@@ -85,7 +85,7 @@ export const ProfileEditorPage = () => {
     ),
     medicineLicense: company?.medicineLicense ?? false,
     medicineLicenseNumber: registerInput(
-      company?.medicineLicenseNumber?.toString() ?? '',
+      company?.medicineLicenseNumber ?? '',
       textInputValidator
     ),
     medicineLicenseDate: registerDateInput(
@@ -103,13 +103,36 @@ export const ProfileEditorPage = () => {
       fullName: state.fullName,
       supervisor: state.supervisor,
       responsible: state.responsible,
+      responsiblePhoneNumber: state.responsiblePhoneNumber,
+      link: state.link,
+      phoneNumber: state.phoneNumber,
+      email: state.email,
+
+      educationLicenseNumber: state.educationLicense
+        ? state.educationLicenseNumber
+        : null,
+      educationLicenseDate: state.educationLicense
+        ? state.educationLicenseDate
+        : null,
+      educationLicenseKind: state.educationLicense
+        ? state.educationLicenseKind
+        : null,
+
+      medicineLicenseNumber: state.medicineLicense
+        ? state.medicineLicenseNumber
+        : null,
+      medicineLicenseDate: state.medicineLicense
+        ? state.medicineLicenseDate
+        : null,
     };
 
     const validationSuccess = validateAll(
-      Object.values(needValidation).map((val) => ({
-        value: val.value,
-        validator: val.validator,
-      }))
+      Object.values(needValidation)
+        .filter((val) => !!val)
+        .map((val: any) => ({
+          value: val.value.toString(),
+          validator: val.validator,
+        }))
     );
 
     if (!validationSuccess) {
@@ -132,11 +155,11 @@ export const ProfileEditorPage = () => {
         responsible: state.responsible.value,
         responsiblePhoneNumber: state.responsiblePhoneNumber.value,
         educationLicense: state.educationLicense,
-        educationLicenseNumber: Number(state.educationLicenseNumber.value),
+        educationLicenseNumber: state.educationLicenseNumber.value,
         educationLicenseDate: state.educationLicenseDate.value,
         educationLicenseKind: state.educationLicenseKind.value,
         medicineLicense: state.medicineLicense,
-        medicineLicenseNumber: Number(state.medicineLicenseNumber.value),
+        medicineLicenseNumber: state.medicineLicenseNumber.value,
         medicineLicenseDate: state.medicineLicenseDate.value,
         innovationGround: state.innovationGround,
       };
@@ -160,11 +183,11 @@ export const ProfileEditorPage = () => {
         responsible: state.responsible.value,
         responsiblePhoneNumber: state.responsiblePhoneNumber.value,
         educationLicense: state?.educationLicense!,
-        educationLicenseNumber: Number(state.educationLicenseNumber.value),
+        educationLicenseNumber: state.educationLicenseNumber.value,
         educationLicenseDate: state.educationLicenseDate.value,
         educationLicenseKind: state.educationLicenseKind.value,
         medicineLicense: state?.medicineLicense!,
-        medicineLicenseNumber: Number(state.medicineLicenseNumber.value),
+        medicineLicenseNumber: state.medicineLicenseNumber.value,
         medicineLicenseDate: state.medicineLicenseDate.value,
         innovationGround: state?.innovationGround!,
         status: EProposalStatus.PENDING,
@@ -230,7 +253,7 @@ export const ProfileEditorPage = () => {
           value={state.fullName.value}
           onChange={handleChange}
           error={state.fullName.error}
-          heading="Полное наименование организации"
+          heading="Полное наименование организации *"
         />
         <Input
           className={styles.half}
@@ -238,7 +261,7 @@ export const ProfileEditorPage = () => {
           value={state.name.value}
           onChange={handleChange}
           error={state.name.error}
-          heading="Краткое наименование организации"
+          heading="Краткое наименование организации *"
         />
       </div>
 
@@ -248,19 +271,19 @@ export const ProfileEditorPage = () => {
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
-              heading="Подведомственное КСП, администрации района или СО НКО"
+              heading="Подведомственное КСП, администрации района или СО НКО *"
             />
           ) : districtsError ? (
             <Input
               value={''}
-              heading="Подведомственное КСП, администрации района или СО НКО"
+              heading="Подведомственное КСП, администрации района или СО НКО *"
               readOnly
             />
           ) : (
             <Select
               value={state.district}
               options={districts!}
-              heading="Подведомственное КСП, администрации района или СО НКО"
+              heading="Подведомственное КСП, администрации района или СО НКО *"
               onChangeOption={bindSelect('district')}
             />
           )}
@@ -270,15 +293,15 @@ export const ProfileEditorPage = () => {
             <Skeleton
               mode={ESkeletonMode.INPUT}
               withLoader
-              heading="Тип организации"
+              heading="Тип организации *"
             />
           ) : organizationTypesError ? (
-            <Input value={''} heading="Тип организации" readOnly />
+            <Input value={''} heading="Тип организации *" readOnly />
           ) : (
             <Select
               value={state.type}
               options={organizationTypes!}
-              heading="Тип организации"
+              heading="Тип организации *"
               onChangeOption={bindSelect('type')}
             />
           )}
@@ -292,7 +315,7 @@ export const ProfileEditorPage = () => {
           value={state.link.value}
           onChange={handleChange}
           error={state.link.error}
-          heading="Ссылка на официальный сайт организации"
+          heading="Ссылка на официальный сайт организации *"
         />
         <Input
           className={styles.half}
@@ -300,7 +323,7 @@ export const ProfileEditorPage = () => {
           value={state.phoneNumber.value}
           onChange={handleChange}
           error={state.phoneNumber.error}
-          heading="Номер телефона организации"
+          heading="Номер телефона организации *"
         />
       </div>
 
@@ -311,7 +334,7 @@ export const ProfileEditorPage = () => {
           value={state.email.value}
           onChange={handleChange}
           error={state.email.error}
-          heading="Электронная почта организации"
+          heading="Электронная почта организации *"
         />
         <Input
           className={styles.half}
@@ -319,7 +342,7 @@ export const ProfileEditorPage = () => {
           value={state.supervisor.value}
           onChange={handleChange}
           error={state.supervisor.error}
-          heading="Руководитель организации"
+          heading="Руководитель организации *"
         />
       </div>
 
@@ -343,7 +366,7 @@ export const ProfileEditorPage = () => {
                 value={state.educationLicenseNumber.value}
                 onChange={handleChange}
                 error={state.educationLicenseNumber.error}
-                heading="Номер лицензии на осуществление образовательной деятельности"
+                heading="Номер лицензии на осуществление образовательной деятельности *"
               />
               <Input
                 className={styles.leadField}
@@ -351,14 +374,14 @@ export const ProfileEditorPage = () => {
                 value={state.educationLicenseDate.value}
                 onChange={handleChange}
                 error={state.educationLicenseDate.error}
-                heading="Дата выдачи лицензии"
+                heading="Дата выдачи лицензии *"
               />
               <Input
                 name="educationLicenseKind"
                 value={state.educationLicenseKind.value}
                 onChange={handleChange}
                 error={state.educationLicenseKind.error}
-                heading="Вид деятельности"
+                heading="Вид деятельности *"
               />
             </>
           )}
@@ -382,14 +405,14 @@ export const ProfileEditorPage = () => {
                 value={state.medicineLicenseNumber.value}
                 onChange={handleChange}
                 error={state.medicineLicenseNumber.error}
-                heading="Номер лицензии на осуществление медицинской деятельности"
+                heading="Номер лицензии на осуществление медицинской деятельности *"
               />
               <Input
                 name="medicineLicenseDate"
                 value={state.medicineLicenseDate.value}
                 onChange={handleChange}
                 error={state.medicineLicenseDate.error}
-                heading="Дата выдачи лицензии"
+                heading="Дата выдачи лицензии *"
               />
             </>
           )}
@@ -410,7 +433,7 @@ export const ProfileEditorPage = () => {
         value={state.responsible.value}
         onChange={handleChange}
         error={state.responsible.error}
-        heading="Ответственный за предоставление информации"
+        heading="Ответственный за предоставление информации *"
       />
       <Input
         className={styles.half}
@@ -418,7 +441,7 @@ export const ProfileEditorPage = () => {
         value={state.responsiblePhoneNumber.value}
         onChange={handleChange}
         error={state.responsiblePhoneNumber.error}
-        heading="Телефон ответственного за предоставление информации"
+        heading="Телефон ответственного за предоставление информации *"
       />
 
       <div className={styles.footer}>

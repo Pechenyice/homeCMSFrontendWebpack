@@ -41,11 +41,11 @@ export interface ICompany {
   type: number;
   district: number;
   educationLicense: boolean;
-  educationLicenseNumber?: number;
+  educationLicenseNumber?: string;
   educationLicenseDate?: string;
   educationLicenseKind?: string;
   medicineLicense: boolean;
-  medicineLicenseNumber?: number;
+  medicineLicenseNumber?: string;
   medicineLicenseDate?: string;
   innovationGround: boolean;
   supervisor: string;
@@ -78,7 +78,7 @@ export interface IAPICompany {
 }
 
 export interface BaseLicense {
-  number: number;
+  number: string;
   date: string;
 }
 
