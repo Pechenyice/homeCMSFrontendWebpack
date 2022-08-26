@@ -16,6 +16,9 @@ import { ClubsArchive } from 'pages/admin/clubs/ClubsArchive/ClubsArchive';
 import { AdminPanel } from 'pages/admin/AdminPanel/AdminPanel';
 import { Library } from 'pages/admin/Library/Library';
 import { Statistic } from 'pages/admin/Statistic/Statistic';
+import { Methodology } from 'pages/admin/methodologies/Methodology/Methodology';
+import { Methodologies } from 'pages/admin/methodologies/Methodologies/Methodologies';
+import { MethodologiesArchive } from 'pages/admin/methodologies/MethodologiesArchive/MethodologiesArchive';
 
 const AdministratorApp = () => {
   return (
@@ -39,7 +42,7 @@ const AdministratorApp = () => {
               <Route path="education/:id" element={<EducationProgram />} />
               <Route path="social/:id" element={<SocialWork />} />
               <Route path="clubs/:id" element={<Club />} />
-              {/* <Route path="methodologies/:id" element={<Club />} /> */}
+              <Route path="methodologies/:id" element={<Methodology />} />
             </Route>
           </Route>
 
@@ -64,8 +67,8 @@ const AdministratorApp = () => {
           </Route>
 
           <Route path="methodologies">
-            {/* <Route index element={<Clubs />} /> */}
-            {/* <Route path="archive" element={<ClubsArchive />} /> */}
+            <Route index element={<Methodologies />} />
+            <Route path="archive" element={<MethodologiesArchive />} />
           </Route>
         </Route>
       </Routes>

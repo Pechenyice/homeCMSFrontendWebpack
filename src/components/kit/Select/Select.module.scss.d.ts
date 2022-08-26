@@ -9,6 +9,7 @@ interface CssExports {
   'inner_active': string;
   'inner_empty': string;
   'option': string;
+  'truncate': string;
   'wrapper': string;
 }
 export const cssExports: CssExports;

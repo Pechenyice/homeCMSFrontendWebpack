@@ -70,3 +70,18 @@ export const downloadClub = async (
   a.download = `company_${userId}_club_${id}.pdf`;
   a.click();
 };
+
+export const downloadMethodology = async (
+  userId: number,
+  id: number,
+  isAdmin?: boolean
+) => {
+  const response = await API.methodology.download(userId, id, isAdmin);
+
+  const blob = await response.blob();
+
+  const a = document.createElement('a');
+  a.href = window.URL.createObjectURL(blob);
+  a.download = `company_${userId}_methodology_${id}.pdf`;
+  a.click();
+};

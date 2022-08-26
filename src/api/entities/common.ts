@@ -32,6 +32,9 @@ export const getEntityPath = (entity: EEntity) => {
     case EEntity.CLUB: {
       return 'clubs';
     }
+    case EEntity.METHODOLOGY: {
+      return 'methodologies';
+    }
   }
 };
 

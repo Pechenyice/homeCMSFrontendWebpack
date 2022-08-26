@@ -80,7 +80,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
         )}
         onClick={toggle}
       >
-        <Text>
+        <Text className={styles.truncate}>
           {valueIsSelected && value !== -1
             ? options.find((option) => option.id === value)?.label
             : emptyText || 'Выберите категорию'}

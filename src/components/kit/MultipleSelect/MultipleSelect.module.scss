@@ -7,6 +7,7 @@
   border-radius: 8px;
   padding: 18px 20px;
   display: flex;
+  gap: 8px;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
@@ -60,6 +61,7 @@
 }
 
 .chevron {
+  min-width: max-content;
   transition: 0.2s;
 
   &_inverted {
@@ -95,4 +97,10 @@
     background: #f1f5f9;
     transition: 0.2s;
   }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

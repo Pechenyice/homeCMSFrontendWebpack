@@ -5,6 +5,7 @@ import {
   IAPIAdminEntitiesList,
   IAPIEntitiesList,
 } from 'types/entities/entities';
+import { IFullAPIMethodology } from 'types/entities/methodology';
 import { IFullAPIProject } from 'types/entities/project';
 import { IFullAPISocialWork } from 'types/entities/socialWork';
 import {
@@ -122,4 +123,8 @@ export interface ISocialWorkWithMetadataResponse extends IResponseError {
 
 export interface IClubWithMetadataResponse extends IResponseError {
   data: IFullAPIClub | null;
+}
+
+export interface IMethodologyWithMetadataResponse extends IResponseError {
+  data: IFullAPIMethodology | null;
 }

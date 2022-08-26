@@ -11,6 +11,7 @@ interface CssExports {
   'option': string;
   'option__checkbox': string;
   'option__text': string;
+  'truncate': string;
   'wrapper': string;
 }
 export const cssExports: CssExports;

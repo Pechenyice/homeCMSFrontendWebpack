@@ -5,6 +5,7 @@ import { aborts } from './aborts';
 import { API_ROUTES, DYNAMIC_API_ROUTES } from './config';
 import { CLUB_CONTROLLER } from './entities/club';
 import { EDUCATION_PROGRAM_CONTROLLER } from './entities/educationProgram';
+import { METHODOLOGY_CONTROLLER } from './entities/methodology';
 import { PROJECT_CONTROLLER } from './entities/project';
 import { SOCIAL_WORK_CONTROLLER } from './entities/socialWork';
 import { AuthError } from './errors';
@@ -173,4 +174,5 @@ export const API = {
   educationProgram: EDUCATION_PROGRAM_CONTROLLER,
   socialWork: SOCIAL_WORK_CONTROLLER,
   club: CLUB_CONTROLLER,
+  methodology: METHODOLOGY_CONTROLLER,
 };

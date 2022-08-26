@@ -660,9 +660,9 @@ export const SocialWorkMainPartitionStep = ({
         />
       </HelperEnableSelect>
 
-      <div className={styles.half}>
+      <div className={styles.full}>
         <HelperEnableSelect
-          className={combineClasses(styles.full, styles.leadHelper)}
+          className={combineClasses(styles.half, styles.leadHelper)}
           heading="Наличие отзыва"
           value={switchers.hasExpertMention}
           onChangeOption={bindSwitcherChange('hasExpertMention')}
@@ -677,7 +677,7 @@ export const SocialWorkMainPartitionStep = ({
           />
         </HelperEnableSelect>
         <Checkbox
-          className={styles.full}
+          className={styles.half}
           checked={mainPartition.isInASI}
           onToggle={bindCheckToggle('isInASI')}
           label={<Text>Практика размещена в АСИ 'Смартека'</Text>}

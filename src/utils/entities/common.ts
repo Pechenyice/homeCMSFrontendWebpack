@@ -3,6 +3,10 @@ import {
   IEducationProgramData,
   IFullAPIEducationProgram,
 } from 'types/entities/educationProgram';
+import {
+  IFullAPIMethodology,
+  IMethodologyData,
+} from 'types/entities/methodology';
 import { IFullAPIProject, IProjectData } from 'types/entities/project';
 import { IFullAPISocialWork, ISocialWorkData } from 'types/entities/socialWork';
 import { EProposalStatus } from 'types/enums';
@@ -28,7 +32,12 @@ export const getRelatedCategoriesOptions = (
 };
 
 export const generateCommonToAPIPart = (
-  entity: IProjectData | IEducationProgramData | ISocialWorkData | IClubData
+  entity:
+    | IProjectData
+    | IEducationProgramData
+    | ISocialWorkData
+    | IClubData
+    | IMethodologyData
 ) => {
   return {
     primary: {
@@ -141,6 +150,7 @@ export const generateCommonFromAPIPart = (
     | IFullAPIEducationProgram
     | IFullAPISocialWork
     | IFullAPIClub
+    | IFullAPIMethodology
 ) => {
   return {
     name: entity.primary.name,

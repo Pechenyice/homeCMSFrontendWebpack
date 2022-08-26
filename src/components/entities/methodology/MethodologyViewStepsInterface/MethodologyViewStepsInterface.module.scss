@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.flex {
+  display: flex;
+  column-gap: 100px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: calc(50% - 50px) !important;
+}
+
+.leadHelper {
+  margin-bottom: 30px;
+}

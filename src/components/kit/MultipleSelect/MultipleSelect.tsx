@@ -83,7 +83,7 @@ export const MultipleSelect = (
         )}
         onClick={toggle}
       >
-        <Text>
+        <Text className={styles.truncate}>
           {values?.length
             ? `Выбрано (${values.length})`
             : unselectedText || 'Выберите категории'}

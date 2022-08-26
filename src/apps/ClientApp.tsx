@@ -21,6 +21,10 @@ import { Clubs } from 'pages/clubs/Clubs/Clubs';
 import { Club } from 'pages/clubs/Club/Club';
 import { ClubCreation } from 'pages/clubs/ClubCreation/ClubCreation';
 import { ClubEdition } from 'pages/clubs/ClubEdition/ClubEdition';
+import { Methodologoies } from 'pages/methodologies/Methodologoies/Methodologoies';
+import { Methodology } from 'pages/methodologies/Methodology/Methodology';
+import { MethodologyCreation } from 'pages/methodologies/MethodologyCreation/MethodologyCreation';
+import { MethodologyEdition } from 'pages/methodologies/MethodologyEdition/MethodologyEdition';
 
 const ClientApp = () => {
   return (
@@ -73,11 +77,11 @@ const ClientApp = () => {
           </Route>
 
           <Route path="methodologies">
-            {/* <Route index element={<Clubs />} /> */}
-            {/* <Route path="create" element={<ClubCreation />} /> */}
+            <Route index element={<Methodologoies />} />
+            <Route path="create" element={<MethodologyCreation />} />
             <Route path=":id">
-              {/* <Route index element={<Club />} /> */}
-              {/* <Route path="edit" element={<ClubEdition />} /> */}
+              <Route index element={<Methodology />} />
+              <Route path="edit" element={<MethodologyEdition />} />
             </Route>
           </Route>
         </Route>

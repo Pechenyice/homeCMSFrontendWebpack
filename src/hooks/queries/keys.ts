@@ -14,6 +14,9 @@ export const socialHelpFormKey = 'social-service';
 export const directionsKey = 'direction';
 export const conductingClassesFormKey = 'conducting-classes-form';
 export const programTypesKey = 'program-type';
+export const prevalencesKey = 'prevalence';
+export const applicationPeriodsKey = 'application-period';
+export const activityOrganizationFormsKey = 'activity-organization-form';
 
 export const getEntitiesYearsKey = 'entitiesYears';
 

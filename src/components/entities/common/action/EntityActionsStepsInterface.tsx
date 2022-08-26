@@ -1,6 +1,7 @@
 import { EEntity } from 'api/enums';
 import { ClubMainPartitionStep } from 'components/entities/club/ClubCreationStepsInterface/steps/ClubMainPartitionStep';
 import { EducationProgramMainPartitionStep } from 'components/entities/educationProgram/EducationProgramCreationStepsInterface/steps/EducationProgramMainPartitionStep';
+import { MethodologyMainPartitionStep } from 'components/entities/methodology/MethodologyCreationStepsInterface/steps/MethodologyMainPartitionStep';
 import { ProjectMainPartitionStep } from 'components/entities/project/ProjectCreationStepsInterface/steps/ProjectMainPartitionStep';
 import { SocialWorkMainPartitionStep } from 'components/entities/socialWork/SocialWorkCreationStepsInterface/steps/SocialWorkMainPartitionStep';
 import { ChangeEvent, useMemo } from 'react';
@@ -210,6 +211,25 @@ export const EntityActionsStepsInterface = ({
       case EEntity.CLUB: {
         return (
           <ClubMainPartitionStep
+            switchers={switchers}
+            mainPartition={mainPartition}
+            onChange={bindChange(EEntityPartition.MAIN)}
+            onSwitcherChange={onSwitcherChange}
+            onSelect={bindSelectChange(EEntityPartition.MAIN)}
+            onMultipleSelect={bindMultipleSelectChange(EEntityPartition.MAIN)}
+            onMultipleParentSelect={bindMultipleParentSelectChange(
+              EEntityPartition.MAIN
+            )}
+            onCheckToggle={bindCheckToggleChange(EEntityPartition.MAIN)}
+            onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
+            onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
+            onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+          />
+        );
+      }
+      case EEntity.METHODOLOGY: {
+        return (
+          <MethodologyMainPartitionStep
             switchers={switchers}
             mainPartition={mainPartition}
             onChange={bindChange(EEntityPartition.MAIN)}
