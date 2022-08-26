@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { CommonBaseRoutesInfo, Main } from 'components';
 import NotFound from 'components/404/404';
 import {
@@ -28,65 +28,63 @@ import { MethodologyEdition } from 'pages/methodologies/MethodologyEdition/Metho
 
 const ClientApp = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
+    <Routes>
+      <Route path="*" element={<NotFound />} />
 
-        <Route path="/" element={<CommonBaseRoutesInfo />}>
-          <Route index element={<Main />} />
+      <Route path="/" element={<CommonBaseRoutesInfo />}>
+        <Route index element={<Main />} />
 
-          <Route path="profile">
-            <Route index element={<Profile />} />
-            <Route path="edit" element={<ProfileEditor />} />
-          </Route>
+        <Route path="profile">
+          <Route index element={<Profile />} />
+          <Route path="edit" element={<ProfileEditor />} />
+        </Route>
 
-          <Route path="projects">
-            <Route index element={<Projects />} />
-            <Route path="create" element={<ProjectCreation />} />
-            <Route path=":id">
-              <Route index element={<Project />} />
-              <Route path="edit" element={<ProjectEdition />} />
-            </Route>
-          </Route>
-
-          <Route path="education">
-            <Route index element={<EducationPrograms />} />
-            <Route path="create" element={<EducationProgramCreation />} />
-            <Route path=":id">
-              <Route index element={<EducationProgram />} />
-              <Route path="edit" element={<EducationProgramEdition />} />
-            </Route>
-          </Route>
-
-          <Route path="social">
-            <Route index element={<SocialWorks />} />
-            <Route path="create" element={<SocialWorkCreation />} />
-            <Route path=":id">
-              <Route index element={<SocialWork />} />
-              <Route path="edit" element={<SocialWorkEdition />} />
-            </Route>
-          </Route>
-
-          <Route path="clubs">
-            <Route index element={<Clubs />} />
-            <Route path="create" element={<ClubCreation />} />
-            <Route path=":id">
-              <Route index element={<Club />} />
-              <Route path="edit" element={<ClubEdition />} />
-            </Route>
-          </Route>
-
-          <Route path="methodologies">
-            <Route index element={<Methodologoies />} />
-            <Route path="create" element={<MethodologyCreation />} />
-            <Route path=":id">
-              <Route index element={<Methodology />} />
-              <Route path="edit" element={<MethodologyEdition />} />
-            </Route>
+        <Route path="projects">
+          <Route index element={<Projects />} />
+          <Route path="create" element={<ProjectCreation />} />
+          <Route path=":id">
+            <Route index element={<Project />} />
+            <Route path="edit" element={<ProjectEdition />} />
           </Route>
         </Route>
-      </Routes>
-    </Router>
+
+        <Route path="education">
+          <Route index element={<EducationPrograms />} />
+          <Route path="create" element={<EducationProgramCreation />} />
+          <Route path=":id">
+            <Route index element={<EducationProgram />} />
+            <Route path="edit" element={<EducationProgramEdition />} />
+          </Route>
+        </Route>
+
+        <Route path="social">
+          <Route index element={<SocialWorks />} />
+          <Route path="create" element={<SocialWorkCreation />} />
+          <Route path=":id">
+            <Route index element={<SocialWork />} />
+            <Route path="edit" element={<SocialWorkEdition />} />
+          </Route>
+        </Route>
+
+        <Route path="clubs">
+          <Route index element={<Clubs />} />
+          <Route path="create" element={<ClubCreation />} />
+          <Route path=":id">
+            <Route index element={<Club />} />
+            <Route path="edit" element={<ClubEdition />} />
+          </Route>
+        </Route>
+
+        <Route path="methodologies">
+          <Route index element={<Methodologoies />} />
+          <Route path="create" element={<MethodologyCreation />} />
+          <Route path=":id">
+            <Route index element={<Methodology />} />
+            <Route path="edit" element={<MethodologyEdition />} />
+          </Route>
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 

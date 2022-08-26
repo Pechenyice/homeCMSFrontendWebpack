@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import CommonBaseAdminRoutesInfo from 'components/CommonRoutesNesting/CommonBaseAdminRoutesInfo';
 import { Companies, Project, Projects, ProjectsArchive } from 'pages/admin';
 import NotFound from 'components/404/404';
@@ -22,57 +22,55 @@ import { MethodologiesArchive } from 'pages/admin/methodologies/MethodologiesArc
 
 const AdministratorApp = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
+    <Routes>
+      <Route path="*" element={<NotFound />} />
 
-        <Route path="/" element={<CommonBaseAdminRoutesInfo />}>
-          <Route index element={<AdminMain />} />
+      <Route path="/" element={<CommonBaseAdminRoutesInfo />}>
+        <Route index element={<AdminMain />} />
 
-          <Route path="admin" element={<AdminPanel />} />
-          <Route path="library" element={<Library />} />
-          <Route path="statistic" element={<Statistic />} />
+        <Route path="admin" element={<AdminPanel />} />
+        <Route path="library" element={<Library />} />
+        <Route path="statistic" element={<Statistic />} />
 
-          <Route path="users">
-            <Route index element={<Companies />} />
-            <Route path=":userId">
-              <Route index element={<Company />} />
+        <Route path="users">
+          <Route index element={<Companies />} />
+          <Route path=":userId">
+            <Route index element={<Company />} />
 
-              <Route path="projects/:id" element={<Project />} />
-              <Route path="education/:id" element={<EducationProgram />} />
-              <Route path="social/:id" element={<SocialWork />} />
-              <Route path="clubs/:id" element={<Club />} />
-              <Route path="methodologies/:id" element={<Methodology />} />
-            </Route>
-          </Route>
-
-          <Route path="projects">
-            <Route index element={<Projects />} />
-            <Route path="archive" element={<ProjectsArchive />} />
-          </Route>
-
-          <Route path="education">
-            <Route index element={<EducationPrograms />} />
-            <Route path="archive" element={<EducationProgramsArchive />} />
-          </Route>
-
-          <Route path="social">
-            <Route index element={<SocialWorks />} />
-            <Route path="archive" element={<SocialWorksArchive />} />
-          </Route>
-
-          <Route path="clubs">
-            <Route index element={<Clubs />} />
-            <Route path="archive" element={<ClubsArchive />} />
-          </Route>
-
-          <Route path="methodologies">
-            <Route index element={<Methodologies />} />
-            <Route path="archive" element={<MethodologiesArchive />} />
+            <Route path="projects/:id" element={<Project />} />
+            <Route path="education/:id" element={<EducationProgram />} />
+            <Route path="social/:id" element={<SocialWork />} />
+            <Route path="clubs/:id" element={<Club />} />
+            <Route path="methodologies/:id" element={<Methodology />} />
           </Route>
         </Route>
-      </Routes>
-    </Router>
+
+        <Route path="projects">
+          <Route index element={<Projects />} />
+          <Route path="archive" element={<ProjectsArchive />} />
+        </Route>
+
+        <Route path="education">
+          <Route index element={<EducationPrograms />} />
+          <Route path="archive" element={<EducationProgramsArchive />} />
+        </Route>
+
+        <Route path="social">
+          <Route index element={<SocialWorks />} />
+          <Route path="archive" element={<SocialWorksArchive />} />
+        </Route>
+
+        <Route path="clubs">
+          <Route index element={<Clubs />} />
+          <Route path="archive" element={<ClubsArchive />} />
+        </Route>
+
+        <Route path="methodologies">
+          <Route index element={<Methodologies />} />
+          <Route path="archive" element={<MethodologiesArchive />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 

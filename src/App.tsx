@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import { Preloader } from 'components';
 import { useAuth } from 'hooks';
@@ -12,11 +13,11 @@ function App() {
   const { isAdmin } = useAuth();
 
   return (
-    <>
+    <Router basename="/account">
       <Suspense fallback={<Preloader />}>
         {isAdmin ? <AdministratorApp /> : <ClientApp />}
       </Suspense>
-    </>
+    </Router>
   );
 }
 
