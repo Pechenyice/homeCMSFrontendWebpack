@@ -149,7 +149,7 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         <HelperEnableSelect
           readOnly
           className={styles.half}
-          heading="Организатор"
+          heading="Организатор - другая организация"
           value={!!project.organisator}
           onChangeOption={() => {}}
         >
