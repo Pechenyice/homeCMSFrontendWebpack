@@ -9,9 +9,11 @@ export const EducationPrograms = () => {
 
   return (
     <Layout>
-      <Breadcrumbs paths={[{ alias: 'Доп. образовательные программы' }]} />
+      <Breadcrumbs
+        paths={[{ alias: 'Программы дополнительного образования' }]}
+      />
       <PageHeading
-        heading="Доп. образовательные программы"
+        heading="Программы дополнительного образования"
         action={
           <Action text="Архив" onClick={() => navigate('/education/archive')} />
         }

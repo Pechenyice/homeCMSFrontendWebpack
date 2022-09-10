@@ -496,7 +496,7 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
         <Checkbox
           readOnly
           className={styles.half}
-          label="Практика размещена в АСИ 'Смартека'"
+          label="Практика размещена в АСИ «Смартека»"
           checked={data.isInASI}
         />
       </div>
@@ -531,8 +531,8 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
         name="video"
         value={data.video || '-'}
         onChange={() => {}}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         readOnly

@@ -552,7 +552,7 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         <Checkbox
           readOnly
           className={styles.half}
-          label="Практика размещена в АСИ 'Смартека'"
+          label="Практика размещена в АСИ «Смартека»"
           checked={project.isInASI}
         />
       </div>
@@ -587,8 +587,8 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         name="video"
         value={project.video || '-'}
         onChange={() => {}}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         readOnly

@@ -21,11 +21,14 @@ export const EducationProgramCreation = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { link: '/education', alias: 'Доп. образовательные программы' },
-          { alias: 'Создать доп. образовательную программу' },
+          {
+            link: '/education',
+            alias: 'Программы дополнительного образования',
+          },
+          { alias: 'Создать программу дополнительного образования' },
         ]}
       />
-      <PageHeading heading="Создать доп. образовательную программу" />
+      <PageHeading heading="Создать программу дополнительного образования" />
       <EducationProgramActionsPage data={null} />
     </Layout>
   );

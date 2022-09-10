@@ -61,21 +61,21 @@ export const MembersPartitionStep = ({
           )}
           <Input
             className={styles.half}
-            name="commonMembersCount"
-            value={String(entry.commonMembersCount.value ?? '')}
-            onChange={bindChangeMembersEntry(entry.id)}
-            error={entry.commonMembersCount.error}
-            heading="Общее количество участников за отчетный период *"
-            placeholder="Количество участников за отчетный период"
-          />
-          <Input
-            className={styles.half}
             name="year"
             value={String(entry.year.value ?? '')}
             onChange={bindChangeMembersEntry(entry.id)}
             error={entry.year.error}
             heading="Отчётный период *"
             placeholder="Отчётный период"
+          />
+          <Input
+            className={styles.half}
+            name="commonMembersCount"
+            value={String(entry.commonMembersCount.value ?? '')}
+            onChange={bindChangeMembersEntry(entry.id)}
+            error={entry.commonMembersCount.error}
+            heading="Общее количество участников за отчетный период *"
+            placeholder="Количество участников за отчетный период"
           />
 
           <Input

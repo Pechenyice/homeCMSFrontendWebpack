@@ -49,7 +49,7 @@ export const Rating = (props: HTMLAttributes<HTMLDivElement> & Props) => {
           <EmptyStarIcon />
         )}
       </div>
-      <div title="Размещена в АСИ 'Смартека'">
+      <div title="Размещена в АСИ «Смартека»">
         {stars.fields.is_practice_placed_in_asi_smarteka ? (
           <FilledStarIcon
             fill={EStarsColor['is_practice_placed_in_asi_smarteka']}

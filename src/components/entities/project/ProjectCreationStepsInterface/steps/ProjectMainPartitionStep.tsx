@@ -633,7 +633,7 @@ export const ProjectMainPartitionStep = ({
           className={styles.half}
           checked={mainPartition.isInASI}
           onToggle={bindCheckToggle('isInASI')}
-          label={<Text>Практика размещена в АСИ 'Смартека'</Text>}
+          label={<Text>Практика размещена в АСИ «Смартека»</Text>}
         />
       </div>
 
@@ -671,8 +671,8 @@ export const ProjectMainPartitionStep = ({
         value={mainPartition.video.value}
         onChange={onChange}
         error={mainPartition.video.error}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         className={styles.half}

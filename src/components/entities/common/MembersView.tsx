@@ -15,16 +15,16 @@ export const MembersView = ({ data }: Props) => {
           <Input
             readOnly
             className={styles.half}
-            value={memberInfo.commonMembersCount}
-            heading="Общее количество участников за отчетный период"
-            placeholder="Общее количество участников за отчетный период"
+            value={memberInfo.year}
+            heading="Отчётный период"
+            placeholder="Отчётный период"
           />
           <Input
             readOnly
             className={styles.half}
-            value={memberInfo.year}
-            heading="Отчётный период"
-            placeholder="Отчётный период"
+            value={memberInfo.commonMembersCount}
+            heading="Общее количество участников за отчетный период"
+            placeholder="Общее количество участников за отчетный период"
           />
 
           <Input

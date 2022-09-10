@@ -212,7 +212,7 @@ export const ClubPage = ({ club, isAdmin }: Props) => {
               className={styles.modalContent}
               checked={isBest}
               onToggle={handleToggleIsBest}
-              label={<Text>Отправить на лендинг</Text>}
+              label={<Text>Разместить в Виртуальной гостиной</Text>}
             />
           }
           text={`Вы точно хотите принять заявку “${club.name ?? ''}”?`}

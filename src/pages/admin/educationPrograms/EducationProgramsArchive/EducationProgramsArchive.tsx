@@ -13,11 +13,14 @@ export const EducationProgramsArchive = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { alias: 'Доп. образовательные программы', link: '/education' },
-          { alias: 'Архив доп. образовательных программ' },
+          {
+            alias: 'Программы дополнительного образования',
+            link: '/education',
+          },
+          { alias: 'Архив программ дополнительного образования' },
         ]}
       />
-      <PageHeading heading="Архив доп. образовательных программ" />
+      <PageHeading heading="Архив программ дополнительного образования" />
       <EducationProgramsAdminPage isArchived />
     </Layout>
   );

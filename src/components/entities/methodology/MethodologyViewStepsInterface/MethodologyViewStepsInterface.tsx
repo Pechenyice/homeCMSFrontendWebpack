@@ -683,7 +683,7 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
         <Checkbox
           readOnly
           className={styles.full}
-          label="Практика размещена в АСИ 'Смартека'"
+          label="Практика размещена в АСИ «Смартека»"
           checked={methodology.isInASI}
         />
       </div>
@@ -718,8 +718,8 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
         name="video"
         value={methodology.video || '-'}
         onChange={() => {}}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         readOnly

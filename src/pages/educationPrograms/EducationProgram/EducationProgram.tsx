@@ -95,8 +95,11 @@ export const EducationProgram = () => {
     <Layout>
       <Breadcrumbs
         paths={[
-          { link: '/education', alias: 'Доп. образовательные программы' },
-          { alias: 'Просмотр доп. образовательной программы' },
+          {
+            link: '/education',
+            alias: 'Программы дополнительного образования',
+          },
+          { alias: 'Просмотр программы дополнительного образования' },
         ]}
       />
       {isEducationProgramLoading ? (
@@ -106,13 +109,14 @@ export const EducationProgram = () => {
       ) : (
         <>
           <PageHeading
-            heading="Просмотр доп. образовательной программы"
+            heading="Просмотр программы дополнительного образования"
             status={educationProgram!.status}
             isDeleted={educationProgram!.isDeleted}
             isBest={educationProgram!.isBest}
             cause={
               <Text isMedium>
-                Доп. образовательная программа отклонена со следующими ошибками:
+                Программа дополнительного образования отклонена со следующими
+                ошибками:
                 <br />
                 {educationProgram!.cause}
               </Text>
@@ -147,7 +151,7 @@ export const EducationProgram = () => {
         <Modal
           isOpen
           isNegative
-          text="Вы действительно хотите удалить доп. образовательную программу?"
+          text="Вы действительно хотите удалить программу дополнительного образования?"
           submitText="Удалить"
           cancelText="Отмена"
           onSubmit={isLoading ? undefined : (handleDelete as any)}

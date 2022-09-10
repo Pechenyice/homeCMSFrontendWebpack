@@ -601,7 +601,7 @@ export const SocialWorkViewMainPartition = ({ socialWork }: Props) => {
         <Checkbox
           readOnly
           className={styles.half}
-          label="Практика размещена в АСИ 'Смартека'"
+          label="Практика размещена в АСИ «Смартека»"
           checked={socialWork.isInASI}
         />
       </div>
@@ -636,8 +636,8 @@ export const SocialWorkViewMainPartition = ({ socialWork }: Props) => {
         name="video"
         value={socialWork.video || '-'}
         onChange={() => {}}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         readOnly

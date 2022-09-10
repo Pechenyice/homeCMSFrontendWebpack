@@ -14,9 +14,11 @@ export const EducationPrograms = () => {
 
   return (
     <Layout>
-      <Breadcrumbs paths={[{ alias: 'Доп. образовательные программы' }]} />
+      <Breadcrumbs
+        paths={[{ alias: 'Программы дополнительного образования' }]}
+      />
       <PageHeading
-        heading="Наши доп. образовательные программы"
+        heading="Наши программы дополнительного образования"
         action={
           <div className={styles.flex}>
             <Action

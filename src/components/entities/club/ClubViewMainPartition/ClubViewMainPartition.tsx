@@ -561,7 +561,7 @@ export const ClubViewMainPartition = ({ club }: Props) => {
         <Checkbox
           readOnly
           className={styles.half}
-          label="Практика размещена в АСИ 'Смартека'"
+          label="Практика размещена в АСИ «Смартека»"
           checked={club.isInASI}
         />
       </div>
@@ -596,8 +596,8 @@ export const ClubViewMainPartition = ({ club }: Props) => {
         name="video"
         value={club.video || '-'}
         onChange={() => {}}
-        heading="Видео ролик"
-        placeholder="Видео ролик"
+        heading="Видеоролик"
+        placeholder="Видеоролик"
       />
       <TextArea
         readOnly

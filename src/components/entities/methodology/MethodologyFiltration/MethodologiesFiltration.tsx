@@ -781,7 +781,7 @@ export const MethodologiesFiltration = ({
               : +state.is_practice_placed_in_asi_smarteka
           }
           options={YES_NO_OPTIONS}
-          heading="Практика размещена в АСИ 'Смартека'"
+          heading="Практика размещена в АСИ «Смартека»"
           onChangeOption={bindSelectChange(
             'is_practice_placed_in_asi_smarteka'
           )}
@@ -801,6 +801,7 @@ export const MethodologiesFiltration = ({
             />
           ) : (
             <Select
+              withUnselect
               emptyText="Все"
               unselectedText="Все"
               value={state.volunteer_id}
