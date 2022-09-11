@@ -295,16 +295,16 @@ export const SocialWorkMainPartitionStep = ({
           <Skeleton
             mode={ESkeletonMode.INPUT}
             withLoader
-            heading="Форма проведения занятий *"
+            heading="Форма проведения мероприятий *"
           />
         ) : conductingClassesFormError ? (
-          <Input value={''} heading="Форма проведения занятий *" readOnly />
+          <Input value={''} heading="Форма проведения мероприятий *" readOnly />
         ) : (
           <Select
             withUnselect
             value={mainPartition.conductingClassesForm}
             options={conductingClassesForm!}
-            heading="Форма проведения занятий *"
+            heading="Форма проведения мероприятий *"
             onChangeOption={bindSelect('conductingClassesForm')}
           />
         )}
