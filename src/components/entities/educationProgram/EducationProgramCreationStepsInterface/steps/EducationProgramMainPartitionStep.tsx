@@ -52,6 +52,9 @@ type Props = {
   ) => void;
   onGalleryPhotosAdd: (name: string, photos: IFileInfo['file'][]) => void;
   onGalleryPhotoDelete: (name: string, photoId: number) => void;
+  selectsErrors: {
+    [key in keyof IEducationProgramState['mainPartition']]: boolean;
+  }; //not all, done just for selects tooltips
 };
 
 export const EducationProgramMainPartitionStep = ({
@@ -66,6 +69,7 @@ export const EducationProgramMainPartitionStep = ({
   onPhotoChange,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  selectsErrors,
 }: Props) => {
   const {
     apiData: realisationForCitizen,
@@ -254,6 +258,7 @@ export const EducationProgramMainPartitionStep = ({
             withUnselect
             value={mainPartition.direction}
             options={directions!}
+            isError={selectsErrors.direction}
             heading="Направленность *"
             onChangeOption={bindSelect('direction')}
           />
@@ -274,6 +279,7 @@ export const EducationProgramMainPartitionStep = ({
             withUnselect
             value={mainPartition.conductingClassesForm}
             options={conductingClassesForm!}
+            isError={selectsErrors.conductingClassesForm}
             heading="Форма проведения занятий *"
             onChangeOption={bindSelect('conductingClassesForm')}
           />
@@ -308,6 +314,7 @@ export const EducationProgramMainPartitionStep = ({
               withUnselect
               value={mainPartition.realisationForCitizen}
               options={realisationForCitizen!}
+              isError={selectsErrors.realisationForCitizen}
               heading="Реализация для гражданина бесплатно/платно *"
               onChangeOption={bindSelect('realisationForCitizen')}
             />
@@ -354,6 +361,7 @@ export const EducationProgramMainPartitionStep = ({
             withUnselect
             value={mainPartition.attractingVolunteer}
             options={attractingVolunteer!}
+            isError={selectsErrors.attractingVolunteer}
             heading="Привлечение добровольцев и волонтеров *"
             onChangeOption={bindSelect('attractingVolunteer')}
           />
@@ -372,6 +380,7 @@ export const EducationProgramMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.rnsuCategories}
             options={rnsuCategory!}
+            isError={selectsErrors.rnsuCategories}
             heading="Категории по РНСУ *"
             onChangeOption={bindMultipleSelect('rnsuCategories')}
           />
@@ -392,6 +401,7 @@ export const EducationProgramMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.categories}
               options={categories!}
+              isError={selectsErrors.categories}
               heading="Категории *"
               onChangeOption={bindMultipleParentSelect('categories', 'groups')}
             />
@@ -414,6 +424,7 @@ export const EducationProgramMainPartitionStep = ({
                 groups!,
                 categoriesToGroups!
               )}
+              isError={selectsErrors.groups}
               heading="Целевые группы *"
               onChangeOption={bindMultipleSelect('groups')}
             />
@@ -446,6 +457,7 @@ export const EducationProgramMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.circumstancesRecognitionNeed}
               options={circumstancesRecognitionNeed!}
+              isError={selectsErrors.circumstancesRecognitionNeed}
               heading="Обстоятельства признания нуждаемости *"
               onChangeOption={bindMultipleSelect(
                 'circumstancesRecognitionNeed'
@@ -470,6 +482,7 @@ export const EducationProgramMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.socialHelpForm}
               options={socialHelpForm!}
+              isError={selectsErrors.socialHelpForm}
               heading="Формы социального обслуживания (сопровождения) *"
               onChangeOption={bindMultipleSelect('socialHelpForm')}
             />

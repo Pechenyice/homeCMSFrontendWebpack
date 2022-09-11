@@ -30,6 +30,11 @@
   &_empty > * {
     color: var(--gray);
   }
+
+  &_error {
+    border: 1px solid var(--error);
+    transition: 0.2s;
+  }
 }
 
 .wrapper {

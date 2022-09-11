@@ -53,6 +53,7 @@ type Props = {
   ) => void;
   onGalleryPhotosAdd: (name: string, photos: IFileInfo['file'][]) => void;
   onGalleryPhotoDelete: (name: string, photoId: number) => void;
+  selectsErrors: { [key in keyof IClubState['mainPartition']]: boolean }; //not all, done just for selects tooltips
 };
 
 export const ClubMainPartitionStep = ({
@@ -67,6 +68,7 @@ export const ClubMainPartitionStep = ({
   onPhotoChange,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  selectsErrors,
 }: Props) => {
   const {
     apiData: realisationForCitizen,
@@ -262,6 +264,7 @@ export const ClubMainPartitionStep = ({
             withUnselect
             value={mainPartition.conductingClassesForm}
             options={conductingClassesForm!}
+            isError={selectsErrors.conductingClassesForm}
             heading="Форма проведения занятий *"
             onChangeOption={bindSelect('conductingClassesForm')}
           />
@@ -296,6 +299,7 @@ export const ClubMainPartitionStep = ({
               withUnselect
               value={mainPartition.realisationForCitizen}
               options={realisationForCitizen!}
+              isError={selectsErrors.realisationForCitizen}
               heading="Реализация для гражданина бесплатно/платно *"
               onChangeOption={bindSelect('realisationForCitizen')}
             />
@@ -342,6 +346,7 @@ export const ClubMainPartitionStep = ({
             withUnselect
             value={mainPartition.attractingVolunteer}
             options={attractingVolunteer!}
+            isError={selectsErrors.attractingVolunteer}
             heading="Привлечение добровольцев и волонтеров *"
             onChangeOption={bindSelect('attractingVolunteer')}
           />
@@ -360,6 +365,7 @@ export const ClubMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.rnsuCategories}
             options={rnsuCategory!}
+            isError={selectsErrors.rnsuCategories}
             heading="Категории по РНСУ *"
             onChangeOption={bindMultipleSelect('rnsuCategories')}
           />
@@ -380,6 +386,7 @@ export const ClubMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.categories}
               options={categories!}
+              isError={selectsErrors.categories}
               heading="Категории *"
               onChangeOption={bindMultipleParentSelect('categories', 'groups')}
             />
@@ -402,6 +409,7 @@ export const ClubMainPartitionStep = ({
                 groups!,
                 categoriesToGroups!
               )}
+              isError={selectsErrors.groups}
               heading="Целевые группы *"
               onChangeOption={bindMultipleSelect('groups')}
             />
@@ -459,6 +467,7 @@ export const ClubMainPartitionStep = ({
                 worksNames!,
                 worksKindsToWorksNames!
               )}
+              isError={selectsErrors.worksNames}
               heading="Наименования услуг"
               onChangeOption={bindMultipleSelect('worksNames')}
             />
@@ -513,6 +522,7 @@ export const ClubMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.circumstancesRecognitionNeed}
             options={circumstancesRecognitionNeed!}
+            isError={selectsErrors.circumstancesRecognitionNeed}
             heading="Обстоятельства признания нуждаемости *"
             onChangeOption={bindMultipleSelect('circumstancesRecognitionNeed')}
           />
@@ -535,6 +545,7 @@ export const ClubMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.socialHelpForm}
             options={socialHelpForm!}
+            isError={selectsErrors.socialHelpForm}
             heading="Формы социального обслуживания (сопровождения) *"
             onChangeOption={bindMultipleSelect('socialHelpForm')}
           />

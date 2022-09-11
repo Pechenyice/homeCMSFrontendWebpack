@@ -25,6 +25,7 @@ import { registerInput, registerNumberInput } from 'utils/inputs';
 import {
   annotationValidator,
   numberInputValidator,
+  scanAll,
   textInputValidator,
   validateAll,
 } from 'utils/validators';
@@ -71,6 +72,22 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
     hasExpertOpinion: !!data?.hasExpertOpinion,
     hasExpertReview: !!data?.hasExpertReview,
     hasExpertMention: !!data?.hasExpertMention,
+  });
+
+  const [selectsErrors, setSelectsErrors] = useState({
+    direction: false,
+    programType: false,
+    conductingClassesForm: false,
+    realisationForCitizen: false,
+    attractingVolunteer: false,
+
+    rnsuCategories: false,
+    categories: false,
+    groups: false,
+    circumstancesRecognitionNeed: false,
+    socialHelpForm: false,
+
+    worksNames: false,
   });
 
   const [mainPartition, setMainPartition] = useState<
@@ -267,6 +284,8 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
   ) => {
     const [state, setState] = selectPartition(partition);
 
+    setSelectsErrors({ ...selectsErrors, [name]: false });
+
     (setState as any)({
       ...state,
       [name]: (state as any)[name].includes(option)
@@ -283,6 +302,8 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
   ) => {
     const [state, setState] = selectPartition(partition);
 
+    setSelectsErrors({ ...selectsErrors, [name]: false });
+
     (setState as any)({
       ...state,
       [name]: (state as any)[name].includes(option)
@@ -298,6 +319,8 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
     option: number
   ) => {
     const [state, setState] = selectPartition(partition);
+
+    setSelectsErrors({ ...selectsErrors, [name]: false });
 
     (setState as any)({
       ...state,
@@ -555,12 +578,36 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
           ? !!mainPartition.worksNames.length
           : true;
 
-        return (
+        const isNextStepAvailable =
           validationSuccess &&
           selectSuccess &&
           multipleSelectSuccess &&
-          optionalMultipleSelectSuccess
-        );
+          optionalMultipleSelectSuccess;
+
+        if (!isNextStepAvailable) {
+          const validationScanner = scanAll(needValidation);
+          setMainPartition({ ...mainPartition, ...validationScanner });
+
+          setSelectsErrors({
+            direction: mainPartition.direction === -1,
+            conductingClassesForm: mainPartition.conductingClassesForm === -1,
+            programType: mainPartition.programType === -1,
+            realisationForCitizen: mainPartition.realisationForCitizen === -1,
+            attractingVolunteer: mainPartition.attractingVolunteer === -1,
+
+            rnsuCategories: !mainPartition.rnsuCategories.length,
+            categories: !mainPartition.categories.length,
+            groups: !mainPartition.groups.length,
+            circumstancesRecognitionNeed: !mainPartition
+              .circumstancesRecognitionNeed.length,
+            socialHelpForm: !mainPartition.socialHelpForm.length,
+
+            worksNames:
+              !!mainPartition.worksKinds.length &&
+              !mainPartition.worksNames.length,
+          });
+        }
+        return isNextStepAvailable;
       }
       case 1: {
         const needValidation = {
@@ -645,9 +692,16 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
             }))
         );
 
+        if (!validationSuccess) {
+          const validationScanner = scanAll(needValidation);
+          setContactsPartition({ ...contactsPartition, ...validationScanner });
+        }
+
         return validationSuccess;
       }
       case 3: {
+        let isValidationFails = false;
+
         for (const membersInfoEntry of membersPartition.membersInfo) {
           // if not any field is fullfilled - skip entity
           if (
@@ -675,7 +729,8 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
             !membersInfoEntry.year.validator(membersInfoEntry.year.value)
               .success
           ) {
-            return false;
+            isValidationFails = true;
+            break;
           }
 
           // if any field is fullfilled and any validation fails - fails partition validation
@@ -697,11 +752,24 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
                 membersInfoEntry.womenCount.value
               ).success)
           ) {
-            return false;
+            isValidationFails = true;
+            break;
           }
         }
 
-        return true;
+        if (isValidationFails) {
+          setMembersPartition({
+            membersInfo: membersPartition.membersInfo.map((mi) => {
+              const validationResults = scanAll({
+                commonMembersCount: mi.commonMembersCount as any, // not important that it is NumberInput
+                year: mi.year as any,
+              });
+              return { ...mi, ...validationResults };
+            }),
+          });
+        }
+
+        return !isValidationFails;
       }
       default:
         return true;
@@ -869,6 +937,7 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
         onPhotoChange={handlePhotoChange}
         onGalleryPhotosAdd={handleGalleryPhotoAdd}
         onGalleryPhotoDelete={handleGalleryPhotoDelete}
+        selectsErrors={selectsErrors}
       />
       <div className={styles.controls}>
         <Button

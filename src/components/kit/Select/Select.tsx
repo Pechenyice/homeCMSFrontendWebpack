@@ -16,6 +16,7 @@ type Props = {
   value?: ISelectValue['id'] | null;
   options: ISelectValue[];
   onChangeOption: (option: ISelectValue['id']) => void;
+  isError?: boolean;
 };
 
 export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
@@ -28,6 +29,7 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
     withUnselect,
     unselectedText,
     emptyText,
+    isError,
     ...rest
   } = props;
 
@@ -76,7 +78,8 @@ export const Select = (props: Props & HTMLAttributes<HTMLDivElement>) => {
         className={combineClasses(
           styles.inner,
           opened ? styles.inner_active : '',
-          valueIsSelected && value !== -1 ? '' : styles.inner_empty
+          valueIsSelected && value !== -1 ? '' : styles.inner_empty,
+          isError ? styles.inner_error : ''
         )}
         onClick={toggle}
       >

@@ -1,4 +1,4 @@
-import { IValidationObject, IValidationResult } from 'types/interfaces';
+import { IInput, IValidationObject, IValidationResult } from 'types/interfaces';
 import { isValidDate } from '.';
 
 export const textInputValidator = (
@@ -123,4 +123,21 @@ export const numberInputValidator = (
 
 export const validateAll = (inputs: IValidationObject[]) => {
   return inputs.every((input) => input.validator(input.value).success);
+};
+
+export const scanAll = (config: { [key: string]: IInput | null }) => {
+  return Object.entries(config).reduce((acc, [key, input]) => {
+    if (input) {
+      const validationResult = input?.validator(input.value);
+
+      input.error = {
+        exist: !validationResult?.success,
+        text: validationResult?.text || '',
+      };
+
+      acc[key] = input;
+    }
+
+    return acc;
+  }, {} as { [key: string]: IInput });
 };

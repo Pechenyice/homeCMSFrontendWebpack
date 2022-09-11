@@ -8,6 +8,7 @@ interface CssExports {
   'inner': string;
   'inner_active': string;
   'inner_empty': string;
+  'inner_error': string;
   'option': string;
   'truncate': string;
   'wrapper': string;

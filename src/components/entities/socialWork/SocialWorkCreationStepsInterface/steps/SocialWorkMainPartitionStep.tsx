@@ -56,6 +56,7 @@ type Props = {
   ) => void;
   onGalleryPhotosAdd: (name: string, photos: IFileInfo['file'][]) => void;
   onGalleryPhotoDelete: (name: string, photoId: number) => void;
+  selectsErrors: { [key in keyof ISocialWorkState['mainPartition']]: boolean }; //not all, done just for selects tooltips
 };
 
 export const SocialWorkMainPartitionStep = ({
@@ -70,6 +71,7 @@ export const SocialWorkMainPartitionStep = ({
   onPhotoChange,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  selectsErrors,
 }: Props) => {
   const {
     apiData: realisationForCitizen,
@@ -264,6 +266,7 @@ export const SocialWorkMainPartitionStep = ({
             withUnselect
             value={mainPartition.direction}
             options={directions!}
+            isError={selectsErrors.direction}
             heading="Направленность *"
             onChangeOption={bindSelect('direction')}
           />
@@ -284,6 +287,7 @@ export const SocialWorkMainPartitionStep = ({
             withUnselect
             value={mainPartition.programType}
             options={programTypes!}
+            isError={selectsErrors.programType}
             heading="Вид программы *"
             onChangeOption={bindSelect('programType')}
           />
@@ -304,6 +308,7 @@ export const SocialWorkMainPartitionStep = ({
             withUnselect
             value={mainPartition.conductingClassesForm}
             options={conductingClassesForm!}
+            isError={selectsErrors.conductingClassesForm}
             heading="Форма проведения мероприятий *"
             onChangeOption={bindSelect('conductingClassesForm')}
           />
@@ -338,6 +343,7 @@ export const SocialWorkMainPartitionStep = ({
               withUnselect
               value={mainPartition.realisationForCitizen}
               options={realisationForCitizen!}
+              isError={selectsErrors.realisationForCitizen}
               heading="Реализация для гражданина бесплатно/платно *"
               onChangeOption={bindSelect('realisationForCitizen')}
             />
@@ -384,6 +390,7 @@ export const SocialWorkMainPartitionStep = ({
             withUnselect
             value={mainPartition.attractingVolunteer}
             options={attractingVolunteer!}
+            isError={selectsErrors.attractingVolunteer}
             heading="Привлечение добровольцев и волонтеров *"
             onChangeOption={bindSelect('attractingVolunteer')}
           />
@@ -402,6 +409,7 @@ export const SocialWorkMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.rnsuCategories}
             options={rnsuCategory!}
+            isError={selectsErrors.rnsuCategories}
             heading="Категории по РНСУ *"
             onChangeOption={bindMultipleSelect('rnsuCategories')}
           />
@@ -422,6 +430,7 @@ export const SocialWorkMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.categories}
               options={categories!}
+              isError={selectsErrors.categories}
               heading="Категории *"
               onChangeOption={bindMultipleParentSelect('categories', 'groups')}
             />
@@ -444,6 +453,7 @@ export const SocialWorkMainPartitionStep = ({
                 groups!,
                 categoriesToGroups!
               )}
+              isError={selectsErrors.groups}
               heading="Целевые группы *"
               onChangeOption={bindMultipleSelect('groups')}
             />
@@ -501,6 +511,7 @@ export const SocialWorkMainPartitionStep = ({
                 worksNames!,
                 worksKindsToWorksNames!
               )}
+              isError={selectsErrors.worksNames}
               heading="Наименования услуг"
               onChangeOption={bindMultipleSelect('worksNames')}
             />
@@ -555,6 +566,7 @@ export const SocialWorkMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.circumstancesRecognitionNeed}
             options={circumstancesRecognitionNeed!}
+            isError={selectsErrors.circumstancesRecognitionNeed}
             heading="Обстоятельства признания нуждаемости *"
             onChangeOption={bindMultipleSelect('circumstancesRecognitionNeed')}
           />
@@ -577,6 +589,7 @@ export const SocialWorkMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.socialHelpForm}
             options={socialHelpForm!}
+            isError={selectsErrors.socialHelpForm}
             heading="Формы социального обслуживания (сопровождения) *"
             onChangeOption={bindMultipleSelect('socialHelpForm')}
           />

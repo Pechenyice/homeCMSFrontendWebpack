@@ -16,6 +16,7 @@ type Props = {
   options: ISelectValue[];
   onChangeOption: (option: ISelectValue['id']) => void;
   viewMode?: boolean;
+  isError?: boolean;
 };
 
 export const MultipleSelect = (
@@ -30,6 +31,7 @@ export const MultipleSelect = (
     emptyText,
     unselectedText,
     viewMode,
+    isError,
     ...rest
   } = props;
 
@@ -79,7 +81,8 @@ export const MultipleSelect = (
         className={combineClasses(
           styles.inner,
           opened ? styles.inner_active : '',
-          values?.length ? '' : styles.inner_empty
+          values?.length ? '' : styles.inner_empty,
+          isError ? styles.inner_error : ''
         )}
         onClick={toggle}
       >

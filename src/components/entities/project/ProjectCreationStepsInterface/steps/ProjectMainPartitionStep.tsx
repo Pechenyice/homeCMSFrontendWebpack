@@ -49,6 +49,7 @@ type Props = {
   ) => void;
   onGalleryPhotosAdd: (name: string, photos: IFileInfo['file'][]) => void;
   onGalleryPhotoDelete: (name: string, photoId: number) => void;
+  selectsErrors: { [key in keyof IProjectState['mainPartition']]: boolean }; //not all, done just for selects tooltips
 };
 
 export const ProjectMainPartitionStep = ({
@@ -63,6 +64,7 @@ export const ProjectMainPartitionStep = ({
   onPhotoChange,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  selectsErrors,
 }: Props) => {
   const {
     apiData: realisationForCitizen,
@@ -271,6 +273,7 @@ export const ProjectMainPartitionStep = ({
               withUnselect
               value={mainPartition.realisationForCitizen}
               options={realisationForCitizen!}
+              isError={selectsErrors.realisationForCitizen}
               heading="Реализация для гражданина бесплатно/платно *"
               onChangeOption={bindSelect('realisationForCitizen')}
             />
@@ -297,6 +300,7 @@ export const ProjectMainPartitionStep = ({
             withUnselect
             value={mainPartition.organizationLevel}
             options={realizationLevels!}
+            isError={selectsErrors.organizationLevel}
             heading="Уровень реализации проекта *"
             onChangeOption={bindSelect('organizationLevel')}
           />
@@ -336,6 +340,7 @@ export const ProjectMainPartitionStep = ({
             withUnselect
             value={mainPartition.attractingVolunteer}
             options={attractingVolunteer!}
+            isError={selectsErrors.attractingVolunteer}
             heading="Привлечение добровольцев и волонтеров *"
             onChangeOption={bindSelect('attractingVolunteer')}
           />
@@ -354,6 +359,7 @@ export const ProjectMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.rnsuCategories}
             options={rnsuCategory!}
+            isError={selectsErrors.rnsuCategories}
             heading="Категории по РНСУ *"
             onChangeOption={bindMultipleSelect('rnsuCategories')}
           />
@@ -374,6 +380,7 @@ export const ProjectMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.categories}
               options={categories!}
+              isError={selectsErrors.categories}
               heading="Категории *"
               onChangeOption={bindMultipleParentSelect('categories', 'groups')}
             />
@@ -396,6 +403,7 @@ export const ProjectMainPartitionStep = ({
                 groups!,
                 categoriesToGroups!
               )}
+              isError={selectsErrors.groups}
               heading="Целевые группы *"
               onChangeOption={bindMultipleSelect('groups')}
             />
@@ -452,6 +460,7 @@ export const ProjectMainPartitionStep = ({
                 worksNames!,
                 worksKindsToWorksNames!
               )}
+              isError={selectsErrors.worksNames}
               heading="Наименования услуг"
               onChangeOption={bindMultipleSelect('worksNames')}
             />
@@ -505,6 +514,7 @@ export const ProjectMainPartitionStep = ({
           <MultipleSelect
             values={mainPartition.circumstancesRecognitionNeed}
             options={circumstancesRecognitionNeed!}
+            isError={selectsErrors.circumstancesRecognitionNeed}
             heading="Обстоятельства признания нуждаемости *"
             onChangeOption={bindMultipleSelect('circumstancesRecognitionNeed')}
           />
@@ -529,6 +539,7 @@ export const ProjectMainPartitionStep = ({
             <MultipleSelect
               values={mainPartition.socialHelpForm}
               options={socialHelpForm!}
+              isError={selectsErrors.socialHelpForm}
               heading="Формы социального обслуживания (сопровождения) *"
               onChangeOption={bindMultipleSelect('socialHelpForm')}
             />

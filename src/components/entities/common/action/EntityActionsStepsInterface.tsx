@@ -72,6 +72,7 @@ type Props = {
     name: string,
     photoId: number
   ) => void;
+  selectsErrors: { [key: string]: boolean };
 };
 
 export const EntityActionsStepsInterface = ({
@@ -94,6 +95,7 @@ export const EntityActionsStepsInterface = ({
   onPhotoChange,
   onGalleryPhotosAdd,
   onGalleryPhotoDelete,
+  selectsErrors,
 }: Props) => {
   const bindChange = (partition: EEntityPartition) => {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -167,6 +169,7 @@ export const EntityActionsStepsInterface = ({
             onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
             onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+            selectsErrors={selectsErrors as any}
           />
         );
       }
@@ -186,6 +189,7 @@ export const EntityActionsStepsInterface = ({
             onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
             onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+            selectsErrors={selectsErrors as any}
           />
         );
       }
@@ -205,6 +209,7 @@ export const EntityActionsStepsInterface = ({
             onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
             onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+            selectsErrors={selectsErrors as any}
           />
         );
       }
@@ -224,6 +229,7 @@ export const EntityActionsStepsInterface = ({
             onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
             onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+            selectsErrors={selectsErrors as any}
           />
         );
       }
@@ -243,6 +249,7 @@ export const EntityActionsStepsInterface = ({
             onPhotoChange={bindPhotoChange(EEntityPartition.MAIN)}
             onGalleryPhotosAdd={bindGalleryPhotosAdd(EEntityPartition.MAIN)}
             onGalleryPhotoDelete={bindGalleryPhotoDelete(EEntityPartition.MAIN)}
+            selectsErrors={selectsErrors as any}
           />
         );
       }
