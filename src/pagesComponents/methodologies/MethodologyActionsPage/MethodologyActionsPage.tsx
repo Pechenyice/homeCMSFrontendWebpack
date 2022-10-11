@@ -79,7 +79,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
     prevalence: false,
     activityOrganizationForm: false,
     applicationPeriod: false,
-    realisationForCitizen: false,
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: false,
     attractingVolunteer: false,
 
     rnsuCategories: false,
@@ -125,7 +125,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
     annotation: registerInput(data?.annotation ?? '', annotationValidator), //Аннотация
     purpose: registerInput(data?.purpose ?? '', textInputValidator), //Цель проекта
     tasks: registerInput(data?.tasks ?? '', textInputValidator), //Основные задачи
-    realisationForCitizen: data?.realisationForCitizen ?? -1, //Реализация для гражданина
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: data?.realisationForCitizen ?? -1, //Реализация для гражданина
     canBeDistant: data?.canBeDistant ?? false, //Возможность реализации в дистанционном формате
     isInASI: data?.isInASI ?? false, //Возможность реализации в дистанционном формате
     partnership: registerInput(data?.partnership ?? '', textInputValidator),
@@ -587,7 +587,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
           mainPartition.prevalence !== -1 &&
           mainPartition.activityOrganizationForm !== -1 &&
           mainPartition.applicationPeriod !== -1 &&
-          mainPartition.realisationForCitizen !== -1 &&
+          //[Removed 12.10.2022 by clients correction] mainPartition.realisationForCitizen !== -1 &&
           mainPartition.attractingVolunteer !== -1;
 
         const multipleSelectSuccess =
@@ -618,7 +618,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
             activityOrganizationForm:
               mainPartition.activityOrganizationForm === -1,
             applicationPeriod: mainPartition.applicationPeriod === -1,
-            realisationForCitizen: mainPartition.realisationForCitizen === -1,
+            //[Removed 12.10.2022 by clients correction] realisationForCitizen: mainPartition.realisationForCitizen === -1,
             attractingVolunteer: mainPartition.attractingVolunteer === -1,
 
             rnsuCategories: !mainPartition.rnsuCategories.length,

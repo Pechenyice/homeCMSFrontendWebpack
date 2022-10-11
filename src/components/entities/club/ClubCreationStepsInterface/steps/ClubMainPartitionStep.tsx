@@ -70,11 +70,11 @@ export const ClubMainPartitionStep = ({
   onGalleryPhotoDelete,
   selectsErrors,
 }: Props) => {
-  const {
-    apiData: realisationForCitizen,
-    isLoading: realisationForCitizenLoading,
-    isError: realisationForCitizenError,
-  } = useRealisationForCitizen();
+  // const {
+  //   apiData: realisationForCitizen,
+  //   isLoading: realisationForCitizenLoading,
+  //   isError: realisationForCitizenError,
+  // } = useRealisationForCitizen();
   const {
     apiData: realizationLevels,
     isLoading: realizationLevelsLoading,
@@ -281,7 +281,10 @@ export const ClubMainPartitionStep = ({
       />
 
       <div className={styles.half}>
-        <div className={styles.leadHelper}>
+        {
+          //[Removed 12.10.2022 by clients correction]
+        }
+        {/* <div className={styles.leadHelper}>
           {realisationForCitizenLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -304,7 +307,7 @@ export const ClubMainPartitionStep = ({
               onChangeOption={bindSelect('realisationForCitizen')}
             />
           )}
-        </div>
+        </div> */}
         <Checkbox
           checked={mainPartition.canBeDistant}
           onToggle={bindCheckToggle('canBeDistant')}

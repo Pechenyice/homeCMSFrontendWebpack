@@ -45,7 +45,7 @@ export const generateCommonToAPIPart = (
       annotation: entity.annotation,
       objectives: entity.tasks,
       purpose: entity.purpose,
-      payment_method_id: entity.realisationForCitizen,
+      //[Removed 12.10.2022 by clients correction] payment_method_id: entity.realisationForCitizen,
       partnership: entity.partnership
         ? { description: entity.partnership }
         : null,
@@ -158,7 +158,7 @@ export const generateCommonFromAPIPart = (
     annotation: entity.primary.annotation,
     purpose: entity.primary.purpose,
     tasks: entity.primary.objectives,
-    realisationForCitizen: entity.primary.payment_method_id,
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: entity.primary.payment_method_id,
     canBeDistant: entity.primary.is_remote_format_possible,
     isInASI: entity.primary.is_practice_placed_in_asi_smarteka,
     partnership: entity.primary.partnership?.description ?? null,

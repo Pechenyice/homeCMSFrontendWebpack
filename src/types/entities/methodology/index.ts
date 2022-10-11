@@ -53,7 +53,7 @@ export interface IMethodologyMainPartition {
   annotation: string; //Аннотация
   purpose: string; //Цель проекта
   tasks: string; //Основные задачи
-  realisationForCitizen: number; //Реализация для гражданина
+  //[Removed 12.10.2022 by clients correction] realisationForCitizen: number; //Реализация для гражданина
   canBeDistant: boolean; //Возможность реализации в дистанционном формате
   isInASI: boolean; //Практика размещена в АСИ "Смартека"
   partnership: string | null;
@@ -155,7 +155,7 @@ export interface IMethodologyState {
     annotation: IInput; //Аннотация
     purpose: IInput; //Цель проекта
     tasks: IInput; //Основные задачи
-    realisationForCitizen: number; //Реализация для гражданина
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: number; //Реализация для гражданина
     canBeDistant: boolean; //Возможность реализации в дистанционном формате
     isInASI: boolean; //Практика размещена в АСИ "Смартека"
     partnership: IInput;

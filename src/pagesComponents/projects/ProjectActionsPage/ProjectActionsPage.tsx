@@ -70,7 +70,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
 
   const [selectsErrors, setSelectsErrors] = useState({
     organizationLevel: false,
-    realisationForCitizen: false,
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: false,
     attractingVolunteer: false,
 
     rnsuCategories: false,
@@ -97,7 +97,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
     annotation: registerInput(project?.annotation ?? '', annotationValidator), //Аннотация
     purpose: registerInput(project?.purpose ?? '', textInputValidator), //Цель проекта
     tasks: registerInput(project?.tasks ?? '', textInputValidator), //Основные задачи
-    realisationForCitizen: project?.realisationForCitizen ?? -1, //Реализация для гражданина
+    //[Removed 12.10.2022 by clients correction] realisationForCitizen: project?.realisationForCitizen ?? -1, //Реализация для гражданина
     canBeDistant: project?.canBeDistant ?? false, //Возможность реализации в дистанционном формате
     isInASI: project?.isInASI ?? false, //Возможность реализации в дистанционном формате
     partnership: registerInput(project?.partnership ?? '', textInputValidator),
@@ -553,7 +553,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
         );
 
         const selectSuccess =
-          mainPartition.realisationForCitizen !== -1 &&
+          //[Removed 12.10.2022 by clients correction] mainPartition.realisationForCitizen !== -1 &&
           mainPartition.organizationLevel !== -1 &&
           mainPartition.attractingVolunteer !== -1;
 
@@ -581,7 +581,7 @@ export const ProjectActionsPage = ({ project }: Props) => {
 
           setSelectsErrors({
             organizationLevel: mainPartition.organizationLevel === -1,
-            realisationForCitizen: mainPartition.realisationForCitizen === -1,
+            //[Removed 12.10.2022 by clients correction] realisationForCitizen: mainPartition.realisationForCitizen === -1,
             attractingVolunteer: mainPartition.attractingVolunteer === -1,
 
             rnsuCategories: !mainPartition.rnsuCategories.length,

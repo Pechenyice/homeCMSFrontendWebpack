@@ -95,7 +95,7 @@ export interface IAPICommonPrimaryPart {
   annotation: string; //Аннотация
   objectives: string; //Основные задачи
   purpose: string; //Цель проекта
-  payment_method_id: number; //Реализация для гражданина бесплатно/платно
+  //[Removed 12.10.2022 by clients correction] payment_method_id: number; //Реализация для гражданина бесплатно/платно
   partnership: IAPIOptionalDescriptionResult | null; //Взаимодействие, партнерство с другими организациями
   volunteer_id: number; //Привлечение добровольцев и волонтеров
   rnsu_category_ids: number[]; //Категории по РНСУ

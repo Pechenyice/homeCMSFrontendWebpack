@@ -42,11 +42,12 @@ type Props = {
 };
 
 export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
-  const {
-    apiData: realisationForCitizen,
-    isLoading: realisationForCitizenLoading,
-    isError: realisationForCitizenError,
-  } = useRealisationForCitizen();
+  //[Removed 12.10.2022 by clients correction]
+  // const {
+  //   apiData: realisationForCitizen,
+  //   isLoading: realisationForCitizenLoading,
+  //   isError: realisationForCitizenError,
+  // } = useRealisationForCitizen();
   const {
     apiData: realizationLevels,
     isLoading: realizationLevelsLoading,
@@ -319,7 +320,10 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
       </div>
 
       <div className={styles.half}>
-        <div className={styles.leadHelper}>
+        {
+          //[Removed 12.10.2022 by clients correction]
+        }
+        {/* <div className={styles.leadHelper}>
           {realisationForCitizenLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -341,7 +345,7 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
               onChangeOption={() => {}}
             />
           )}
-        </div>
+        </div> */}
         <Checkbox
           readOnly
           className={styles.full}
