@@ -235,7 +235,10 @@ export const ClubViewMainPartition = ({ club }: Props) => {
         />
       </div>
 
-      <HelperEnableSelect
+      {
+        //[Just hidden 12.10.2022 by clients correction]
+      }
+      {/* <HelperEnableSelect
         readOnly
         className={styles.half}
         heading="Взаимодействие, партнерство с другими организациями"
@@ -249,7 +252,7 @@ export const ClubViewMainPartition = ({ club }: Props) => {
           onChange={() => {}}
           placeholder="Укажите партнеров"
         />
-      </HelperEnableSelect>
+      </HelperEnableSelect> */}
 
       <div className={styles.half}>
         {attractingVolunteerLoading ? (

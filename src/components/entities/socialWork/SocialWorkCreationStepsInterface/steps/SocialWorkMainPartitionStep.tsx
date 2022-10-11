@@ -363,7 +363,10 @@ export const SocialWorkMainPartitionStep = ({
         />
       </div>
 
-      <HelperEnableSelect
+      {
+        //[Just hidden 12.10.2022 by clients correction]
+      }
+      {/* <HelperEnableSelect
         className={styles.half}
         heading="Взаимодействие, партнерство с другими организациями"
         value={switchers.partnership}
@@ -377,7 +380,7 @@ export const SocialWorkMainPartitionStep = ({
           error={mainPartition.partnership.error}
           placeholder="Укажите партнеров"
         />
-      </HelperEnableSelect>
+      </HelperEnableSelect> */}
 
       <div className={styles.half}>
         {attractingVolunteerLoading ? (
