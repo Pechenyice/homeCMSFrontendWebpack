@@ -139,17 +139,17 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         value={project.purpose}
       />
 
-      <div className={combineClasses(styles.full, styles.flex)}>
-        <TextArea
-          readOnly
-          className={styles.half}
-          heading="Основные задачи"
-          placeholder="Основные задачи"
-          value={project.tasks}
-        />
+      <TextArea
+        readOnly
+        className={styles.half}
+        heading="Основные задачи"
+        placeholder="Основные задачи"
+        value={project.tasks}
+      />
+      <div className={combineClasses(styles.half)}>
         <HelperEnableSelect
           readOnly
-          className={styles.half}
+          className={styles.full}
           heading="Организатор - другая организация"
           value={!!project.organisator}
           onChangeOption={() => {}}
@@ -160,6 +160,12 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
             placeholder="Организатор"
           />
         </HelperEnableSelect>
+        <Checkbox
+          readOnly
+          className={styles.full}
+          label="Возможность реализации в дистанционном формате"
+          checked={project.canBeDistant}
+        />
       </div>
 
       <TextArea
@@ -169,11 +175,10 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         placeholder="Период реализации проекта"
         value={project.period}
       />
-      <div className={styles.half}>
-        {
-          //[Removed 12.10.2022 by clients correction]
-        }
-        {/* <div className={styles.leadHelper}>
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <div className={styles.leadHelper}>
           {realisationForCitizenLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -196,13 +201,6 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
             />
           )}
         </div> */}
-        <Checkbox
-          readOnly
-          className={styles.full}
-          label="Возможность реализации в дистанционном формате"
-          checked={project.canBeDistant}
-        />
-      </div>
 
       <div className={styles.half}>
         {realizationLevelsLoading ? (
@@ -436,30 +434,28 @@ export const ProjectViewMainPartition = ({ project }: Props) => {
         )}
       </div>
 
-      <div className={styles.full}>
-        <div className={styles.half}>
-          {socialHelpFormLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Формы социального обслуживания (сопровождения)"
-            />
-          ) : socialHelpFormError ? (
-            <Input
-              value={''}
-              heading="Формы социального обслуживания (сопровождения)"
-              readOnly
-            />
-          ) : (
-            <MultipleSelect
-              viewMode
-              values={project.socialHelpForm}
-              options={socialHelpForm!}
-              heading="Формы социального обслуживания (сопровождения)"
-              onChangeOption={() => {}}
-            />
-          )}
-        </div>
+      <div className={styles.half}>
+        {socialHelpFormLoading ? (
+          <Skeleton
+            mode={ESkeletonMode.INPUT}
+            withLoader
+            heading="Формы социального обслуживания (сопровождения)"
+          />
+        ) : socialHelpFormError ? (
+          <Input
+            value={''}
+            heading="Формы социального обслуживания (сопровождения)"
+            readOnly
+          />
+        ) : (
+          <MultipleSelect
+            viewMode
+            values={project.socialHelpForm}
+            options={socialHelpForm!}
+            heading="Формы социального обслуживания (сопровождения)"
+            onChangeOption={() => {}}
+          />
+        )}
       </div>
 
       <TextArea

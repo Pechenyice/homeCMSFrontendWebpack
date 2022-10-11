@@ -202,6 +202,29 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
             />
           )}
         </div>
+        <div className={styles.half}>
+          {attractingVolunteerLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Привлечение добровольцев и волонтеров"
+            />
+          ) : attractingVolunteerError ? (
+            <Input
+              value={''}
+              heading="Привлечение добровольцев и волонтеров"
+              readOnly
+            />
+          ) : (
+            <Select
+              viewMode
+              value={data.attractingVolunteer}
+              options={attractingVolunteer!}
+              heading="Привлечение добровольцев и волонтеров"
+              onChangeOption={() => {}}
+            />
+          )}
+        </div>
         {
           //[Removed 12.10.2022 by clients correction]
         }
@@ -268,29 +291,6 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
         />
       </HelperEnableSelect> */}
 
-      <div className={styles.half}>
-        {attractingVolunteerLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Привлечение добровольцев и волонтеров"
-          />
-        ) : attractingVolunteerError ? (
-          <Input
-            value={''}
-            heading="Привлечение добровольцев и волонтеров"
-            readOnly
-          />
-        ) : (
-          <Select
-            viewMode
-            value={data.attractingVolunteer}
-            options={attractingVolunteer!}
-            heading="Привлечение добровольцев и волонтеров"
-            onChangeOption={() => {}}
-          />
-        )}
-      </div>
       <div className={styles.half}>
         {rnsuCategoryLoading ? (
           <Skeleton
@@ -363,8 +363,8 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className={combineClasses(styles.full, styles.flex)}>
-        <div className={styles.half}>
+      <div className={styles.half}>
+        <div className={styles.leadHelper}>
           {circumstancesRecognitionNeedLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -387,7 +387,7 @@ export const EducationProgramViewMainPartition = ({ data }: Props) => {
             />
           )}
         </div>
-        <div className={styles.half}>
+        <div>
           {socialHelpFormLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}

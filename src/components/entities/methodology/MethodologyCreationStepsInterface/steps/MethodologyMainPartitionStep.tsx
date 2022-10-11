@@ -410,6 +410,30 @@ export const MethodologyMainPartitionStep = ({
             />
           )}
         </div>
+        <div className={styles.full}>
+          {attractingVolunteerLoading ? (
+            <Skeleton
+              mode={ESkeletonMode.INPUT}
+              withLoader
+              heading="Привлечение добровольцев и волонтеров *"
+            />
+          ) : attractingVolunteerError ? (
+            <Input
+              value={''}
+              heading="Привлечение добровольцев и волонтеров *"
+              readOnly
+            />
+          ) : (
+            <Select
+              withUnselect
+              value={mainPartition.attractingVolunteer}
+              options={attractingVolunteer!}
+              isError={selectsErrors.attractingVolunteer}
+              heading="Привлечение добровольцев и волонтеров *"
+              onChangeOption={bindSelect('attractingVolunteer')}
+            />
+          )}
+        </div>
         {
           //[Removed 12.10.2022 by clients correction]
         }
@@ -478,30 +502,6 @@ export const MethodologyMainPartitionStep = ({
         />
       </HelperEnableSelect> */}
 
-      <div className={styles.half}>
-        {attractingVolunteerLoading ? (
-          <Skeleton
-            mode={ESkeletonMode.INPUT}
-            withLoader
-            heading="Привлечение добровольцев и волонтеров *"
-          />
-        ) : attractingVolunteerError ? (
-          <Input
-            value={''}
-            heading="Привлечение добровольцев и волонтеров *"
-            readOnly
-          />
-        ) : (
-          <Select
-            withUnselect
-            value={mainPartition.attractingVolunteer}
-            options={attractingVolunteer!}
-            isError={selectsErrors.attractingVolunteer}
-            heading="Привлечение добровольцев и волонтеров *"
-            onChangeOption={bindSelect('attractingVolunteer')}
-          />
-        )}
-      </div>
       <div className={styles.half}>
         {rnsuCategoryLoading ? (
           <Skeleton

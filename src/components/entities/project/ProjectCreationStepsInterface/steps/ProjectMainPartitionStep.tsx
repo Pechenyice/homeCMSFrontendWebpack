@@ -229,21 +229,28 @@ export const ProjectMainPartitionStep = ({
         placeholder="Основные задачи"
         hint="Укажите не более 7 задач"
       />
-      <HelperEnableSelect
-        className={styles.half}
-        heading="Вы участник, а не организатор *"
-        value={switchers.organisator}
-        onChangeOption={bindSwitcherChange('organisator')}
-        hint="Можно указать несколько организаций-организаторов проекта"
-      >
-        <TextArea
-          name="organisator"
-          value={mainPartition.organisator.value}
-          onChange={onChange}
-          error={mainPartition.organisator.error}
-          placeholder="Укажите организаторов"
+      <div className={styles.half}>
+        <HelperEnableSelect
+          className={styles.full}
+          heading="Вы участник, а не организатор *"
+          value={switchers.organisator}
+          onChangeOption={bindSwitcherChange('organisator')}
+          hint="Можно указать несколько организаций-организаторов проекта"
+        >
+          <TextArea
+            name="organisator"
+            value={mainPartition.organisator.value}
+            onChange={onChange}
+            error={mainPartition.organisator.error}
+            placeholder="Укажите организаторов"
+          />
+        </HelperEnableSelect>
+        <Checkbox
+          checked={mainPartition.canBeDistant}
+          onToggle={bindCheckToggle('canBeDistant')}
+          label={<Text>Возможность реализации в дистанционном формате</Text>}
         />
-      </HelperEnableSelect>
+      </div>
 
       <TextArea
         className={styles.half}
@@ -255,11 +262,11 @@ export const ProjectMainPartitionStep = ({
         placeholder="Период реализации проекта"
         hint="Укажите дату начала и предполагаемого окончания проекта"
       />
-      <div className={styles.half}>
-        {
-          //[Removed 12.10.2022 by clients correction]
-        }
-        {/* <div className={styles.leadHelper}>
+
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <div className={styles.leadHelper}>
           {realisationForCitizenLoading ? (
             <Skeleton
               mode={ESkeletonMode.INPUT}
@@ -283,12 +290,6 @@ export const ProjectMainPartitionStep = ({
             />
           )}
         </div> */}
-        <Checkbox
-          checked={mainPartition.canBeDistant}
-          onToggle={bindCheckToggle('canBeDistant')}
-          label={<Text>Возможность реализации в дистанционном формате</Text>}
-        />
-      </div>
 
       <div className={styles.half}>
         {realizationLevelsLoading ? (
@@ -525,30 +526,28 @@ export const ProjectMainPartitionStep = ({
         )}
       </div>
 
-      <div className={styles.full}>
-        <div className={styles.half}>
-          {socialHelpFormLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Формы социального обслуживания (сопровождения) *"
-            />
-          ) : socialHelpFormError ? (
-            <Input
-              value={''}
-              heading="Формы социального обслуживания (сопровождения) *"
-              readOnly
-            />
-          ) : (
-            <MultipleSelect
-              values={mainPartition.socialHelpForm}
-              options={socialHelpForm!}
-              isError={selectsErrors.socialHelpForm}
-              heading="Формы социального обслуживания (сопровождения) *"
-              onChangeOption={bindMultipleSelect('socialHelpForm')}
-            />
-          )}
-        </div>
+      <div className={styles.half}>
+        {socialHelpFormLoading ? (
+          <Skeleton
+            mode={ESkeletonMode.INPUT}
+            withLoader
+            heading="Формы социального обслуживания (сопровождения) *"
+          />
+        ) : socialHelpFormError ? (
+          <Input
+            value={''}
+            heading="Формы социального обслуживания (сопровождения) *"
+            readOnly
+          />
+        ) : (
+          <MultipleSelect
+            values={mainPartition.socialHelpForm}
+            options={socialHelpForm!}
+            isError={selectsErrors.socialHelpForm}
+            heading="Формы социального обслуживания (сопровождения) *"
+            onChangeOption={bindMultipleSelect('socialHelpForm')}
+          />
+        )}
       </div>
 
       <TextArea
