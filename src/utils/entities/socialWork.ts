@@ -21,7 +21,7 @@ export const mapSocialWorkToAPI = (
     info: {
       direction_id: entity.direction,
       conducting_classes_form_id: entity.conductingClassesForm,
-      dates_and_mode_of_study: entity.datesAndModeOfStudy,
+      //[Removed 12.10.2022 by clients correction] dates_and_mode_of_study: entity.datesAndModeOfStudy,
       program_type_id: entity.programType,
       public_work_ids: entity.gosWorkNames || [],
       service_type_ids: entity.worksKinds || [],
@@ -41,7 +41,7 @@ export const mapSocialWorkFromAPI = (
   return {
     direction: entity.info.direction_id,
     conductingClassesForm: entity.info.conducting_classes_form_id,
-    datesAndModeOfStudy: entity.info.dates_and_mode_of_study,
+    //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: entity.info.dates_and_mode_of_study,
     programType: entity.info.program_type_id,
     worksKinds: entity.info.service_type_ids,
     worksNames: entity.info.service_name_ids,

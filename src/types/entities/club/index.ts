@@ -33,7 +33,7 @@ export interface IClubData
 }
 
 export interface IClubMainPartition {
-  schedule: string; //График
+  //[Removed 12.10.2022 by clients correction] schedule: string; //График
   conductingClassesForm: number; //Форма проведения занятий
   worksKinds: number[] | null; //Вид услуги
   worksNames: number[] | null; //Наименования услуг
@@ -99,7 +99,7 @@ export interface IFullAPIClub
 }
 
 export interface IAPIClubInfoPart {
-  schedule: string;
+  //[Removed 12.10.2022 by clients correction]  schedule: string;
   conducting_classes_form_id: number;
   public_work_ids: number[];
   service_type_ids: number[];
@@ -119,7 +119,7 @@ export interface IClubSwitchers extends ICommonSwitchers {}
 export interface IClubState {
   // main partition
   mainPartition: {
-    schedule: IInput; //График
+    //[Removed 12.10.2022 by clients correction] schedule: IInput; //График
     conductingClassesForm: number; //Форма проведения занятий
     worksKinds: number[]; //Вид услуги
     worksNames: number[]; //Наименования услуг

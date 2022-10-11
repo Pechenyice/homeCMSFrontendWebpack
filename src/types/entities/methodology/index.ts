@@ -42,7 +42,7 @@ export interface IMethodologyMainPartition {
   effectivenessStudy: string | null; //Исследование эффективности или доказательности методики/технологии
   effectivenessStudyLink: string | null; //Ссылка на Исследование эффективности или доказательности методики/технологии
   realizedCycles: string; //Количество реализованных полных циклов
-  cycleDuration: string; //Продолжительность одного цикла
+  //[Removed 12.10.2022 by clients correction] cycleDuration: string; //Продолжительность одного цикла
   worksKinds: number[] | null; //Вид услуги
   worksNames: number[] | null; //Наименования услуг
   gosWorkNames: number[] | null; //Наименование государственной работы
@@ -116,7 +116,7 @@ export interface IAPIMethodologyInfoPart {
   effectiveness_study: string | null;
   effectiveness_study_link: string | null;
   realized_cycles: string;
-  cycle_duration: string;
+  //[Removed 12.10.2022 by clients correction] cycle_duration: string;
   public_work_ids: number[];
   service_type_ids: number[];
   service_name_ids: number[];
@@ -144,7 +144,7 @@ export interface IMethodologyState {
     effectivenessStudy: IInput; //Исследование эффективности или доказательности методики/технологии
     effectivenessStudyLink: IInput; //Ссылка на Исследование эффективности или доказательности методики/технологии
     realizedCycles: IInput; //Количество реализованных полных циклов
-    cycleDuration: IInput; //Продолжительность одного цикла
+    //[Removed 12.10.2022 by clients correction] cycleDuration: IInput; //Продолжительность одного цикла
     worksKinds: number[]; //Вид услуги
     worksNames: number[]; //Наименования услуг
     gosWorkNames: number[]; //Наименование государственной работы

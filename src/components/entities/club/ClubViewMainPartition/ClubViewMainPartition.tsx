@@ -189,13 +189,16 @@ export const ClubViewMainPartition = ({ club }: Props) => {
         )}
       </div>
 
-      <TextArea
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <TextArea
         readOnly
         className={styles.half}
         heading="График"
         placeholder="График"
         value={club.schedule}
-      />
+      /> */}
 
       <div className={styles.half}>
         {

@@ -229,13 +229,16 @@ export const SocialWorkViewMainPartition = ({ socialWork }: Props) => {
         )}
       </div>
 
-      <TextArea
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <TextArea
         readOnly
         className={styles.half}
         heading="Сроки, режим занятий"
         placeholder="Сроки, режим занятий"
         value={socialWork.datesAndModeOfStudy}
-      />
+      /> */}
 
       <div className={styles.half}>
         {

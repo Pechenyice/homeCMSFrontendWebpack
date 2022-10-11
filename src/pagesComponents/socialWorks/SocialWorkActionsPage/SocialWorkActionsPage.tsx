@@ -95,10 +95,11 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
   >({
     direction: data?.direction ?? -1, //Направленность
     conductingClassesForm: data?.conductingClassesForm ?? -1, //Форма проведения занятий
-    datesAndModeOfStudy: registerInput(
-      data?.datesAndModeOfStudy ?? '',
-      textInputValidator
-    ), //Сроки, режим занятий
+    //[Removed 12.10.2022 by clients correction]
+    // datesAndModeOfStudy: registerInput(
+    //   data?.datesAndModeOfStudy ?? '',
+    //   textInputValidator
+    // ), //Сроки, режим занятий
     worksKinds: data?.worksKinds ?? [], //Вид услуги
     worksNames: data?.worksNames ?? [], //Наименования услуг
     gosWorkNames: data?.gosWorkNames ?? [], //Наименование государственной работы
@@ -518,7 +519,7 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
       case 0: {
         const needValidation = {
           //required
-          datesAndModeOfStudy: mainPartition.datesAndModeOfStudy,
+          //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: mainPartition.datesAndModeOfStudy,
 
           name: mainPartition.name,
           annotation: mainPartition.annotation,
@@ -790,7 +791,7 @@ export const SocialWorkActionsPage = ({ data }: Props) => {
 
         direction: mainPartition.direction,
         conductingClassesForm: mainPartition.conductingClassesForm,
-        datesAndModeOfStudy: mainPartition.datesAndModeOfStudy.value,
+        //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: mainPartition.datesAndModeOfStudy.value,
         programType: mainPartition.programType,
         worksKinds: mainPartition.worksKinds.length
           ? mainPartition.worksKinds

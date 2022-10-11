@@ -35,7 +35,7 @@ export interface IEducationProgramData
 export interface IEducationProgramMainPartition {
   direction: number; //Направленность
   conductingClassesForm: number; //Форма проведения занятий
-  datesAndModeOfStudy: string; //Сроки, режим занятий
+  //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: string; //Сроки, режим занятий
 
   //common
   name: string; //Наименование
@@ -99,7 +99,7 @@ export interface IFullAPIEducationProgram
 export interface IAPIEducationProgramInfoPart {
   direction_id: number;
   conducting_classes_form_id: number;
-  dates_and_mode_of_study: string;
+  //[Removed 12.10.2022 by clients correction] dates_and_mode_of_study: string;
 }
 
 /**
@@ -117,7 +117,7 @@ export interface IEducationProgramState {
   mainPartition: {
     direction: number; //Направленность
     conductingClassesForm: number; //Форма проведения занятий
-    datesAndModeOfStudy: IInput; //Сроки, режим занятий
+    //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: IInput; //Сроки, режим занятий
 
     //common
     name: IInput; //Наименование

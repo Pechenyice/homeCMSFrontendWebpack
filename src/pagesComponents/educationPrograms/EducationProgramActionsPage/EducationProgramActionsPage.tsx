@@ -91,10 +91,11 @@ export const EducationProgramActionsPage = ({ data }: Props) => {
   >({
     direction: data?.direction ?? -1, //Направленность
     conductingClassesForm: data?.conductingClassesForm ?? -1, //Форма проведения занятий
-    datesAndModeOfStudy: registerInput(
-      data?.datesAndModeOfStudy ?? '',
-      textInputValidator
-    ), //Сроки, режим занятий
+    //[Removed 12.10.2022 by clients correction]
+    // datesAndModeOfStudy: registerInput(
+    //   data?.datesAndModeOfStudy ?? '',
+    //   textInputValidator
+    // ), //Сроки, режим занятий
 
     name: registerInput(data?.name ?? '', textInputValidator), //Наименование
     bestPracticeForLeadership: data?.bestPracticeForLeadership ?? false, //Лучшая практика по мнению руководства организации
@@ -503,7 +504,7 @@ export const EducationProgramActionsPage = ({ data }: Props) => {
       case 0: {
         const needValidation = {
           //required
-          datesAndModeOfStudy: mainPartition.datesAndModeOfStudy,
+          //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: mainPartition.datesAndModeOfStudy,
           name: mainPartition.name,
           annotation: mainPartition.annotation,
           purpose: mainPartition.purpose,
@@ -760,7 +761,7 @@ export const EducationProgramActionsPage = ({ data }: Props) => {
 
         direction: mainPartition.direction,
         conductingClassesForm: mainPartition.conductingClassesForm,
-        datesAndModeOfStudy: mainPartition.datesAndModeOfStudy.value,
+        //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: mainPartition.datesAndModeOfStudy.value,
 
         //common
         name: mainPartition.name.value,

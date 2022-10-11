@@ -87,7 +87,7 @@ export const ClubActionsPage = ({ data }: Props) => {
   const [mainPartition, setMainPartition] = useState<
     IClubState['mainPartition']
   >({
-    schedule: registerInput(data?.schedule ?? '', textInputValidator), //График
+    //[Removed 12.10.2022 by clients correction] schedule: registerInput(data?.schedule ?? '', textInputValidator), //График
     conductingClassesForm: data?.conductingClassesForm ?? -1, //Форма проведения занятий
     worksKinds: data?.worksKinds ?? [], //Вид услуги
     worksNames: data?.worksNames ?? [], //Наименования услуг
@@ -505,7 +505,7 @@ export const ClubActionsPage = ({ data }: Props) => {
       case 0: {
         const needValidation = {
           //required
-          schedule: mainPartition.schedule,
+          //[Removed 12.10.2022 by clients correction] schedule: mainPartition.schedule,
 
           name: mainPartition.name,
           annotation: mainPartition.annotation,
@@ -772,7 +772,7 @@ export const ClubActionsPage = ({ data }: Props) => {
         ...membersPartition,
 
         conductingClassesForm: mainPartition.conductingClassesForm,
-        schedule: mainPartition.schedule.value,
+        //[Removed 12.10.2022 by clients correction] schedule: mainPartition.schedule.value,
         worksKinds: mainPartition.worksKinds.length
           ? mainPartition.worksKinds
           : null,

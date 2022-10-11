@@ -270,7 +270,10 @@ export const ClubMainPartitionStep = ({
           />
         )}
       </div>
-      <TextArea
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <TextArea
         className={styles.half}
         name="schedule"
         value={mainPartition.schedule.value}
@@ -278,7 +281,7 @@ export const ClubMainPartitionStep = ({
         error={mainPartition.schedule.error}
         heading="График *"
         placeholder="График"
-      />
+      /> */}
 
       <div className={styles.half}>
         {

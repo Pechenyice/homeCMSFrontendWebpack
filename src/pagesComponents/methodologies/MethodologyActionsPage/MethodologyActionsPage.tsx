@@ -115,7 +115,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
       data?.realizedCycles ?? '',
       textInputValidator
     ), //Количество реализованных полных циклов
-    cycleDuration: registerInput(data?.cycleDuration ?? '', textInputValidator), //Продолжительность одного цикла
+    //[Removed 12.10.2022 by clients correction] cycleDuration: registerInput(data?.cycleDuration ?? '', textInputValidator), //Продолжительность одного цикла
     worksKinds: data?.worksKinds ?? [], //Вид услуги
     worksNames: data?.worksNames ?? [], //Наименования услуг
     gosWorkNames: data?.gosWorkNames ?? [], //Наименование государственной работы
@@ -541,7 +541,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
         const needValidation = {
           //required
           realizedCycles: mainPartition.realizedCycles,
-          cycleDuration: mainPartition.cycleDuration,
+          //[Removed 12.10.2022 by clients correction] cycleDuration: mainPartition.cycleDuration,
 
           name: mainPartition.name,
           annotation: mainPartition.annotation,
@@ -824,7 +824,7 @@ export const MethodologyActionsPage = ({ data }: Props) => {
         effectivenessStudyLink:
           mainPartition.effectivenessStudyLink.value || null,
         realizedCycles: mainPartition.realizedCycles.value,
-        cycleDuration: mainPartition.cycleDuration.value,
+        //[Removed 12.10.2022 by clients correction] cycleDuration: mainPartition.cycleDuration.value,
         worksKinds: mainPartition.worksKinds.length
           ? mainPartition.worksKinds
           : null,

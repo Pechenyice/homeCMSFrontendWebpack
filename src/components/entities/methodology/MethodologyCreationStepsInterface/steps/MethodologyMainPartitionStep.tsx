@@ -410,7 +410,10 @@ export const MethodologyMainPartitionStep = ({
             />
           )}
         </div>
-        <TextArea
+        {
+          //[Removed 12.10.2022 by clients correction]
+        }
+        {/* <TextArea
           className={combineClasses(styles.full, styles.leadHelper)}
           name="cycleDuration"
           value={mainPartition.cycleDuration.value}
@@ -418,7 +421,7 @@ export const MethodologyMainPartitionStep = ({
           error={mainPartition.cycleDuration.error}
           heading="Продолжительность одного цикла *"
           placeholder="Продолжительность одного цикла"
-        />
+        /> */}
       </div>
 
       <div className={styles.half}>

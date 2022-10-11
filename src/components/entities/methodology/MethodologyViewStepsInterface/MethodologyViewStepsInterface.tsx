@@ -310,13 +310,16 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
             />
           )}
         </div>
-        <TextArea
+        {
+          //[Removed 12.10.2022 by clients correction]
+        }
+        {/* <TextArea
           readOnly
           className={styles.full}
           heading="Продолжительность одного цикла"
           placeholder="Продолжительность одного цикла"
           value={methodology.cycleDuration}
-        />
+        /> */}
       </div>
 
       <div className={styles.half}>

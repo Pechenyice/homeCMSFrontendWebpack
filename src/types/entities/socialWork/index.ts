@@ -36,7 +36,7 @@ export interface ISocialWorkMainPartition {
   direction: number; //Направленность
   programType: number; //Вид программы
   conductingClassesForm: number; //Форма проведения занятий
-  datesAndModeOfStudy: string; //Сроки, режим занятий
+  //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: string; //Сроки, режим занятий
   worksKinds: number[] | null; //Вид услуги
   worksNames: number[] | null; //Наименования услуг
   gosWorkNames: number[] | null; //Наименование государственной работы
@@ -104,7 +104,7 @@ export interface IAPISocialWorkInfoPart {
   program_type_id: number;
   direction_id: number;
   conducting_classes_form_id: number;
-  dates_and_mode_of_study: string;
+  //[Removed 12.10.2022 by clients correction] dates_and_mode_of_study: string;
   public_work_ids: number[];
   service_type_ids: number[];
   service_name_ids: number[];
@@ -126,7 +126,7 @@ export interface ISocialWorkState {
     direction: number; //Направленность
     programType: number; //Вид программы
     conductingClassesForm: number; //Форма проведения занятий
-    datesAndModeOfStudy: IInput; //Сроки, режим занятий
+    //[Removed 12.10.2022 by clients correction] datesAndModeOfStudy: IInput; //Сроки, режим занятий
     worksKinds: number[]; //Вид услуги
     worksNames: number[]; //Наименования услуг
     gosWorkNames: number[]; //Наименование государственной работы

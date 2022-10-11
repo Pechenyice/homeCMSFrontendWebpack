@@ -15,7 +15,7 @@ export const mapClubToAPI = (
 
   return {
     info: {
-      schedule: entity.schedule,
+      //[Removed 12.10.2022 by clients correction] schedule: entity.schedule,
       conducting_classes_form_id: entity.conductingClassesForm,
       public_work_ids: entity.gosWorkNames || [],
       service_type_ids: entity.worksKinds || [],
@@ -31,7 +31,7 @@ export const mapClubToAPI = (
 
 export const mapClubFromAPI = (entity: IFullAPIClub): IClubData => {
   return {
-    schedule: entity.info.schedule,
+    //[Removed 12.10.2022 by clients correction]  schedule: entity.info.schedule,
     conductingClassesForm: entity.info.conducting_classes_form_id,
     worksKinds: entity.info.service_type_ids,
     worksNames: entity.info.service_name_ids,

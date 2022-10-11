@@ -315,7 +315,10 @@ export const SocialWorkMainPartitionStep = ({
           />
         )}
       </div>
-      <TextArea
+      {
+        //[Removed 12.10.2022 by clients correction]
+      }
+      {/* <TextArea
         className={styles.half}
         name="datesAndModeOfStudy"
         value={mainPartition.datesAndModeOfStudy.value}
@@ -323,7 +326,7 @@ export const SocialWorkMainPartitionStep = ({
         error={mainPartition.datesAndModeOfStudy.error}
         heading="Сроки, режим занятий *"
         placeholder="Сроки, режим занятий"
-      />
+      /> */}
 
       <div className={styles.half}>
         {
