@@ -819,7 +819,10 @@ export const MethodologiesFiltration = ({
          *
          *
          */}
-        <Select
+        {
+          //[Removed 12.10.2022 by clients correction]
+        }
+        {/* <Select
           className={styles.filter}
           withUnselect
           emptyText="Все"
@@ -833,7 +836,7 @@ export const MethodologiesFiltration = ({
           heading={`Наличие исследования эффективности 
           и доказательности методики/технологии`}
           onChangeOption={bindSelectChange('is_effectiveness_study')}
-        />
+        /> */}
       </div>
 
       <div className={styles.openedBlock}>
