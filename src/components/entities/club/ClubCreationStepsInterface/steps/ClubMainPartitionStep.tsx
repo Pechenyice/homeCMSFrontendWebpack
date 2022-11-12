@@ -209,8 +209,8 @@ export const ClubMainPartitionStep = ({
         value={mainPartition.name.value}
         onChange={onChange}
         error={mainPartition.name.error}
-        heading="Наименование программы *"
-        placeholder="Наименование программы"
+        heading="Наименование клуба *"
+        placeholder="Наименование клуба"
       />
 
       <Checkbox
@@ -673,7 +673,9 @@ export const ClubMainPartitionStep = ({
               photoName={mainPartition.photo.name}
               onPhotoChange={bindPhotoChange('photo')}
               heading="Фотография"
-              hint="Характеристики фото"
+              hint={
+                'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+              }
             />
           }
         </div>
@@ -684,7 +686,9 @@ export const ClubMainPartitionStep = ({
               category="job-primary-gallery"
               gallery={mainPartition.gallery}
               heading="Галерея"
-              hint="Характеристики фото галереи"
+              hint={
+                'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+              }
               onGalleryPhotosAdd={bindGalleryPhotosAdd('gallery')}
               onGalleryPhotoDelete={bindGalleryPhotoDelete('gallery')}
             />

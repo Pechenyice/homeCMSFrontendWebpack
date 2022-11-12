@@ -4,6 +4,7 @@ interface CssExports {
   'button': string;
   'delete': string;
   'dropdownElem': string;
+  'logoWrapper': string;
   'nav': string;
   'wrapper': string;
 }

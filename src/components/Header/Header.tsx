@@ -13,14 +13,18 @@ export const Header = (props: Props) => {
   if (isUnauthorized) {
     return (
       <div className={styles.wrapper}>
-        <LogoIcon />
+        <a href="/" className={styles.logoWrapper}>
+          <LogoIcon />
+        </a>
       </div>
     );
   }
 
   return (
     <div className={styles.wrapper}>
-      <LogoIcon />
+      <a href="/" className={styles.logoWrapper}>
+        <LogoIcon />
+      </a>
       <nav className={styles.nav}>
         <Link to={'/projects'}>
           <Text isMedium>Проекты</Text>

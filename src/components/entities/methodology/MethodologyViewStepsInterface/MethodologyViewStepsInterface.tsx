@@ -144,8 +144,8 @@ export const MethodologyViewStepsInterface = ({ methodology }: Props) => {
       <Input
         readOnly
         className={styles.full}
-        heading="Наименование программы"
-        placeholder="Наименование программы"
+        heading="Наименование методики/технологии"
+        placeholder="Наименование методики/технологии"
         value={methodology.name}
       />
 

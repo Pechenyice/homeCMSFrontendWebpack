@@ -134,8 +134,8 @@ export const ClubViewMainPartition = ({ club }: Props) => {
       <Input
         readOnly
         className={styles.full}
-        heading="Наименование программы"
-        placeholder="Наименование программы"
+        heading="Наименование клуба"
+        placeholder="Наименование клуба"
         value={club.name}
       />
 

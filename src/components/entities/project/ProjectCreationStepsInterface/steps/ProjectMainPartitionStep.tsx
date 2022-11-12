@@ -661,7 +661,9 @@ export const ProjectMainPartitionStep = ({
             photoName={mainPartition.photo.name}
             onPhotoChange={bindPhotoChange('photo')}
             heading="Фотография"
-            hint="Характеристики фото"
+            hint={
+              'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+            }
           />
         }
       </div>
@@ -672,7 +674,9 @@ export const ProjectMainPartitionStep = ({
             category="job-primary-gallery"
             gallery={mainPartition.gallery}
             heading="Галерея"
-            hint="Характеристики фото галереи"
+            hint={
+              'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+            }
             onGalleryPhotosAdd={bindGalleryPhotosAdd('gallery')}
             onGalleryPhotoDelete={bindGalleryPhotoDelete('gallery')}
           />

@@ -225,8 +225,8 @@ export const MethodologyMainPartitionStep = ({
         value={mainPartition.name.value}
         onChange={onChange}
         error={mainPartition.name.error}
-        heading="Наименование программы *"
-        placeholder="Наименование программы"
+        heading="Наименование методики/технологии *"
+        placeholder="Наименование методики/технологии"
       />
 
       <Checkbox
@@ -813,7 +813,9 @@ export const MethodologyMainPartitionStep = ({
             photoName={mainPartition.photo.name}
             onPhotoChange={bindPhotoChange('photo')}
             heading="Фотография"
-            hint="Характеристики фото"
+            hint={
+              'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+            }
           />
         }
       </div>
@@ -824,7 +826,9 @@ export const MethodologyMainPartitionStep = ({
             category="job-primary-gallery"
             gallery={mainPartition.gallery}
             heading="Галерея"
-            hint="Характеристики фото галереи"
+            hint={
+              'Желаемые характеристики:\nразрешение: 16:9,\nразмер: ~250кб,\nформат: jpg, png, gif'
+            }
             onGalleryPhotosAdd={bindGalleryPhotosAdd('gallery')}
             onGalleryPhotoDelete={bindGalleryPhotoDelete('gallery')}
           />

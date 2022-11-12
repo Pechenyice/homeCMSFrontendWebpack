@@ -18,7 +18,9 @@ export const AdminHeader = (props: Props) => {
   if (isUnauthorized) {
     return (
       <div className={styles.wrapper}>
-        <LogoIcon />
+        <a href="/" className={styles.logoWrapper}>
+          <LogoIcon />
+        </a>
       </div>
     );
   }
@@ -29,7 +31,9 @@ export const AdminHeader = (props: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      <LogoIcon />
+      <a href="/" className={styles.logoWrapper}>
+        <LogoIcon />
+      </a>
       <nav className={styles.nav}>
         <Link to={'/users'}>
           <Text isMedium>Организации</Text>

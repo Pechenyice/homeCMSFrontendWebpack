@@ -172,7 +172,8 @@ export const AuthProvider: FC = ({ children }) => {
 
       // setState({ ...state, status: EAuthStatus.ERROR, profile: null });
 
-      window.location.reload();
+      //to avoid /account prefix
+      window.location.assign('/');
     } catch (e) {
       if (e instanceof ServerError) {
         addError(

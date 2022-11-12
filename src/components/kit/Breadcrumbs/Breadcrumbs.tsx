@@ -15,7 +15,9 @@ export const Breadcrumbs = (props: HTMLAttributes<HTMLDivElement> & Props) => {
 
   return (
     <div className={combineClasses(styles.styled, className ?? '')} {...rest}>
-      <H4>Главная</H4>
+      <H4>
+        <a href="/">Главная</a>
+      </H4>
       {paths.map((path) => (
         <div className={styles.linkWrapper} key={path.link}>
           <ChevronRightIcon />

@@ -6,12 +6,13 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  max-width: 230px;
+  max-width: 250px;
   width: max-content;
   padding: 10px 15px;
   border-radius: 8px;
   background-color: var(--hint-gray);
   z-index: 10;
+  white-space: pre-line;
 
   &_left {
     left: unset;
