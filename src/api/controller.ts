@@ -1,3 +1,4 @@
+import { ILibraryWord } from 'types/admin/library';
 import { IAPIProject } from 'types/entities/project';
 import { IAPICompany, IProfileState, IUser } from 'types/interfaces';
 import * as fakes from 'utils';
@@ -20,6 +21,11 @@ import {
   IQueriesRelationsResponse,
   ICompaniesAdminListResponse,
   ICompanyStatusResponse,
+  ILibraryWordsResponse,
+  ILibraryWordCreateResponse,
+  ILibraryWordUpdateResponse,
+  ILibraryWordDeleteResponse,
+  ILibraryWordGetResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -165,6 +171,70 @@ export const API = {
         params.method,
         aborts.QUERIES_CATEGORIES_CONTROLLER
       );
+    },
+  },
+  admin: {
+    library: {
+      getList(
+        page: number,
+        limit: number,
+        queryParams: { [key: string]: string }
+      ): Promise<ILibraryWordsResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.LIBRARY.GET_LIST(
+          page,
+          limit,
+          queryParams
+        );
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_GET_LIST_CONTROLLER
+        );
+      },
+      get(id: number): Promise<ILibraryWordGetResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.LIBRARY.GET(id);
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_GET_CONTROLLER
+        );
+      },
+      //without id
+      create(data: Partial<ILibraryWord>): Promise<ILibraryWordCreateResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.LIBRARY.CREATE();
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_CREATE_CONTROLLER,
+          data
+        );
+      },
+      //without id
+      update(
+        data: Partial<ILibraryWord>,
+        id: number
+      ): Promise<ILibraryWordUpdateResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.LIBRARY.UPDATE(id);
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_UPDATE_CONTROLLER,
+          data
+        );
+      },
+      delete(id: number): Promise<ILibraryWordDeleteResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.LIBRARY.DELETE(id);
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_DELETE_CONTROLLER
+        );
+      },
     },
   },
 

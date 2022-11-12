@@ -10,6 +10,12 @@ export const aborts = {
   COMPANY_GET_LIST_CONTROLLER: new AbortController(),
   COMPANY_DOWNLOAD_CONTROLLER: new AbortController(),
 
+  LIBRARY_GET_LIST_CONTROLLER: new AbortController(),
+  LIBRARY_GET_CONTROLLER: new AbortController(),
+  LIBRARY_CREATE_CONTROLLER: new AbortController(),
+  LIBRARY_UPDATE_CONTROLLER: new AbortController(),
+  LIBRARY_DELETE_CONTROLLER: new AbortController(),
+
   FILE_UPLOAD_CONTROLLER: new AbortController(),
 
   QUERIES_CATEGORIES_CONTROLLER: new AbortController(),
@@ -111,6 +117,31 @@ export function abortGetCompanyAdminList() {
 export function abortDownloadCompany() {
   aborts.COMPANY_DOWNLOAD_CONTROLLER.abort();
   aborts.COMPANY_DOWNLOAD_CONTROLLER = new AbortController();
+}
+
+export function abortLibraryGetList() {
+  aborts.LIBRARY_GET_LIST_CONTROLLER.abort();
+  aborts.LIBRARY_GET_LIST_CONTROLLER = new AbortController();
+}
+
+export function abortLibraryGet() {
+  aborts.LIBRARY_GET_CONTROLLER.abort();
+  aborts.LIBRARY_GET_CONTROLLER = new AbortController();
+}
+
+export function abortLibraryCreate() {
+  aborts.LIBRARY_CREATE_CONTROLLER.abort();
+  aborts.LIBRARY_CREATE_CONTROLLER = new AbortController();
+}
+
+export function abortLibraryUpdate() {
+  aborts.LIBRARY_UPDATE_CONTROLLER.abort();
+  aborts.LIBRARY_UPDATE_CONTROLLER = new AbortController();
+}
+
+export function abortLibraryDelete() {
+  aborts.LIBRARY_DELETE_CONTROLLER.abort();
+  aborts.LIBRARY_DELETE_CONTROLLER = new AbortController();
 }
 
 export function abortCreateEntity() {

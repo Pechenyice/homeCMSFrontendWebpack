@@ -19,6 +19,9 @@ import { Statistic } from 'pages/admin/Statistic/Statistic';
 import { Methodology } from 'pages/admin/methodologies/Methodology/Methodology';
 import { Methodologies } from 'pages/admin/methodologies/Methodologies/Methodologies';
 import { MethodologiesArchive } from 'pages/admin/methodologies/MethodologiesArchive/MethodologiesArchive';
+import { LibraryWordCreation } from 'pages/admin/LibraryWordCreation/LibraryWordCreation';
+import { LibraryWordEdition } from 'pages/admin/LibraryWordEdition/LibraryWordEdition';
+import { LibraryWord } from 'pages/admin/LibraryWord/LibraryWord';
 
 const AdministratorApp = () => {
   return (
@@ -29,8 +32,15 @@ const AdministratorApp = () => {
         <Route index element={<AdminMain />} />
 
         <Route path="admin" element={<AdminPanel />} />
-        <Route path="library" element={<Library />} />
         <Route path="statistic" element={<Statistic />} />
+        <Route path="library">
+          <Route index element={<Library />} />
+          <Route path="create" element={<LibraryWordCreation />} />
+          <Route path=":id">
+            <Route index element={<LibraryWord />} />
+            <Route path="edit" element={<LibraryWordEdition />} />
+          </Route>
+        </Route>
 
         <Route path="users">
           <Route index element={<Companies />} />

@@ -1,0 +1,65 @@
+.adminWrapper {
+  padding-bottom: 100px;
+}
+
+.adminControls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  &__reject {
+    width: 250px;
+    background-color: var(--error);
+
+    &:hover {
+      background-color: var(--error);
+      opacity: .6;
+    }
+  }
+
+  &__approve {
+    width: 250px;
+    background-color: var(--success);
+
+    &:hover {
+      background-color: var(--success);
+      opacity: .6;
+    }
+  }
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.nextInput {
+  margin-top: 32px;
+}
+
+.controls {
+  width: 100%;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  &__last {
+    flex-direction: row;
+  }
+
+  &__button {
+    width: 250px;
+  }
+}
+
+.modalContent {
+  min-width: 660px;
+  margin-top: 50px;
+}

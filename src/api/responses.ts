@@ -1,3 +1,4 @@
+import { ILibraryWord, ILibraryWordList } from 'types/admin/library';
 import { IFullAPIClub } from 'types/entities/club';
 import { IFullAPIEducationProgram } from 'types/entities/educationProgram';
 import {
@@ -98,6 +99,26 @@ export interface ICompaniesAdminListResponse extends IResponseError {
 }
 
 export interface ICompanyStatusResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface ILibraryWordsResponse extends IResponseError {
+  data: ILibraryWordList | null;
+}
+
+export interface ILibraryWordGetResponse extends IResponseError {
+  data: ILibraryWord | null;
+}
+
+export interface ILibraryWordCreateResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface ILibraryWordUpdateResponse extends IResponseError {
+  data: boolean | null;
+}
+
+export interface ILibraryWordDeleteResponse extends IResponseError {
   data: boolean | null;
 }
 

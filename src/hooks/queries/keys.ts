@@ -20,6 +20,8 @@ export const activityOrganizationFormsKey = 'activity-organization-form';
 
 export const getEntitiesYearsKey = 'entitiesYears';
 
+export const getLibraryWordKey = (id: string) => ['libraryWord', id];
+
 export const getProjectKey = (id: string, userId?: number) => [
   'project',
   id,

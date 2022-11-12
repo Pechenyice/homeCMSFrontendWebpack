@@ -49,3 +49,8 @@ export interface ICommonSwitchers extends ICommonExpierienceSwitchers {
   hasExpertReview: boolean;
   hasExpertMention: boolean;
 }
+
+export interface ILibraryWordState {
+  word: IInput;
+  meaning: IInput;
+}
