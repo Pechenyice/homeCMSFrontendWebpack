@@ -50,9 +50,6 @@ export const AuthProvider: FC = ({ children }) => {
 
       if (!data?.id) throw new AuthError('Не удалось подтвердить пользователя');
 
-      //TODO: remove this fixture, for tests only
-      data.is_admin = data.login === 'admin';
-
       let formedResponse = null;
 
       if (!data.is_admin) {
