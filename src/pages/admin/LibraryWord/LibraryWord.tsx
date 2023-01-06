@@ -63,9 +63,9 @@ export const LibraryWord = () => {
 
       addInfo('Термин успешно удален!');
 
-      await queryClient.invalidateQueries(getLibraryWordKey(id as any));
+      queryClient.invalidateQueries(getLibraryWordKey(id as any)); //maybe FIXME: TODO: with await here is error 404 re-fetch deleted termin data, nobody knows why
 
-      navigate('/social');
+      navigate('/library');
     } catch (e) {
       if (e instanceof ServerError) {
         addError('Произошла критическая ошибка при удалении термина!');

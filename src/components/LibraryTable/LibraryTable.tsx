@@ -139,7 +139,7 @@ export const LibraryTable = ({
 
   const tableContent = (
     <div className={styles.table__content}>
-      {data.map((row, rowIndex) => (
+      {data?.map((row, rowIndex) => (
         <Link className={styles.link} to={`/library/${row.id}`}>
           <div className={styles.table__row} key={row.id}>
             {Object.values(COLUMNS).map((value, columnIndex) => (

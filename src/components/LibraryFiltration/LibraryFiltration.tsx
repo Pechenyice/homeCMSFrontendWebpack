@@ -104,7 +104,7 @@ export const LibraryFiltration = ({ onSearchClick, onClearClick }: Props) => {
             leftIcon={<SearchIcon />}
             placeholder="Поиск..."
             value={state.word}
-            heading="Поиск по слову"
+            heading="Поиск по слову или значению"
             onChange={bindChange('word')}
           />
         </div>
