@@ -71,7 +71,7 @@ export const DYNAMIC_API_ROUTES = {
         limit: number,
         queryParams: { [key: string]: string }
       ) => {
-        let url = `${ADMIN_API_PREFIX}/users/library?page=${page}&limit=${limit}&${Object.entries(
+        let url = `${ADMIN_API_PREFIX}/library?page=${page}&limit=${limit}&${Object.entries(
           queryParams
         )
           .filter(listFilter)
@@ -86,19 +86,19 @@ export const DYNAMIC_API_ROUTES = {
         };
       },
       CREATE: () => ({
-        url: `${ADMIN_API_PREFIX}/users/library/create`,
+        url: `${ADMIN_API_PREFIX}/library`,
         method: EAPIMethod.POST,
       }),
       UPDATE: (id: number) => ({
-        url: `${ADMIN_API_PREFIX}/users/library/${id}/update`,
+        url: `${ADMIN_API_PREFIX}/library/${id}`,
         method: EAPIMethod.PUT,
       }),
       DELETE: (id: number) => ({
-        url: `${ADMIN_API_PREFIX}/users/library/${id}/delete`,
+        url: `${ADMIN_API_PREFIX}/library/${id}`,
         method: EAPIMethod.DELETE,
       }),
       GET: (id: number) => ({
-        url: `${ADMIN_API_PREFIX}/users/library/${id}`,
+        url: `${ADMIN_API_PREFIX}/library/${id}`,
         method: EAPIMethod.GET,
       }),
     },

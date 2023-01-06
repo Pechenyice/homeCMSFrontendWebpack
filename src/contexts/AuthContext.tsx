@@ -101,9 +101,6 @@ export const AuthProvider: FC = ({ children }) => {
 
       localStorage.setItem('token', response.data?.token.value ?? '');
 
-      //TODO: remove this fixture, for tests only
-      response.data.user.is_admin = data.login === 'admin';
-
       let formedResponse = null;
 
       if (!response.data.user.is_admin) {
