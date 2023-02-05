@@ -1,4 +1,5 @@
 import { ILibraryWord, ILibraryWordList } from 'types/admin/library';
+import { IStatisticOrganizationResult } from 'types/admin/statistic';
 import { IFullAPIClub } from 'types/entities/club';
 import { IFullAPIEducationProgram } from 'types/entities/educationProgram';
 import {
@@ -104,6 +105,10 @@ export interface ICompanyStatusResponse extends IResponseError {
 
 export interface ILibraryWordsResponse extends IResponseError {
   data: ILibraryWordList | null;
+}
+
+export interface IStatisticOrganizationResultResponse extends IResponseError {
+  data: IStatisticOrganizationResult | null;
 }
 
 export interface ILibraryWordGetResponse extends IResponseError {

@@ -106,6 +106,11 @@ export const DYNAMIC_API_ROUTES = {
 };
 
 export const API_ROUTES: IAPIRoutesConfig = {
+  STATISTIC: {
+    url: `${ADMIN_API_PREFIX}/statistic/organizations`,
+    method: EAPIMethod.GET,
+  },
+
   PROFILE_AUTH_CHECK: {
     url: `${API_PREFIX}/users/check`,
     method: EAPIMethod.POST,

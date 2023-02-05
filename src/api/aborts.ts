@@ -10,6 +10,8 @@ export const aborts = {
   COMPANY_GET_LIST_CONTROLLER: new AbortController(),
   COMPANY_DOWNLOAD_CONTROLLER: new AbortController(),
 
+  STATISTIC_GET_ORGANISATIONS_CONTROLLER: new AbortController(),
+
   LIBRARY_GET_LIST_CONTROLLER: new AbortController(),
   LIBRARY_GET_CONTROLLER: new AbortController(),
   LIBRARY_CREATE_CONTROLLER: new AbortController(),
@@ -117,6 +119,11 @@ export function abortGetCompanyAdminList() {
 export function abortDownloadCompany() {
   aborts.COMPANY_DOWNLOAD_CONTROLLER.abort();
   aborts.COMPANY_DOWNLOAD_CONTROLLER = new AbortController();
+}
+
+export function abortStatisticGetOrganisations() {
+  aborts.STATISTIC_GET_ORGANISATIONS_CONTROLLER.abort();
+  aborts.STATISTIC_GET_ORGANISATIONS_CONTROLLER = new AbortController();
 }
 
 export function abortLibraryGetList() {

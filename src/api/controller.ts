@@ -26,6 +26,7 @@ import {
   ILibraryWordUpdateResponse,
   ILibraryWordDeleteResponse,
   ILibraryWordGetResponse,
+  IStatisticOrganizationResultResponse,
 } from './responses';
 import { safeFetch } from './wrapper';
 
@@ -174,6 +175,17 @@ export const API = {
     },
   },
   admin: {
+    statistic: {
+      getStatisticOrganizations(): Promise<IStatisticOrganizationResultResponse> {
+        const params = API_ROUTES.LIBRARY;
+
+        return safeFetch(
+          params.url,
+          params.method,
+          aborts.LIBRARY_GET_LIST_CONTROLLER
+        );
+      },
+    },
     library: {
       getList(
         page: number,
