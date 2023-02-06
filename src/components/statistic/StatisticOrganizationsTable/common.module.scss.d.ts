@@ -24,6 +24,7 @@ interface CssExports {
   'table__row': string;
   'table__row_main': string;
   'table__row_secondary': string;
+  'table__row_total': string;
   'table__wrapper': string;
   'wrapper': string;
 }

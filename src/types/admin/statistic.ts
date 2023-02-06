@@ -1,17 +1,23 @@
+// TODO: camelcase
 export interface IStatisticOrganizationEntry {
   count: number;
-  membersCount: number;
+  member_count: number;
 }
 
+export interface IStatisticOrganizationBlock {
+  social_project: IStatisticOrganizationEntry;
+  club: IStatisticOrganizationEntry;
+  edu_program: IStatisticOrganizationEntry;
+  methodology: IStatisticOrganizationEntry;
+  social_work: IStatisticOrganizationEntry;
+}
 export interface IStatisticOrganization {
   name: string;
-  project: IStatisticOrganizationEntry;
-  club: IStatisticOrganizationEntry;
-  educationProgram: IStatisticOrganizationEntry;
-  methodology: IStatisticOrganizationEntry;
-  socialWork: IStatisticOrganizationEntry;
+  full_name: string;
+  jobs: IStatisticOrganizationBlock;
 }
 
 export interface IStatisticOrganizationResult {
-  items: IStatisticOrganization[];
+  companies: IStatisticOrganization[];
+  meta: IStatisticOrganizationBlock;
 }

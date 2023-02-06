@@ -25,7 +25,8 @@ export const StatisticPage = () => {
   return (
     <>
       <StatisticOrganizationsTable
-        data={statisticOrganizations.items}
+        data={statisticOrganizations.companies}
+        total={statisticOrganizations.meta}
         isLoading={isLoading}
       />
     </>

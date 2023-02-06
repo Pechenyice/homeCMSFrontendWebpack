@@ -98,7 +98,7 @@
     transition: .2s;
 
     &:hover {
-      border: 1px solid var(--blue);
+      border: 1px solid var(--gray);
       box-shadow: 0px 5px 60px rgba(140, 145, 181, 0.15);
       transition: .2s;
     }
@@ -113,6 +113,15 @@
       flex-grow: 0;
       text-align: center;
       word-break: break-word;
+    }
+
+    &_total {
+      border: 1px solid var(--blue);
+      box-shadow: 0px 5px 60px rgba(140, 145, 181, 0.15);
+      
+      & * {
+        font-weight: bold;
+      }
     }
   }
 

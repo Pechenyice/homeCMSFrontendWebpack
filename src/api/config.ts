@@ -107,7 +107,7 @@ export const DYNAMIC_API_ROUTES = {
 
 export const API_ROUTES: IAPIRoutesConfig = {
   STATISTIC: {
-    url: `${ADMIN_API_PREFIX}/statistic/organizations`,
+    url: `${ADMIN_API_PREFIX}/stats/orgs`,
     method: EAPIMethod.GET,
   },
 

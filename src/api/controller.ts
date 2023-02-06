@@ -177,7 +177,7 @@ export const API = {
   admin: {
     statistic: {
       getStatisticOrganizations(): Promise<IStatisticOrganizationResultResponse> {
-        const params = API_ROUTES.LIBRARY;
+        const params = API_ROUTES.STATISTIC;
 
         return safeFetch(
           params.url,

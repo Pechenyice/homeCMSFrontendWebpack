@@ -21,38 +21,23 @@ export const useStatisticOrganizations = () => {
   const [
     statisticOrganizations,
     setStatisticOrganizations,
-  ] = useState<IStatisticOrganizationResult>({ items: [] });
+  ] = useState<IStatisticOrganizationResult>({
+    companies: [],
+    meta: {
+      social_project: { count: 0, member_count: 0 },
+      club: { count: 0, member_count: 0 },
+      edu_program: { count: 0, member_count: 0 },
+      social_work: { count: 0, member_count: 0 },
+      methodology: { count: 0, member_count: 0 },
+    },
+  });
 
   const getStatisticOrganizations = async () => {
     setIsLoading(true);
     let statisticOrganizations;
 
     try {
-      // statisticOrganizations = await API.admin.statistic.getStatisticOrganizations();
-      //TODO: replace with API call above
-      statisticOrganizations = {
-        data: {
-          items: [
-            {
-              name: 'test 1',
-              project: { count: 123, membersCount: 12345 },
-              educationProgram: { count: 1, membersCount: 111 },
-              club: { count: 2, membersCount: 222 },
-              socialWork: { count: 3, membersCount: 333 },
-              methodology: { count: 4, membersCount: 444 },
-            },
-            {
-              name: 'test 2',
-              project: { count: 123, membersCount: 12345 },
-              educationProgram: { count: 1, membersCount: 111 },
-              club: { count: 2, membersCount: 222 },
-              socialWork: { count: 3, membersCount: 333 },
-              methodology: { count: 4, membersCount: 444 },
-            },
-          ],
-        },
-        error: null,
-      };
+      statisticOrganizations = await API.admin.statistic.getStatisticOrganizations();
 
       setIsLoading(false);
     } catch (e) {

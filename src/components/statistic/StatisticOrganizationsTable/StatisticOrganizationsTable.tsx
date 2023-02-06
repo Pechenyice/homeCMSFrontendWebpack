@@ -20,33 +20,41 @@ import { EProposalStatus } from 'types/enums';
 import { formatDate } from 'utils/format';
 import { Link } from 'react-router-dom';
 import { ILibraryWord } from 'types/admin/library';
-import { IStatisticOrganization } from 'types/admin/statistic';
+import {
+  IStatisticOrganization,
+  IStatisticOrganizationBlock,
+} from 'types/admin/statistic';
 
 type Props = {
   data: IStatisticOrganization[];
+  total: IStatisticOrganizationBlock;
   isLoading: boolean;
 };
 
 const rowMapper = (row: IStatisticOrganization) => ({
   name: row.name,
 
-  project_count: row.project.count,
-  project_membersCount: row.project.membersCount,
+  project_count: row.jobs.social_project.count,
+  project_membersCount: row.jobs.social_project.member_count,
 
-  educationProgram_count: row.educationProgram.count,
-  educationProgram_membersCount: row.educationProgram.membersCount,
+  educationProgram_count: row.jobs.edu_program.count,
+  educationProgram_membersCount: row.jobs.edu_program.member_count,
 
-  club_count: row.club.count,
-  club_membersCount: row.club.membersCount,
+  club_count: row.jobs.club.count,
+  club_membersCount: row.jobs.club.member_count,
 
-  socialWork_count: row.socialWork.count,
-  socialWork_membersCount: row.socialWork.membersCount,
+  socialWork_count: row.jobs.social_work.count,
+  socialWork_membersCount: row.jobs.social_work.member_count,
 
-  methodology_count: row.project.count,
-  methodology_membersCount: row.project.membersCount,
+  methodology_count: row.jobs.methodology.count,
+  methodology_membersCount: row.jobs.methodology.member_count,
 });
 
-export const StatisticOrganizationsTable = ({ data, isLoading }: Props) => {
+export const StatisticOrganizationsTable = ({
+  data,
+  total,
+  isLoading,
+}: Props) => {
   const COLUMNS = [
     {
       title: 'Название организации',
@@ -157,13 +165,36 @@ export const StatisticOrganizationsTable = ({ data, isLoading }: Props) => {
           ))}
         </div>
       ))}
+
+      <div
+        className={combineClasses(styles.table__row, styles.table__row_total)}
+        key="total"
+      >
+        {Object.values(COLUMNS).map((value, columnIndex) => (
+          <div
+            className={
+              columnIndex ? styles.table__row_secondary : styles.table__row_main
+            }
+            key={value.key}
+          >
+            {getCellContent(
+              rowMapper({
+                jobs: { ...total },
+                name: 'Итого: ',
+                full_name: 'Итого: ',
+              }),
+              value.dataIndex
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 
   const tableFooter = (
     <div className={styles.table__footer}>
       <div className={styles.table__footerInfo}>
-        <H4>Показано: {data.length}</H4>
+        <H4>Показано: {data.length} организаций</H4>
       </div>
     </div>
   );
