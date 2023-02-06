@@ -21,33 +21,33 @@ import { formatDate } from 'utils/format';
 import { Link } from 'react-router-dom';
 import { ILibraryWord } from 'types/admin/library';
 import {
-  IStatisticOrganization,
-  IStatisticOrganizationBlock,
+  IStatisticOrganizationBlockCamel,
+  IStatisticOrganizationCamel,
 } from 'types/admin/statistic';
 
 type Props = {
-  data: IStatisticOrganization[];
-  total: IStatisticOrganizationBlock;
+  data: IStatisticOrganizationCamel[];
+  total: IStatisticOrganizationBlockCamel;
   isLoading: boolean;
 };
 
-const rowMapper = (row: IStatisticOrganization) => ({
+const rowMapper = (row: IStatisticOrganizationCamel) => ({
   name: row.name,
 
-  project_count: row.jobs.social_project.count,
-  project_membersCount: row.jobs.social_project.member_count,
+  project_count: row.jobs.project.count,
+  project_membersCount: row.jobs.project.membersCount,
 
-  educationProgram_count: row.jobs.edu_program.count,
-  educationProgram_membersCount: row.jobs.edu_program.member_count,
+  educationProgram_count: row.jobs.educationProgram.count,
+  educationProgram_membersCount: row.jobs.educationProgram.membersCount,
 
   club_count: row.jobs.club.count,
-  club_membersCount: row.jobs.club.member_count,
+  club_membersCount: row.jobs.club.membersCount,
 
-  socialWork_count: row.jobs.social_work.count,
-  socialWork_membersCount: row.jobs.social_work.member_count,
+  socialWork_count: row.jobs.socialWork.count,
+  socialWork_membersCount: row.jobs.socialWork.membersCount,
 
   methodology_count: row.jobs.methodology.count,
-  methodology_membersCount: row.jobs.methodology.member_count,
+  methodology_membersCount: row.jobs.methodology.membersCount,
 });
 
 export const StatisticOrganizationsTable = ({
@@ -181,7 +181,7 @@ export const StatisticOrganizationsTable = ({
               rowMapper({
                 jobs: { ...total },
                 name: 'Итого: ',
-                full_name: 'Итого: ',
+                fullName: 'Итого: ',
               }),
               value.dataIndex
             )}

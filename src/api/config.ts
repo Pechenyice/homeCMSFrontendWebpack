@@ -64,7 +64,6 @@ export const DYNAMIC_API_ROUTES = {
       };
     },
 
-    //TODO: update library endpoints with API documentation routes
     LIBRARY: {
       GET_LIST: (
         page: number,

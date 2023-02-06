@@ -6,11 +6,15 @@ import { useQueryParams } from 'hooks/utils/useQueryParams';
 import { ParsedQuery } from 'query-string';
 import { useState } from 'react';
 import { ILibraryWordList } from 'types/admin/library';
-import { IStatisticOrganizationResult } from 'types/admin/statistic';
+import {
+  IStatisticOrganizationResult,
+  IStatisticOrganizationResultCamel,
+} from 'types/admin/statistic';
 import {
   IAPIAdminEntitiesArchiveList,
   IAPIAdminEntitiesList,
 } from 'types/entities/entities';
+import { mapStatisticOrganizationsFromApi } from 'utils/admin/statistic';
 
 export const useStatisticOrganizations = () => {
   const { addError } = useErrors();
@@ -21,14 +25,14 @@ export const useStatisticOrganizations = () => {
   const [
     statisticOrganizations,
     setStatisticOrganizations,
-  ] = useState<IStatisticOrganizationResult>({
+  ] = useState<IStatisticOrganizationResultCamel>({
     companies: [],
     meta: {
-      social_project: { count: 0, member_count: 0 },
-      club: { count: 0, member_count: 0 },
-      edu_program: { count: 0, member_count: 0 },
-      social_work: { count: 0, member_count: 0 },
-      methodology: { count: 0, member_count: 0 },
+      socialWork: { count: 0, membersCount: 0 },
+      club: { count: 0, membersCount: 0 },
+      educationProgram: { count: 0, membersCount: 0 },
+      project: { count: 0, membersCount: 0 },
+      methodology: { count: 0, membersCount: 0 },
     },
   });
 
@@ -57,7 +61,9 @@ export const useStatisticOrganizations = () => {
       return;
     }
 
-    setStatisticOrganizations(statisticOrganizations.data);
+    setStatisticOrganizations(
+      mapStatisticOrganizationsFromApi(statisticOrganizations.data)
+    );
   };
 
   return { statisticOrganizations, isLoading, getStatisticOrganizations };
