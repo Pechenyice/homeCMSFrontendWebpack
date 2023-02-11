@@ -176,8 +176,10 @@ export const API = {
   },
   admin: {
     statistic: {
-      getStatisticOrganizations(): Promise<IStatisticOrganizationResultResponse> {
-        const params = API_ROUTES.STATISTIC;
+      getStatisticOrganizations(queryParams: {
+        [key: string]: string;
+      }): Promise<IStatisticOrganizationResultResponse> {
+        const params = DYNAMIC_API_ROUTES.ADMIN.STATISTIC.GET_LIST(queryParams);
 
         return safeFetch(
           params.url,

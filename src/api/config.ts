@@ -1,6 +1,10 @@
 import { IAPIRoutesConfig } from './interfaces';
 import { EAPIMethod } from './enums';
-import { listFilter, listMapper } from './entities/common';
+import {
+  listFilter,
+  listMapper,
+  listMapperWithoutFilterPrefix,
+} from './entities/common';
 import { ADMIN_API_PREFIX, API_PREFIX } from './constants';
 
 export const DYNAMIC_API_ROUTES = {
@@ -101,15 +105,29 @@ export const DYNAMIC_API_ROUTES = {
         method: EAPIMethod.GET,
       }),
     },
+
+    STATISTIC: {
+      GET_LIST: (queryParams: { [key: string]: string }) => {
+        console.log(queryParams);
+        let url = `${ADMIN_API_PREFIX}/stats/orgs?${Object.entries(queryParams)
+          .filter(listFilter)
+          .map(listMapperWithoutFilterPrefix)
+          .join('&')}`;
+
+        console.log(url);
+
+        if (url.endsWith('&')) url = url.slice(0, -1);
+
+        return {
+          url,
+          method: EAPIMethod.GET,
+        };
+      },
+    },
   },
 };
 
 export const API_ROUTES: IAPIRoutesConfig = {
-  STATISTIC: {
-    url: `${ADMIN_API_PREFIX}/stats/orgs`,
-    method: EAPIMethod.GET,
-  },
-
   PROFILE_AUTH_CHECK: {
     url: `${API_PREFIX}/users/check`,
     method: EAPIMethod.POST,

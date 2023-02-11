@@ -18,6 +18,22 @@ export const listMapper = ([key, value]: [key: any, value: any]) =>
         .toLowerCase()}`
     : `filter_${key.toLowerCase()}=${value}`;
 
+export const listMapperWithoutFilterPrefix = ([key, value]: [
+  key: any,
+  value: any
+]) =>
+  key === 'sortBy'
+    ? `sort_by=${value}`
+    : key === 'sortDirection'
+    ? `sort_direction=${value}`
+    : key === 'status'
+    ? `${key.toLowerCase()}=${EProposalStatus[
+        value as keyof typeof EProposalStatus
+      ]
+        .toString()
+        .toLowerCase()}`
+    : `${key.toLowerCase()}=${value}`;
+
 export const getEntityPath = (entity: EEntity) => {
   switch (entity) {
     case EEntity.PROJECT: {

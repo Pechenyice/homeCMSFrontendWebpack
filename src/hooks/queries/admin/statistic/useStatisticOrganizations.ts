@@ -36,12 +36,18 @@ export const useStatisticOrganizations = () => {
     },
   });
 
-  const getStatisticOrganizations = async () => {
+  const params = useQueryParams();
+
+  const getStatisticOrganizations = async (
+    lockedParams?: ParsedQuery<string>
+  ) => {
     setIsLoading(true);
     let statisticOrganizations;
 
     try {
-      statisticOrganizations = await API.admin.statistic.getStatisticOrganizations();
+      statisticOrganizations = await API.admin.statistic.getStatisticOrganizations(
+        lockedParams || (params as any)
+      );
 
       setIsLoading(false);
     } catch (e) {

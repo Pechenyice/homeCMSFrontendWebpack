@@ -29,6 +29,9 @@ type Props = {
   data: IStatisticOrganizationCamel[];
   total: IStatisticOrganizationBlockCamel;
   isLoading: boolean;
+  sortBy: string;
+  sortDirection: string;
+  onColumnHeaderClick: (columnHeader: string) => void;
 };
 
 const rowMapper = (row: IStatisticOrganizationCamel) => ({
@@ -54,6 +57,9 @@ export const StatisticOrganizationsTable = ({
   data,
   total,
   isLoading,
+  sortBy,
+  sortDirection,
+  onColumnHeaderClick,
 }: Props) => {
   const COLUMNS = [
     {
@@ -65,55 +71,65 @@ export const StatisticOrganizationsTable = ({
     {
       title: 'Проекты',
       dataIndex: 'project_count',
+      sortIndex: 'social_project.count',
       key: 'project_count',
     },
     {
       title: 'Кол-во уч.',
       dataIndex: 'project_membersCount',
+      sortIndex: 'social_project.member_count',
       key: 'project_membersCount',
     },
 
     {
       title: 'Программы ДО',
       dataIndex: 'educationProgram_count',
+      sortIndex: 'edu_program.count',
       key: 'educationProgram_count',
     },
     {
       title: 'Кол-во уч.',
       dataIndex: 'educationProgram_membersCount',
+      sortIndex: 'edu_program.member_count',
       key: 'educationProgram_membersCount',
     },
 
     {
       title: 'Клубы',
       dataIndex: 'club_count',
+      sortIndex: 'club.count',
       key: 'club_count',
     },
     {
       title: 'Кол-во уч.',
       dataIndex: 'club_membersCount',
+      sortIndex: 'club.member_count',
       key: 'club_membersCount',
     },
 
     {
       title: 'Программы СР',
       dataIndex: 'socialWork_count',
+      sortIndex: 'social_work.count',
       key: 'socialWork_count',
     },
     {
       title: 'Кол-во уч.',
       dataIndex: 'socialWork_membersCount',
+      sortIndex: 'social_work.member_count',
       key: 'socialWork_membersCount',
     },
 
     {
       title: 'Метод. и техн.',
       dataIndex: 'methodology_count',
+      sortIndex: 'methodology.count',
       key: 'methodology_count',
     },
     {
       title: 'Кол-во уч.',
       dataIndex: 'methodology_membersCount',
+      sortIndex: 'methodology.member_count',
       key: 'methodology_membersCount',
     },
   ];
@@ -126,20 +142,33 @@ export const StatisticOrganizationsTable = ({
     return <Text>{row[dataIndex as keyof typeof row]}</Text>;
   };
 
+  const handleBindFilter = (columnName: string) => () =>
+    onColumnHeaderClick(columnName);
+
   const tableHeader = (
     <div className={styles.table__header}>
       {COLUMNS.map((column, index) => {
+        const withSorting = !!column.sortIndex;
+
+        const isSortedByThisColumn = sortBy === column.sortIndex;
+        const sortingOrder = sortDirection === 'DESC' ? '⯆' : '⯅';
+        const sortingContent = isSortedByThisColumn ? sortingOrder : null;
+
         return (
           <div
             className={combineClasses(
+              withSorting ? styles.table__columnHeader_sorting : '',
               index
-                ? styles.table__columnHeader_secondary
-                : styles.table__columnHeader_main
+                ? styles.table__columnHeader_main
+                : styles.table__columnHeader_secondary
             )}
+            onClick={
+              withSorting ? handleBindFilter(column.sortIndex) : undefined
+            }
             key={column.key}
           >
             <H4 className={styles.table__columnHeader_label}>
-              {column.title.toUpperCase()}
+              {column.title.toUpperCase()} {sortingContent}
             </H4>
           </div>
         );
