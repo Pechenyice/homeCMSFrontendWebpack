@@ -159,8 +159,8 @@ export const StatisticOrganizationsTable = ({
             className={combineClasses(
               withSorting ? styles.table__columnHeader_sorting : '',
               index
-                ? styles.table__columnHeader_main
-                : styles.table__columnHeader_secondary
+                ? styles.table__columnHeader_secondary
+                : styles.table__columnHeader_main
             )}
             onClick={
               withSorting ? handleBindFilter(column.sortIndex) : undefined
