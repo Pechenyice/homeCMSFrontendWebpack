@@ -7,6 +7,7 @@ interface CssExports {
   'half': string;
   'leadHelper': string;
   'link': string;
+  'table__columnHeader': string;
   'table__columnHeader_label': string;
   'table__columnHeader_main': string;
   'table__columnHeader_secondary': string;

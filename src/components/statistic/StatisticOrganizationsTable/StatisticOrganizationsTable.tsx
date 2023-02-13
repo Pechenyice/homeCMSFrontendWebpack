@@ -157,6 +157,7 @@ export const StatisticOrganizationsTable = ({
         return (
           <div
             className={combineClasses(
+              styles.table__columnHeader,
               withSorting ? styles.table__columnHeader_sorting : '',
               index
                 ? styles.table__columnHeader_secondary
