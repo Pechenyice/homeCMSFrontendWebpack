@@ -46,7 +46,7 @@ export function safeFetch(
         ? { Authorization: `Bearer ${localStorage.getItem('token') || ''}` }
         : {
             'Content-Type': contentType,
-            Accept: 'application/json',
+            Accept: contentType ?? 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
           },
     signal: controller.signal,

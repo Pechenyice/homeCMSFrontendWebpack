@@ -31,6 +31,20 @@ import {
 import { safeFetch } from './wrapper';
 
 export const API = {
+  statistic: {
+    exportCsv(path: string): Promise<any> {
+      const params = DYNAMIC_API_ROUTES.EXPORT_CSV(path);
+
+      return safeFetch(
+        params.url,
+        params.method,
+        aborts.EXPORT_CSV_CONTROLLER,
+        {},
+        'text/csv; charset=UTF-8'
+      );
+    },
+  },
+
   profile: {
     checkAuth(): Promise<IProfileCheckAuthResponse> {
       return safeFetch(

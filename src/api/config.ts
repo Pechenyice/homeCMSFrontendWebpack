@@ -8,6 +8,11 @@ import {
 import { ADMIN_API_PREFIX, API_PREFIX } from './constants';
 
 export const DYNAMIC_API_ROUTES = {
+  EXPORT_CSV: (path: string) => ({
+    url: `/api/public/v1/stats/csv/${path}`,
+    method: EAPIMethod.GET,
+  }),
+
   PROFILE_GET_COMPANY: (userId: number) => ({
     url: `${API_PREFIX}/users/${userId}/company`,
     method: EAPIMethod.GET,

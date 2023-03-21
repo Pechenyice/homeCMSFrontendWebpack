@@ -34,6 +34,8 @@ export const aborts = {
   ENTITY_APPROVE_CONTROLLER: new AbortController(),
   ENTITY_RESTORE_CONTROLLER: new AbortController(),
   ENTITY_DOWNLOAD_CONTROLLER: new AbortController(),
+
+  EXPORT_CSV_CONTROLLER: new AbortController(),
 };
 
 export function abortCheckAuth() {
@@ -179,4 +181,9 @@ export function abortQueryCategories() {
 export function abortQueryYears() {
   aborts.QUERIES_YEARS_CONTROLLER.abort();
   aborts.QUERIES_YEARS_CONTROLLER = new AbortController();
+}
+
+export function abortExportCsv() {
+  aborts.EXPORT_CSV_CONTROLLER.abort();
+  aborts.EXPORT_CSV_CONTROLLER = new AbortController();
 }
