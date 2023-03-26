@@ -9,6 +9,7 @@
   transition: .2s;
 
   &_opened {
+    padding-bottom: 60px;
     max-height: 800px;
     opacity: 1;
     transition: .2s;

@@ -12,7 +12,7 @@ import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import styles from './CompaniesFiltration.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { combineClasses, getValueByIdFromSelect } from 'utils/common';
-import { STATUS_OPTIONS } from './../../constants';
+import { STATUS_OPTIONS, YES_NO_OPTIONS } from './../../constants';
 import { useDistricts } from 'hooks/queries/useDistricts';
 
 type Props = {
@@ -25,6 +25,10 @@ const defaultState = {
   name: '',
   status: -1,
   district_id: -1,
+
+  is_education_license: -1,
+  is_medical_license: -1,
+  is_has_innovative_platform: -1,
 };
 
 export const CompaniesFiltration = ({
@@ -59,6 +63,17 @@ export const CompaniesFiltration = ({
       status: state.status === -1 ? undefined : state.status,
 
       district_id: state.district_id === -1 ? undefined : state.district_id,
+
+      is_education_license:
+        state.is_education_license === -1
+          ? undefined
+          : state.is_education_license,
+      is_medical_license:
+        state.is_medical_license === -1 ? undefined : state.is_medical_license,
+      is_has_innovative_platform:
+        state.is_has_innovative_platform === -1
+          ? undefined
+          : state.is_has_innovative_platform,
     };
 
     const withSortingPreparedQueryParams = {
@@ -165,6 +180,74 @@ export const CompaniesFiltration = ({
           <Button onClick={onSearchClick} className={styles.action}>
             <Text isMedium>Поиск</Text>
           </Button>
+        </div>
+      </div>
+
+      <div
+        className={combineClasses(
+          styles.filtrationAddon,
+          isOpened ? styles.filtrationAddon_opened : ''
+        )}
+      >
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={
+            isNaN(+state.is_education_license)
+              ? -1
+              : +state.is_education_license
+          }
+          options={YES_NO_OPTIONS}
+          heading="Наличие лицензии на образ. деятельность"
+          onChangeOption={bindSelectChange('is_education_license')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={
+            isNaN(+state.is_medical_license) ? -1 : +state.is_medical_license
+          }
+          options={YES_NO_OPTIONS}
+          heading="Наличие лицензии на мед. деятельность"
+          onChangeOption={bindSelectChange('is_medical_license')}
+        />
+        <Select
+          className={styles.filter}
+          withUnselect
+          emptyText="Все"
+          unselectedText="Все"
+          value={
+            isNaN(+state.is_has_innovative_platform)
+              ? -1
+              : +state.is_has_innovative_platform
+          }
+          options={YES_NO_OPTIONS}
+          heading="Наличие иновационной площадки"
+          onChangeOption={bindSelectChange('is_has_innovative_platform')}
+        />
+      </div>
+
+      <div className={styles.openedBlock}>
+        <div
+          className={styles.openedBlock__control}
+          onClick={handleToggleIsOpened}
+        >
+          {isOpened ? (
+            <Text isMedium>Скрыть</Text>
+          ) : (
+            <Text isMedium>Показать</Text>
+          )}
+          <div
+            className={
+              isOpened ? styles.chevron_rotatedReverse : styles.chevron_rotated
+            }
+          >
+            <ChevronLeftIcon className={styles.chevron} />
+          </div>
         </div>
       </div>
     </div>
