@@ -38,10 +38,32 @@
   width: 100%;
 }
 
+.box {
+  margin-top: 100px;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &_checkbox {
+      width: max-content;
+      height: 30px;
+    }
+  }
+}
+
 .table {
   &__wrapper {
     width: 100%;
-    margin-top: 100px;
+    margin-top: 30px;
     min-height: 70vh;
   }
 
@@ -114,6 +136,10 @@
     }
 
     &_secondary {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 25px 10px;
       flex-basis: 8%;
       flex-grow: 0;
@@ -132,6 +158,7 @@
       }
 
       & .table__row_secondary {
+        flex-basis: 8%;
         border-left: 0px solid var(--gray);
       }
     }

@@ -13,6 +13,7 @@ import { useSearchParams } from 'react-router-dom';
 import { combineClasses, getValueByIdFromSelect } from 'utils/common';
 import { useDistricts } from 'hooks/queries/useDistricts';
 import { parseFilterParams } from 'utils/parse';
+import { useOrganizationTypes } from 'hooks/queries/useOrganizationTypes';
 
 type Props = {
   onSearchClick: () => void;
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const defaultState = {
+  district_ids: [],
   organization_type_ids: [],
 };
 
@@ -33,17 +35,26 @@ export const StatisticFiltration = ({ onSearchClick, onClearClick }: Props) => {
     isLoading: districtsLoading,
     isError: districtsError,
   } = useDistricts();
+  const {
+    apiData: organizationTypes,
+    apiError: organizationTypesApiError,
+    isLoading: organizationTypesLoading,
+    isError: organizationTypesError,
+  } = useOrganizationTypes();
 
   const [isOpened, setIsOpened] = useState(false);
 
   //default values for filtration
   const [state, setState] = useState({
     ...defaultState,
-    ...parseFilterParams(params, ['organization_type_ids']),
+    ...parseFilterParams(params, ['district_ids', 'organization_type_ids']),
   });
 
   const getPreparedQueryParams = () => {
     const preparedQueryParams = {
+      district_ids: !state.district_ids.length
+        ? undefined
+        : state.district_ids.join(','),
       organization_type_ids: !state.organization_type_ids.length
         ? undefined
         : state.organization_type_ids.join(','),
@@ -116,24 +127,48 @@ export const StatisticFiltration = ({ onSearchClick, onClearClick }: Props) => {
     >
       <div className={styles.inner}>
         <div className={styles.mainFiltration}>
-          {districtsLoading ? (
-            <Skeleton
-              mode={ESkeletonMode.INPUT}
-              withLoader
-              heading="Категории РНСУ"
-            />
-          ) : districtsError ? (
-            <Input value={''} heading="Категории РНСУ" readOnly />
-          ) : (
-            <MultipleSelect
-              emptyText="Не выбрано"
-              unselectedText="Не выбрано"
-              values={state.organization_type_ids}
-              options={districts!}
-              heading="Подведомственное КСП, администрации района или СО НКО"
-              onChangeOption={bindMultipleSelectChange('organization_type_ids')}
-            />
-          )}
+          <div className={styles.mainFiltration__item}>
+            {districtsLoading ? (
+              <Skeleton
+                mode={ESkeletonMode.INPUT}
+                withLoader
+                heading="Принадлежность"
+              />
+            ) : districtsError ? (
+              <Input value={''} heading="Принадлежность" readOnly />
+            ) : (
+              <MultipleSelect
+                emptyText="Не выбрано"
+                unselectedText="Не выбрано"
+                values={state.district_ids}
+                options={districts!}
+                heading="Принадлежность"
+                onChangeOption={bindMultipleSelectChange('district_ids')}
+              />
+            )}
+          </div>
+          <div className={styles.mainFiltration__item}>
+            {organizationTypesLoading ? (
+              <Skeleton
+                mode={ESkeletonMode.INPUT}
+                withLoader
+                heading="Тип организации"
+              />
+            ) : organizationTypesError ? (
+              <Input value={''} heading="Тип организации" readOnly />
+            ) : (
+              <MultipleSelect
+                emptyText="Не выбрано"
+                unselectedText="Не выбрано"
+                values={state.organization_type_ids}
+                options={organizationTypes!}
+                heading="Тип организации"
+                onChangeOption={bindMultipleSelectChange(
+                  'organization_type_ids'
+                )}
+              />
+            )}
+          </div>
         </div>
 
         <div className={styles.actionsFiltration}>

@@ -12,6 +12,7 @@ interface CssExports {
   'filtrationAddon_opened': string;
   'inner': string;
   'mainFiltration': string;
+  'mainFiltration__item': string;
   'openedBlock': string;
   'openedBlock__control': string;
   'search': string;

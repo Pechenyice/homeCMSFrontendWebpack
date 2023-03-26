@@ -16,7 +16,7 @@ export const StatisticAddon = () => {
     <div>
       <div className={styles.wrapper}>
         <Button onClick={bindExport('companies')}>
-          <Text isMedium>Экспорт компаний</Text>
+          <Text isMedium>Экспорт организаций</Text>
         </Button>
         <Button onClick={bindExport('social-projects')}>
           <Text isMedium>Экспорт проектов</Text>
