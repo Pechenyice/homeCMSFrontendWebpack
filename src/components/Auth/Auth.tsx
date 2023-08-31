@@ -1,4 +1,4 @@
-import { Button, H1, Input, Text } from 'components/kit';
+import { Button, Checkbox, H1, Input, Text } from 'components/kit';
 import { useAuth, useErrors } from 'hooks';
 import { ChangeEvent, useState } from 'react';
 import { IInputsState } from 'types/interfaces';
@@ -8,6 +8,8 @@ import styles from './Auth.module.scss';
 export const Auth = () => {
   const { handleLogin } = useAuth();
   const { addError } = useErrors();
+
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const [inputs, setInputs] = useState<IInputsState>({
     login: registerInput('', textInputValidator),
@@ -50,6 +52,10 @@ export const Auth = () => {
     handleLogin({ login: inputs.login.value, password: inputs.password.value });
   };
 
+  const handleToggleConfirmation = () => {
+    setIsConfirmed((prev) => !prev);
+  };
+
   return (
     <div className={styles.wrapper}>
       <H1 className={styles.heading}>Вход</H1>
@@ -72,7 +78,17 @@ export const Auth = () => {
         heading="Пароль"
         className={styles.lastInput}
       />
-      <Button onClick={handleAuthTry} disabled={!formIsValid}>
+      <Checkbox
+        className={styles.confirmation}
+        checked={isConfirmed}
+        onToggle={handleToggleConfirmation}
+        label={
+          <Text>
+            Согласен (а) на обработку и использование персональных данных
+          </Text>
+        }
+      />
+      <Button onClick={handleAuthTry} disabled={!formIsValid || !isConfirmed}>
         <Text isMedium>Войти</Text>
       </Button>
     </div>

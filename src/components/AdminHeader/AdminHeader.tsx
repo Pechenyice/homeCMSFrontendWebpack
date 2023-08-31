@@ -62,9 +62,6 @@ export const AdminHeader = (props: Props) => {
         }
         placement="right"
       >
-        <div className={styles.dropdownElem} onClick={bindNavigate('/admin')}>
-          <Text isMedium>Админ-меню</Text>
-        </div>
         <div className={styles.dropdownElem} onClick={bindNavigate('/library')}>
           <Text isMedium>Библиотека терминов</Text>
         </div>

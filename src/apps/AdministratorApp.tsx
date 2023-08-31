@@ -13,7 +13,6 @@ import { SocialWorksArchive } from 'pages/admin/socialWorks/SocialWorksArchive/S
 import { Club } from 'pages/admin/clubs/Club/Club';
 import { Clubs } from 'pages/admin/clubs/Clubs/Clubs';
 import { ClubsArchive } from 'pages/admin/clubs/ClubsArchive/ClubsArchive';
-import { AdminPanel } from 'pages/admin/AdminPanel/AdminPanel';
 import { Library } from 'pages/admin/Library/Library';
 import { Statistic } from 'pages/admin/Statistic/Statistic';
 import { Methodology } from 'pages/admin/methodologies/Methodology/Methodology';
@@ -31,7 +30,6 @@ const AdministratorApp = () => {
       <Route path="/" element={<CommonBaseAdminRoutesInfo />}>
         <Route index element={<AdminMain />} />
 
-        <Route path="admin" element={<AdminPanel />} />
         <Route path="statistic" element={<Statistic />} />
         <Route path="library">
           <Route index element={<Library />} />
